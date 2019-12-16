@@ -4,11 +4,13 @@
  */
 import Home from '../pages/home'
 import Seance from '../pages/seances'
+import Ajout from '../pages/ajout'
 import React from 'react'
 
  const routes = {
     '/': () => <Home />,
-    '/seances': () => <Seance />
+    '/seances': () => <Seance />,
+    '/ajout': () => <Ajout />
  }
 
 
