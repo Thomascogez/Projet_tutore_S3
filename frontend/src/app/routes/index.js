@@ -3,10 +3,12 @@
  * @exports routes
  */
 import Home from '../pages/home'
+import Seance from '../pages/seances'
 import React from 'react'
 
  const routes = {
-    '/': () => <Home />
+    '/': () => <Home />,
+    '/seances': () => <Seance />
  }
 
 
