@@ -55,6 +55,12 @@ class Event
      */
     private $maxAttachment;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Session", inversedBy="events")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $session;
+
     public function __construct()
     {
         $this->attachmentEvents = new ArrayCollection();
@@ -152,6 +158,18 @@ class Event
     public function setMaxAttachment(int $maxAttachment): self
     {
         $this->maxAttachment = $maxAttachment;
+
+        return $this;
+    }
+
+    public function getSession(): ?Session
+    {
+        return $this->session;
+    }
+
+    public function setSession(?Session $session): self
+    {
+        $this->session = $session;
 
         return $this;
     }

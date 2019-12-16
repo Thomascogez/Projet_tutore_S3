@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SemaphoreRepository")
@@ -13,6 +14,7 @@ class Semaphore
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"user"})
      */
     private $id;
 
@@ -24,11 +26,13 @@ class Semaphore
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"user"})
      */
     private $status;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Session", inversedBy="semaphores")
+     * @Groups({"user"})
      */
     private $session;
 

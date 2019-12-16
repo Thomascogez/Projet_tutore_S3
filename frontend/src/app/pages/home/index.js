@@ -21,7 +21,6 @@ export default function Home() {
 
 
             <Button className={Style.button} theme="success"> Connexion </Button>
-           
         </div>
     );
 }

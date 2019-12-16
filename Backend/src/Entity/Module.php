@@ -60,7 +60,7 @@ class Module
     private $sessions;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="modules")
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="modules", cascade={"persist"})
      */
     private $users;
 
