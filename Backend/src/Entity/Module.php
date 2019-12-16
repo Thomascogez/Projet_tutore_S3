@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ModuleRepository")
@@ -20,26 +21,36 @@ class Module
 
     /**
      * @ORM\Column(type="string", length=8)
+     * @Assert\LessThanOrEqual(8)
+     * @Assert\NotBlank()
      */
     private $code;
 
     /**
      * @ORM\Column(type="string", length=20)
+     * @Assert\LessThanOrEqual(20)
+     * @Assert\NotBlank()
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=7)
+     * @Assert\LessThanOrEqual(7)
+     * @Assert\NotBlank()
      */
     private $color;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
+     * @Assert\Date()
+     * @Assert\NotNull()
      */
     private $created_at;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
+     * @Assert\Date()
+     * @Assert\NotNull()
      */
     private $update_at;
 

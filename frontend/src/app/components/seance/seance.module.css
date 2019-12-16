@@ -2,3 +2,18 @@
     width: 90% !important;
     margin: 0px auto 0px auto;
 }
+
+.MounthSelector {
+    margin : 5px auto 0px auto !important;
+    width: 90%;
+    background-color: #fff;
+}
+
+.BtnLeft {
+    float: left;
+}
+
+
+.BtnRight {
+    float: right;
+}

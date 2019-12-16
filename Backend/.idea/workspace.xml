@@ -2,36 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4a0005c7-f1e6-4d7b-8a44-5522823e7c89" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/AttachmentEvent.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Event.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/EventType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Groups.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Module.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/RoleTypeEvent.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Semaphore.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Session.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/SessionType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/AttachmentEventRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/EventRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/EventTypeRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/GroupRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/ModuleRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/RoleTypeEventRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/SemaphoreRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/SessionRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/SessionTypeRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/TypeEventRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Security/LoginFormAuthenticator.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/AttachmentEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/AttachmentEvent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Event.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Event.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/EventType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/EventType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Groups.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Groups.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Module.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Module.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/RoleTypeEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/RoleTypeEvent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Session.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Session.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/SessionType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/SessionType.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -212,6 +193,7 @@
       <updated>1576486760026</updated>
       <workItem from="1576486761164" duration="6290000" />
       <workItem from="1576498097748" duration="1649000" />
+      <workItem from="1576500880677" duration="3121000" />
     </task>
     <servers />
   </component>
@@ -226,13 +208,15 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="349" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576499168339" />
-    <state x="421" y="95" key="FileChooserDialogImpl" timestamp="1576499747622">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state x="632" y="145" key="FileChooserDialogImpl" timestamp="1576504022410">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="421" y="95" key="FileChooserDialogImpl/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576499747622" />
-    <state x="142" y="0" key="SettingsEditor" timestamp="1576486801540">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state x="632" y="145" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1576504022410" />
+    <state x="213" y="0" key="SettingsEditor" timestamp="1576501042010">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="142" y="0" key="SettingsEditor/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576486801540" />
+    <state x="213" y="0" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1576501042010" />
   </component>
 </project>
