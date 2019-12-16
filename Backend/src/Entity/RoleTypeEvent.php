@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RoleTypeEventRepository")
@@ -24,11 +25,13 @@ class RoleTypeEvent
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Assert\Type("boolean")
      */
     private $teacher;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Assert\Type("boolean")
      */
     private $tutor;
 

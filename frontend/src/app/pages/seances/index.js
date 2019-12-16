@@ -1,10 +1,11 @@
 import React from 'react'
-import WorkList from '../../components/layout/WorkList/'
-
+import MouthSelector from '../../components/seance/MounthSelector'
+import SeanceModal from '../../components/seance/SeanceModal'
 export default function Seances() {
     return (
         <div>
-            <WorkList texte='43'/>  
+            <MouthSelector semaine="Decembre 2018" />
+            <SeanceModal/>
         </div>
     )
 }
