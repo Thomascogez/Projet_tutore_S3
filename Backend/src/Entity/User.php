@@ -44,8 +44,8 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Regex("^\S*(?=\S{8,})(?=\S*[a-z]){2,}(?=\S*[A-Z]){2,}(?=\S*[\W]){2,}\S*$")
+     * @Assert\NotBlank(groups={"New", "FullUpdate"})
+     * @Assert\Regex(pattern="#^\S*(?=\S{8,})(?=\S*[a-z]){2,}(?=\S*[A-Z]){2,}(?=\S*[\W]){2,}\S*$#")
      */
     protected $plainPassword;
 
@@ -83,13 +83,11 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Semaphore", mappedBy="user", orphanRemoval=true)
-     * @Groups({"user"})
      */
     private $semaphores;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="user")
-     * @Groups({"user"})
      */
     private $sessions;
 
@@ -101,7 +99,6 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Module", inversedBy="users")
-     * @Groups({"user"})
      */
     private $modules;
 

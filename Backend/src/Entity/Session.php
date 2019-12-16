@@ -23,6 +23,7 @@ class Session
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Module", inversedBy="sessions")
+     * @Groups({"user"})
      */
     private $module;
 
@@ -111,12 +112,12 @@ class Session
         return $this;
     }
 
-    public function getGroupe(): ?Groups
+    public function getGroupe(): ?\App\Entity\Groups
     {
         return $this->groupe;
     }
 
-    public function setGroupe(?Groups $groupe): self
+    public function setGroupe(?\App\Entity\Groups  $groupe): self
     {
         $this->groupe = $groupe;
 

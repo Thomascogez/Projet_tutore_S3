@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ModuleRepository")
@@ -16,6 +17,7 @@ class Module
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"user"})
      */
     private $id;
 
@@ -30,6 +32,7 @@ class Module
      * @ORM\Column(type="string", length=20)
      * @Assert\LessThanOrEqual(20)
      * @Assert\NotBlank()
+     * @Groups({"user"})
      */
     private $name;
 
@@ -37,6 +40,7 @@ class Module
      * @ORM\Column(type="string", length=7)
      * @Assert\LessThanOrEqual(7)
      * @Assert\NotBlank()
+     * @Groups({"user"})
      */
     private $color;
 

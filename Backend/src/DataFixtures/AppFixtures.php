@@ -932,12 +932,12 @@ class AppFixtures extends Fixture
 
         $sessions = array();
 
-        foreach ($modules as $module) {
-            foreach ($groups as $group) {
+        for ($i = 12; $i < 27; $i++) {
+            for ($j = 0; $j < 10; $j++) {
                 $session = new Session();
-                $session->setGroupe($group)
+                $session->setGroupe($groups[random_int(12, 27)])
                     ->setUser($users[random_int(0, 3)])
-                    ->setModule($module)
+                    ->setModule($modules[random_int(0, sizeof($modules)-2)])
                     ->setCreatedAt($faker->dateTimeBetween("2019-09-01", "2020-06-30"))
                     ->setMaxEvents(5)
                     ->setType($typesSessions[random_int(0, sizeof($typeEvents)-2)]);

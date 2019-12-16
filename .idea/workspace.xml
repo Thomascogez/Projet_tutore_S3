@@ -2,23 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d14a8399-2bba-4ca7-9a97-266b73f1d265" name="Default Changelist" comment="Init Backend">
-      <change afterPath="$PROJECT_DIR$/Backend/src/Controller/User/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Projet_tutore_S3.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/DataFixtures/AppFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/DataFixtures/AppFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Entity/Event.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Entity/Event.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Entity/Module.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Entity/Module.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Entity/Semaphore.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Entity/Semaphore.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Entity/Session.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Entity/Session.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Entity/User.php" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -171,15 +157,15 @@
       <recent name="C:\Users\benji\Desktop\Projet_tutore_S3" />
     </key>
   </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
+  <component name="RunDashboard">
+    <option name="ruleStates">
       <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
       </list>
     </option>
   </component>
@@ -199,6 +185,8 @@
       <workItem from="1576500839921" duration="39000" />
       <workItem from="1576504501886" duration="219000" />
       <workItem from="1576514202769" duration="10000" />
+      <workItem from="1576526575455" duration="86000" />
+      <workItem from="1576526662403" duration="6000" />
     </task>
     <task id="LOCAL-00001" summary="Init project">
       <created>1576486472217</created>
@@ -219,6 +207,19 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
