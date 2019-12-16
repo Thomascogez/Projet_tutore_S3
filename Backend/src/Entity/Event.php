@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
@@ -25,16 +26,21 @@ class Event
 
     /**
      * @ORM\Column(type="string", length=90)
+     * @Assert\LessThanOrEqual(90)
+     * @Assert\NotBlank()
      */
     private $name;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Type("float")
      */
     private $duration;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
+     * @Assert\Date()
+     * @Assert\NotNull()
      */
     private $dueAt;
 
@@ -42,6 +48,12 @@ class Event
      * @ORM\OneToMany(targetEntity="App\Entity\AttachmentEvent", mappedBy="event", orphanRemoval=true)
      */
     private $attachmentEvents;
+
+    /**
+     * @ORM\Column(type="integer")
+     * @Assert\Type("numeric")
+     */
+    private $maxAttachment;
 
     public function __construct()
     {
@@ -128,6 +140,18 @@ class Event
                 $attachmentEvent->setEvent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMaxAttachment(): ?int
+    {
+        return $this->maxAttachment;
+    }
+
+    public function setMaxAttachment(int $maxAttachment): self
+    {
+        $this->maxAttachment = $maxAttachment;
 
         return $this;
     }
