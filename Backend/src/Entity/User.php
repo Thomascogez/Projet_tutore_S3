@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -22,7 +23,9 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=15, unique=true)
+     * @Assert\LessThanOrEqual(15)
+     * @Assert\NotBlank()
      */
     private $username;
 
@@ -36,25 +39,37 @@ class User implements UserInterface
      */
     private $password;
 
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Regex("^\S*(?=\S{8,})(?=\S*[a-z]){2,}(?=\S*[A-Z]){2,}(?=\S*[\W]){2,}\S*$")
+     */
     protected $plainPassword;
 
     /**
      * @ORM\Column(type="string", length=20)
+     * @Assert\NotBlank()
+     * @Assert\LessThanOrEqual(20)
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=20)
+     * @Assert\NotBlank()
+     * @Assert\LessThanOrEqual(20)
      */
     private $lastname;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
+     * @Assert\NotNull()
+     * @Assert\Date()
      */
     private $created_at;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
+     * @Assert\NotNull()
+     * @Assert\Date()
      */
     private $update_at;
 

@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SessionRepository")
@@ -24,7 +25,9 @@ class Session
     private $module;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
+     * @Assert\NotNull()
+     * @Assert\Date()
      */
     private $createdAt;
 
@@ -47,6 +50,12 @@ class Session
      * @ORM\OneToMany(targetEntity="App\Entity\Semaphore", mappedBy="session")
      */
     private $semaphores;
+
+    /**
+     * @ORM\Column(type="integer")
+     * @Assert\Type("numeric")
+     */
+    private $maxEvents;
 
     public function __construct()
     {
@@ -145,6 +154,18 @@ class Session
                 $semaphore->setSession(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMaxEvents(): ?int
+    {
+        return $this->maxEvents;
+    }
+
+    public function setMaxEvents(int $maxEvents): self
+    {
+        $this->maxEvents = $maxEvents;
 
         return $this;
     }
