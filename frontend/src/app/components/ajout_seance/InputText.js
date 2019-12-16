@@ -1,9 +1,11 @@
 import React from 'react'
+import { FormTextarea } from "shards-react";
 import style from './ajoutseance.module.css'
-export default function TextZone(props) {
+
+export default function Bouton(props) {
     return (
         <div>
-            <h1>{props.text}</h1>
+            <FormTextarea/>
         </div>
     )
 }

@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d14a8399-2bba-4ca7-9a97-266b73f1d265" name="Default Changelist" comment="Init Backend" />
+    <list default="true" id="d14a8399-2bba-4ca7-9a97-266b73f1d265" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/ajout_seance/TextZone.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/ajout_seance/TextZone.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/ajout_seance/ajoutseance.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/ajout_seance/ajoutseance.module.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
