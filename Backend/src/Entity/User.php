@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -19,6 +20,7 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"user"})
      */
     private $id;
 
@@ -26,11 +28,13 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=15, unique=true)
      * @Assert\LessThanOrEqual(15)
      * @Assert\NotBlank()
+     * @Groups({"user"})
      */
     private $username;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups({"user"})
      */
     private $roles = [];
 
@@ -49,6 +53,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=20)
      * @Assert\NotBlank()
      * @Assert\LessThanOrEqual(20)
+     * @Groups({"user"})
      */
     private $firstname;
 
@@ -56,6 +61,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=20)
      * @Assert\NotBlank()
      * @Assert\LessThanOrEqual(20)
+     * @Groups({"user"})
      */
     private $lastname;
 
@@ -63,6 +69,7 @@ class User implements UserInterface
      * @ORM\Column(type="date")
      * @Assert\NotNull()
      * @Assert\Date()
+     * @Groups({"user"})
      */
     private $created_at;
 
@@ -70,26 +77,31 @@ class User implements UserInterface
      * @ORM\Column(type="date")
      * @Assert\NotNull()
      * @Assert\Date()
+     * @Groups({"user"})
      */
     private $update_at;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Semaphore", mappedBy="user", orphanRemoval=true)
+     * @Groups({"user"})
      */
     private $semaphores;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="user")
+     * @Groups({"user"})
      */
     private $sessions;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Groups", inversedBy="users")
+     * @Groups({"user"})
      */
     private $groups;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Module", inversedBy="users")
+     * @Groups({"user"})
      */
     private $modules;
 
@@ -304,7 +316,7 @@ class User implements UserInterface
         return $this->groups;
     }
 
-    public function addGroup(Groups $group): self
+    public function addGroup($group): self
     {
         if (!$this->groups->contains($group)) {
             $this->groups[] = $group;

@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SessionRepository")
@@ -16,6 +17,7 @@ class Session
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"user"})
      */
     private $id;
 
@@ -57,9 +59,15 @@ class Session
      */
     private $maxEvents;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="session", orphanRemoval=true)
+     */
+    private $events;
+
     public function __construct()
     {
         $this->semaphores = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -166,6 +174,37 @@ class Session
     public function setMaxEvents(int $maxEvents): self
     {
         $this->maxEvents = $maxEvents;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setSession($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->contains($event)) {
+            $this->events->removeElement($event);
+            // set the owning side to null (unless already changed)
+            if ($event->getSession() === $this) {
+                $event->setSession(null);
+            }
+        }
 
         return $this;
     }
