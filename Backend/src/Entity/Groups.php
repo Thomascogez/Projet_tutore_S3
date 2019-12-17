@@ -5,11 +5,13 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups as Groupss;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GroupRepository")
+ * @UniqueEntity({"name"})
  */
 class Groups
 {
@@ -17,7 +19,7 @@ class Groups
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groupss({"user", "session_detail", "groups"})
+     * @Groupss({"user", "session_detail", "groups", "group_info"})
      */
     private $id;
 
@@ -25,28 +27,30 @@ class Groups
      * @ORM\Column(type="string", length=10)
      * @Assert\LessThanOrEqual(10)
      * @Assert\NotBlank()
-     * @Groupss({"user", "session_detail", "groups"})
+     * @Groupss({"user", "session_detail", "groups", "group_info"})
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Groups", inversedBy="groups")
-     * @Groupss({"user", "groups"})
+     * @Groupss({"user", "groups", "group_info"})
      */
     private $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Groups", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="App\Entity\Groups", mappedBy="parent", cascade={"persist", "remove"})
      */
     private $groups;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="groupe")
+     * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="groupe", cascade={"persist", "remove"})
+     * @Groupss({"group_info"})
      */
     private $sessions;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="groups")
+     * @Groupss({"group_info"})
      */
     private $users;
 

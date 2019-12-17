@@ -7,7 +7,9 @@ namespace App\Controller\Session;
 use App\Controller\AbstractController;
 use App\Entity\Groups;
 use App\Entity\Module;
+use App\Entity\Semaphore;
 use App\Entity\Session;
+use App\Entity\User;
 use App\Form\SessionType;
 use DateTime;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -113,6 +115,15 @@ class SessionController extends AbstractController
                 ->setGroupe($group);
 
             $manager = $this->getDoctrine()->getManager();
+
+            foreach ($this->getDoctrine()->getRepository(User::class)->findAll() as $user) {
+                $sema = new Semaphore();
+                $sema->setUser($user)
+                    ->setStatus(false)
+                    ->setSession($session);
+                $manager->persist($sema);
+            }
+
             $manager->persist($session);
             $manager->flush();
             return $session;

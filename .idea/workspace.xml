@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d14a8399-2bba-4ca7-9a97-266b73f1d265" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Backend/src/Controller/Setting/SettingController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend/src/Controller/Types/SessionTypeController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend/src/Controller/User/Module/UserModulesController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend/src/Form/SessionTypeType.php" afterDir="false" />
+    <list default="true" id="d14a8399-2bba-4ca7-9a97-266b73f1d265" name="Default Changelist" comment="Init Backend">
+      <change afterPath="$PROJECT_DIR$/Backend/src/Controller/Types/EventTypeController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/Form/EventTypeType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Controller/Session/SessionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Controller/Session/SessionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Controller/User/Groups/UserGroupsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Controller/User/Groups/UserGroupsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/DataFixtures/AppFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/DataFixtures/AppFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Entity/Event.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Entity/Event.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/src/Entity/EventType.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Entity/EventType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Entity/Module.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Entity/Module.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Entity/Session.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Entity/Session.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Entity/SessionType.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Entity/SessionType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Entity/Setting.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Entity/Setting.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Form/SessionType.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Form/SessionType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/Entity/RoleTypeEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Entity/RoleTypeEvent.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +154,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Backend" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
@@ -172,15 +162,15 @@
       <recent name="C:\Users\benji\Desktop\Projet_tutore_S3" />
     </key>
   </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
+  <component name="RunDashboard">
+    <option name="ruleStates">
       <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
       </list>
     </option>
   </component>

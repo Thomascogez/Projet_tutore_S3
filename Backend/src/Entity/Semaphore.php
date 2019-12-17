@@ -14,19 +14,20 @@ class Semaphore
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"user"})
+     * @Groups({"user", "session_detail"})
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="semaphores")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"session_detail"})
      */
     private $user;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"user"})
+     * @Groups({"user", "session_detail"})
      */
     private $status;
 

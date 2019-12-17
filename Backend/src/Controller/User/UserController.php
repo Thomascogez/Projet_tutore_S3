@@ -7,6 +7,7 @@ use App\Controller\AbstractController;
 use App\Entity\User;
 use App\Form\UserType;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +19,7 @@ class UserController extends AbstractController
 {
 
     /**
+     * List of users
      * @Rest\Get("/api/users")
      * @Rest\View(serializerGroups={"user"})
      */

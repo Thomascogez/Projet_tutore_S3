@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
@@ -17,7 +18,7 @@ class Event
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"session_detail"})
+     * @Groups({"session_detail", "events", "attachment"})
      */
     private $id;
 
@@ -25,42 +26,48 @@ class Event
      * @ORM\Column(type="string", length=90)
      * @Assert\LessThanOrEqual(90)
      * @Assert\NotBlank()
-     * @Groups({"session_detail"})
+     * @Groups({"session_detail", "events", "attachment"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      * @Assert\Type("float")
-     * @Groups({"session_detail"})
+     * @Groups({"session_detail", "events"})
      */
     private $duration;
 
     /**
-     * @ORM\Column(type="date")
-     * @Assert\Date()
-     * @Assert\NotNull()
-     * @Groups({"session_detail"})
-     */
-    private $dueAt;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\AttachmentEvent", mappedBy="event", orphanRemoval=true)
-     * @Groups({"session_detail"})
+     * @Groups({"session_detail", "events"})
      */
     private $attachmentEvents;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Session", inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"events"})
      */
     private $session;
 
     /**
      * @ORM\Column(type="string", length=10)
-     * @Groups({"session_detail"})
+     * @Groups({"session_detail", "events"})
      */
     private $type;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     * @Assert\Date()
+     * @Groups({"session_detail", "events"})
+     */
+    private $dueAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="events")
+     * @Groups({"session_detail", "events"})
+     */
+    private $user;
 
     public function __construct()
     {
@@ -92,18 +99,6 @@ class Event
     public function setDuration(?float $duration): self
     {
         $this->duration = $duration;
-
-        return $this;
-    }
-
-    public function getDueAt(): ?\DateTimeInterface
-    {
-        return $this->dueAt;
-    }
-
-    public function setDueAt(\DateTimeInterface $dueAt): self
-    {
-        $this->dueAt = $dueAt;
 
         return $this;
     }
@@ -159,6 +154,30 @@ class Event
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getDueAt(): ?DateTimeInterface
+    {
+        return $this->dueAt;
+    }
+
+    public function setDueAt(?DateTimeInterface $dueAt): self
+    {
+        $this->dueAt = $dueAt;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
