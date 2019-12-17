@@ -38,7 +38,7 @@ export default function Seances() {
                 </Col>
                 <Col lg="11" sm="12">
                     <WorkContainer>
-                        <Matiere color="red" name="math" />
+                       
                         <Matiere color="green" name="algo" />
                         <Matiere color="blue" name="cpoa" />
                         <Matiere color="aqua" name="bado" />
@@ -49,7 +49,7 @@ export default function Seances() {
                         <Matiere color="aqua" name="bado" />
                         <Matiere color="tomato" name="salut" />
                     </WorkContainer>
-
+                    
                 </Col>
             </Row>
         </Container>
