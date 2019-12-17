@@ -17,13 +17,13 @@ class Session
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"user"})
+     * @Groups({"user", "session_detail", "session"})
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Module", inversedBy="sessions")
-     * @Groups({"user"})
+     * @Groups({"user", "session_detail"})
      */
     private $module;
 
@@ -31,37 +31,36 @@ class Session
      * @ORM\Column(type="date")
      * @Assert\NotNull()
      * @Assert\Date()
+     * @Groups({"session_detail"})
      */
     private $createdAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\SessionType", inversedBy="sessions")
+     * @Groups({"session_detail"})
      */
     private $type;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Groups", inversedBy="sessions")
+     * @Groups({"session_detail"})
      */
     private $groupe;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="sessions")
+     * @Groups({"session_detail"})
      */
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Semaphore", mappedBy="session")
+     * @ORM\OneToMany(targetEntity="App\Entity\Semaphore", mappedBy="session", orphanRemoval=true)
      */
     private $semaphores;
 
     /**
-     * @ORM\Column(type="integer")
-     * @Assert\Type("numeric")
-     */
-    private $maxEvents;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="session", orphanRemoval=true)
+     * @Groups({"session_detail"})
      */
     private $events;
 
@@ -163,18 +162,6 @@ class Session
                 $semaphore->setSession(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getMaxEvents(): ?int
-    {
-        return $this->maxEvents;
-    }
-
-    public function setMaxEvents(int $maxEvents): self
-    {
-        $this->maxEvents = $maxEvents;
 
         return $this;
     }

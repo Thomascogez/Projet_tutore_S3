@@ -17,7 +17,7 @@ class Groups
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groupss({"user"})
+     * @Groupss({"user", "session_detail", "groups"})
      */
     private $id;
 
@@ -25,13 +25,13 @@ class Groups
      * @ORM\Column(type="string", length=10)
      * @Assert\LessThanOrEqual(10)
      * @Assert\NotBlank()
-     * @Groupss({"user"})
+     * @Groupss({"user", "session_detail", "groups"})
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Groups", inversedBy="groups")
-     * @Groupss({"user"})
+     * @Groupss({"user", "groups"})
      */
     private $parent;
 
