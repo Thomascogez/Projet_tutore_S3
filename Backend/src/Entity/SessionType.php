@@ -17,6 +17,7 @@ class SessionType
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"session_detail"})
      */
     private $id;
 
@@ -24,6 +25,7 @@ class SessionType
      * @ORM\Column(type="string", length=10)
      * @Assert\LessThanOrEqual(10)
      * @Assert\NotBlank()
+     * @Groups({"session_detail"})
      */
     private $name;
 

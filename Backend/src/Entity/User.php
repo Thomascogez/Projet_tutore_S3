@@ -20,7 +20,7 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"user"})
+     * @Groups({"user", "session_detail"})
      */
     private $id;
 
@@ -45,7 +45,7 @@ class User implements UserInterface
 
     /**
      * @Assert\NotBlank(groups={"New", "FullUpdate"})
-     * @Assert\Regex(pattern="#^\S*(?=\S{8,})(?=\S*[a-z]){2,}(?=\S*[A-Z]){2,}(?=\S*[\W]){2,}\S*$#")
+     * @Assert\Regex(pattern="#^(?=.{8,}$)(?=(?:.?[a-z]){2,})(?=(?:.?[A-Z]){2,})(?=(?:.?[!_-@#$%^&(),.?:{}|<>]){2,}).*$#")
      */
     protected $plainPassword;
 
@@ -53,7 +53,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=20)
      * @Assert\NotBlank()
      * @Assert\LessThanOrEqual(20)
-     * @Groups({"user"})
+     * @Groups({"user", "session_detail"})
      */
     private $firstname;
 
@@ -61,7 +61,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=20)
      * @Assert\NotBlank()
      * @Assert\LessThanOrEqual(20)
-     * @Groups({"user"})
+     * @Groups({"user", "session_detail"})
      */
     private $lastname;
 
@@ -322,7 +322,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function removeGroup(Groups $group): self
+    public function removeGroup(\App\Entity\Groups $group): self
     {
         if ($this->groups->contains($group)) {
             $this->groups->removeElement($group);

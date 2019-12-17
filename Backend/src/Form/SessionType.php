@@ -2,7 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Groups;
+use App\Entity\Module;
 use App\Entity\Session;
+use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -12,11 +16,18 @@ class SessionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('createdAt')
-            ->add('module')
-            ->add('type')
-            ->add('groupe')
-            ->add('user')
+            ->add('module', EntityType::class, array(
+                'class' => Module::class
+            ))
+            ->add('type', EntityType::class, array(
+                'class' => \App\Entity\SessionType::class
+            ))
+            ->add('groupe', EntityType::class, array(
+                'class' => Groups::class
+            ))
+            ->add('user', EntityType::class, array(
+                'class' => User::class
+            ))
         ;
     }
 
@@ -24,6 +35,7 @@ class SessionType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Session::class,
+            'csrf_protection' => false
         ]);
     }
 }
