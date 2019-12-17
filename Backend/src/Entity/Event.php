@@ -17,11 +17,13 @@ class Event
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"session_detail"})
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\EventType", inversedBy="events")
+     * @Groups({"session_detail"})
      */
     private $typeEvent;
 
@@ -29,12 +31,14 @@ class Event
      * @ORM\Column(type="string", length=90)
      * @Assert\LessThanOrEqual(90)
      * @Assert\NotBlank()
+     * @Groups({"session_detail"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      * @Assert\Type("float")
+     * @Groups({"session_detail"})
      */
     private $duration;
 
@@ -42,19 +46,15 @@ class Event
      * @ORM\Column(type="date")
      * @Assert\Date()
      * @Assert\NotNull()
+     * @Groups({"session_detail"})
      */
     private $dueAt;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\AttachmentEvent", mappedBy="event", orphanRemoval=true)
+     * @Groups({"session_detail"})
      */
     private $attachmentEvents;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @Assert\Type("numeric")
-     */
-    private $maxAttachment;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Session", inversedBy="events")
@@ -147,18 +147,6 @@ class Event
                 $attachmentEvent->setEvent(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getMaxAttachment(): ?int
-    {
-        return $this->maxAttachment;
-    }
-
-    public function setMaxAttachment(int $maxAttachment): self
-    {
-        $this->maxAttachment = $maxAttachment;
 
         return $this;
     }

@@ -15,6 +15,7 @@ class AttachmentEvent
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"session_detail"})
      */
     private $id;
 
@@ -28,6 +29,7 @@ class AttachmentEvent
      * @ORM\Column(type="string", length=255)
      * @Assert\LessThanOrEqual(255)
      * @Assert\NotBlank()
+     * @Groups({"session_detail"})
      */
     private $source;
 
