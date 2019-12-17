@@ -1,14 +1,14 @@
 import React from 'react'
 import Home from '../pages/home'
 import Seances from '../pages/seances'
-import Ajout from '../pages/ajout'
-import AjoutUser from '../pages/ajoutUser'
+import Ajout from '../pages/seances/ajout'
+import TestModal from '../pages/PaulTests/modalTest'
 
 const routes = {
     '/' : () => <Home />,
     '/seances' : () => <Seances />,
-    '/ajout' : () => <Ajout />,
-    '/ajoutUser' : () => <AjoutUser />
+    '/seances/ajout' : () => <Ajout />,
+    '/modalTest' : () => <TestModal />
 }
 
 

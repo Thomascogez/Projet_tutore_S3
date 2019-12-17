@@ -19,6 +19,16 @@ class SessionRepository extends ServiceEntityRepository
         parent::__construct($registry, Session::class);
     }
 
+    public function findByDate(\DateTime $from, \DateTime $to)
+    {
+        return $this->createQueryBuilder('j')
+            ->andWhere('j.createdAt BETWEEN :from AND :to')
+            ->setParameter('from', $from )
+            ->setParameter('to', $to)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Session[] Returns an array of Session objects
     //  */
