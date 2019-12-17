@@ -1,12 +1,12 @@
 import React from 'react'
 import Home from '../pages/home'
 import Seances from '../pages/seances'
-import Ajout from '../pages/ajout'
+import Ajout from '../pages/seances/ajout'
 
 const routes = {
     '/' : () => <Home />,
     '/seances' : () => <Seances />,
-    '/ajout' : () => <Ajout />
+    '/seances/ajout' : () => <Ajout />
 }
 
 
