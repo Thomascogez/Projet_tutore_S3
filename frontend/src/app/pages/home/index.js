@@ -1,26 +1,22 @@
-import React from "react";
-import { Form, FormInput, FormGroup } from "shards-react";
-import { Button } from "shards-react";
-import Style from './index.module.css'
+import React from 'react'
+import { Container, Form, FormGroup, FormInput, Button } from 'shards-react'
 
+import style from './home.module.css'
 export default function Home() {
     return (
-        <div className={Style.connection}>
+        <Container className={style.LoginContainer}>
+            <h1>Connexion</h1>
             <Form>
-                <label className={Style.title}> <h2> Connexion </h2> </label>
-
-                <FormGroup className={Style.txt}>
-                   
-                    <FormInput id="#username" placeholder=" @ Email" />
+                <FormGroup>
+                    <label htmlFor="#username">Utilisateur</label>
+                    <FormInput id="#username" placeholder="Nom d'utilisateur ..." />
                 </FormGroup>
-
-                <FormGroup className={Style.txt} >
-                    <FormInput type="password" id="#password" placeholder="Mot de passe" />
+                <FormGroup>
+                    <label htmlFor="#password">Mot de passe</label>
+                    <FormInput type="password" id="#password" placeholder="Mot de passe ..." />
                 </FormGroup>
+                <Button type="success">Connexion !</Button>
             </Form>
-
-
-            <Button className={Style.button} theme="success"> Connexion </Button>
-        </div>
-    );
+        </Container>
+    )
 }

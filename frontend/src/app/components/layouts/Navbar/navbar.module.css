@@ -1,0 +1,30 @@
+.Navbar{
+    background-color: #BE4F23 ;
+    color: #fff !important;
+    text-decoration: none !important;   
+}
+.NavBarToggler{
+    color: #0000 !important;
+    
+}
+
+.Brand{
+    color: #fff !important;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+.Brand img{
+    padding: 0px 5px 0px 5px;
+    width: 50px;
+} 
+
+.NavLink {
+    text-transform: uppercase;
+    color: #fff !important;
+    text-decoration: none !important;   
+}
+
+.NavLink:hover {
+    height: 100% !important;
+    background-color: rgba(255, 255, 255, 0.4);
+}

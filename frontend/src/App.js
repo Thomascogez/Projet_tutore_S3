@@ -1,18 +1,17 @@
-import React from 'react'
-import { useRoutes } from 'hookrouter';
-import routes from './app/routes'
-import Navbar from'./app/components/layout/NavBar'
+import React from 'react';
+import NavBar from './app/components/layouts/Navbar'
 
-//layout
-import Footer from './app/components/layout/Footer'
-import NavBar from './app/components/layout/NavBar';
-export default function App() {
-    const routeResult = useRoutes(routes);
-    return (
-        <div>
-            <NavBar/>
-            {routeResult}
-            <Footer />
-        </div>
-    )
+import { useRoutes } from 'hookrouter'
+import routes from './app/routes'
+function App() {
+
+  const routeResult = useRoutes(routes);
+  return (
+    <div>
+      <NavBar />
+      {routeResult ? routeResult : "404"}  {/*TODO: 404 page  */}
+    </div>
+  );
 }
+
+export default App;

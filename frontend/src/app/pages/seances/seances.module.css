@@ -1,0 +1,100 @@
+/* styling for seances page and modules */
+
+
+
+/* CONTAINERS */
+.SeancesContainer{
+    width: 95% !important;
+    padding: 5px;
+    margin-top: 20px;
+
+}
+
+
+.WeekContainer {
+    background-color: gray;
+    width: 100%;
+    height: 200px;
+    color: black;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 200px;
+    border-radius: 10px;
+    margin: 10px 0px 10px 0px;
+}
+
+.WorkContainer {
+    background-color: gray;
+    height: 200px;
+    max-height: 200px !important;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    margin: 10px 0px 10px 0px;
+}
+
+/* CUSTOM SCROLLBAR */
+.WorkContainer::-webkit-scrollbar-track
+{   
+    border-radius:10px ;
+    height: 5px ;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+    
+}
+
+.WorkContainer::-webkit-scrollbar
+{
+    border-radius:10px ;
+    height: 5px ;
+	width: 6px;
+    background-color: #F5F5F5;
+    width: 10px; 
+    left:-100px;
+}
+
+.WorkContainer::-webkit-scrollbar-thumb
+{
+    border-radius:10px ;
+    height: 5px ;
+    background-color: #000000;
+    
+}
+
+/* Stylling matiere */
+.Matiere {
+    height: 100% !important;
+    min-width: 200px;
+    margin: 0px 5px 0px 5px;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+
+/* Mounth selector stylling */
+
+.MounthSelector {
+    width: 100%;
+    font-size: 25px;
+    line-height: 25px;
+    margin-bottom: 10px;
+}
+
+
+/* MEDIA QUERIES */
+@media (max-width: 992px) {  
+    .WeekContainer {
+        width: 100%;
+        height: 100px;
+        margin-bottom: 5px;
+        line-height: 100px;
+    }
+    .WorkContainer {
+        width: 100% !important;
+    }
+    
+}
+

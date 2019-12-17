@@ -1,54 +1,33 @@
-import React from 'react'
-import TextZone from '../../components/ajout_seance/TextZone'
-import Button from '../../components/ajout_seance/Bouton'
-import InpText from '../../components/ajout_seance/InputText'
-import style from './style.module.css'
+/**
+ * Ajout
+ * 
+ * Component by the route /ajout and contain all the functionnality to add a new Course / event
+ */
 
-import { FormSelect, Container, Row, Col, InputGroup, FormInput, InputGroupAddon } from "shards-react"
+import React from 'react'
+
+import { Container, Row, Col, FormSelect } from 'shards-react'
+import style from './ajout.module.css'
+
 
 export default function Ajout() {
     return (
-        <div className={style.Zone}>
-            <TextZone text="Ajout de contenu" />
-
-            <br/>
-
-            <Container>
-                <Row style={{textAlign:'left'}}>
-                    <Col  sm="12" lg="4">
-                        <FormSelect className={style.SelectControl}>
-                            <option value="maths">Mathématiques</option>
-                            <option value="second">This is the second option.</option>
-                        </FormSelect>  
-                    </Col>
-                    <Col  sm="12" lg="4">
-                        <FormSelect className={style.SelectControl}>
-                            <option value="TD">TD</option>
-                            <option value="second">This is the second option.</option>
-                        </FormSelect>
-                    </Col>
-                    <Col sm="12" lg="4">
-                        <Button name="Ajouter" color="#177E89"/>
-                    </Col>
-                </Row>
-            </Container>
-
-            <br/>
-
-            <TextZone text="Détails du cours" />
-
-            <br/>
-
-            <InpText ph="détails..."/>
-
-            <br/>
-
-            <InputGroup>
-                <FormInput placeholder="" />
-                <InputGroupAddon type="append">
-                    <Button name="Browse"/>
-                </InputGroupAddon>
-            </InputGroup>
-        </div>
+        <Container fluid className={style.AddContainer}>
+            <h1>Ajouter une Séance</h1>
+            <Row>
+                <Col sm="12" lg="12">
+                    <FormSelect className= {style.AddSelector}>
+                        <option value="first">This is the first option</option>
+                        <option value="second">This is the second option.</option>
+                        <option value="third" disabled>This option is disabled.</option>
+                    </FormSelect>
+                    <FormSelect className= {style.AddSelector}>
+                        <option value="first">This is the first option</option>
+                        <option value="second">This is the second option.</option>
+                        <option value="third" disabled>This option is disabled.</option>
+                    </FormSelect>
+                </Col>
+            </Row>
+        </Container>
     )
 }
