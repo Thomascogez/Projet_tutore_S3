@@ -1,6 +1,4 @@
-import React,{ useState } from "react";
-
-import style from '../../pages/seances/seances.module.css';
+import React from "react";
 
 export default function Comment(props)
 {

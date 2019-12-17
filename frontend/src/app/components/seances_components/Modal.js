@@ -6,7 +6,6 @@ import {
   ModalBody,
   ModalFooter
 } from "shards-react";
-import Matiere from './Matiere'
 
 import style from '../../pages/seances/seances.module.css';
 

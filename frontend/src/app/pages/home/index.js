@@ -2,7 +2,6 @@ import React from "react";
 import { Container, Form, FormGroup, FormInput, Button, InputGroup } from "shards-react";
 import logo from "../../assets/images/scShare_logo.png";
 import style from "./home.module.css";
-import { FaUserAlt } from "react-icons/fa";
 export default function Home() {
   return (
     <Container fluid className={style.LoginContainer}>
