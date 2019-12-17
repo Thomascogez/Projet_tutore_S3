@@ -19,9 +19,7 @@ class SessionType extends AbstractType
             ->add('module', EntityType::class, array(
                 'class' => Module::class
             ))
-            ->add('type', EntityType::class, array(
-                'class' => \App\Entity\SessionType::class
-            ))
+            ->add('type')
             ->add('groupe', EntityType::class, array(
                 'class' => Groups::class
             ))

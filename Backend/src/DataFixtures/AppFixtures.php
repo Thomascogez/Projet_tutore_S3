@@ -939,8 +939,7 @@ class AppFixtures extends Fixture
                     ->setUser($users[random_int(0, 3)])
                     ->setModule($modules[random_int(0, sizeof($modules)-2)])
                     ->setCreatedAt($faker->dateTimeBetween("2019-09-01", "2020-06-30"))
-                    ->setMaxEvents(5)
-                    ->setType($typesSessions[random_int(0, sizeof($typeEvents)-2)]);
+                    ->setType($typesSessions[random_int(0, sizeof($typeEvents)-2)]->getName());
                 $manager->persist($session);
                 foreach ($users as $user) {
                     $sem = new Semaphore();
@@ -959,9 +958,8 @@ class AppFixtures extends Fixture
                 $event->setName($faker->text(60))
                     ->setDueAt($faker->dateTimeBetween("2019-09-01", "2020-06-30"))
                     ->setDuration($faker->numberBetween(0, 5))
-                    ->setMaxAttachment(5)
                     ->setSession($session)
-                    ->setTypeEvent($typeEvents[random_int(0, sizeof($typeEvents)-2)]);
+                    ->setType($typeEvents[random_int(0, sizeof($typeEvents)-2)]->getName());
                 for($j = 0; $j < random_int(0, 3); $j++) {
                     $attach = new AttachmentEvent();
                     $attach->setEvent($event)

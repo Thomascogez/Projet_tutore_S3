@@ -18,11 +18,13 @@ class Setting
 
     /**
      * @ORM\Column(type="integer")
+     * @\Symfony\Component\Serializer\Annotation\Groups({"settings"})
      */
     private $maxEventSession;
 
     /**
      * @ORM\Column(type="integer")
+     * @\Symfony\Component\Serializer\Annotation\Groups({"settings"})
      */
     private $maxAttachmentEvent;
 

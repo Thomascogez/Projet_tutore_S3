@@ -36,12 +36,6 @@ class Session
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\SessionType", inversedBy="sessions")
-     * @Groups({"session_detail"})
-     */
-    private $type;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Groups", inversedBy="sessions")
      * @Groups({"session_detail"})
      */
@@ -63,6 +57,12 @@ class Session
      * @Groups({"session_detail"})
      */
     private $events;
+
+    /**
+     * @ORM\Column(type="string", length=10)
+     * @Groups({"session_detail"})
+     */
+    private $type;
 
     public function __construct()
     {
@@ -95,18 +95,6 @@ class Session
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getType(): ?SessionType
-    {
-        return $this->type;
-    }
-
-    public function setType(?SessionType $type): self
-    {
-        $this->type = $type;
 
         return $this;
     }
@@ -193,6 +181,18 @@ class Session
                 $event->setSession(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

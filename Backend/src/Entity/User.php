@@ -99,6 +99,7 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Module", inversedBy="users")
+     * @Groups({"user"})
      */
     private $modules;
 

@@ -22,12 +22,6 @@ class Event
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\EventType", inversedBy="events")
-     * @Groups({"session_detail"})
-     */
-    private $typeEvent;
-
-    /**
      * @ORM\Column(type="string", length=90)
      * @Assert\LessThanOrEqual(90)
      * @Assert\NotBlank()
@@ -62,6 +56,12 @@ class Event
      */
     private $session;
 
+    /**
+     * @ORM\Column(type="string", length=10)
+     * @Groups({"session_detail"})
+     */
+    private $type;
+
     public function __construct()
     {
         $this->attachmentEvents = new ArrayCollection();
@@ -70,18 +70,6 @@ class Event
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getTypeEvent(): ?EventType
-    {
-        return $this->typeEvent;
-    }
-
-    public function setTypeEvent(?EventType $typeEvent): self
-    {
-        $this->typeEvent = $typeEvent;
-
-        return $this;
     }
 
     public function getName(): ?string
@@ -159,6 +147,18 @@ class Event
     public function setSession(?Session $session): self
     {
         $this->session = $session;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

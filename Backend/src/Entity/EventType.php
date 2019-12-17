@@ -28,11 +28,6 @@ class EventType
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="typeEvent")
-     */
-    private $events;
-
-    /**
      * @ORM\OneToOne(targetEntity="App\Entity\RoleTypeEvent", mappedBy="eventType", cascade={"persist", "remove"})
      */
     private $roleTypeEvent;
@@ -55,37 +50,6 @@ class EventType
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Event[]
-     */
-    public function getEvents(): Collection
-    {
-        return $this->events;
-    }
-
-    public function addEvent(Event $event): self
-    {
-        if (!$this->events->contains($event)) {
-            $this->events[] = $event;
-            $event->setTypeEvent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEvent(Event $event): self
-    {
-        if ($this->events->contains($event)) {
-            $this->events->removeElement($event);
-            // set the owning side to null (unless already changed)
-            if ($event->getTypeEvent() === $this) {
-                $event->setTypeEvent(null);
-            }
-        }
 
         return $this;
     }

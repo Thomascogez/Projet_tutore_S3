@@ -38,7 +38,8 @@ class SessionController extends AbstractController
      * @Rest\Get("/api/sessions")
      * @QueryParam(name="month", requirements="\d+", default="0", description="Number of month")
      * @QueryParam(name="year",  requirements="\d+", default="0", description="Number of year" )
-     * @QueryParam(name="group", description="Group of classcontent")
+     * @QueryParam(name="group", description="Group of session")
+     * @QueryParam(name="type", description="type of session")
      * @Rest\View(serializerGroups={"session_detail"})
      */
     public function getSessionsAction(ParamFetcherInterface $paramFetcher, Request $request)
@@ -53,7 +54,11 @@ class SessionController extends AbstractController
         $from = new DateTime($year . "-" . $month . "-01");
         $to = new DateTime($year . "-" . $month . "-31");
 
-        $groups = $this->getDoctrine()->getRepository(Groups::class)->findOneBy(array("name" => $paramFetcher->get('group')));
+        if($paramFetcher->get('type') == NULL) {
+            $groups = $this->getDoctrine()->getRepository(Groups::class)->findOneBy(array("name" => $paramFetcher->get('group')));
+        } else {
+            $groups = $this->getDoctrine()->getRepository(Groups::class)->findOneBy(array("name" => $paramFetcher->get('group'), "type" => $paramFetcher->get('type')));
+        }
         if (!$groups) {
             $sessions = $this->getDoctrine()->getRepository(Session::class)->findByDate($from, $to);
         } else {
@@ -104,7 +109,7 @@ class SessionController extends AbstractController
 
             $session->setModule($module)
                 ->setUser($this->getUser())
-                ->setType($type)
+                ->setType($type->getName())
                 ->setGroupe($group);
 
             $manager = $this->getDoctrine()->getManager();
@@ -150,7 +155,7 @@ class SessionController extends AbstractController
             if (!$type) {
                 $form->get('type')->addError(new FormError("Type don't exist"));
             } else {
-                $session->setType($type);
+                $session->setType($type->getName());
             }
         }
         if ($request->get('group') != NULL) {

@@ -24,7 +24,7 @@ class UserGroupsController extends UserController
     public function getUserGroupsAction(Request $request)
     {
         $user = $this->getDoctrine()->getRepository(User::class)->find($request->get('id'));
-        if(!$user) return $this->isNotFound(SESSION_NOT_FOUND);
+        if(!$user) return $this->isNotFound(USER_NOT_FOUND);
 
         return $user->getGroups();
     }
@@ -36,7 +36,7 @@ class UserGroupsController extends UserController
     public function getUserGroupAction(Request $request)
     {
         $user = $this->getDoctrine()->getRepository(User::class)->find($request->get('id'));
-        if(!$user) return $this->isNotFound(SESSION_NOT_FOUND);
+        if(!$user) return $this->isNotFound(USER_NOT_FOUND);
 
         $group = $this->getDoctrine()->getRepository(Groups::class)->find($request->get('id_group'));
         if(!$group) return $this->isNotFound(GROUP_NOT_FOUND);
