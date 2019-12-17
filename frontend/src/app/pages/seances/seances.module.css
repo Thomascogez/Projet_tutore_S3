@@ -75,6 +75,34 @@
   margin-bottom: 10px;
 }
 
+.fichierModal
+{
+  text-align: right;
+  margin-right : 2%;
+  margin-bottom : 5%;
+}
+
+.comment
+{
+  text-align: left;
+}
+
+/* Test */
+
+.ModalTestTable
+{
+  margin-left : 37%;
+  margin-top  : 5%;
+}
+
+.Titre
+{
+  margin : 5%;
+  text-align: center;
+}
+
+/* Fin Test */
+
 /* MEDIA QUERIES */
 @media (max-width: 992px) {
   .WeekContainer {
