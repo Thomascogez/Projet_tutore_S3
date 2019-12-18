@@ -7,6 +7,8 @@ import AjoutUser2 from '../pages/ajoutUser/page2'
 import TestModal from '../pages/PaulTests/modalTest'
 import Administration from '../pages/administration'
 import GererUtilisateur from '../pages/administration/utilisateurs'
+import EditModule from '../pages/administration/Module'
+
 const routes = {
     '/' : () => <Home />,
     '/seances' : () => <Seances />,
