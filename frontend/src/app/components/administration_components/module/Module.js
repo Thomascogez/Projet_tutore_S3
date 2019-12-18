@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, FormInput, ButtonGroup } from "shards-react";
-import { FaCheck, FaTimes } from "react-icons/fa";
+import { FaCheck, FaTimes, FaBold } from "react-icons/fa";
+import ColorPicker from '../../colorPicker_component/colorPicker'
 
 export default function Module({name,color }) {
   const [editing, setEditing] = useState(false);
@@ -19,9 +20,9 @@ export default function Module({name,color }) {
           <td>
           {editing ? <FormInput value={name} placeholder="Nom ..." /> : name}
           </td>
-          <td>
-              <div style={{backgroundColor:color, width:100}}>
-                  {editing ? <FormInput value={color} placeholder="Color ..." /> : color}
+          <td >
+              <div style={{width:100}}>
+                  {editing ? <ColorPicker initColor={color}/> : <div style={{color:color, fontSize:15, fontWeight:"bold"}}>{color}</div>}
               </div>
           </td>
           <td>
@@ -35,7 +36,7 @@ export default function Module({name,color }) {
               </Button>
               </ButtonGroup>
           ) : (
-              <Button onClick={() => setEditing(true)}>Edit</Button>
+              <Button onClick={() => setEditing(true)}>Edition</Button>
           )}
           </td>   
       </tr>

@@ -22,7 +22,7 @@ export default function gererModule()
             <h1 style={{padding:20}}>Gestion des modules</h1>   
             {<BarreRecherche />}
 
-            <div style={{borderStyle:'solid', margin:50, marginTop:100, padding:10}}>
+            <div style={{margin:50, marginTop:100, padding:10}}>
                 <table  className={`table table-striped ${adminStyle.Scroll}`}>
                     <thead>
                         <tr>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import InputColor from "react-input-color";
 
-export default function ColorPicker() {
+export default function ColorPicker({initColor}) {
   const [color, setColor] = useState({});
   useEffect(() => {
      console.log(color);
@@ -11,18 +11,11 @@ export default function ColorPicker() {
   return (
     <div>
       <InputColor
-        initialHexColor="#5e72e4"
+        initialHexColor={initColor}
         onChange={setColor}
         placement="right"
       />
-      <div
-        style={{
-          width: 50,
-          height: 50,
-          marginTop: 20,
-          backgroundColor: color.hex
-        }}
-      />
+      
     </div>
   );
 }
