@@ -3,13 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventTypeRepository")
+ * @UniqueEntity({"name"})
  */
 class EventType
 {
@@ -17,6 +18,7 @@ class EventType
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"event_type"})
      */
     private $id;
 
@@ -24,11 +26,13 @@ class EventType
      * @ORM\Column(type="string", length=10)
      * @Assert\LessThanOrEqual(10)
      * @Assert\NotBlank()
+     * @Groups({"event_type"})
      */
     private $name;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\RoleTypeEvent", mappedBy="eventType", cascade={"persist", "remove"})
+     * @Groups({"event_type"})
      */
     private $roleTypeEvent;
 

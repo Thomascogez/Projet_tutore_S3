@@ -3,8 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RoleTypeEventRepository")
@@ -15,6 +15,7 @@ class RoleTypeEvent
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"event_type"})
      */
     private $id;
 
@@ -27,12 +28,14 @@ class RoleTypeEvent
     /**
      * @ORM\Column(type="boolean", nullable=true)
      * @Assert\Type("boolean")
+     * @Groups({"event_type"})
      */
     private $teacher;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      * @Assert\Type("boolean")
+     * @Groups({"event_type"})
      */
     private $tutor;
 

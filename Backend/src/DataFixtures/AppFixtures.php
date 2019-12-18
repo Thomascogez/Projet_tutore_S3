@@ -959,6 +959,7 @@ class AppFixtures extends Fixture
                     ->setDueAt($faker->dateTimeBetween("2019-09-01", "2020-06-30"))
                     ->setDuration($faker->numberBetween(0, 5))
                     ->setSession($session)
+                    ->setUser($users[random_int(0, sizeof($users) - 2)])
                     ->setType($typeEvents[random_int(0, sizeof($typeEvents)-2)]->getName());
                 for($j = 0; $j < random_int(0, 3); $j++) {
                     $attach = new AttachmentEvent();

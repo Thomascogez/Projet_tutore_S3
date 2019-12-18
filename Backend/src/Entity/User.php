@@ -7,8 +7,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -20,7 +20,7 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"user", "session_detail"})
+     * @Groups({"user", "session_detail", "group_info", "events"})
      */
     private $id;
 
@@ -28,7 +28,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=15, unique=true)
      * @Assert\LessThanOrEqual(15)
      * @Assert\NotBlank()
-     * @Groups({"user"})
+     * @Groups({"user", "group_info", "events"})
      */
     private $username;
 
@@ -53,7 +53,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=20)
      * @Assert\NotBlank()
      * @Assert\LessThanOrEqual(20)
-     * @Groups({"user", "session_detail"})
+     * @Groups({"user", "session_detail", "events"})
      */
     private $firstname;
 
@@ -61,7 +61,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=20)
      * @Assert\NotBlank()
      * @Assert\LessThanOrEqual(20)
-     * @Groups({"user", "session_detail"})
+     * @Groups({"user", "session_detail", "events"})
      */
     private $lastname;
 
@@ -103,12 +103,18 @@ class User implements UserInterface
      */
     private $modules;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="user")
+     */
+    private $events;
+
     public function __construct()
     {
         $this->semaphores = new ArrayCollection();
         $this->sessions = new ArrayCollection();
         $this->groups = new ArrayCollection();
         $this->modules = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -353,6 +359,37 @@ class User implements UserInterface
     {
         if ($this->modules->contains($module)) {
             $this->modules->removeElement($module);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->contains($event)) {
+            $this->events->removeElement($event);
+            // set the owning side to null (unless already changed)
+            if ($event->getUser() === $this) {
+                $event->setUser(null);
+            }
         }
 
         return $this;

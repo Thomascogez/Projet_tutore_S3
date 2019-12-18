@@ -1,3 +1,50 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+NelmioApiDocBundle:
+  resource: "@NelmioApiDocBundle/Resources/config/routing/swaggerui.xml"
+  prefix:   /api/documentation
+
+
+security:
+  type: rest
+  resource: App\Controller\SecurityController
+
+users:
+  type: rest
+  resource: App\Controller\User\UserController
+usersGroups:
+  type: rest
+  resource: App\Controller\User\Groups\UserGroupsController
+usersModule:
+  type: rest
+  resource: App\Controller\User\Module\UserModulesController
+
+eventType:
+  type: rest
+  resource: App\Controller\Types\EventTypeController
+sessionType:
+  type: rest
+  resource: App\Controller\Types\SessionTypeController
+
+setting:
+  type: rest
+  resource: App\Controller\Setting\SettingController
+
+session:
+  type: rest
+  resource: App\Controller\Session\SessionController
+sessionAttachment:
+  type: rest
+  resource: App\Controller\Session\Event\AttachmentEventController
+sessionEvent:
+  type: rest
+  resource: App\Controller\Session\Event\EventController
+
+module:
+  type: rest
+  resource: App\Controller\Module\ModuleController
+
+group:
+  type: rest
+  resource: App\Controller\Group\GroupController

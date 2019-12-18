@@ -5,11 +5,13 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ModuleRepository")
+ * @UniqueEntity({"code"})
  */
 class Module
 {
@@ -17,7 +19,7 @@ class Module
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"user", "session_detail", "modules"})
+     * @Groups({"user", "session_detail", "modules", "modules_info"})
      */
     private $id;
 
@@ -25,7 +27,7 @@ class Module
      * @ORM\Column(type="string", length=8)
      * @Assert\LessThanOrEqual(8)
      * @Assert\NotBlank()
-     * @Groups({"session_detail", "modules"})
+     * @Groups({"session_detail", "modules", "modules_info"})
      */
     private $code;
 
@@ -33,7 +35,7 @@ class Module
      * @ORM\Column(type="string", length=20)
      * @Assert\LessThanOrEqual(20)
      * @Assert\NotBlank()
-     * @Groups({"user", "session_detail", "modules"})
+     * @Groups({"user", "session_detail", "modules", "modules_info"})
      */
     private $name;
 
@@ -41,7 +43,7 @@ class Module
      * @ORM\Column(type="string", length=7)
      * @Assert\LessThanOrEqual(7)
      * @Assert\NotBlank()
-     * @Groups({"user", "session_detail", "modules"})
+     * @Groups({"user", "session_detail", "modules", "modules_info"})
      */
     private $color;
 
@@ -49,6 +51,7 @@ class Module
      * @ORM\Column(type="date")
      * @Assert\Date()
      * @Assert\NotNull()
+     * @Groups({"modules_info"})
      */
     private $created_at;
 
@@ -56,11 +59,13 @@ class Module
      * @ORM\Column(type="date")
      * @Assert\Date()
      * @Assert\NotNull()
+     * @Groups({"modules_info"})
      */
     private $update_at;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="module")
+     * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="module", cascade={"persist", "remove"})
+     * @Groups({"modules_info"})
      */
     private $sessions;
 
