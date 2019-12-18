@@ -1,10 +1,14 @@
 .Box {   
-    margin: 40px auto 0px auto;
+    margin: 100px auto 0px auto;
     width: 500px;
-    height: 700px !important;
-    padding: 40px 10px 0px 10px;
+    height: 500px !important;
+    padding: 40px 30px 0px 30px;
 
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3), inset 0px 4px 4px rgba(0, 0, 0, 0.25); 
+}
+
+.SousBox {
+    margin-top: 40px;
 }
 
 .FormInp {
@@ -13,16 +17,26 @@
 }
 
 .FormGroup {
-    margin: 30px 45px 30px 2px;
     padding-top: 5px;
 }
 
-.LabelText {
-    padding-left: 55px;
-    padding-top: 6px;
+.FormGroup2 {
+    padding-top: 5px;
+    margin-bottom: 50px;
 }
 
-.LabelText2 {
-    padding-left: 55px;
+.Form {
+    width: 300px;
+    float: right;
+    margin-top: 8px;
+}
+
+.LabelText {
+    font-size: 25px;
+}
+
+.Btn {
+    float: right;
+    margin-top: 10px;
 }
 
