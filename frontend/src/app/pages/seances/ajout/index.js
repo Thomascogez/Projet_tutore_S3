@@ -10,15 +10,14 @@ import { Container, Row, Col, FormSelect } from 'shards-react'
 
 import { Button,ButtonGroup,} from "shards-react";
 import { Form, FormInput, FormGroup } from "shards-react";
-import style from './ajout.module.css'
+import { FormTextarea } from "shards-react";
 
-import { CSSTransition} from 'react-transition-group'
+import style from './ajout.module.css'
 
 export default function Ajout() {
 
     const [statu, setStatue]   = useState( false )
     const [click, setClick]    = useState(false);
-    const [select1, setSelect1]  = useState(false);
 
     const handleCLickAfaire = () => {
         setStatue(true);
@@ -30,8 +29,10 @@ export default function Ajout() {
     }
 
     return (
-    <Container fluid className={style.AddContainer}>
+    <Container fluid >
         <h1 className={style.title}>Ajouter une Séance</h1>
+        
+        <div className={ style.page }> 
         <Row>
             <Col sm="12" lg="12">
                 <form> 
@@ -66,37 +67,43 @@ export default function Ajout() {
                 <div>
                      { statu ? <Form>
                                 <FormGroup className={style.info}>
-                                    <label className={style.txt}  > Pour le</label>
-                                    <FormInput/>
+                                    <label className={style.txt}>A faire pour le </label>
+                                    <FormInput className={style.date} placeholder=". . / . . / . . . ." />
+                                    
                                 </FormGroup>
 
                                 <FormGroup className={style.note}>
                                     <label className={style.txt}> Note </label>
-                                    <FormInput/>
+                                    <FormTextarea maxlength="90" placeholder="90 caractère max"   />
                                     
                                     <input className={style.fileSelect} type="file"></input>
                                 </FormGroup>
-                                <Button className={style.button} theme="success">Success</Button>
+                                <Button className={style.button} theme="success">Ajouter</Button>
                              </Form>
                     :
                         <Form>
                             <FormGroup className={style.info}>
                                 <label className={style.txt}>Durée</label>
-                                <FormInput/>
+                                <FormInput className={style.duree} placeholder=". . : . ." />
                             </FormGroup>
 
                             <FormGroup className={style.note}>
                                 <label className={style.txt}> Note </label>
-                                <FormInput/>
+                                <FormTextarea maxlength="90" placeholder="90 caractère max"/>
                                 <input  className={style.fileSelect} type="file"></input>
                             </FormGroup>
-                            <Button className={style.button} theme="success">Success</Button>
+                            <Button className={style.button} theme="success">Ajouter</Button>
                         </Form>
             }
-             </div>
-                 :
+                </div>
+                :
                 <div></div>
             }
+
+            
+
+        </div>
+            <span className={style.triche} >  </span>
         </div>
         </Container>
 )}

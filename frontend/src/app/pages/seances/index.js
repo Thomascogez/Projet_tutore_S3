@@ -7,6 +7,8 @@ import WeekContainer from '../../components/seances_components/WeekContainer'
 import WorkContainer from '../../components/seances_components/WorkContainers'
 import MounthSelector from '../../components/seances_components/MounthSelector'
 import Work from '../../components/seances_components/Work'
+import Comment from '../../components/seances_components/Comment'
+
 
 export default function Seances() {
     return (
@@ -18,7 +20,27 @@ export default function Seances() {
                 </Col>
                 <Col lg="11" sm="12">
                     <WorkContainer>
-                        <Work color="red" name="math" finished={true} />
+                        <Work color="red" 
+                              name="Math" 
+                              finished={true} 
+                              cours="Voici un formulaire à completer et à me renvoyer !" 
+                              typeCours="TP" 
+                              fichier="Formulaire.odf">
+                        <div>
+                            <Comment
+                                name="Lepivert"
+                                date="07/10/19"
+                                hour="10:04"
+                                comment="Doit-on le rendre sur Eureka ou par mail ?"
+                            />
+                            <Comment
+                                name="Charier"
+                                date="08/10/19"
+                                hour="07:56"
+                                comment="Doit-on vous l'envoyer au format actuelle ou pdf?"
+                            />
+                        </div>
+                        </Work>
                         <Work color="green" name="algo" finished={false} />
                         <Work color="blue" name="cpoa" finished={true} />
                         <Work color="aqua" name="bado" finished={true} />

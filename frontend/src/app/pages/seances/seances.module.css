@@ -101,12 +101,13 @@
 {
   text-align: right;
   margin-right : 2%;
-  margin-bottom : 5%;
+  margin-bottom : 5%; 
 }
 
 .comment
 {
   text-align: left;
+  padding: 2%;
 }
 
 /* Test */
