@@ -68,8 +68,7 @@ export default function Ajout() {
                         </form>
                     </Col>
                 </Row>
-                
-
+            
                 <div className={style.Content}> 
                     <ButtonGroup className={style.Button} >
                         <Button theme="success" onClick={() => handleCLickAfaire()}>A FAIRE</Button>
