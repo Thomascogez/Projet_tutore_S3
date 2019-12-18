@@ -115,7 +115,7 @@ class UserController extends AbstractController
      *     )
      * )
      */
-    public function postUsersAction(Request $request, UserPasswordEncoderInterface $encoder)
+    public function postUsersAction(Request $request, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer)
     {
         if(!$this->userHasRole($this->getUser(), "ROLE_ADMIN"))
             return $this->notAuthorized();
@@ -147,6 +147,31 @@ class UserController extends AbstractController
         }
 
         if($form->isValid()) {
+            $user->setPlainPassword($this->randomPassword(12));
+
+            $mailAddress = "";
+            if($this->userHasRole($user, "ROLE_TEACHER"))
+                $mailAddress= $user->getUsername() . "@univ-lehavre.fr";
+            if($this->userHasRole($user, "ROLE_TUTOR"))
+                $mailAddress= $user->getUsername() . "@etu.univ-lehavre.fr";
+
+            $message = (new \Swift_Message('Création du compte SchoolShare'))
+                ->setFrom(['contact@schoolshare.com' => "SchoolShare"])
+                ->setTo(/*$mailAddress*/)
+                ->setBody("Nouveau compte sur SchoolShare ...")
+                ->addPart($this->renderView(
+                    'mail/newPassword.html.twig',
+                    [
+                        'name' => $user->getFirstname(),
+                        'username' => $user->getUsername(),
+                        'password' => $user->getPlainPassword(),
+                    ]
+                ),
+                    'text/html'
+                );
+
+            $mailer->send($message);
+
             $user->setPassword($encoder->encodePassword($user, "123456"));
             $user->setPlainPassword("");
 

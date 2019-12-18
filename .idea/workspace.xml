@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d14a8399-2bba-4ca7-9a97-266b73f1d265" name="Default Changelist" comment="" />
+    <list default="true" id="d14a8399-2bba-4ca7-9a97-266b73f1d265" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/Controller/User/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Controller/User/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/home/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/home/index.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -132,6 +137,10 @@
       <path value="$PROJECT_DIR$/Backend/vendor/doctrine/migrations" />
       <path value="$PROJECT_DIR$/Backend/vendor/ocramius/proxy-manager" />
       <path value="$PROJECT_DIR$/Backend/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/Backend/vendor/zircote/swagger-php" />
+      <path value="$PROJECT_DIR$/Backend/vendor/exsyst/swagger" />
+      <path value="$PROJECT_DIR$/Backend/vendor/nelmio/api-doc-bundle" />
+      <path value="$PROJECT_DIR$/Backend/vendor/nelmio/cors-bundle" />
     </include_path>
   </component>
   <component name="ProjectId" id="1V3eTHSkpwESkueuGqs35Y6xHYo" />
@@ -147,8 +156,9 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Backend" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -187,6 +197,8 @@
       <workItem from="1576526662403" duration="6000" />
       <workItem from="1576577893281" duration="1792000" />
       <workItem from="1576584530502" duration="14267000" />
+      <workItem from="1576686348553" duration="480000" />
+      <workItem from="1576686844396" duration="313000" />
     </task>
     <task id="LOCAL-00001" summary="Init project">
       <created>1576486472217</created>
@@ -248,6 +260,10 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="265" y="0" key="CommitChangelistDialog2/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576589766917" />
+    <state x="121" y="50" key="DiffContextDialog" timestamp="1576686691365">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="121" y="50" key="DiffContextDialog/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576686691365" />
     <state x="421" y="95" key="FileChooserDialogImpl" timestamp="1576653774585">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -257,6 +273,10 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="332" y="155" key="NewPhpClassDialog/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576599857936" />
+    <state x="142" y="0" key="SettingsEditor" timestamp="1576686828633">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="142" y="0" key="SettingsEditor/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576686828633" />
     <state x="233" y="73" key="Vcs.Push.Dialog.v2" timestamp="1576589769730">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -270,10 +290,10 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="0" y="0" width="742" height="680" key="find.popup/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576486234145" />
-    <state x="341" y="132" key="git4idea.merge.GitPullDialog" timestamp="1576653707259">
+    <state x="341" y="132" key="git4idea.merge.GitPullDialog" timestamp="1576686696926">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="341" y="132" key="git4idea.merge.GitPullDialog/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576653707259" />
+    <state x="341" y="132" key="git4idea.merge.GitPullDialog/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576686696926" />
     <state x="297" y="151" key="run.anything.popup" timestamp="1576571953287">
       <screen x="0" y="0" width="1280" height="680" />
     </state>

@@ -12,6 +12,7 @@ import {
 import { FaLock, FaUserCircle } from "react-icons/fa";
 import logo from "../../assets/images/scShare_logo.png";
 import style from "./home.module.css";
+import { navigate } from "hookrouter";
 
 export default function Home() {
   return (
@@ -46,7 +47,7 @@ export default function Home() {
               </InputGroup>
             </FormGroup>
             <Button type="success">Connexion !</Button>
-            <a style={{display:"inline-block"}} href="/passwordForget">Mot de passe oublié?</a>
+            <a href="#" style={{display:"inline-block"}} onClick={()=> navigate("/passwordForget")}>Mot de passe oublié?</a>
           </Form>
         </Container>
         <div className={style.SiteLogo}>
