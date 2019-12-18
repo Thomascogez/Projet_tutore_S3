@@ -11,6 +11,7 @@ import { Container, Row, Col, FormSelect } from 'shards-react'
 import { Button,ButtonGroup,} from "shards-react";
 import { Form, FormInput, FormGroup } from "shards-react";
 import { FormTextarea } from "shards-react";
+import { IoMdAddCircleOutline } from "react-icons/io";
 
 import style from './ajout.module.css'
 
@@ -18,6 +19,9 @@ export default function Ajout() {
 
     const [statu, setStatue]   = useState( false )
     const [click, setClick]    = useState(false);
+
+    
+    const [add, setAdd]    = useState(false);
 
     const handleCLickAfaire = () => {
         setStatue(true);
@@ -28,11 +32,17 @@ export default function Ajout() {
         setClick(true);
     }
 
+    const handleClickAdd=() => {
+        setAdd(true)
+    }
+
     return (
     <Container fluid >
-        <h1 className={style.title}>Ajouter une Séance</h1>
+        {/* <h1 className={style.title}>Ajouter une Séance</h1>
         
         <div className={ style.page }> 
+        <IoMdAddCircleOutline onClick={() => handleClickAdd()} className={style.add}/>
+
         <Row>
             <Col sm="12" lg="12">
                 <form> 
@@ -60,8 +70,8 @@ export default function Ajout() {
 
         <div className={style.Content}> 
             <ButtonGroup className={style.Button} >
-                <Button onClick={() => handleCLickAfaire()}>A FAIRE</Button>
-                <Button onClick={() => handleCLickFait()}>FAIT</Button>
+                <Button theme="success" onClick={() => handleCLickAfaire()}>A FAIRE</Button>
+                <Button theme="success" onClick={() => handleCLickFait()}>FAIT</Button>
             </ButtonGroup>
             {click ? 
                 <div>
@@ -100,10 +110,8 @@ export default function Ajout() {
                 <div></div>
             }
 
-            
-
         </div>
-            <span className={style.triche} >  </span>
-        </div>
+            <span className={style.bas} >  </span>
+        </div> */}
         </Container>
 )}

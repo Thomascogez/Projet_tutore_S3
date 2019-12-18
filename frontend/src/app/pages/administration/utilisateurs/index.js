@@ -1,15 +1,32 @@
 import React from "react";
-import { Container, Button } from "shards-react";
-import TransitionGroup from 'react-addons-transition-group'
+import {
+  Container,
+  Button,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  FormInput
+} from "shards-react";
+import TransitionGroup from "react-addons-transition-group";
+import { FaSearch } from "react-icons/fa";
 
-import User from '../../../components/administration_components/utilisateurs/User'
+import User from "../../../components/administration_components/utilisateurs/User";
 import style from "./administration-utilisateur.module.css";
 export default function index() {
   return (
     <Container fluid className={style.AdmnUtilisateurContainer}>
-        <div className = { style.AdmnActions }>
+      <h1 className= {style.AdmnUtilisateurTitle }>Gestion des utilisateurs</h1>
+      <div className={style.AdmnActions}>
+        <InputGroup className= {style.AdmnActionsInpt} seamless>
+          <InputGroupAddon type="append">
+            <InputGroupText>
+              <FaSearch />
+            </InputGroupText>
+          </InputGroupAddon>
+          <FormInput placeholder="Rechercher un utilisateur ...." />
+        </InputGroup>
+      </div>
 
-        </div>
       <table class="table">
         <thead>
           <tr>
@@ -23,7 +40,13 @@ export default function index() {
           </tr>
         </thead>
         <tbody>
-            <User identifier="XXXXXXX" name="John" surname="Doe" groups="J1, J2" roles="Administrateur professeur" /> 
+          <User
+            identifier="XXXXXXX"
+            name="John"
+            surname="Doe"
+            groups="J1, J2"
+            roles="Administrateur professeur"
+          />
         </tbody>
       </table>
     </Container>

@@ -14,7 +14,8 @@ class SettingController extends AbstractController
 {
 
     /**
-     * @Rest\Patch("/api/settings")
+     * Update settings of website
+     * @Rest\Patch("/api/settings", name="update_setting_action")
      * @Rest\View(serializerGroups={"settings"})
      */
     public function updateSettingAction(Request $request)

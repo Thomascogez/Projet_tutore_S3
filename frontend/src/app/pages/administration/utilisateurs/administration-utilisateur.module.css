@@ -1,8 +1,27 @@
+.AdmnUtilisateurTitle {
+    text-align: center;
+    margin: 10px 0px 40px 0px;
+}
 .AdmnUtilisateurContainer {
     width: 90%;
+    /* margin: 0px 5px 0px 5px; */
 }
-
 
 .AdmnActions{
-    
+    width: 100%;
+    margin-top:10px;
+    margin-bottom:10px;
+    text-align: right;
+    display: block;
 }
+.AdmnActionsInpt{
+    width: 300px;
+    right: 1px;
+    margin-top:5px;
+    margin-bottom:5px;
+    float: right;
+  
+}
+
+
+

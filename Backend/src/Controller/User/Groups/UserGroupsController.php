@@ -6,7 +6,6 @@ namespace App\Controller\User\Groups;
 use App\Controller\User\UserController;
 use App\Entity\Groups;
 use App\Entity\User;
-use App\Form\UserGroupType;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +17,8 @@ class UserGroupsController extends UserController
 {
 
     /**
-     * @Rest\Get("/api/users/{id}/groups", requirements={"id": "\d+"})
+     * Get all user groups with id user
+     * @Rest\Get("/api/users/{id}/groups", requirements={"id": "\d+"}, name="get_users_groups_action")
      * @Rest\View(serializerGroups={"groups"})
      */
     public function getUserGroupsAction(Request $request)
@@ -30,7 +30,8 @@ class UserGroupsController extends UserController
     }
 
     /**
-     * @Rest\Get("/api/users/{id}/groups/{id_group}", requirements={"id": "\d+", "id_group": "\d+"})
+     * Get one user group with id user and id group
+     * @Rest\Get("/api/users/{id}/groups/{id_group}", requirements={"id": "\d+", "id_group": "\d+"}, name="get_user_group_action")
      * @Rest\View(serializerGroups={"groups"})
      */
     public function getUserGroupAction(Request $request)
@@ -48,7 +49,8 @@ class UserGroupsController extends UserController
     }
 
     /**
-     * @Rest\Post("/api/users/{id}/groups")
+     * Add group on user with id user
+     * @Rest\Post("/api/users/{id}/groups", name="add_users_groups_action")
      * @Rest\View(serializerGroups={"user"})
      */
     public function addUserGroupAction(Request $request)
@@ -75,7 +77,8 @@ class UserGroupsController extends UserController
     }
 
     /**
-     * @Rest\Delete("/api/users/{id}/groups/{id_group}", requirements={"id": "\d+", "id_group": "\d+"})
+     * Delete group on user with id user and id group
+     * @Rest\Delete("/api/users/{id}/groups/{id_group}", requirements={"id": "\d+", "id_group": "\d+"}, name="delete_users_groups_action")
      * @Rest\View(serializerGroups={"user"})
      */
     public function deleteUserGroupAction(Request $request)

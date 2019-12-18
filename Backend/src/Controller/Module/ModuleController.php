@@ -17,7 +17,8 @@ class ModuleController extends AbstractController
 {
 
     /**
-     * @Rest\Get("/api/modules/{id}", requirements={"id": "\d+"})
+     * get module by id
+     * @Rest\Get("/api/modules/{id}", requirements={"id": "\d+"}, name="get_module_action")
      * @Rest\View(serializerGroups={"modules_info"})
      */
     public function getModuleAction(Request $request)
@@ -28,7 +29,8 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @Rest\Get("/api/modules")
+     * Get all modules
+     * @Rest\Get("/api/modules", name="get_modules_action")
      * @Rest\View(serializerGroups={"modules_info"})
      */
     public function getModulesAction(Request $request)
@@ -38,7 +40,8 @@ class ModuleController extends AbstractController
 
 
     /**
-     * @Rest\Post("/api/modules")
+     * Add module
+     * @Rest\Post("/api/modules", name="post_module_action")
      * @Rest\View(serializerGroups={"modules_info"})
      */
     public function postModuleAction(Request $request)
@@ -64,7 +67,8 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @Rest\Patch("/api/modules/{id}", requirements={"id": "\d+"})
+     * Update module by id
+     * @Rest\Patch("/api/modules/{id}", name="patch_module_action", requirements={"id": "\d+"})
      * @Rest\View(serializerGroups={"modules_info"})
      */
     public function patchModuleAction(Request $request)
@@ -90,7 +94,8 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @Rest\Delete("/api/modules/{id}", requirements={"id": "\d+"})
+     * Delete module by id
+     * @Rest\Delete("/api/modules/{id}", name="delete_module_action", requirements={"id": "\d+"})
      * @Rest\View(statusCode=204)
      */
     public function deleteModuleAction(Request $request)

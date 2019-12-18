@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d14a8399-2bba-4ca7-9a97-266b73f1d265" name="Default Changelist" comment="Init Backend">
-      <change afterPath="$PROJECT_DIR$/Backend/src/Controller/Types/EventTypeController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend/src/Form/EventTypeType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Entity/EventType.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Entity/EventType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Entity/RoleTypeEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Entity/RoleTypeEvent.php" afterDir="false" />
-    </list>
+    <list default="true" id="d14a8399-2bba-4ca7-9a97-266b73f1d265" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -162,15 +155,15 @@
       <recent name="C:\Users\benji\Desktop\Projet_tutore_S3" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
+  <component name="ServiceViewManager">
+    <option name="viewStates">
       <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
       </list>
     </option>
   </component>
@@ -255,10 +248,10 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="265" y="0" key="CommitChangelistDialog2/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576589766917" />
-    <state x="421" y="95" key="FileChooserDialogImpl" timestamp="1576504720183">
+    <state x="421" y="95" key="FileChooserDialogImpl" timestamp="1576653774585">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="421" y="95" key="FileChooserDialogImpl/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576504720183" />
+    <state x="421" y="95" key="FileChooserDialogImpl/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576653774585" />
     <state x="632" y="145" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1576500877314" />
     <state x="332" y="155" key="NewPhpClassDialog" timestamp="1576599857936">
       <screen x="0" y="0" width="1280" height="680" />
@@ -277,10 +270,10 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="0" y="0" width="742" height="680" key="find.popup/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576486234145" />
-    <state x="341" y="132" key="git4idea.merge.GitPullDialog" timestamp="1576601422936">
+    <state x="341" y="132" key="git4idea.merge.GitPullDialog" timestamp="1576653707259">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="341" y="132" key="git4idea.merge.GitPullDialog/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576601422936" />
+    <state x="341" y="132" key="git4idea.merge.GitPullDialog/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576653707259" />
     <state x="297" y="151" key="run.anything.popup" timestamp="1576571953287">
       <screen x="0" y="0" width="1280" height="680" />
     </state>

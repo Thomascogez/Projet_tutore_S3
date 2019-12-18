@@ -11,12 +11,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Table of User
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity("username")
  */
 class User implements UserInterface
 {
     /**
+     * id of user
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -25,6 +27,7 @@ class User implements UserInterface
     private $id;
 
     /**
+     * Username of university
      * @ORM\Column(type="string", length=15, unique=true)
      * @Assert\LessThanOrEqual(15)
      * @Assert\NotBlank()
@@ -33,6 +36,7 @@ class User implements UserInterface
     private $username;
 
     /**
+     * Role in website ["ROLE_TEACHER", "ROLE_TUTOR", "ROLE_ADMIN"]
      * @ORM\Column(type="json")
      * @Groups({"user"})
      */
@@ -44,12 +48,13 @@ class User implements UserInterface
     private $password;
 
     /**
+     * Plain passworw (not in database)
      * @Assert\NotBlank(groups={"New", "FullUpdate"})
-     * @Assert\Regex(pattern="#^(?=.{8,}$)(?=(?:.?[a-z]){2,})(?=(?:.?[A-Z]){2,})(?=(?:.?[!_-@#$%^&(),.?:{}|<>]){2,}).*$#")
      */
     protected $plainPassword;
 
     /**
+     * Firstname of user
      * @ORM\Column(type="string", length=20)
      * @Assert\NotBlank()
      * @Assert\LessThanOrEqual(20)
@@ -58,6 +63,7 @@ class User implements UserInterface
     private $firstname;
 
     /**
+     * Lastname of user
      * @ORM\Column(type="string", length=20)
      * @Assert\NotBlank()
      * @Assert\LessThanOrEqual(20)
@@ -66,6 +72,7 @@ class User implements UserInterface
     private $lastname;
 
     /**
+     * Date created account
      * @ORM\Column(type="date")
      * @Assert\NotNull()
      * @Assert\Date()
@@ -74,6 +81,7 @@ class User implements UserInterface
     private $created_at;
 
     /**
+     * Date of update
      * @ORM\Column(type="date")
      * @Assert\NotNull()
      * @Assert\Date()
@@ -82,28 +90,33 @@ class User implements UserInterface
     private $update_at;
 
     /**
+     * All semaphore relation with user
      * @ORM\OneToMany(targetEntity="App\Entity\Semaphore", mappedBy="user", orphanRemoval=true)
      */
     private $semaphores;
 
     /**
+     * All session of user
      * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="user")
      */
     private $sessions;
 
     /**
+     * All groups authorized of user
      * @ORM\ManyToMany(targetEntity="App\Entity\Groups", inversedBy="users")
      * @Groups({"user"})
      */
     private $groups;
 
     /**
+     * All module authorized of user
      * @ORM\ManyToMany(targetEntity="App\Entity\Module", inversedBy="users")
      * @Groups({"user"})
      */
     private $modules;
 
     /**
+     * All event created by user
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="user")
      */
     private $events;

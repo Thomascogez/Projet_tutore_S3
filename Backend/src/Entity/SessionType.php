@@ -10,12 +10,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
+ * Table for auto complete type of session
  * @ORM\Entity(repositoryClass="App\Repository\SessionTypeRepository")
  * @UniqueEntity({"name"})
  */
 class SessionType
 {
     /**
+     * Id of session type
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -24,6 +26,7 @@ class SessionType
     private $id;
 
     /**
+     * Name of session type
      * @ORM\Column(type="string", length=10)
      * @Assert\LessThanOrEqual(10)
      * @Assert\NotBlank()
