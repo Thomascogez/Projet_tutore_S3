@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Container,
-  Button,
   InputGroup,
   InputGroupAddon,
   InputGroupText,
@@ -12,6 +11,7 @@ import { FaSearch } from "react-icons/fa";
 
 import User from "../../../components/administration_components/utilisateurs/User";
 import style from "./administration-utilisateur.module.css";
+
 export default function index() {
   return (
     <Container fluid className={style.AdmnUtilisateurContainer}>
