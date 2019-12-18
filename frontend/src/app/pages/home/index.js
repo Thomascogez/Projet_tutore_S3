@@ -49,10 +49,9 @@ export default function Home() {
           </Form>
         </Container>
         <div className={style.SiteLogo}>
-          <span>
+      
             <img src={logo} alt="logo" />
-            schoolshare
-          </span>
+      
         </div>
       </Container>
   );

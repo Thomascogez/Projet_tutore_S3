@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import { Navbar, NavLink, NavbarToggler, Collapse, Nav, NavbarBrand, NavItem } from 'shards-react'
 import { navigate } from 'hookrouter'
 import style from './navbar.module.css'
-import logo from '../../../assets/images/scShare_logo.png'
+import logo from '../../../assets/images/scShare_logoNav.png'
 import ProfilRound from '../../../components/profileRound_component/ProfilRound'
 
 export default function NavBar() {

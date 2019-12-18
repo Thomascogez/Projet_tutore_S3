@@ -13,6 +13,8 @@ import User from "../../../components/administration_components/utilisateurs/Use
 import style from "./users.module.css";
 
 export default function index() {
+
+  const testData =["J1","C1","H1"] //display testing only
   return (
     <Container fluid className={style.AdmnUtilisateurContainer}>
       <h1 className= {style.AdmnUtilisateurTitle }>Gestion des utilisateurs</h1>
@@ -36,7 +38,6 @@ export default function index() {
             <th scope="col">Groupes</th>
             <th scope="col">Autorisations</th>
             <th scope="col"></th>
-            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -44,7 +45,7 @@ export default function index() {
             identifier="XXXXXXX"
             name="John"
             surname="Doe"
-            groups="J1, J2"
+            groups={testData}
             roles="Administrateur professeur"
           />
         </tbody>
