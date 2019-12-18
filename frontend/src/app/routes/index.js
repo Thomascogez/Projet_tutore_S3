@@ -5,7 +5,6 @@ import Seances from '../pages/seances'
 import Ajout from '../pages/seances/ajout'
 import AddUser from '../pages/addUser'
 import AddUserPage2 from '../pages/addUser/page2'
-import TestModal from '../pages/PaulTests/modalTest'
 import Administration from '../pages/administration'
 import GererUtilisateur from '../pages/administration/utilisateurs'
 import EditModule from '../pages/administration/Module'
@@ -17,7 +16,6 @@ const routes = {
     '/seances/ajout' : () => <Ajout />,
     '/addUser' : () => <AddUser />,
     '/addUser/page2' : () => <AddUserPage2 />,
-    '/modalTest' : () => <TestModal />,
     '/administration' : () =><Administration/>,
     '/administration/editModule' : () => <EditModule />,
     '/administration/utilisateurs' : () =><GererUtilisateur/>
