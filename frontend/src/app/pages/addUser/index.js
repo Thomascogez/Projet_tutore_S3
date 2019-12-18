@@ -1,15 +1,15 @@
 /**
  * Ajout
  *
- * Component by the route /ajoutUsers and contain all the functionnality to add a new Course / event
+ * Component by the route /addUsers and contain all the functionnality to add a new Course / event
  */
 
 import React, { useState } from "react";
 
 import { Container, FormGroup, FormInput, Button } from "shards-react";
-import style from "./ajoutUser.module.css";
-import RadBut from '../../components/ajoutUser_components/RadioButton'
-import CheckBox from '../../components/ajoutUser_components/CheckBox'
+import style from "./addUser.module.css";
+import RadBut from '../../components/addUser_components/RadioButton'
+import CheckBox from '../../components/addUser_components/CheckBox'
 
 export default function Ajout() {
   return (
@@ -33,17 +33,16 @@ export default function Ajout() {
         </FormGroup>
 
         <FormGroup className={style.FormGroup2}>
-        <label htmlFor="#roles" className={style.LabelText}>Rôles</label>
+          <label htmlFor="#roles" className={style.LabelText}>Rôles</label>
 
-        <div className={style.Form}>
-          <RadBut id="enseignant" name="rd" value="Enseignant"/>
-          <RadBut id="tuteur" name="rd" value="Tuteur"/>
-          <CheckBox id="admin" value="Administrateur"/>
-        </div>
-      </FormGroup>
+          <div className={style.Form}>
+            <RadBut id="enseignant" name="rd" value="Enseignant"/>
+            <RadBut id="tuteur" name="rd" value="Tuteur"/>
+            <CheckBox id="admin" value="Administrateur"/>
+          </div>
+        </FormGroup>
 
-      <Button outline squared className={style.Btn}>Suivant</Button>
-
+        <Button outline squared className={style.Btn}>Suivant</Button>
       </div>
 
     </Container>
