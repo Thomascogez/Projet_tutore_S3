@@ -21,11 +21,11 @@ export default function Seances() {
                 <Col lg="11" sm="12">
                     <WorkContainer>
                         <Work color="red" 
-                              name="Math" 
-                              finished={true} 
-                              cours="Voici un formulaire à completer et à me renvoyer !" 
-                              typeCours="TP" 
-                              fichier="Formulaire.odf">
+                            name="Math" 
+                            finished={true} 
+                            cours="Voici un formulaire à completer et à me renvoyer !" 
+                            typeCours="TP" 
+                            fichier="Formulaire.odf">
                         <div>
                             <Comment
                                 name="Lepivert"
@@ -37,7 +37,7 @@ export default function Seances() {
                                 name="Charier"
                                 date="08/10/19"
                                 hour="07:56"
-                                comment="Doit-on vous l'envoyer au format actuelle ou pdf?"
+                                comment="Doit-on vous l'envoyer au format actuel ou pdf?"
                             />
                         </div>
                         </Work>
