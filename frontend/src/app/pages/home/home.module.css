@@ -18,7 +18,12 @@
     text-align: center;
     padding: 4% 20px 0px 20px;
 }
-.LoginFormContainer input{
+/* .LoginFormContainer input{
+    margin: 0px 0px 50px 0px !important;
+    border-radius: 0px !important;
+} */
+
+.FormGroup{
     margin: 0px 0px 50px 0px !important;
     border-radius: 0px !important;
 }

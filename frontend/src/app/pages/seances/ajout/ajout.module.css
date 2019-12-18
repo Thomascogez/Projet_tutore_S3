@@ -1,6 +1,6 @@
 .AddContainer{
-    width: 90%;
-    padding: 10px;
+    width: 80%;
+    padding: 50px;
 }
 
 .AddSubject{
@@ -19,19 +19,20 @@
 
 .Content{
     margin: auto;
-    background-color: gray;
-    height: 50%;
+    background-color: #BE4F23;
+    height: 40%;
     width: 50%;
-    border-radius: 2%;
+    padding:5px;
+    box-shadow:2px  2px 2px gray,
+              -1px -1px 2px gray;
 }
 
 .Button{
-    margin-left: 40%;
+    margin-left: 38%;
     margin-top: 2%;
     margin-bottom: 2%;
     height: 50px;
 }
-
 
 .info{
     margin: auto;
@@ -45,7 +46,7 @@
 }
 
 .fileSelect{
-    margin-top: 30px;
+    margin-top: 8%;
 }
 
 .txt{
@@ -54,9 +55,36 @@
 
 .title{
     text-align: center;
+    margin-top: 2%;
 }
 
 .button{
     margin-left: 80%;
+    margin-top: 1%;
+    margin-bottom: 4%;
+}
+
+.note{
+    width: 80%;
+    height: 100%;
+}
+
+.page{
+    height: 60%;
+    width: 65%;
     margin-top: 5%;
+    margin-left: 18%;
+    margin-right: 15%;
+    background-color: rgba(114, 114, 114, 0.562);
+    padding:5px;
+    box-shadow:2px 2px 2px gray,
+              -1px -1px 2px white;
+}
+
+.triche{
+    height: 3%;
+    width: 100%;
+    margin-top: 2%;
+    margin-left: 15%;
+    background-color: gray;
 }
