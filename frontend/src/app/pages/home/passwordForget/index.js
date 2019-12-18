@@ -11,6 +11,7 @@ import {
 } from "shards-react";
 import logo from "../../../assets/images/scShare_logo.png";
 import style from "./../home.module.css";
+import { navigate } from "hookrouter";
 
 export default function Home() {
   return (
@@ -24,12 +25,13 @@ export default function Home() {
                     placeholder="identifiant ..."
                 />
             </FormGroup>
-            <Button type="success">changer le mot de passe</Button>
+            <Button type="success">Changer le mot de passe    </Button>
+            <Button type="primary" onClick={()=> navigate("/")}>Retour à l'authentification</Button>
         </Container>
         <div className={style.SiteLogo}>
             <span>
                 <img src={logo} alt="logo" />
-                schoolshare
+                SCHOOLSHARE
             </span>
         </div>
     </Container>

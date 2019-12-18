@@ -18,10 +18,10 @@ const routes = {
     '/seances/ajout' : () => <Ajout />,
     '/administration/utilisateurs/ajout/etape1' : () => <AddUser />,
     '/administration/utilisateurs/ajout/etape2' : () => <AddUserPage2 />,
-    '/administration' : () =><Administration/>,
+    '/administration' : () =><Administration />,
     '/administration/editModule' : () => <EditModule />,
     '/administration/utilisateurs' : () =><GererUtilisateur/>
-}
+};
 
 
 export default routes;
