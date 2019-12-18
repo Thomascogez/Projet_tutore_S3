@@ -1,6 +1,5 @@
-import React,{ useState } from "react";
+import React from "react";
 import {
-  Button,
   Modal,
   ModalHeader,
   ModalBody,
@@ -9,17 +8,14 @@ import {
 
 import style from '../../pages/seances/seances.module.css';
 
-
-export default function CoursModal(props) {
-    const [open, setOpen] = useState(false);
+export default function CoursModal({name, color, open,setOpen, cours, fichier, children, typeCours }) {
     return (
       <div>
-        <Button pill style={{backgroundColor:props.color, borderColor:props.color}} onClick={() => setOpen(!open)}>{props.name}</Button>
-        <Modal size="lg" open={open} toggle={() =>setOpen(!open)}>
-            <ModalHeader>{props.name} <div style={{display:'inline-block',backgroundColor:props.color, borderColor : props.color, borderRadius: '5px'}}>{props.typeCours}</div></ModalHeader>
-            <ModalBody>{props.cours}</ModalBody>
-            <ModalBody class={style.fichierModal}>{props.fichier}</ModalBody>
-            <ModalFooter class={style.comment}>{props.children}</ModalFooter>
+        <Modal size="lg" open={open} toggle={setOpen}>
+            <ModalHeader>{name} <div style={{display:'inline-block',backgroundColor:color, borderColor : color, borderRadius: '5px'}}>{typeCours}</div></ModalHeader>
+            <ModalBody>{cours}</ModalBody>
+            <ModalBody class={style.fichierModal}>{fichier}</ModalBody>
+            <ModalFooter class={style.comment}>{children}</ModalFooter>
         </Modal>
       </div>
     )
