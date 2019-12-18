@@ -6,7 +6,7 @@ import style from './seances.module.css'
 import WeekContainer from '../../components/seances_components/WeekContainer'
 import WorkContainer from '../../components/seances_components/WorkContainers'
 import MounthSelector from '../../components/seances_components/MounthSelector'
-import Matiere from '../../components/seances_components/Matiere'
+import Work from '../../components/seances_components/Work'
 
 export default function Seances() {
     return (
@@ -18,16 +18,16 @@ export default function Seances() {
                 </Col>
                 <Col lg="11" sm="12">
                     <WorkContainer>
-                        <Matiere color="red" name="math" />
-                        <Matiere color="green" name="algo" />
-                        <Matiere color="blue" name="cpoa" />
-                        <Matiere color="aqua" name="bado" />
-                        <Matiere color="tomato" name="salut" />
-                        <Matiere color="red" name="math" />
-                        <Matiere color="green" name="algo" />
-                        <Matiere color="blue" name="cpoa" />
-                        <Matiere color="aqua" name="bado" />
-                        <Matiere color="tomato" name="salut" />
+                        <Work color="red" name="math" finished={true} />
+                        <Work color="green" name="algo" finished={false} />
+                        <Work color="blue" name="cpoa" finished={true} />
+                        <Work color="aqua" name="bado" finished={true} />
+                        <Work color="tomato" name="salut" finished={false} />
+                        <Work color="red" name="math" finished={false} />
+                        <Work color="green" name="algo" finished={false} />
+                        <Work color="blue" name="cpoa" finished={false} />
+                        <Work color="aqua" name="bado" finished={true} />
+                        <Work color="tomato" name="salut" finished={false} />
                     </WorkContainer>
 
                 </Col>
@@ -38,18 +38,18 @@ export default function Seances() {
                 </Col>
                 <Col lg="11" sm="12">
                     <WorkContainer>
-                       
-                        <Matiere color="green" name="algo" />
-                        <Matiere color="blue" name="cpoa" />
-                        <Matiere color="aqua" name="bado" />
-                        <Matiere color="tomato" name="salut" />
-                        <Matiere color="red" name="math" />
-                        <Matiere color="green" name="algo" />
-                        <Matiere color="blue" name="cpoa" />
-                        <Matiere color="aqua" name="bado" />
-                        <Matiere color="tomato" name="salut" />
+
+                        <Work color="green" name="algo" finished={false} />
+                        <Work color="blue" name="cpoa" finished={false} />
+                        <Work color="aqua" name="bado" finished={false} />
+                        <Work color="tomato" name="salut" finished={false} />
+                        <Work color="red" name="math" finished={false} />
+                        <Work color="green" name="algo" finished={false} />
+                        <Work color="blue" name="cpoa" finished={false} />
+                        <Work color="aqua" name="bado" finished={false} />
+                        <Work color="tomato" name="salut" finished={false} />
                     </WorkContainer>
-                    
+
                 </Col>
             </Row>
         </Container>

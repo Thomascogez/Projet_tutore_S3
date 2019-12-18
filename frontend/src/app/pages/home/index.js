@@ -4,8 +4,12 @@ import logo from "../../assets/images/scShare_logo.png";
 import style from "./home.module.css";
 export default function Home() {
   return (
+
+
     <Container fluid className={style.LoginContainer}>
+      {/* <div className={style.Polygon}></div> */}
       <Container className={style.LoginFormContainer}>
+        <h1>Connexion</h1>
         <Form>
           <FormGroup>
             <InputGroup className="mb-2">
@@ -29,5 +33,6 @@ export default function Home() {
         </span>
       </div>
     </Container>
+
   );
 }

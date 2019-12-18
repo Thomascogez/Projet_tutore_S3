@@ -1,0 +1,22 @@
+
+
+.AdminCardContainer {
+    margin-top: 40px;
+    width: 80% !important;
+}
+
+
+.AdminCard {
+    text-align: center;
+}
+
+.AdminCardIcon {
+    font-size: 100px;
+    margin: 5px auto 0px auto;
+}
+
+.AdminCardBtn{
+    border-radius: 0px ! important;
+    background-color:rgba(11, 191, 140, 0.93) !important;
+    border-color:rgba(11, 191, 140, 0.93) !important;
+}

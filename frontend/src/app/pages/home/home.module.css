@@ -16,7 +16,7 @@
     background-color: #fff;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3), inset 0px 4px 4px rgba(0, 0, 0, 0.25);
     text-align: center;
-    padding: 8% 20px 0px 20px;
+    padding: 4% 20px 0px 20px;
 }
 .LoginFormContainer input{
     margin: 0px 0px 50px 0px !important;
@@ -41,6 +41,19 @@
     text-align: right;
     line-height: 400px;
 }
+
+/* .Polygon{
+    margin: 0px;
+    top:0px;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    clip-path: polygon(100% 0, 100% 100%, 0 100%);
+
+    background-color: #C4A279;
+
+} */
 
 
 /* Media queries */
@@ -68,7 +81,7 @@
         background-color: #fff;
         box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3), inset 0px 4px 4px rgba(0, 0, 0, 0.25);
         text-align: center;
-        padding: 8% 20px 0px 20px;
+        padding: 4% 20px 0px 20px;
     }
     .SiteLogo{
         color: #fff !important;
@@ -79,6 +92,17 @@
         font-size: 30px;
         text-align: right;
         line-height: 400px;
+    }
+}
+@media (min-height : 650px) {
+    .LoginFormContainer{
+        top: 15%;
+    }
+}
+@media (min-width : 1600px) {
+    .LoginFormContainer{
+        width: 30% !important;
+        height: 480px !important;
     }
 }
 
@@ -100,7 +124,7 @@
         width: 90%;
         height: 100%;
         top: 0%;
-        padding: 8% 20px 0px 20px;
+        padding: 4% 20px 0px 20px;
     }
     .SiteLogo{ 
         display: none;
