@@ -12,11 +12,9 @@ import {
 import { FaLock, FaUserCircle } from "react-icons/fa";
 import logo from "../../assets/images/scShare_logo.png";
 import style from "./home.module.css";
-import { CSSTransition } from "react-transition-group";
 
 export default function Home() {
   return (
-    <CSSTransition in={true} appear={true} timeout={1000} classNames="fade">
       <Container fluid className={style.LoginContainer}>
         {/* <div className={style.Polygon}></div> */}
 
@@ -48,6 +46,7 @@ export default function Home() {
               </InputGroup>
             </FormGroup>
             <Button type="success">Connexion !</Button>
+            <a style={{display:"inline-block"}} href="/passwordForget">Mot de passe oublié?</a>
           </Form>
         </Container>
         <div className={style.SiteLogo}>
@@ -57,6 +56,5 @@ export default function Home() {
           </span>
         </div>
       </Container>
-    </CSSTransition>
   );
 }
