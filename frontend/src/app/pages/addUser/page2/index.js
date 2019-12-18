@@ -7,8 +7,8 @@
 import React, { useState } from "react";
 
 import { Container, FormGroup, Button, FormSelect } from "shards-react";
-import style from "./ajoutUser.module.css";
-import CheckBox from '../../../components/ajoutUser_components/CheckBox'
+import style from "./addUser.module.css";
+import CheckBox from '../../../components/addUser_components/CheckBox'
 
 export default function Ajout() {
   const [groupe, setGroupe] = useState([]);
