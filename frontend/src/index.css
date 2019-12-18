@@ -3,20 +3,26 @@ html, body, #root, #root>div {
   width : 100%;
 }
 
-.anim-enter {
+.fade-appear {
   opacity: 0;
-  transform: scale(0.9);
+  z-index: 1;
 }
-.anim-enter-active {
+.fade-appear.fade-appear-active {
+opacity: 1;
+transition: opacity 1000ms linear;
+}
+
+/* enter */
+.fade-enter {
+opacity: 0;
+z-index: 1;
+}
+.fade-enter.fade-enter-active {
   opacity: 1;
-  transform: translateX(0);
-  transition: opacity 300ms, transform 300ms;
+  transition: opacity 5000ms linear 5000ms;
 }
-.anim-exit {
+
+/* exit */
+.fade-exit {
   opacity: 1;
-}
-.anim-exit-active {
-  opacity: 0;
-  transform: scale(0.9);
-  transition: opacity 300ms, transform 300ms;
 }
