@@ -11,13 +11,14 @@ use App\Entity\Semaphore;
 use App\Entity\Session;
 use App\Entity\User;
 use App\Form\SessionType;
-use DateTime;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Nelmio\ApiDocBundle\Annotation\Operation;
+use Swagger\Annotations as SWG;
 
 define("SESSION_NOT_FOUND", "Session not found");
 
@@ -27,6 +28,19 @@ class SessionController extends AbstractController
      * Get session by id
      * @Rest\Get("/api/sessions/{id}", requirements={"id":"\d+"}, name="get_session_action")
      * @Rest\View(serializerGroups={"session_detail"})
+     * @Operation(
+     *     path="/api/sessions/{id}",
+     *     operationId="getSessionAction",
+     *     tags={"Session"},
+     *     summary="Get session by id",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function getSessionAction(Request $request)
     {
@@ -45,6 +59,19 @@ class SessionController extends AbstractController
      * @QueryParam(name="group", description="Group of session")
      * @QueryParam(name="type", description="type of session")
      * @Rest\View(serializerGroups={"session_detail"})
+     * @Operation(
+     *     path="/api/sessions",
+     *     operationId="getSessionsAction",
+     *     tags={"Session"},
+     *     summary="Get all session with filter",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function getSessionsAction(ParamFetcherInterface $paramFetcher, Request $request)
     {
@@ -55,8 +82,8 @@ class SessionController extends AbstractController
         if ($year == 0) $year = date('Y');
 
 
-        $from = new DateTime($year . "-" . $month . "-01");
-        $to = new DateTime($year . "-" . $month . "-31");
+        $from = new \DateTime($year . "-" . $month . "-01");
+        $to = new \DateTime($year . "-" . $month . "-31");
 
         if($paramFetcher->get('type') == NULL) {
             $groups = $this->getDoctrine()->getRepository(Groups::class)->findOneBy(array("name" => $paramFetcher->get('group')));
@@ -75,6 +102,22 @@ class SessionController extends AbstractController
      * Add session
      * @Rest\Post("/api/sessions", name="post_session_action")
      * @Rest\View(serializerGroups={"session_detail"}, statusCode=201)
+     * @Rest\RequestParam(name="module",  description="Module code",   nullable=false)
+     * @Rest\RequestParam(name="type",    description="Type name",     nullable=false)
+     * @Rest\RequestParam(name="groupe",  description="Groupe name",   nullable=false)
+     * @Operation(
+     *     path="/api/sessions",
+     *     operationId="postSessionAction",
+     *     tags={"Session"},
+     *     summary="Add session",
+     *     @SWG\Response(
+     *         response="201",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function postSessionAction(Request $request)
     {
@@ -139,6 +182,22 @@ class SessionController extends AbstractController
      * Update session by id
      * @Rest\Patch("/api/sessions/{id}", requirements={"id": "\d+"}, name="patch_session_action")
      * @Rest\View(serializerGroups={"session_detail"})
+     * @Rest\RequestParam(name="module",  description="Module code",   nullable=true)
+     * @Rest\RequestParam(name="type",    description="Type name",     nullable=true)
+     * @Rest\RequestParam(name="groupe",  description="Groupe name",   nullable=true)
+     * @Operation(
+     *     path="/api/sessions/{id}",
+     *     operationId="patchSessionAction",
+     *     tags={"Session"},
+     *     summary="Update session by id",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function patchSessionAction(Request $request)
     {
@@ -201,6 +260,19 @@ class SessionController extends AbstractController
      * Delete session by id
      * @Rest\Delete("/api/sessions/{id}", requirements={"id": "\d+"}, name="delete_session_action")
      * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
+     * @Operation(
+     *     path="/api/sessions/{id}",
+     *     operationId="deleteSessionAction",
+     *     tags={"Session"},
+     *     summary="Delete session by id",
+     *     @SWG\Response(
+     *         response="204",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function deleteSessionAction(Request $request)
     {

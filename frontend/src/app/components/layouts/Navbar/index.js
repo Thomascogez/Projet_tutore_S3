@@ -3,6 +3,7 @@ import { Navbar, NavLink, NavbarToggler, Collapse, Nav, NavbarBrand, NavItem } f
 import { navigate } from 'hookrouter'
 import style from './navbar.module.css'
 import logo from '../../../assets/images/scShare_logo.png'
+import ProfilRound from '../../../components/profileRound_component/ProfilRound'
 
 export default function NavBar() {
 
@@ -17,9 +18,7 @@ export default function NavBar() {
         <Collapse open={open} navbar>
           <Nav navbar className="ml-auto">
             <NavItem>
-              <NavLink className={style.NavLink} active href="#">
-                Connexion
-              </NavLink>
+              <ProfilRound bgcolor="white" fcolor="black" letter="B"/>
             </NavItem>
           </Nav>
         </Collapse>
