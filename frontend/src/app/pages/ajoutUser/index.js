@@ -8,6 +8,8 @@ import React, { useState } from "react";
 
 import { Container, FormGroup, FormInput, Button } from "shards-react";
 import style from "./ajoutUser.module.css";
+import RadBut from '../../components/ajoutUser_components/RadioButton'
+import CheckBox from '../../components/ajoutUser_components/CheckBox'
 
 export default function Ajout() {
   return (
@@ -16,23 +18,17 @@ export default function Ajout() {
 
       <div className={style.SousBox}>
         <FormGroup className={style.FormGroup}>
-          <label htmlFor="#id" className={style.LabelText}>
-            Identifiant
-          </label>
+          <label htmlFor="#id" className={style.LabelText}>Identifiant</label>
           <FormInput id="#id" className={style.FormInp} />
         </FormGroup>
 
         <FormGroup className={style.FormGroup}>
-          <label htmlFor="#lastname" className={style.LabelText}>
-            Nom
-          </label>
+          <label htmlFor="#lastname" className={style.LabelText}>Nom</label>
           <FormInput id="#lastname" className={style.FormInp} />
         </FormGroup>
 
         <FormGroup className={style.FormGroup}>
-          <label htmlFor="#firstname" className={style.LabelText}>
-            Prénom
-          </label>
+          <label htmlFor="#firstname" className={style.LabelText}>Prénom</label>
           <FormInput id="#firstname" className={style.FormInp} />
         </FormGroup>
 
@@ -40,28 +36,9 @@ export default function Ajout() {
         <label htmlFor="#roles" className={style.LabelText}>Rôles</label>
 
         <div className={style.Form}>
-          <div className="custom-control custom-radio">
-            <input
-              type="radio"
-              id="enseignant"
-              name="customRadio"
-              className="custom-control-input"
-            />
-            <label className="custom-control-label" for="enseignant">Enseignant</label>
-          </div>
-          <div className="custom-control custom-radio">
-            <input
-              type="radio"
-              id="tuteur"
-              name="customRadio"
-              className="custom-control-input"
-            />
-            <label className="custom-control-label" for="tuteur">Tuteur</label>
-          </div>
-          <div className="custom-control custom-checkbox">
-            <input type="checkbox" className="custom-control-input" id="admin" />
-            <label className="custom-control-label" for="admin">Administrateur</label>
-          </div>
+          <RadBut id="enseignant" name="rd" value="Enseignant"/>
+          <RadBut id="tuteur" name="rd" value="Tuteur"/>
+          <CheckBox id="admin" value="Administrateur"/>
         </div>
       </FormGroup>
 
