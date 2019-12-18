@@ -46,6 +46,7 @@ export default function Home() {
               </InputGroup>
             </FormGroup>
             <Button type="success">Connexion !</Button>
+            <a style={{display:"inline-block"}} href="/passwordForget">Mot de passe oublié?</a>
           </Form>
         </Container>
         <div className={style.SiteLogo}>

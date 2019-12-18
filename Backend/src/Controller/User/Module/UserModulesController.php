@@ -18,7 +18,8 @@ class UserModulesController extends UserController
 {
 
     /**
-     * @Rest\Get("/api/users/{id}/modules", requirements={"id": "\d+"})
+     * Get all user modules with user id
+     * @Rest\Get("/api/users/{id}/modules", requirements={"id": "\d+"}, name="get_user_modules_action")
      * @Rest\View(serializerGroups={"modules"})
      */
     public function getUserModulesAction(Request $request)
@@ -30,10 +31,11 @@ class UserModulesController extends UserController
     }
 
     /**
-     * @Rest\Get("/api/users/{id}/modules/{id_module}", requirements={"id": "\d+", "id_module": "\d+"})
+     * Get one user module with id user and id module
+     * @Rest\Get("/api/users/{id}/modules/{id_module}", requirements={"id": "\d+", "id_module": "\d+"}, name="get_user_modules_action")
      * @Rest\View(serializerGroups={"modules"})
      */
-    public function getUserGroupAction(Request $request)
+    public function getUserModuleAction(Request $request)
     {
         $user = $this->getDoctrine()->getRepository(User::class)->find($request->get('id'));
         if(!$user) return $this->isNotFound(USER_NOT_FOUND);
@@ -48,10 +50,11 @@ class UserModulesController extends UserController
     }
 
     /**
-     * @Rest\Post("/api/users/{id}/modules")
+     * Add new user module with id user
+     * @Rest\Post("/api/users/{id}/modules", name="add_user_module_action")
      * @Rest\View(serializerGroups={"user"})
      */
-    public function addUserGroupAction(Request $request)
+    public function addUserModuleAction(Request $request)
     {
         if(!$this->userHasRole($this->getUser(), "ROLE_ADMIN"))
             return $this->notAuthorized();
@@ -75,10 +78,11 @@ class UserModulesController extends UserController
     }
 
     /**
-     * @Rest\Delete("/api/users/{id}/modules/{id_module}", requirements={"id": "\d+", "id_module": "\d+"})
+     * Delete user module by id module and id user
+     * @Rest\Delete("/api/users/{id}/modules/{id_module}", requirements={"id": "\d+", "id_module": "\d+"}, name="delete_user_module_action")
      * @Rest\View(serializerGroups={"user"})
      */
-    public function deleteUserGroupAction(Request $request)
+    public function deleteUserModuleAction(Request $request)
     {
         if(!$this->userHasRole($this->getUser(), "ROLE_ADMIN"))
             return $this->notAuthorized();

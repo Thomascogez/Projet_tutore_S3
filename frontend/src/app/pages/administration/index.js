@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, Row, Col, Card, CardHeader, CardImg, CardBody, CardTitle, Button, CardFooter } from 'shards-react'
 import { FaUserPlus, FaUserFriends, FaBookReader } from 'react-icons/fa'
+import { navigate } from 'hookrouter'
 import style from './administration.module.css'
 
 export default function index() {
@@ -38,7 +39,7 @@ export default function index() {
                         <CardBody>
                             <CardTitle>Gérer les séances</CardTitle>
                             <p>Lorem ipsum dolor sit amet.</p>
-                            <Button className={style.AdminCardBtn}>Continuer</Button>
+                            <Button className={style.AdminCardBtn} onClick = {() => navigate('/administration/editModule')}>Continuer</Button>
                         </CardBody>
                     </Card>
 

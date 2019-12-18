@@ -7,6 +7,8 @@ use App\Controller\AbstractController;
 use App\Entity\User;
 use App\Form\UserType;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\Controller\Annotations\QueryParam;
+use Nelmio\ApiDocBundle\Annotation\Operation;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,11 +19,46 @@ define("USER_NOT_FOUND", "User is not found");
 
 class UserController extends AbstractController
 {
+    /**
+     * Get user instantly connect
+     * @Rest\Get("/api/users/my", name="get_my_users_action")
+     * @Rest\View(serializerGroups={"user"})
+     * @Operation(
+     *     path="/api/users/my",
+     *     operationId="GetMyUser",
+     *     tags={"User"},
+     *     summary="Get user instantly connect",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
+     */
+    public function getMyUserAction(Request $request)
+    {
+        return $this->getUser();
+    }
 
     /**
      * List of users
-     * @Rest\Get("/api/users")
+     * @Rest\Get("/api/users", name="get_users_action")
      * @Rest\View(serializerGroups={"user"})
+     * @Operation(
+     *     path="/api/users",
+     *     operationId="GetUsers",
+     *     tags={"User"},
+     *     summary="List all users",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function getUsersAction(Request $request)
     {
@@ -31,8 +68,23 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Rest\Get("/api/users/{id}", requirements={"id": "\d+"})
+     * Get one user by id
+     * @Rest\Get("/api/users/{id}", requirements={"id": "\d+"}, name="get_user_action")
      * @Rest\View(serializerGroups={"user"})
+     * @QueryParam(name="id", description="Id of user")
+     * @Operation(
+     *     path="/api/users/{id}",
+     *     operationId="GetUser",
+     *     tags={"User"},
+     *     summary="One users with id",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function getUserAction(Request $request)
     {
@@ -42,8 +94,26 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Rest\Post("/api/users")
+     * Add new user
+     * @Rest\Post("/api/users", name="post_user_action")
      * @Rest\View(serializerGroups={"user"}, statusCode=201)
+     * @Rest\RequestParam(name="username",  description="Username of school", nullable=false)
+     * @Rest\RequestParam(name="firstname", description="Firstname of user",  nullable=false)
+     * @Rest\RequestParam(name="lastname",  description="Lastname of user",   nullable=false)
+     * @Rest\RequestParam(name="roles",     description="Role of user : ['USER_TEACHER', 'USER_TUTOR', 'USER_ADMIN'", nullable=false)
+     * @Operation(
+     *     path="/api/users",
+     *     operationId="PostUser",
+     *     tags={"User"},
+     *     summary="Create new user",
+     *     @SWG\Response(
+     *         response="201",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function postUsersAction(Request $request, UserPasswordEncoderInterface $encoder)
     {
@@ -70,10 +140,11 @@ class UserController extends AbstractController
         }
         if(!$test) {
             $form->add('roles');
-            $form->get('roles')->addError(new FormError("Erreur"));
         }
-
         $form->submit($request->request->all(), false);
+        if(!$test) {
+            $form->get('roles')->addError(new FormError("The choice is : ROLE_TEACHER, ROLE_ADMIN, ROLE_TUTOR"));
+        }
 
         if($form->isValid()) {
             $user->setPassword($encoder->encodePassword($user, "123456"));
@@ -90,9 +161,26 @@ class UserController extends AbstractController
 
 
     /**
-     * Patch user
-     * @Rest\Patch("/api/users/{id}")
+     * Patch user by id
+     * @Rest\Patch("/api/users/{id}", name="patch_user_action")
      * @Rest\View(serializerGroups={"user"})
+     * @Rest\RequestParam(name="username",  description="Username of school", nullable=true)
+     * @Rest\RequestParam(name="firstname", description="Firstname of user",  nullable=true)
+     * @Rest\RequestParam(name="lastname",  description="Lastname of user",   nullable=true)
+     * @Rest\RequestParam(name="roles",     description="Role of user : ['USER_TEACHER', 'USER_TUTOR', 'USER_ADMIN'", nullable=true)
+     * @Operation(
+     *     path="/api/users/{id}",
+     *     operationId="PatchUser",
+     *     tags={"User"},
+     *     summary="Update user",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function patchUsersAction(Request $request, UserPasswordEncoderInterface $encoder)
     {
@@ -122,6 +210,7 @@ class UserController extends AbstractController
         $form->submit($request->request->all(), false);
 
         if($form->isValid()) {
+            $user->setUpdateAt(new \DateTime());
             if(!empty($user->getPlainPassword())){
                 $user->setPassword($encoder->encodePassword($user, $user->getPlainPassword()));
                 $user->setPlainPassword("");
@@ -137,9 +226,22 @@ class UserController extends AbstractController
     }
 
     /**
-     * Delete user
-     * @Rest\Delete("/api/users/{id}")
+     * Delete user by id
+     * @Rest\Delete("/api/users/{id}", name="delete_user_action")
      * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
+     * @Operation(
+     *     path="/api/users/{id}",
+     *     operationId="DeleteUser",
+     *     tags={"User"},
+     *     summary="Delete user",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function deleteUserAction(Request $request)
     {

@@ -18,16 +18,18 @@ class EventTypeController extends AbstractController
 {
 
     /**
-     * @Rest\Get("/api/event_types")
+     * Get all event types
+     * @Rest\Get("/api/event_types", name="get_event_types_action")
      * @Rest\View(serializerGroups={"event_type"})
      */
-    public function getSessionTypesAction(Request $request)
+    public function getEventTypesAction(Request $request)
     {
         return $this->getDoctrine()->getRepository(EventType::class)->findAll();
     }
 
     /**
-     * @Rest\Get("/api/event_types/{id}", requirements={"id": "\d+"})
+     * Get on event type by id
+     * @Rest\Get("/api/event_types/{id}", requirements={"id": "\d+"}, name="get_event_type_action")
      * @Rest\View(serializerGroups={"event_type"})
      */
     public function getEventTypeAction(Request $request)
@@ -41,7 +43,8 @@ class EventTypeController extends AbstractController
 
 
     /**
-     * @Rest\Post("/api/event_types", requirements={"id": "\d+"})
+     * Add new event type
+     * @Rest\Post("/api/event_types", requirements={"id": "\d+"}, name="post_event_types_action")
      * @Rest\View(serializerGroups={"event_type"})
      */
     public function postEventTypeAction(Request $request)
@@ -75,7 +78,8 @@ class EventTypeController extends AbstractController
 
 
     /**
-     * @Rest\Patch("/api/event_types/{id}", requirements={"id": "\d+"})
+     * Update event type with id
+     * @Rest\Patch("/api/event_types/{id}", requirements={"id": "\d+"}, name="patch_event_types_action")
      * @Rest\View(serializerGroups={"event_type"})
      */
     public function patchEventTypeAction(Request $request)
@@ -111,7 +115,8 @@ class EventTypeController extends AbstractController
 
 
     /**
-     * @Rest\Delete("/api/event_types/{id}", requirements={"id": "\d+"})
+     * Delete event type by id
+     * @Rest\Delete("/api/event_types/{id}", requirements={"id": "\d+"}, name="delete_event_types_action")
      * @Rest\View(statusCode=204)
      */
     public function deleteEventTypeAction(Request $request)

@@ -47,6 +47,14 @@
     line-height: 400px;
 }
 
+.LabelText {
+    font-size: 25px;
+}
+
+.Btn {
+    width: 20px;
+}
+
 /* .Polygon{
     margin: 0px;
     top:0px;

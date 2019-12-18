@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class AttachmentEvent
 {
     /**
+     * Id attachment
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -20,6 +21,7 @@ class AttachmentEvent
     private $id;
 
     /**
+     * event relation attachment
      * @ORM\ManyToOne(targetEntity="App\Entity\Event", inversedBy="attachmentEvents")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"attachment"})
@@ -27,6 +29,7 @@ class AttachmentEvent
     private $event;
 
     /**
+     * Source string for download attachment
      * @ORM\Column(type="string", length=255)
      * @Assert\LessThanOrEqual(255)
      * @Assert\NotBlank()

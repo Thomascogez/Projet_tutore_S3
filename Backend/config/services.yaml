@@ -33,6 +33,7 @@ framework:
 fos_rest:
     routing_loader:
         include_format: false
+        prefix_methods: false
     view:
         view_response_listener: force
     format_listener:

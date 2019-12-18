@@ -114,7 +114,7 @@ export default function Seances() {
                                 name="Charier"
                                 date="08/10/19"
                                 hour="07:56"
-                                comment="Doit-on vous l'envoyer au format actuelle ou pdf?"
+                                comment="Doit-on vous l'envoyer au format actuel ou pdf?"
                             />
                         </div>
                         </Work> */}

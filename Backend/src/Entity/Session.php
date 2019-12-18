@@ -9,11 +9,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Table of session
  * @ORM\Entity(repositoryClass="App\Repository\SessionRepository")
  */
 class Session
 {
     /**
+     * id Session
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -22,12 +24,14 @@ class Session
     private $id;
 
     /**
+     * Session module
      * @ORM\ManyToOne(targetEntity="App\Entity\Module", inversedBy="sessions")
      * @Groups({"user", "session_detail"})
      */
     private $module;
 
     /**
+     * Created date of session
      * @ORM\Column(type="date")
      * @Assert\NotNull()
      * @Assert\Date()
@@ -36,30 +40,35 @@ class Session
     private $createdAt;
 
     /**
+     * Session group
      * @ORM\ManyToOne(targetEntity="App\Entity\Groups", inversedBy="sessions")
      * @Groups({"session_detail"})
      */
     private $groupe;
 
     /**
+     * User created session
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="sessions")
      * @Groups({"session_detail"})
      */
     private $user;
 
     /**
+     * All semaphore of the session
      * @ORM\OneToMany(targetEntity="App\Entity\Semaphore", mappedBy="session", orphanRemoval=true)
      * @Groups({"session_detail"})
      */
     private $semaphores;
 
     /**
+     * All event dependency of session
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="session", orphanRemoval=true)
      * @Groups({"session_detail"})
      */
     private $events;
 
     /**
+     * Type session
      * @ORM\Column(type="string", length=10)
      * @Groups({"session_detail"})
      */

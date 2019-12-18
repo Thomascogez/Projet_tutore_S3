@@ -9,6 +9,8 @@ use App\Entity\SessionType;
 use App\Form\SessionTypeType;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
+use Nelmio\ApiDocBundle\Annotation\Operation;
+use Swagger\Annotations as SWG;
 
 define("SESSION_TYPE_NOT_FOUND", "Session type not found");
 
@@ -16,7 +18,8 @@ class SessionTypeController extends AbstractController
 {
 
     /**
-     * @Rest\Get("/api/session_types/")
+     * Get all session types
+     * @Rest\Get("/api/session_types/", name="get_session_types_action")
      * @Rest\View(serializerGroups={"session_type"})
      */
     public function getSessionTypesAction(Request $request)
@@ -25,7 +28,8 @@ class SessionTypeController extends AbstractController
     }
 
     /**
-     * @Rest\Get("/api/session_types/{id}", requirements={"id": "\d+"})
+     * Get one session type by id
+     * @Rest\Get("/api/session_types/{id}", requirements={"id": "\d+"}, name="get_session_type_action")
      * @Rest\View(serializerGroups={"session_type"})
      */
     public function getSessionTypeAction(Request $request)
@@ -38,7 +42,8 @@ class SessionTypeController extends AbstractController
     }
 
     /**
-     * @Rest\Post("/api/session_types")
+     * Add new session type
+     * @Rest\Post("/api/session_types", name="post_session_types_action")
      * @Rest\View(serializerGroups={"session_type"})
      */
     public function postSessionTypeAction(Request $request)
@@ -62,7 +67,8 @@ class SessionTypeController extends AbstractController
     }
 
     /**
-     * @Rest\Patch("/api/session_types/{id}", requirements={"id": "\d+"})
+     * Update session type by id
+     * @Rest\Patch("/api/session_types/{id}", requirements={"id": "\d+"}, name="patch_session_types_action")
      * @Rest\View(serializerGroups={"session_type"})
      */
     public function patchSessionTypeAction(Request $request)
@@ -89,7 +95,8 @@ class SessionTypeController extends AbstractController
     }
 
     /**
-     * @Rest\Delete("/api/session_types/{id}", requirements={"id": "\d+"})
+     * Delete session type by id
+     * @Rest\Delete("/api/session_types/{id}", requirements={"id": "\d+"}, name="delete_session_types_action")
      * @Rest\View(statusCode=204)
      */
     public function deleteSessionTypeAction(Request $request)

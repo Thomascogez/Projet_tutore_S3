@@ -10,12 +10,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Module table
  * @ORM\Entity(repositoryClass="App\Repository\ModuleRepository")
  * @UniqueEntity({"code"})
  */
 class Module
 {
     /**
+     * Id module
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -24,6 +26,7 @@ class Module
     private $id;
 
     /**
+     * Code module
      * @ORM\Column(type="string", length=8)
      * @Assert\LessThanOrEqual(8)
      * @Assert\NotBlank()
@@ -32,6 +35,7 @@ class Module
     private $code;
 
     /**
+     * Name module
      * @ORM\Column(type="string", length=20)
      * @Assert\LessThanOrEqual(20)
      * @Assert\NotBlank()
@@ -40,6 +44,7 @@ class Module
     private $name;
 
     /**
+     * Color for frontend module
      * @ORM\Column(type="string", length=7)
      * @Assert\LessThanOrEqual(7)
      * @Assert\NotBlank()
@@ -48,6 +53,7 @@ class Module
     private $color;
 
     /**
+     * Created date module
      * @ORM\Column(type="date")
      * @Assert\Date()
      * @Assert\NotNull()
@@ -56,6 +62,7 @@ class Module
     private $created_at;
 
     /**
+     * Update date module
      * @ORM\Column(type="date")
      * @Assert\Date()
      * @Assert\NotNull()
@@ -64,12 +71,14 @@ class Module
     private $update_at;
 
     /**
+     * Session relation with module
      * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="module", cascade={"persist", "remove"})
      * @Groups({"modules_info"})
      */
     private $sessions;
 
     /**
+     * User authorized used module
      * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="modules", cascade={"persist"})
      */
     private $users;

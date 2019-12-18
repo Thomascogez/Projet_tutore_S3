@@ -14,7 +14,7 @@ export default function User({ identifier, name, surname, groups, roles }) {
     setEditing(false);
   };
   return (
-   
+  
       <tr>
         <th scope="row">{identifier}</th>
         <td>

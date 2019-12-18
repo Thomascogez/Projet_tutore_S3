@@ -9,12 +9,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Event type for autocomplete
  * @ORM\Entity(repositoryClass="App\Repository\EventTypeRepository")
  * @UniqueEntity({"name"})
  */
 class EventType
 {
     /**
+     * ID for event type
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -23,6 +25,7 @@ class EventType
     private $id;
 
     /**
+     * Name of event type
      * @ORM\Column(type="string", length=10)
      * @Assert\LessThanOrEqual(10)
      * @Assert\NotBlank()
@@ -31,6 +34,7 @@ class EventType
     private $name;
 
     /**
+     * Role for the event type
      * @ORM\OneToOne(targetEntity="App\Entity\RoleTypeEvent", mappedBy="eventType", cascade={"persist", "remove"})
      * @Groups({"event_type"})
      */

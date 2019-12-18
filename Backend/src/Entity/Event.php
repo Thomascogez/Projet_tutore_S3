@@ -10,11 +10,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Event of session
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
  */
 class Event
 {
     /**
+     * ID for event
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -23,6 +25,7 @@ class Event
     private $id;
 
     /**
+     * Name of event
      * @ORM\Column(type="string", length=90)
      * @Assert\LessThanOrEqual(90)
      * @Assert\NotBlank()
@@ -31,6 +34,7 @@ class Event
     private $name;
 
     /**
+     * Duration of event
      * @ORM\Column(type="float", nullable=true)
      * @Assert\Type("float")
      * @Groups({"session_detail", "events"})
@@ -38,12 +42,14 @@ class Event
     private $duration;
 
     /**
+     * Attachment relation
      * @ORM\OneToMany(targetEntity="App\Entity\AttachmentEvent", mappedBy="event", orphanRemoval=true)
      * @Groups({"session_detail", "events"})
      */
     private $attachmentEvents;
 
     /**
+     * Session relation
      * @ORM\ManyToOne(targetEntity="App\Entity\Session", inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"events"})
@@ -51,12 +57,14 @@ class Event
     private $session;
 
     /**
+     * Type of the event
      * @ORM\Column(type="string", length=10)
      * @Groups({"session_detail", "events"})
      */
     private $type;
 
     /**
+     * Due at event
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Date()
      * @Groups({"session_detail", "events"})
@@ -64,6 +72,7 @@ class Event
     private $dueAt;
 
     /**
+     * User created event
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="events")
      * @Groups({"session_detail", "events"})
      */
