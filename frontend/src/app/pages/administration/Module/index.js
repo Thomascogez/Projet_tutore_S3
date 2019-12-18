@@ -1,5 +1,6 @@
 import React from 'react'
 import style from '../../seances/seances.module.css'
+import adminStyle from '../../../components/administration_components/module/adminmodule.module.css';
 import {
     Button
   } from "shards-react"
@@ -12,20 +13,25 @@ export default function gererModule()
                     {name:"CPOA",color:"#00FF00"},
                     {name:"JAVA",color:"#0000FF"},
                     {name:"Base de données",color:"#F0F00F"},
+                    {name:"Algo",color:"#ABCDEF"},
+                    {name:"Expression",color:"#0ABF9A"},
+                    {name:"MPA",color:"#FEDCBA"},
                    ];
     return (
-        <div>
+        <div >
             <h1 style={{padding:20}}>Gestion des modules</h1>   
             {<BarreRecherche />}
 
             <div style={{borderStyle:'solid', margin:50, marginTop:100, padding:10}}>
-                <table class="table table-striped">
-                    <tbody>
+                <table  className={`table table-striped ${adminStyle.Scroll}`}>
+                    <thead>
                         <tr>
                             <th>Module</th>
                             <th>Couleur</th>
                             <th>Edition</th>
                         </tr>
+                    </thead>
+                    <tbody >
                         {module.map((m) =>
                                 <Module name={m.name} color={m.color} />
                             ) }
