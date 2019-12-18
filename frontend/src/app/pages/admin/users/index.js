@@ -10,7 +10,7 @@ import TransitionGroup from "react-addons-transition-group";
 import { FaSearch } from "react-icons/fa";
 
 import User from "../../../components/administration_components/utilisateurs/User";
-import style from "./administration-utilisateur.module.css";
+import style from "./users.module.css";
 
 export default function index() {
   return (

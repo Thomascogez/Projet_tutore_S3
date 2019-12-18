@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d14a8399-2bba-4ca7-9a97-266b73f1d265" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/Controller/User/PasswordForgetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Controller/User/PasswordForgetController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/Controller/User/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Controller/User/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/Form/UserType.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Form/UserType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/templates/mail/newPassword.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/templates/mail/newPassword.html.twig" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -153,7 +158,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/frontend" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
@@ -162,15 +167,15 @@
       <recent name="C:\Users\benji\Desktop\Projet_tutore_S3" />
     </key>
   </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
+  <component name="RunDashboard">
+    <option name="ruleStates">
       <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
       </list>
     </option>
   </component>
@@ -196,6 +201,7 @@
       <workItem from="1576584530502" duration="14267000" />
       <workItem from="1576686348553" duration="480000" />
       <workItem from="1576686844396" duration="1251000" />
+      <workItem from="1576700861936" duration="209000" />
     </task>
     <task id="LOCAL-00001" summary="Init project">
       <created>1576486472217</created>

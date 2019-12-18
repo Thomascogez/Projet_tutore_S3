@@ -6,13 +6,14 @@
 
 import React, { useState } from "react";
 
-import { Container, FormGroup, Button, FormSelect } from "shards-react";
+import {Container, FormGroup, Button, FormSelect, NavLink} from "shards-react";
 import style from "./addUser.module.css";
-import CheckBox from '../../../components/addUser_components/CheckBox'
+import CheckBox from '../../../../../components/addUser_components/CheckBox'
+import {navigate} from "hookrouter";
+import { FaArrowRight } from "react-icons/fa";
 
 export default function Ajout() {
   const [groupe, setGroupe] = useState([]);
-
 
   return (
     <div className={style.BoxGenerale}>
@@ -37,7 +38,9 @@ export default function Ajout() {
             </FormSelect>
           </FormGroup>
 
-          <Button outline squared className={style.Btn}>Créer</Button>
+          <NavLink onClick={() => navigate("/administration/utilisateurs/ajout/etape2")}>
+            <Button type="success" className={style.Btn}>Suivant <FaArrowRight /></Button>
+          </NavLink>
       </Container>
     </div>
   );

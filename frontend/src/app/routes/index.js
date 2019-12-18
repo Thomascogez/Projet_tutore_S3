@@ -1,13 +1,13 @@
 import React from 'react'
 import Home from '../pages/home'
 import Password from '../pages/home/passwordForget'
-import Seances from '../pages/seances'
-import Ajout from '../pages/seances/ajout'
-import AddUser from '../pages/addUser'
-import AddUserPage2 from '../pages/addUser/page2'
-import Administration from '../pages/administration'
-import GererUtilisateur from '../pages/administration/utilisateurs'
-import EditModule from '../pages/administration/Module'
+import Seances from '../pages/sessions'
+import Ajout from '../pages/sessions/addSession'
+import AddUser from '../pages/admin/users/addUser'
+import AddUserPage2 from '../pages/admin/users/addUser/step2'
+import Administration from '../pages/admin'
+import GererUtilisateur from '../pages/admin/users'
+import EditModule from '../pages/admin/module'
 import Test from '../pages/test'
 
 const routes = {
@@ -16,8 +16,8 @@ const routes = {
     '/test' : () => <Test />,
     '/seances' : () => <Seances />,
     '/seances/ajout' : () => <Ajout />,
-    '/addUser' : () => <AddUser />,
-    '/addUser/page2' : () => <AddUserPage2 />,
+    '/administration/utilisateurs/ajout/etape1' : () => <AddUser />,
+    '/administration/utilisateurs/ajout/etape2' : () => <AddUserPage2 />,
     '/administration' : () =><Administration/>,
     '/administration/editModule' : () => <EditModule />,
     '/administration/utilisateurs' : () =><GererUtilisateur/>

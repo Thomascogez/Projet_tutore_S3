@@ -13,11 +13,11 @@ import { Form, FormInput, FormGroup } from "shards-react";
 import { FormTextarea } from "shards-react";
 import { IoMdAddCircleOutline } from "react-icons/io";
 
-import style from './ajout.module.css'
+import style from './addSession.module.css'
 
 export default function Ajout() {
 
-    const [statu, setStatue]   = useState( false )
+    const [statu, setStatue]   = useState( false );
     const [click, setClick]    = useState(false);
 
     
@@ -38,7 +38,7 @@ export default function Ajout() {
 
     return (
     <Container fluid >
-        {/* <h1 className={style.title}>Ajouter une Séance</h1>
+        <h1 className={style.title}>Ajouter une Séance</h1>
         
         <div className={ style.page }> 
         <IoMdAddCircleOutline onClick={() => handleClickAdd()} className={style.add}/>
@@ -112,6 +112,6 @@ export default function Ajout() {
 
         </div>
             <span className={style.bas} >  </span>
-        </div> */}
+        </div>
         </Container>
 )}

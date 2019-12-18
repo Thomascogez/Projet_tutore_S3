@@ -1,5 +1,5 @@
 import React from 'react'
-import style from '../../seances/seances.module.css'
+import style from '../../sessions/sessions.module.css'
 import adminStyle from '../../../components/administration_components/module/adminmodule.module.css';
 import {
     Button
@@ -28,7 +28,7 @@ export default function gererModule()
                         <tr>
                             <th>Module</th>
                             <th>Couleur</th>
-                            <th>Edition</th>
+                            <th style={{width: 20 + '%'}}>Edition</th>
                         </tr>
                     </thead>
                     <tbody >

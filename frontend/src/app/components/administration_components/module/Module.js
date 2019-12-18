@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Button, FormInput, ButtonGroup } from "shards-react";
+import Modal, { Button, FormInput, ButtonGroup } from "shards-react";
 import { FaCheck, FaTimes, FaBold } from "react-icons/fa";
 import ColorPicker from '../../colorPicker_component/colorPicker'
+import DeleteModal from "./DeleteModal";
 
 export default function Module({name,color }) {
-  const [editing, setEditing] = useState(false);
+    const [editing, setEditing] = useState(false);
+    const [deleting,  setDeleting] = useState(false);
 
   const handleValidate = () => {
     //when validate editing
@@ -36,9 +38,13 @@ export default function Module({name,color }) {
               </Button>
               </ButtonGroup>
           ) : (
-              <Button onClick={() => setEditing(true)}>Edition</Button>
+              <ButtonGroup>
+                  <Button onClick={() => setEditing(true)}>Edition</Button>
+                  <Button onClick={() => setDeleting(!deleting)} theme="danger">Supprimer</Button>
+              </ButtonGroup>
           )}
-          </td>   
+          </td>
+          <DeleteModal open={deleting} setOpen={setDeleting} name={name} color={color} />
       </tr>
   );
 }

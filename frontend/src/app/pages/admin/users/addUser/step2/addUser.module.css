@@ -36,7 +36,10 @@
 .Btn {
     float: right;
     margin-top: 10px;
-    
+    border-radius: 0px !important;
+    width: 40% !important;
+    background-color:rgba(11, 191, 140, 0.93) !important;
+    border-color:rgba(11, 191, 140, 0.93) !important;
 }
 
 .Titre {

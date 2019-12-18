@@ -1,14 +1,14 @@
 import React from "react";
 import { Container, Row, Col } from "shards-react";
-import style from "./seances.module.css";
+import style from "./sessions.module.css";
 
 //seances components
-import WeekContainer from "../../components/seances_components/WeekContainer";
-import WorkContainer from "../../components/seances_components/WorkContainers";
-import DayContainer from "../../components/seances_components/DayContainer";
-import MounthSelector from "../../components/seances_components/MounthSelector";
-import Work from "../../components/seances_components/Work";
-import Comment from "../../components/seances_components/Comment";
+import WeekContainer from "../../components/sessions_components/WeekContainer";
+import WorkContainer from "../../components/sessions_components/WorkContainers";
+import DayContainer from "../../components/sessions_components/DayContainer";
+import MounthSelector from "../../components/sessions_components/MounthSelector";
+import Work from "../../components/sessions_components/Work";
+import Comment from "../../components/sessions_components/Comment";
 
 export default function Seances() {
   return (

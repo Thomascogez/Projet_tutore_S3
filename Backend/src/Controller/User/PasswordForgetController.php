@@ -167,7 +167,7 @@ class PasswordForgetController extends UserController
                         [
                             'name' => $user->getFirstname(),
                             'password' => $user->getPlainPassword(),
-
+                            'type' => "reset"
                         ]
                     ),
                         'text/html'

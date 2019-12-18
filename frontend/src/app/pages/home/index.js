@@ -17,8 +17,6 @@ import { navigate } from "hookrouter";
 export default function Home() {
   return (
       <Container fluid className={style.LoginContainer}>
-        {/* <div className={style.Polygon}></div> */}
-
         <Container className={style.LoginFormContainer}>
           <h1>Connexion</h1>
           <Form>

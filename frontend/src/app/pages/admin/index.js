@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, Row, Col, Card, CardHeader, CardImg, CardBody, CardTitle, Button, CardFooter } from 'shards-react'
 import { FaUserPlus, FaUserFriends, FaBookReader } from 'react-icons/fa'
 import { navigate } from 'hookrouter'
-import style from './administration.module.css'
+import style from './admin.module.css'
 
 export default function index() {
     return (

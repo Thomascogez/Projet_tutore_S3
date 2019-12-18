@@ -165,6 +165,7 @@ class UserController extends AbstractController
                         'name' => $user->getFirstname(),
                         'username' => $user->getUsername(),
                         'password' => $user->getPlainPassword(),
+                        'type' => "create"
                     ]
                 ),
                     'text/html'
@@ -172,7 +173,7 @@ class UserController extends AbstractController
 
             $mailer->send($message);
 
-            $user->setPassword($encoder->encodePassword($user, "123456"));
+            $user->setPassword($encoder->encodePassword($user, $user->getPlainPassword()));
             $user->setPlainPassword("");
 
             $manager = $this->getDoctrine()->getManager();
@@ -189,10 +190,11 @@ class UserController extends AbstractController
      * Patch user by id
      * @Rest\Patch("/api/users/{id}", name="patch_user_action")
      * @Rest\View(serializerGroups={"user"})
-     * @Rest\RequestParam(name="username",  description="Username of school", nullable=true)
-     * @Rest\RequestParam(name="firstname", description="Firstname of user",  nullable=true)
-     * @Rest\RequestParam(name="lastname",  description="Lastname of user",   nullable=true)
-     * @Rest\RequestParam(name="roles",     description="Role of user : ['USER_TEACHER', 'USER_TUTOR', 'USER_ADMIN'", nullable=true)
+     * @Rest\RequestParam(name="username",       description="Username of school", nullable=true)
+     * @Rest\RequestParam(name="firstname",      description="Firstname of user",  nullable=true)
+     * @Rest\RequestParam(name="lastname",       description="Lastname of user",   nullable=true)
+     * @Rest\RequestParam(name="plainPassword",  description="Password of user",   nullable=true)
+     * @Rest\RequestParam(name="roles",          description="Role of user : ['USER_TEACHER', 'USER_TUTOR', 'USER_ADMIN'", nullable=true)
      * @Operation(
      *     path="/api/users/{id}",
      *     operationId="PatchUser",
@@ -233,7 +235,6 @@ class UserController extends AbstractController
         }
 
         $form->submit($request->request->all(), false);
-
         if($form->isValid()) {
             $user->setUpdateAt(new \DateTime());
             if(!empty($user->getPlainPassword())){

@@ -48,8 +48,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * Plain passworw (not in database)
-     * @Assert\NotBlank(groups={"New", "FullUpdate"})
+     * Plain password (not in database)
      */
     protected $plainPassword;
 
