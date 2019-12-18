@@ -9,10 +9,12 @@ import TestModal from '../pages/PaulTests/modalTest'
 import Administration from '../pages/administration'
 import GererUtilisateur from '../pages/administration/utilisateurs'
 import EditModule from '../pages/administration/Module'
+import Test from '../pages/test'
 
 const routes = {
     '/' : () => <Home />,
     '/passwordForget' : () => <Password />,
+    '/test' : () => <Test />,
     '/seances' : () => <Seances />,
     '/seances/ajout' : () => <Ajout />,
     '/addUser' : () => <AddUser />,
