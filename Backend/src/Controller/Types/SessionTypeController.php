@@ -19,8 +19,21 @@ class SessionTypeController extends AbstractController
 
     /**
      * Get all session types
-     * @Rest\Get("/api/session_types/", name="get_session_types_action")
+     * @Rest\Get("/api/session_types", name="get_session_types_action")
      * @Rest\View(serializerGroups={"session_type"})
+     * @Operation(
+     *     path="/api/session_types",
+     *     operationId="getSessionTypesAction",
+     *     tags={"Session Type"},
+     *     summary="Get all session types",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function getSessionTypesAction(Request $request)
     {
@@ -31,6 +44,19 @@ class SessionTypeController extends AbstractController
      * Get one session type by id
      * @Rest\Get("/api/session_types/{id}", requirements={"id": "\d+"}, name="get_session_type_action")
      * @Rest\View(serializerGroups={"session_type"})
+     * @Operation(
+     *     path="/api/session_types/{id}",
+     *     operationId="getSessionTypeAction",
+     *     tags={"Session Type"},
+     *     summary="Get one session type by id",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function getSessionTypeAction(Request $request)
     {
@@ -45,6 +71,20 @@ class SessionTypeController extends AbstractController
      * Add new session type
      * @Rest\Post("/api/session_types", name="post_session_types_action")
      * @Rest\View(serializerGroups={"session_type"})
+     * @Rest\RequestParam(name="name",  description="Name of session type",   nullable=false)
+     * @Operation(
+     *     path="/api/session_types",
+     *     operationId="postSessionTypeAction",
+     *     tags={"Session Type"},
+     *     summary="Add new session type",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function postSessionTypeAction(Request $request)
     {
@@ -70,6 +110,19 @@ class SessionTypeController extends AbstractController
      * Update session type by id
      * @Rest\Patch("/api/session_types/{id}", requirements={"id": "\d+"}, name="patch_session_types_action")
      * @Rest\View(serializerGroups={"session_type"})
+     * @Operation(
+     *     path="/api/session_types/{id}",
+     *     operationId="patchSessionTypeAction",
+     *     tags={"Session Type"},
+     *     summary="Update session type by id",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function patchSessionTypeAction(Request $request)
     {
@@ -98,6 +151,19 @@ class SessionTypeController extends AbstractController
      * Delete session type by id
      * @Rest\Delete("/api/session_types/{id}", requirements={"id": "\d+"}, name="delete_session_types_action")
      * @Rest\View(statusCode=204)
+     * @Operation(
+     *     path="/api/session_types/{id}",
+     *     operationId="deleteSessionTypeAction",
+     *     tags={"Session Type"},
+     *     summary="Delete session type by id",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function deleteSessionTypeAction(Request $request)
     {

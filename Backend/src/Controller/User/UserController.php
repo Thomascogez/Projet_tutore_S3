@@ -256,4 +256,20 @@ class UserController extends AbstractController
         $manager->flush();
     }
 
+    public function randomPassword($nb_car, $chaine = 'AZERTYUIOPQSDFGHJKLMWXCVBNazertyuiopqsdfghjklmwxcvbn123456789!_-@#$%&,.?:')
+    {
+        $nb_lettres = strlen($chaine) - 1;
+        $generation = '';
+        $re = '/^.*(?=.{8,})(?=.*[!-@#$%^&(),.?":{}|<>].*[!-@#$%^&(),.?":{}|<>].*)(?=.*[A-Z].*[A-Z].*)(?=.*[a-z].*[a-z].*).*$/m';
+        while(!preg_match($re, $generation)) {
+            $generation = '';
+            for($i=0; $i < $nb_car; $i++)
+            {
+                $pos = mt_rand(0, $nb_lettres);
+                $car = $chaine[$pos];
+                $generation .= $car;
+            }
+        }
+        return $generation;
+    }
 }

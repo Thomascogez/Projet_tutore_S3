@@ -13,6 +13,33 @@ nelmio_api_doc:
                 in: header
         security:
             - Bearer: []
+        tags:
+            - name: "Login"
+              description: "Login route"
+            - name: "User"
+              description: "User route"
+            - name: "Reset Password"
+              description: "Reset Password type route"
+            - name: "Group User"
+              description: "Group user authorization"
+            - name: "Module User"
+              description: "Module user authorization"
+            - name: "Group"
+              description: "Group route"
+            - name: "Module"
+              description: "Module route"
+            - name: "Session"
+              description: "Session route"
+            - name: "Event"
+              description: "Event route"
+            - name: "Event Attachment"
+              description: "Event Attachment route"
+            - name: "Setting"
+              description: "Setting route"
+            - name: "Session Type"
+              description: "Session type route"
+            - name: "Event Type"
+              description: "Event type route"
     areas: # to filter documented areas
         path_patterns:
             - ^/api(?!/doc$) # Accepts routes under /api except /api/doc
