@@ -5,11 +5,13 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Setting website general
  * @ORM\Entity(repositoryClass="App\Repository\SettingRepository")
  */
 class Setting
 {
     /**
+     * Id of setting
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -17,12 +19,14 @@ class Setting
     private $id;
 
     /**
+     * Max event of session
      * @ORM\Column(type="integer")
      * @\Symfony\Component\Serializer\Annotation\Groups({"settings"})
      */
     private $maxEventSession;
 
     /**
+     * Max attachment of event
      * @ORM\Column(type="integer")
      * @\Symfony\Component\Serializer\Annotation\Groups({"settings"})
      */

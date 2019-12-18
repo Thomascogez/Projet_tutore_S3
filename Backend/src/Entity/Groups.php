@@ -10,12 +10,14 @@ use Symfony\Component\Serializer\Annotation\Groups as Groupss;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Group of school
  * @ORM\Entity(repositoryClass="App\Repository\GroupRepository")
  * @UniqueEntity({"name"})
  */
 class Groups
 {
     /**
+     * Id of group
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -24,6 +26,7 @@ class Groups
     private $id;
 
     /**
+     * Name of group
      * @ORM\Column(type="string", length=10)
      * @Assert\LessThanOrEqual(10)
      * @Assert\NotBlank()
@@ -32,23 +35,27 @@ class Groups
     private $name;
 
     /**
+     * Parent of group
      * @ORM\ManyToOne(targetEntity="App\Entity\Groups", inversedBy="groups")
      * @Groupss({"user", "groups", "group_info"})
      */
     private $parent;
 
     /**
+     * Child of group
      * @ORM\OneToMany(targetEntity="App\Entity\Groups", mappedBy="parent", cascade={"persist", "remove"})
      */
     private $groups;
 
     /**
+     * Session dependencies of group
      * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="groupe", cascade={"persist", "remove"})
      * @Groupss({"group_info"})
      */
     private $sessions;
 
     /**
+     * User authorized of group
      * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="groups")
      * @Groupss({"group_info"})
      */

@@ -24,7 +24,8 @@ define("SESSION_NOT_FOUND", "Session not found");
 class SessionController extends AbstractController
 {
     /**
-     * @Rest\Get("/api/sessions/{id}", requirements={"id":"\d+"})
+     * Get session by id
+     * @Rest\Get("/api/sessions/{id}", requirements={"id":"\d+"}, name="get_session_action")
      * @Rest\View(serializerGroups={"session_detail"})
      */
     public function getSessionAction(Request $request)
@@ -37,7 +38,8 @@ class SessionController extends AbstractController
     }
 
     /**
-     * @Rest\Get("/api/sessions")
+     * Get all session with filter
+     * @Rest\Get("/api/sessions", name="get_sessions_action")
      * @QueryParam(name="month", requirements="\d+", default="0", description="Number of month")
      * @QueryParam(name="year",  requirements="\d+", default="0", description="Number of year" )
      * @QueryParam(name="group", description="Group of session")
@@ -70,7 +72,8 @@ class SessionController extends AbstractController
     }
 
     /**
-     * @Rest\Post("/api/sessions")
+     * Add session
+     * @Rest\Post("/api/sessions", name="post_session_action")
      * @Rest\View(serializerGroups={"session_detail"}, statusCode=201)
      */
     public function postSessionAction(Request $request)
@@ -133,7 +136,8 @@ class SessionController extends AbstractController
     }
 
     /**
-     * @Rest\Patch("/api/sessions/{id}", requirements={"id": "\d+"})
+     * Update session by id
+     * @Rest\Patch("/api/sessions/{id}", requirements={"id": "\d+"}, name="patch_session_action")
      * @Rest\View(serializerGroups={"session_detail"})
      */
     public function patchSessionAction(Request $request)
@@ -194,7 +198,8 @@ class SessionController extends AbstractController
     }
 
     /**
-     * @Rest\Delete("/api/sessions/{id}", requirements={"id": "\d+"})
+     * Delete session by id
+     * @Rest\Delete("/api/sessions/{id}", requirements={"id": "\d+"}, name="delete_session_action")
      * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
      */
     public function deleteSessionAction(Request $request)

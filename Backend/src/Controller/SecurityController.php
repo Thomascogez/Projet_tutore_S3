@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
 use App\Controller\AbstractController;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Operation;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -16,6 +19,18 @@ class SecurityController extends AbstractController
      * @return Response
      * @Rest\RequestParam(name="username", description="Email of user")
      * @Rest\RequestParam(name="password", description="Password of user")
+     * @Operation(
+     *     operationId="Login",
+     *     tags={"Login"},
+     *     summary="Get token with connection",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function api_login(): Response
     {

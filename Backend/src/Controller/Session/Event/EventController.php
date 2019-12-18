@@ -8,9 +8,12 @@ use App\Controller\AbstractController;
 use App\Entity\Event;
 use App\Entity\EventType;
 use App\Entity\Session;
+use App\Entity\Setting;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 define("SESSIONS_NOT_FOUND", "Session not found");
 define("EVENT_NOT_FOUND", "Event not found");
@@ -19,7 +22,8 @@ class EventController extends AbstractController
 {
 
     /**
-     * @Rest\Get("/api/sessions/{id_session}/events/{id_event}", requirements={"id_session": "\d+", "id_event": "\d+"})
+     * Get event by id
+     * @Rest\Get("/api/sessions/{id_session}/events/{id_event}", name="get_event_action", requirements={"id_session": "\d+", "id_event": "\d+"})
      * @Rest\View(serializerGroups={"events"})
      */
     public function getEventAction(Request $request)
@@ -36,7 +40,8 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Rest\Get("/api/sessions/{id_session}/events", requirements={"id_session": "\d+"})
+     * Get all events
+     * @Rest\Get("/api/sessions/{id_session}/events", name="get_events_action", requirements={"id_session": "\d+"})
      * @Rest\View(serializerGroups={"events"})
      */
     public function getEventsAction(Request $request)
@@ -48,7 +53,8 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Rest\Post("/api/sessions/{id_session}/events", requirements={"id_session": "\d+"})
+     * Add new event on session
+     * @Rest\Post("/api/sessions/{id_session}/events", name="post_event_action", requirements={"id_session": "\d+"})
      * @Rest\View(serializerGroups={"events"})
      */
     public function postEventAction(Request $request)
@@ -58,6 +64,11 @@ class EventController extends AbstractController
 
         if ($session->getGroupe()->getUsers()->contains($this->getUser())) {
             $event = new Event();
+
+            $setting = $this->getDoctrine()->getRepository(Setting::class)->findAll();
+            $setting = $setting[0];
+            if(sizeof($session->getEvents()) >= $setting->getMaxEventSession())
+                return new JsonResponse(array("code" => Response::HTTP_NOT_ACCEPTABLE, "message" => "Max event is exceeded, contact the administrator"),   Response::HTTP_NOT_ACCEPTABLE);
 
             $form = $this->createForm(\App\Form\EventType::class, $event);
             $form->submit($request->request->all());
@@ -91,7 +102,8 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Rest\Patch("/api/sessions/{id_session}/events/{id_event}", requirements={"id_session": "\d+", "id_event": "\d+"})
+     * Update event by id and session id
+     * @Rest\Patch("/api/sessions/{id_session}/events/{id_event}", name="patch_event_action", requirements={"id_session": "\d+", "id_event": "\d+"})
      * @Rest\View(serializerGroups={"events"})
      */
     public function patchEventAction(Request $request)
@@ -139,7 +151,8 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Rest\Delete("/api/sessions/{id_session}/events/{id_event}", requirements={"id_session": "\d+", "id_event": "\d+"})
+     * delete event by id and session id
+     * @Rest\Delete("/api/sessions/{id_session}/events/{id_event}", name="delete_event_action", requirements={"id_session": "\d+", "id_event": "\d+"})
      * @Rest\View(statusCode=204)
      */
     public function deleteEventAction(Request $request)

@@ -17,7 +17,8 @@ class GroupController extends AbstractController
 {
 
     /**
-     * @Rest\Get("/api/groups/{id}", requirements={"id": "\d+"})
+     * Get one group by id
+     * @Rest\Get("/api/groups/{id}", name="get_group_action", requirements={"id": "\d+"})
      * @Rest\View(serializerGroups={"group_info"})
      */
     public function getGroupAction(Request $request)
@@ -29,7 +30,8 @@ class GroupController extends AbstractController
     }
 
     /**
-     * @Rest\Get("/api/groups")
+     * Get all groups
+     * @Rest\Get("/api/groups", name="get_groups_action")
      * @Rest\View(serializerGroups={"group_info"})
      */
     public function getGroupsAction(Request $request)
@@ -38,7 +40,8 @@ class GroupController extends AbstractController
     }
 
     /**
-     * @Rest\Post("/api/groups")
+     * Add group
+     * @Rest\Post("/api/groups", name="post_group_action")
      * @Rest\View(serializerGroups={"group_info"})
      */
     public function postGroupAction(Request $request)
@@ -73,7 +76,8 @@ class GroupController extends AbstractController
     }
 
     /**
-     * @Rest\Patch("/api/groups/{id}", requirements={"id": "\d+"})
+     * Update group by id
+     * @Rest\Patch("/api/groups/{id}", name="patch_group_action", requirements={"id": "\d+"})
      * @Rest\View(serializerGroups={"group_info"})
      */
     public function patchGroupAction(Request $request)
@@ -114,7 +118,8 @@ class GroupController extends AbstractController
     }
 
     /**
-     * @Rest\Delete("/api/groups/{id}", requirements={"id": "\d+"})
+     * Delete group by id
+     * @Rest\Delete("/api/groups/{id}", name="delete_group_action", requirements={"id": "\d+"})
      * @Rest\View(statusCode=204)
      */
     public function deleteGroupAction(Request $request)

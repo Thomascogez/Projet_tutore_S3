@@ -1,11 +1,6 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
-NelmioApiDocBundle:
-  resource: "@NelmioApiDocBundle/Resources/config/routing/swaggerui.xml"
-  prefix:   /api/documentation
-
-
 security:
   type: rest
   resource: App\Controller\SecurityController
@@ -13,6 +8,8 @@ security:
 users:
   type: rest
   resource: App\Controller\User\UserController
+  options:
+    expose: true
 usersGroups:
   type: rest
   resource: App\Controller\User\Groups\UserGroupsController
@@ -48,3 +45,8 @@ module:
 group:
   type: rest
   resource: App\Controller\Group\GroupController
+
+
+NelmioApiDocBundle:
+  resource: "@NelmioApiDocBundle/Resources/config/routing/swaggerui.xml"
+  prefix:   /api/documentation

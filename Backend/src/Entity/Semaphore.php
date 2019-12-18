@@ -6,11 +6,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
+ * Semaphore for status new or read
  * @ORM\Entity(repositoryClass="App\Repository\SemaphoreRepository")
  */
 class Semaphore
 {
     /**
+     * Id semaphore
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -19,6 +21,7 @@ class Semaphore
     private $id;
 
     /**
+     * User semaphore
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="semaphores")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"session_detail"})
@@ -26,12 +29,14 @@ class Semaphore
     private $user;
 
     /**
+     * Status of semaphore
      * @ORM\Column(type="integer")
      * @Groups({"user", "session_detail"})
      */
     private $status;
 
     /**
+     * Session semaphore attached
      * @ORM\ManyToOne(targetEntity="App\Entity\Session", inversedBy="semaphores")
      * @Groups({"user"})
      */

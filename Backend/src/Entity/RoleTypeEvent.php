@@ -7,11 +7,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Role for use type event
  * @ORM\Entity(repositoryClass="App\Repository\RoleTypeEventRepository")
  */
 class RoleTypeEvent
 {
     /**
+     * ID role of type event
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -20,12 +22,14 @@ class RoleTypeEvent
     private $id;
 
     /**
+     * Event type with role
      * @ORM\OneToOne(targetEntity="App\Entity\EventType", inversedBy="roleTypeEvent", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $eventType;
 
     /**
+     * If teacher authorized
      * @ORM\Column(type="boolean", nullable=true)
      * @Assert\Type("boolean")
      * @Groups({"event_type"})
@@ -33,6 +37,7 @@ class RoleTypeEvent
     private $teacher;
 
     /**
+     * If tutor authorized
      * @ORM\Column(type="boolean", nullable=true)
      * @Assert\Type("boolean")
      * @Groups({"event_type"})
