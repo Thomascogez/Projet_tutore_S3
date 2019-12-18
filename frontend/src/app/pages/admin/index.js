@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, Row, Col, Card, CardHeader, CardImg, CardBody, CardTitle, Button, CardFooter } from 'shards-react'
 import { FaUserPlus, FaUserFriends, FaBookReader } from 'react-icons/fa'
+import { TiGroup } from 'react-icons/ti'
 import { navigate } from 'hookrouter'
 import style from './admin.module.css'
 
@@ -11,14 +12,13 @@ export default function index() {
                 <Col sm="12" lg="4">
                     <Card className={style.AdminCard} >
                         <CardHeader></CardHeader>
-                        <FaUserPlus className={style.AdminCardIcon} />
+                        <TiGroup className={style.AdminCardIcon} />
                         <CardBody>
-                            <CardTitle>Ajouter un utilisateur</CardTitle>
-                            <p>Lorem ipsum dolor sit amet.</p>
+                            <CardTitle>Gérer les groupes</CardTitle>
+                            <p>Ajouter, modifier, supprimer.</p>
                             <Button className={style.AdminCardBtn}>Continuer</Button>
                         </CardBody>
                     </Card>
-
                 </Col>
                 <Col sm="12" lg="4">
                     <Card className={style.AdminCard} >
@@ -26,8 +26,8 @@ export default function index() {
                         <FaUserFriends className={style.AdminCardIcon} />
                         <CardBody>
                             <CardTitle>Gérer les utilisateur</CardTitle>
-                            <p>Lorem ipsum dolor sit amet.</p>
-                            <Button className={style.AdminCardBtn}>Continuer</Button>
+                            <p>Ajouter, modifier, supprimer.</p>
+                            <Button className={style.AdminCardBtn} onClick = {() => navigate('/administration/utilisateurs')}>Continuer</Button>
                         </CardBody>
                     </Card>
 
@@ -38,7 +38,7 @@ export default function index() {
                         <FaBookReader className={style.AdminCardIcon} />
                         <CardBody>
                             <CardTitle>Gérer les séances</CardTitle>
-                            <p>Lorem ipsum dolor sit amet.</p>
+                            <p>Ajouter, modifier, supprimer.</p>
                             <Button className={style.AdminCardBtn} onClick = {() => navigate('/administration/editModule')}>Continuer</Button>
                         </CardBody>
                     </Card>
