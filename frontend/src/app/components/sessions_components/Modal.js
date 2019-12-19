@@ -6,7 +6,7 @@ import {
   ModalFooter
 } from "shards-react";
 
-import style from '../../pages/sessions/sessions.module.css'
+import style from '../../pages/event/sessions.module.css'
 
 export default function CoursModal({name, color, open,setOpen, cours, fichier, children, typeCours }) {
     return (

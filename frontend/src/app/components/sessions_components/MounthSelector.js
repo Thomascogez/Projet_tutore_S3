@@ -1,5 +1,5 @@
 import React from 'react'
-import style from '../../pages/sessions/sessions.module.css'
+import style from '../../pages/event/sessions.module.css'
 
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 export default function WeekSelector(props) {

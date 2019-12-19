@@ -13,7 +13,7 @@ import { Form, FormInput, FormGroup } from "shards-react";
 import { FormTextarea } from "shards-react";
 import { IoMdAddCircleOutline } from "react-icons/io";
 
-import style from './addSession.module.css'
+import style from './addEvent.module.css'
 
 export default function Ajout() {
 
