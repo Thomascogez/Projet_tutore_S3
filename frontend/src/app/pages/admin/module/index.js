@@ -1,5 +1,4 @@
 import React from 'react'
-import style from '../../sessions/sessions.module.css'
 import adminStyle from '../../../components/administration_components/module/adminmodule.module.css';
 import {
     Button
