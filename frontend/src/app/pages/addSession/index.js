@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState } from 'react';
+import React, {useState} from 'react'
 import { Container, Row, Col, FormSelect } from 'shards-react'
 
 import { Button,ButtonGroup,} from "shards-react";
@@ -8,9 +7,9 @@ import { FormTextarea } from "shards-react";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import style from './addSession.module.css'
 
-export default function addSession()
+export default function AjoutSeance()
 {
-    const [status, setStatus]   = useState( false );
+    const [status, setStatus] = useState( false );
 
     return (
         <Container fluid>
