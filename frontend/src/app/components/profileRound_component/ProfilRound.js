@@ -14,7 +14,7 @@ export default function ProfilRound({bgcolor,fcolor,letter})
       
         <DropdownMenu right>
             <NavLink><DropdownItem><FaUserNinja style={{marginRight:"15px"}}/>Voir profil</DropdownItem></NavLink>
-            <NavLink><DropdownItem><FaCog style={{marginRight:"15px"}}/>Options</DropdownItem></NavLink>
+            <NavLink onClick={() => navigate('/options')}><DropdownItem><FaCog style={{marginRight:"15px"}}/>Options</DropdownItem></NavLink>
             <NavLink onClick={() => navigate('/administration')}><DropdownItem><FaUserCog style={{marginRight:"15px"}}/>Administration</DropdownItem></NavLink>
             <NavLink onClick={() => navigate('/')}><DropdownItem><FaPowerOff style={{marginRight:"15px"}}/>Se déconnecter</DropdownItem></NavLink>
         </DropdownMenu>
