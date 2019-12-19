@@ -7,11 +7,14 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import store from './app/providers/store'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 ReactDOM.render(
-        <Provider store={store}>
-                <App />
-        </Provider>
+        <div>
+            <ToastContainer />
+            <App />
+        </div>
 
 
 , document.getElementById('root'));

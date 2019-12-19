@@ -29,7 +29,6 @@ const routes = {
     '/administration/editModule' : () => <EditModule />,
     '/administration/utilisateurs' : () =><GererUtilisateur/>,
     '/userProfil' : () => <Userprofil/>,
-    '/administration/utilisateurs' : () =><GererUtilisateur/>,
     '/administration/groupe' : () => <EditGroup />,
     '/seances/ajoutSeance': () => <AddSession />
 };

@@ -12,28 +12,23 @@ import { navigate } from "hookrouter";
 import axios from 'axios';
 import {PASSWORD_FORGET_GET} from "../../../types/apiConst";
 import Loader from "react-loader-spinner";
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 
+toast.configure();
 
 export default function Home() {
     const [username, setUsername] = useState("");
     const [errorUsername, setErrorUsername] = useState("");
     const [loading, setLoading] = useState(false);
-    useEffect(()=>{
-        console.log("load")
-    },[])
 
     const sendForget = () => {
         setLoading(!loading)
-
         axios.get(PASSWORD_FORGET_GET + '?username=' + username)
             .then(res => {
-                toast.success("Un email vient de vous être envoyé !");
-                console.log(toast);
-                //navigate('/');
+                toast.success("Un email vous à été envoyé !");
+                navigate('/');
             })
             .catch(error => {
-                toast("Un email vient de vous être envoyé !");
                 setLoading(false)
                 setErrorUsername(error.response.data.message);
             })

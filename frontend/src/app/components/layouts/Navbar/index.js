@@ -12,6 +12,10 @@ export default function NavBar() {
 
     var location = window.location.pathname;
 
+    const logout = () => {
+        localStorage.removeItem('token');
+    };
+
     return (
         <Navbar className={style.Navbar} expand="md">
             <NavbarBrand className={style.Brand} onClick = {() => navigate('/seances')} > <img src={logo} alt="SchoolShare Logo" />schoolShare</NavbarBrand>
