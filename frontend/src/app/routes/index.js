@@ -15,11 +15,14 @@ import AddSession from '../pages/addSession'
 import Test from '../pages/test'
 import PasswordReset from "../pages/home/passwordReset";
 
+
+import ProtectedRoute from '../utils/protectedRoute'
+
 const routes = {
     '/' : () => <Home />,
     '/passwordForget' : () => <Password />,
     '/passwordReset/:token' : (token) => <PasswordReset token={token} />,
-    '/test' : () => <Test />,
+    '/test' : () =><ProtectedRoute> <Test /></ProtectedRoute>,
     '/options' : () => <Options />,
     '/seances' : () => <Seances />,
     '/seances/addEvent' : () => <AddEvent />,
