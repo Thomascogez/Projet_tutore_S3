@@ -7,61 +7,51 @@ import { FormTextarea } from "shards-react";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import style from './addSession.module.css'
 
+import ListeModule from '../../components/addSession_components/listeModule'
+import ListeType from '../../components/addSession_components/listeType'
+import ListeGroupe from '../../components/addSession_components/listeGroupe'
+
 export default function AjoutSeance()
 {
+    const lstModule = ["Math", "Algo", "Bado", "MPA"];
+    const lstType   = ["TP", "TD", "Amphi"];
+    const lstGroupe = ["J1", "C2", "B1"];
+
     const [module, setModule] = useState("module");
     const [type, setType]     = useState("type");
     const [group, setGroup]   = useState("groupe");
-    //const [button, setButton] = useState(false);
 
     return (
         <Container fluid>
             <h1 className={style.title}>Ajout séance</h1>
             <div className={style.Border}>                
                 <form> 
-                    { (module == "module") ?
-                            <FormSelect onChange={(e) => setModule(e.target.value)} className= {style.AddSubject}>
-                                <option value="module">Module</option>
-                                <option value="systeme">Systeme</option>
-                                <option value="algo">Algo</option>
-                                <option value="bado">BADO</option>
-                                <option value="cpoa">CPOA</option>
-                            </FormSelect>
-                    : <div></div>
+                    <FormSelect onChange={(e) => setModule(e.target.value)} className= {style.AddSubject}>
+                        <option value="module">Module</option>
+                        <ListeModule lstModule={lstModule} />
+                    </FormSelect>
+                    
+                    { (module != "module") ?
+                        <FormSelect  onChange={(e) => setType(e.target.value)} className= {style.AddSubject}>
+                            <option value="type">Type</option>
+                            <ListeType lstType={lstType} />
+                        </FormSelect>
+                        : <React.Fragment/>
                     }
                     
-                    { (module != "module" && type == "type") ?
-                        <div>
-                            <FormSelect  onChange={(e) => setType(e.target.value)} className= {style.AddSubject}>
-                                <option value="type">Type</option>
-                                <option value="td">TD</option>
-                                <option value="tp">TP</option>
-                                <option value="amphi">Amphi</option>
-                            </FormSelect>
-                            <Button className={style.AddSubject} onClick={() => setType("type", setModule("module"))}>Retour</Button>
-                        </div> : <div></div>
-                    }
-                    
-                    { (type != "type") ?
-                        <div>
-                            <FormSelect  onChange={(e) => setGroup(e.target.value)} className= {style.AddSubject}>
+                    { (type != "type" && module != "module") ?
+                       
+                        <FormSelect  onChange={(e) => setGroup(e.target.value)} className= {style.AddSubject}>
                             <option value="groupe" >Groupe</option>
-                            <option value="a1" >A1</option>
-                            <option value="a2" >A2</option>
-                            <option value="b1" >B1</option>
-                            <option value="b2" >B2</option>
-                            <option value="c2" >C2</option>
-                            </FormSelect>
-                            <Button className={style.AddSubject} onClick={() => setGroup("groupe", setType("type"))}>Retour</Button>
-                        </div> : <div></div>
+                            <ListeGroupe lstGroupe={lstGroupe} />
+                        </FormSelect>
+                    : <React.Fragment/>
                     }
 
-                    { (group != "groupe") ?
-                    <Button className={style.AddSubject}>Valider</Button>
-                    : <div></div>
+                    { (group != "groupe" && module!="module" && type!="type") ?
+                        <Button className={style.AddSubject}>Valider</Button>
+                    : <React.Fragment/>
                     }
-
-                    <span className= {style.AddSubject}>Module : {module} Type : {type} Groupe : {group}</span>
                 </form>
             </div>
         </Container>
