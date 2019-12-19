@@ -13,11 +13,12 @@ import EditModule from '../pages/admin/module'
 import Options from '../pages/options'
 import AddSession from '../pages/addSession'
 import Test from '../pages/test'
-import { A } from 'hookrouter'
+import PasswordReset from "../pages/home/passwordReset";
 
 const routes = {
     '/' : () => <Home />,
     '/passwordForget' : () => <Password />,
+    '/passwordReset/:token' : (token) => <PasswordReset token={token} />,
     '/test' : () => <Test />,
     '/options' : () => <Options />,
     '/seances' : () => <Seances />,
