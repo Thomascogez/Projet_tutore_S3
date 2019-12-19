@@ -14,8 +14,8 @@ export default function UserProfile() {
                     <Card className={style.UserCard} >
                         <ProfileRound className={style.UserProfileLetter} bgcolor='red' letter="t" fcolor="#fff" />
                         <CardBody>
-                            <CardTitle>Thomas Cogez--Allix</CardTitle>
-                            <Badge theme="light">ct183385</Badge>
+                            <CardTitle>John Doe</CardTitle>
+                            <Badge theme="light">dj157896</Badge>
                         </CardBody>
 
                     </Card>
@@ -37,9 +37,10 @@ export default function UserProfile() {
                             </div>
                             <Collapse open={collapseEdit}>
                                 <Row>
-                                    <Col sm="12" lg="6"><FormGroup><label htmlFor="#name">Nom</label><FormInput id="#name" placeholder="Votre nom ..." /></FormGroup></Col>
-                                    <Col sm="12" lg="6"><FormGroup><label htmlFor="#surname">Prénom</label><FormInput id="#surname" placeholder="Votre prénom ..." /></FormGroup></Col>
-                                    <Col sm="12" lg="6"><FormGroup><label htmlFor="#password">Mot de passe</label><FormInput id="#password" placeholder="Votre nom ..." /></FormGroup></Col>
+                                    <Col sm="12" lg="6"><FormGroup><label htmlFor="#name">Nom</label><FormInput type="text" value="John" id="#name" placeholder="Votre nom ..." /></FormGroup></Col>
+                                    <Col sm="12" lg="6"><FormGroup><label htmlFor="#surname">Prénom</label><FormInput type="text" value="Doe" id="#surname" placeholder="Votre prénom ..." /></FormGroup></Col>
+                                    <Col sm="12" lg="6"><FormGroup><label htmlFor="#password">Nouveau mot de passe</label><FormInput type="password"  id="#password" placeholder="Nouveau mot de passe ..." /></FormGroup></Col>
+                                    <Col sm="12" lg="6"><FormGroup><label htmlFor="#password">Confirmer Nouveau mot de passe</label><FormInput id="#password" placeholder="Confirmer votre nouveau mot de passe ..." /></FormGroup></Col>
                                     
                                 </Row>
                                 <Button style={{width:"100%",margin:"10px auto 0px auto"}} theme="primary">Valider vos Changement</Button>
