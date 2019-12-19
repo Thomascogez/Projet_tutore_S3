@@ -16,7 +16,7 @@ export default function index() {
                         <CardBody>
                             <CardTitle>Gérer les groupes</CardTitle>
                             <p>Ajouter, modifier, supprimer.</p>
-                            <Button className={style.AdminCardBtn}>Continuer</Button>
+                            <Button className={style.AdminCardBtn} onClick = {() => navigate('/administration/groupe')}>Continuer</Button>
                         </CardBody>
                     </Card>
                 </Col>

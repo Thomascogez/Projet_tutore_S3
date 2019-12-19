@@ -14,18 +14,18 @@ export default function NavBar() {
 
     return (
         <Navbar className={style.Navbar} expand="md">
-        <NavbarBrand className={style.Brand} onClick = {() => navigate('/seances')} > <img src={logo} alt="SchoolShare Logo" />schoolShare</NavbarBrand>
-        <NavbarToggler className= {style.NavBarToggler} onClick={() => setOpen(!open)} />
-                <Collapse open={open} navbar>
-                    <Nav navbar className="ml-auto">
-                        <NavItem>
-                            {(location !== '/' && location !== '/passwordForget') ? (
-                                <ProfilRound bgcolor="white" fcolor="black" letter="B"/>
-                                ) : ''
-                            }
-                        </NavItem>
-                    </Nav>
-                </Collapse>
+            <NavbarBrand className={style.Brand} onClick = {() => navigate('/seances')} > <img src={logo} alt="SchoolShare Logo" />schoolShare</NavbarBrand>
+            <NavbarToggler className= {style.NavBarToggler} onClick={() => setOpen(!open)} />
+            <Collapse open={open} navbar>
+                <Nav navbar className="ml-auto">
+                    <NavItem>
+                        {(location !== '/' && location !== '/passwordForget') ? (
+                            <ProfilRound bgcolor="white" fcolor="black" letter="B"/>
+                            ) : ''
+                        }
+                    </NavItem>
+                </Nav>
+            </Collapse>
       </Navbar>
     )
 }

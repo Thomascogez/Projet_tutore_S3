@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-define("USER_NOT_FOUND", "User is not found");
+define("USER_NOT_FOUND", "Utilisateur non trouvé");
 
 class UserController extends AbstractController
 {
