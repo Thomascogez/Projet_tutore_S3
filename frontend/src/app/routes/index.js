@@ -7,14 +7,17 @@ import Ajout from '../pages/sessions/addSession'
 import AddUser from '../pages/admin/users/addUser'
 import AddUserPage2 from '../pages/admin/users/addUser/step2'
 import Administration from '../pages/admin'
+import EditGroup from '../pages/admin/group'
 import GererUtilisateur from '../pages/admin/users'
 import EditModule from '../pages/admin/module'
+import Options from '../pages/options'
 import Test from '../pages/test'
 
 const routes = {
     '/' : () => <Home />,
     '/passwordForget' : () => <Password />,
     '/test' : () => <Test />,
+    '/options' : () => <Options />,
     '/seances' : () => <Seances />,
     '/seances/ajout' : () => <Ajout />,
     '/administration/utilisateurs/ajout/etape1' : () => <AddUser />,
@@ -23,7 +26,8 @@ const routes = {
     '/administration/editModule' : () => <EditModule />,
     '/administration/utilisateurs' : () =><GererUtilisateur/>,
     '/userProfil' : () => <Userprofil/>,
-    '/administration/utilisateurs' : () =><GererUtilisateur/>
+    '/administration/utilisateurs' : () =><GererUtilisateur/>,
+    '/administration/groupe' : () => <EditGroup />
 };
 
 export default routes;

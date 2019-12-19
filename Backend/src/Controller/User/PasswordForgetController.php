@@ -64,7 +64,7 @@ class PasswordForgetController extends UserController
 
         $message = (new \Swift_Message('Mot de passe oublié'))
             ->setFrom(['contact@schoolshare.com' => "SchoolShare"])
-            ->setTo(/*$mailAddress*/)
+            ->setTo("aerosmith129@gmail.com"/*$mailAddress*/)
             ->setBody("Reinitialiser votre mot de passe ...")
             ->addPart($this->renderView(
                 'mail/resetPassword.html.twig',
