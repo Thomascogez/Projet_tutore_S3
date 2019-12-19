@@ -8,7 +8,7 @@ import TestModal from '../pages/PaulTests/modalTest'
 import Administration from '../pages/administration'
 import GererUtilisateur from '../pages/administration/utilisateurs'
 import EditModule from '../pages/administration/Module'
-
+import Userprofil from '../pages/userProfil'
 const routes = {
     '/' : () => <Home />,
     '/seances' : () => <Seances />,
@@ -18,8 +18,8 @@ const routes = {
     '/modalTest' : () => <TestModal />,
     '/administration' : () =><Administration/>,
     '/administration/editModule' : () => <EditModule />,
-    '/administration/utilisateurs' : () =><GererUtilisateur/>
+    '/administration/utilisateurs' : () =><GererUtilisateur/>,
+    '/userProfil' : () => <Userprofil/>
 }
-
 
 export default routes;

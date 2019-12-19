@@ -1,0 +1,35 @@
+.content{
+    margin-top: 10%;
+    margin-left: 25%;
+    height: 55%;
+    width: 50%;
+    background-color: rgba(114, 114, 114, 0.562);
+}
+
+.id{
+    background-color: #BE4F23;
+    height: 10%;
+    width: 10%;
+    margin-left: 2%;
+    margin-bottom: 2%;
+}
+
+
+.fname{
+    background-color: #BE4F23;
+    height: 10%;
+    width: 10%;
+    margin-left: 2%;
+    margin-bottom: 2%;
+}
+
+.name{
+    background-color: #BE4F23;
+    height: 10%;
+    width: 10%;
+    margin-left: 2%;
+}
+
+.line{
+
+}

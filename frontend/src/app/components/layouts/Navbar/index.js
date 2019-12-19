@@ -13,7 +13,7 @@ export default function NavBar() {
     return (
         <Navbar className={style.Navbar} expand="md">
         <NavbarBrand className={style.Brand} onClick = {() => navigate('/')} > <img src={logo} alt="SchoolShare Logo" />schoolShare</NavbarBrand>
-        <NavbarToggler className= {style.NavBarToggler} onClick={() => setOpen(!open)} />
+        <NavbarToggler className= {style.NavBarToggler} onClick={() => setOpen(!open)}/>
         <Collapse open={open} navbar>
           <Nav navbar className="ml-auto">
             <NavItem>
