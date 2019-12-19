@@ -15,6 +15,9 @@ import { navigate } from "hookrouter";
 import axios from 'axios';
 import {PASSWORD_FORGET_VERIFY} from "../../../types/apiConst";
 import Loader from 'react-loader-spinner'
+import { toast } from 'react-toastify';
+
+toast.configure();
 
 export default function PasswordReset(props) {
     const [loading, setLoading] = useState(true);
@@ -37,6 +40,7 @@ export default function PasswordReset(props) {
 
         axios.patch(PASSWORD_FORGET_VERIFY, req)
             .then(res => {
+                toast.success("Un nouveau mot de passe vous à été envoyé en email !");
                 navigate('/');
             })
             .catch(error => {
