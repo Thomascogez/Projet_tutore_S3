@@ -6,7 +6,6 @@ import {
   InputGroupText,
   FormInput
 } from "shards-react";
-import TransitionGroup from "react-addons-transition-group";
 import { FaSearch } from "react-icons/fa";
 
 import User from "../../../components/administration_components/utilisateurs/User";

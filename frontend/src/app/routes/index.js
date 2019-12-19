@@ -10,6 +10,7 @@ import Administration from '../pages/admin'
 import EditGroup from '../pages/admin/group'
 import GererUtilisateur from '../pages/admin/users'
 import EditModule from '../pages/admin/module'
+import Options from '../pages/options'
 import Test from '../pages/test'
 import PasswordReset from "../pages/home/passwordReset";
 
@@ -18,6 +19,7 @@ const routes = {
     '/passwordForget' : () => <Password />,
     '/passwordReset/:token' : (token) => <PasswordReset token={token} />,
     '/test' : () => <Test />,
+    '/options' : () => <Options />,
     '/seances' : () => <Seances />,
     '/seances/ajout' : () => <Ajout />,
     '/administration/utilisateurs/ajout/etape1' : () => <AddUser />,
