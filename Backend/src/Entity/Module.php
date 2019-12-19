@@ -45,9 +45,8 @@ class Module
 
     /**
      * Color for frontend module
-     * @ORM\Column(type="string", length=7)
+     * @ORM\Column(type="string", length=7, nullable=true)
      * @Assert\LessThanOrEqual(7)
-     * @Assert\NotBlank()
      * @Groups({"user", "session_detail", "modules", "modules_info"})
      */
     private $color;

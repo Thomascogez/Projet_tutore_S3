@@ -27,6 +27,9 @@ security:
         doc:
             pattern: ^/api/documentation
             security: false
+        reset:
+            pattern: ^/api/users/passwordReset
+            security: false
         api:
             pattern: ^/api
             stateless: true

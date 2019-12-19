@@ -1,25 +1,29 @@
 import React from 'react'
 import Home from '../pages/home'
-import Seances from '../pages/seances'
-import Ajout from '../pages/seances/ajout'
-import AjoutUser from '../pages/ajoutUser'
-import AjoutUser2 from '../pages/ajoutUser/page2'
-import TestModal from '../pages/PaulTests/modalTest'
-import Administration from '../pages/administration'
-import GererUtilisateur from '../pages/administration/utilisateurs'
-import EditModule from '../pages/administration/Module'
 import Userprofil from '../pages/userProfil'
+import Password from '../pages/home/passwordForget'
+import Seances from '../pages/sessions'
+import Ajout from '../pages/sessions/addSession'
+import AddUser from '../pages/admin/users/addUser'
+import AddUserPage2 from '../pages/admin/users/addUser/step2'
+import Administration from '../pages/admin'
+import GererUtilisateur from '../pages/admin/users'
+import EditModule from '../pages/admin/module'
+import Test from '../pages/test'
+
 const routes = {
     '/' : () => <Home />,
+    '/passwordForget' : () => <Password />,
+    '/test' : () => <Test />,
     '/seances' : () => <Seances />,
     '/seances/ajout' : () => <Ajout />,
-    '/ajoutUser' : () => <AjoutUser />,
-    '/ajoutUser/page2' : () => <AjoutUser2 />,
-    '/modalTest' : () => <TestModal />,
-    '/administration' : () =><Administration/>,
+    '/administration/utilisateurs/ajout/etape1' : () => <AddUser />,
+    '/administration/utilisateurs/ajout/etape2' : () => <AddUserPage2 />,
+    '/administration' : () =><Administration />,
     '/administration/editModule' : () => <EditModule />,
     '/administration/utilisateurs' : () =><GererUtilisateur/>,
-    '/userProfil' : () => <Userprofil/>
-}
+    '/userProfil' : () => <Userprofil/>,
+    '/administration/utilisateurs' : () =><GererUtilisateur/>
+};
 
 export default routes;

@@ -14,6 +14,8 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Nelmio\ApiDocBundle\Annotation\Operation;
+use Swagger\Annotations as SWG;
 
 define("SESSIONS_NOT_FOUND", "Session not found");
 define("EVENT_NOT_FOUND", "Event not found");
@@ -25,6 +27,19 @@ class EventController extends AbstractController
      * Get event by id
      * @Rest\Get("/api/sessions/{id_session}/events/{id_event}", name="get_event_action", requirements={"id_session": "\d+", "id_event": "\d+"})
      * @Rest\View(serializerGroups={"events"})
+     * @Operation(
+     *     path="/api/sessions/{id_session}/events/{id_event}",
+     *     operationId="getEventAction",
+     *     tags={"Event"},
+     *     summary="Get event by id",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function getEventAction(Request $request)
     {
@@ -43,6 +58,19 @@ class EventController extends AbstractController
      * Get all events
      * @Rest\Get("/api/sessions/{id_session}/events", name="get_events_action", requirements={"id_session": "\d+"})
      * @Rest\View(serializerGroups={"events"})
+     * @Operation(
+     *     path="/api/sessions/{id_session}/events",
+     *     operationId="getEventsAction",
+     *     tags={"Event"},
+     *     summary="Get all events",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function getEventsAction(Request $request)
     {
@@ -55,7 +83,24 @@ class EventController extends AbstractController
     /**
      * Add new event on session
      * @Rest\Post("/api/sessions/{id_session}/events", name="post_event_action", requirements={"id_session": "\d+"})
-     * @Rest\View(serializerGroups={"events"})
+     * @Rest\View(serializerGroups={"events"}, statusCode=201)
+     * @Rest\RequestParam(name="name",     description="Name of event",     nullable=false)
+     * @Rest\RequestParam(name="type",     description="Type of event",     nullable=false)
+     * @Rest\RequestParam(name="duration", description="Duration of event", nullable=true )
+     * @Rest\RequestParam(name="dueAt",    description="Due At of event",   nullable=true )
+     * @Operation(
+     *     path="/api/sessions/{id_session}/events",
+     *     operationId="postEventAction",
+     *     tags={"Event"},
+     *     summary="Add new event on session",
+     *     @SWG\Response(
+     *         response="201",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function postEventAction(Request $request)
     {
@@ -105,6 +150,23 @@ class EventController extends AbstractController
      * Update event by id and session id
      * @Rest\Patch("/api/sessions/{id_session}/events/{id_event}", name="patch_event_action", requirements={"id_session": "\d+", "id_event": "\d+"})
      * @Rest\View(serializerGroups={"events"})
+     * @Rest\RequestParam(name="name",     description="Name of event",     nullable=true)
+     * @Rest\RequestParam(name="type",     description="Type of event",     nullable=true)
+     * @Rest\RequestParam(name="duration", description="Duration of event", nullable=true)
+     * @Rest\RequestParam(name="dueAt",    description="Due At of event",   nullable=true)
+     * @Operation(
+     *     path="/api/sessions/{id_session}/events/{id_event}",
+     *     operationId="patchEventAction",
+     *     tags={"Event"},
+     *     summary="Update event by id and session id",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function patchEventAction(Request $request)
     {
@@ -154,6 +216,19 @@ class EventController extends AbstractController
      * delete event by id and session id
      * @Rest\Delete("/api/sessions/{id_session}/events/{id_event}", name="delete_event_action", requirements={"id_session": "\d+", "id_event": "\d+"})
      * @Rest\View(statusCode=204)
+     * @Operation(
+     *     path="/api/sessions/{id_session}/events/{id_event}",
+     *     operationId="deleteEventAction",
+     *     tags={"Event"},
+     *     summary="Delete event by id and session id",
+     *     @SWG\Response(
+     *         response="204",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function deleteEventAction(Request $request)
     {

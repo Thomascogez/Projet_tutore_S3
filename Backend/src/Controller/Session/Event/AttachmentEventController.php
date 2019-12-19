@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Nelmio\ApiDocBundle\Annotation\Operation;
+use Swagger\Annotations as SWG;
 
 define("ATTACHMENT_NOT_FOUND", "Attachment not found");
 
@@ -23,6 +25,19 @@ class AttachmentEventController extends EventController
      * Get one attachment of event by attachment id
      * @Rest\Get("/api/sessions/{id_session}/events/{id_event}/attachments/{id_attachment}", requirements={"id_session": "\d+", "id_event": "\d+", "id_attachment": "\d+"}, name="get_attachment_event_action")
      * @Rest\View(serializerGroups={"attachment"})
+     * @Operation(
+     *     path="/api/sessions/{id_session}/events/{id_event}/attachments/{id_attachment}",
+     *     operationId="getAttachmentEventAction",
+     *     tags={"Event Attachment"},
+     *     summary="Get one attachment of event by attachment id",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function getAttachmentEventAction(Request $request)
     {
@@ -49,6 +64,19 @@ class AttachmentEventController extends EventController
      * Get all attachment of event by event id
      * @Rest\Get("/api/sessions/{id_session}/events/{id_event}/attachments", name="get_attachment_events_action", requirements={"id_session": "\d+", "id_event": "\d+"})
      * @Rest\View(serializerGroups={"attachment"})
+     * @Operation(
+     *     path="/api/sessions/{id_session}/events/{id_event}/attachments",
+     *     operationId="getAttachmentsEventAction",
+     *     tags={"Event Attachment"},
+     *     summary="Get all attachment of event by event id",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function getAttachmentsEventAction(Request $request)
     {
@@ -69,6 +97,20 @@ class AttachmentEventController extends EventController
      * Add new attachment on event id
      * @Rest\Post("/api/sessions/{id_session}/events/{id_event}/attachments", name="post_attachment_event_action", requirements={"id_session": "\d+", "id_event": "\d+"})
      * @Rest\View(serializerGroups={"attachment"})
+     * @Rest\FileParam(name="source", description="Source file", nullable=false)
+     * @Operation(
+     *     path="/api/sessions/{id_session}/events/{id_event}/attachments",
+     *     operationId="postAttachmentsEventAction",
+     *     tags={"Event Attachment"},
+     *     summary="Add new attachment on event id",
+     *     @SWG\Response(
+     *         response="201",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function postAttachmentsEventAction(Request $request)
     {
@@ -128,6 +170,19 @@ class AttachmentEventController extends EventController
      * Delete attachment by attachment id and event id
      * @Rest\Delete("/api/sessions/{id_session}/events/{id_event}/attachments/{id_attachment}", name="delete_attachment_event_action", requirements={"id_session": "\d+", "id_event": "\d+", "id_attachment": "\d+"})
      * @Rest\View(statusCode=204)
+     * @Operation(
+     *     path="/api/sessions/{id_session}/events/{id_event}/attachments/{id_attachment}",
+     *     operationId="deleteAttachmentEventAction",
+     *     tags={"Event Attachment"},
+     *     summary="Delete attachment by attachment id and event id",
+     *     @SWG\Response(
+     *         response="204",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function deleteAttachmentEventAction(Request $request)
     {

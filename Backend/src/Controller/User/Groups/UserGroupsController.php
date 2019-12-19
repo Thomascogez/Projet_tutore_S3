@@ -7,9 +7,11 @@ use App\Controller\User\UserController;
 use App\Entity\Groups;
 use App\Entity\User;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Nelmio\ApiDocBundle\Annotation\Operation;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Swagger\Annotations as SWG;
 
 define("GROUP_NOT_FOUND", "Group is not found");
 
@@ -20,6 +22,19 @@ class UserGroupsController extends UserController
      * Get all user groups with id user
      * @Rest\Get("/api/users/{id}/groups", requirements={"id": "\d+"}, name="get_users_groups_action")
      * @Rest\View(serializerGroups={"groups"})
+     * @Operation(
+     *     path="/api/users/{id}/groups",
+     *     operationId="getUserGroupsAction",
+     *     tags={"Group User"},
+     *     summary="Get all user groups with id user",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function getUserGroupsAction(Request $request)
     {
@@ -33,6 +48,19 @@ class UserGroupsController extends UserController
      * Get one user group with id user and id group
      * @Rest\Get("/api/users/{id}/groups/{id_group}", requirements={"id": "\d+", "id_group": "\d+"}, name="get_user_group_action")
      * @Rest\View(serializerGroups={"groups"})
+     * @Operation(
+     *     path="/api/users/{id}/groups/{id_group}",
+     *     operationId="getUserGroupAction",
+     *     tags={"Group User"},
+     *     summary="Get one user group with id user and id group",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function getUserGroupAction(Request $request)
     {
@@ -52,6 +80,20 @@ class UserGroupsController extends UserController
      * Add group on user with id user
      * @Rest\Post("/api/users/{id}/groups", name="add_users_groups_action")
      * @Rest\View(serializerGroups={"user"})
+     * @Rest\RequestParam(name="group",  description="Group name", nullable=false)
+     * @Operation(
+     *     path="/api/users/{id}/groups",
+     *     operationId="addUserGroupAction",
+     *     tags={"Group User"},
+     *     summary="Add group on user with id user",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function addUserGroupAction(Request $request)
     {
@@ -80,6 +122,19 @@ class UserGroupsController extends UserController
      * Delete group on user with id user and id group
      * @Rest\Delete("/api/users/{id}/groups/{id_group}", requirements={"id": "\d+", "id_group": "\d+"}, name="delete_users_groups_action")
      * @Rest\View(serializerGroups={"user"})
+     * @Operation(
+     *     path="/api/users/{id}/groups/{id_group}",
+     *     operationId="deleteUserGroupAction",
+     *     tags={"Group User"},
+     *     summary="Delete group on user with id user and id group",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function deleteUserGroupAction(Request $request)
     {

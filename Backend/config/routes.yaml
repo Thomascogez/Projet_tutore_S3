@@ -4,47 +4,81 @@
 security:
   type: rest
   resource: App\Controller\SecurityController
+  options:
+    expose: true
+
 
 users:
   type: rest
   resource: App\Controller\User\UserController
   options:
     expose: true
+
 usersGroups:
   type: rest
   resource: App\Controller\User\Groups\UserGroupsController
+  options:
+    expose: true
+
 usersModule:
   type: rest
   resource: App\Controller\User\Module\UserModulesController
+  options:
+    expose: true
+
 
 eventType:
   type: rest
   resource: App\Controller\Types\EventTypeController
+  options:
+    expose: true
+
 sessionType:
   type: rest
   resource: App\Controller\Types\SessionTypeController
+  options:
+    expose: true
+
 
 setting:
   type: rest
   resource: App\Controller\Setting\SettingController
+  options:
+    expose: true
+
 
 session:
   type: rest
   resource: App\Controller\Session\SessionController
+  options:
+    expose: true
+
 sessionAttachment:
   type: rest
   resource: App\Controller\Session\Event\AttachmentEventController
+  options:
+    expose: true
+
 sessionEvent:
   type: rest
   resource: App\Controller\Session\Event\EventController
+  options:
+    expose: true
+
 
 module:
   type: rest
   resource: App\Controller\Module\ModuleController
+  options:
+    expose: true
+
 
 group:
   type: rest
   resource: App\Controller\Group\GroupController
+  options:
+    expose: true
+
 
 
 NelmioApiDocBundle:

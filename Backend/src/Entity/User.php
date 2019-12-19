@@ -48,8 +48,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * Plain passworw (not in database)
-     * @Assert\NotBlank(groups={"New", "FullUpdate"})
+     * Plain password (not in database)
      */
     protected $plainPassword;
 
@@ -97,7 +96,7 @@ class User implements UserInterface
 
     /**
      * All session of user
-     * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="user", cascade={"remove"})
      */
     private $sessions;
 
@@ -117,9 +116,14 @@ class User implements UserInterface
 
     /**
      * All event created by user
-     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="user", cascade={"remove"})
      */
     private $events;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\PasswordForget", mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $passwordForget;
 
     public function __construct()
     {
@@ -403,6 +407,23 @@ class User implements UserInterface
             if ($event->getUser() === $this) {
                 $event->setUser(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getPasswordForget(): ?PasswordForget
+    {
+        return $this->passwordForget;
+    }
+
+    public function setPasswordForget(PasswordForget $passwordForget): self
+    {
+        $this->passwordForget = $passwordForget;
+
+        // set the owning side of the relation if necessary
+        if ($passwordForget->getUser() !== $this) {
+            $passwordForget->setUser($this);
         }
 
         return $this;

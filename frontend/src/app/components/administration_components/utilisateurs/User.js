@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Button, FormInput, ButtonGroup } from "shards-react";
+import { Button, FormInput, ButtonGroup, Modal, ModalHeader, ModalBody } from "shards-react";
 import { FaCheck, FaTimes } from "react-icons/fa";
-export default function User({ identifier, name, surname, groups, roles }) {
-  const [editing, setEditing] = useState(false);
 
+export default function User({ identifier, name, surname, groups, roles }) {
+  const [editing, setEditing]     = useState(false);
+  const [openModal, setopenModal] = useState(false);
   const handleValidate = () => {
     //when validate editing
     setEditing(false);
@@ -13,6 +14,7 @@ export default function User({ identifier, name, surname, groups, roles }) {
     //when cancel editing
     setEditing(false);
   };
+
   return (
   
       <tr>
@@ -28,10 +30,10 @@ export default function User({ identifier, name, surname, groups, roles }) {
           )}
         </td>
         <td>
-          {editing ? <FormInput value={groups} placeholder="groups" /> : groups}
+          {editing ? <Button onClick ={() => setopenModal(!openModal) } theme="primary">Voir groupe</Button> : groups}
         </td>
         <td>
-          {editing ? <FormInput value={surname} placeholder="roles" /> : roles}
+          {editing ? <Button theme="warning">Voir les autorisations</Button> : roles}
         </td>
         <td>
           {editing ? (
@@ -47,6 +49,10 @@ export default function User({ identifier, name, surname, groups, roles }) {
             <Button onClick={() => setEditing(true)}>Edition</Button>
           )}
         </td>
+        <Modal open={openModal} toggle={() =>setopenModal(!openModal)}>
+          <ModalHeader>Header</ModalHeader>
+          <ModalBody>👋 Hello there!</ModalBody>
+        </Modal>
       </tr>
    
   );

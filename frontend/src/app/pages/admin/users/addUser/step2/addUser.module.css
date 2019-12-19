@@ -1,0 +1,51 @@
+.BoxGenerale {
+    margin: 100px auto 0px auto;
+    padding: 40px 500px 0px 500px;
+}
+
+.Box {   
+    width: 400px;
+    height: 500px !important;
+    padding: 40px 30px 0px 30px;
+    float: left;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3), inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.Box2 {
+    width: 400px;
+    height: 500px !important;
+    padding: 40px 30px 0px 30px;
+    float: right;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3), inset 0px 4px 4px rgba(0, 0, 0, 0.25); 
+}
+
+.FormGroup {
+    padding-top: 5px;
+    margin-bottom: 50px;
+}
+
+.FormSelect {
+    margin-top: 10px;
+}
+
+.LabelText {
+    padding-left: 15px;
+    font-size: 25px;
+}
+
+.Btn {
+    float: right;
+    margin-top: 10px;
+    border-radius: 0px !important;
+    width: 40% !important;
+    background-color:rgba(11, 191, 140, 0.93) !important;
+    border-color:rgba(11, 191, 140, 0.93) !important;
+}
+
+.Titre {
+    text-align: center;
+}
+
+.Form {
+    padding: 20px 0px 0px 80px;
+}

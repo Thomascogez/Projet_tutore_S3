@@ -8,8 +8,10 @@ use App\Controller\AbstractController;
 use App\Entity\Groups;
 use App\Form\GroupType;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Nelmio\ApiDocBundle\Annotation\Operation;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
+use Swagger\Annotations as SWG;
 
 define("GROUPS_NOT_FOUND", "Groupe is not found");
 
@@ -20,6 +22,19 @@ class GroupController extends AbstractController
      * Get one group by id
      * @Rest\Get("/api/groups/{id}", name="get_group_action", requirements={"id": "\d+"})
      * @Rest\View(serializerGroups={"group_info"})
+     * @Operation(
+     *     path="/api/groups/{id}",
+     *     operationId="GetGroupAction",
+     *     tags={"Group"},
+     *     summary="Get one group by id",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function getGroupAction(Request $request)
     {
@@ -33,6 +48,19 @@ class GroupController extends AbstractController
      * Get all groups
      * @Rest\Get("/api/groups", name="get_groups_action")
      * @Rest\View(serializerGroups={"group_info"})
+     * @Operation(
+     *     path="/api/groups",
+     *     operationId="getGroupsAction",
+     *     tags={"Group"},
+     *     summary="Get all groups",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function getGroupsAction(Request $request)
     {
@@ -43,6 +71,21 @@ class GroupController extends AbstractController
      * Add group
      * @Rest\Post("/api/groups", name="post_group_action")
      * @Rest\View(serializerGroups={"group_info"})
+     * @Rest\RequestParam(name="name",  description="Name of group", nullable=false)
+     * @Rest\RequestParam(name="parent",  description="Parent name of group", nullable=true)
+     * @Operation(
+     *     path="/api/groups",
+     *     operationId="postGroupAction",
+     *     tags={"Group"},
+     *     summary="Add group",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function postGroupAction(Request $request)
     {
@@ -78,7 +121,22 @@ class GroupController extends AbstractController
     /**
      * Update group by id
      * @Rest\Patch("/api/groups/{id}", name="patch_group_action", requirements={"id": "\d+"})
+     * @Rest\RequestParam(name="name",  description="Name of group", nullable=true)
+     * @Rest\RequestParam(name="parent",  description="Parent name of group", nullable=true)
      * @Rest\View(serializerGroups={"group_info"})
+     * @Operation(
+     *     path="/api/groups/{id}",
+     *     operationId="patchGroupAction",
+     *     tags={"Group"},
+     *     summary="Update group by id",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function patchGroupAction(Request $request)
     {
@@ -121,6 +179,19 @@ class GroupController extends AbstractController
      * Delete group by id
      * @Rest\Delete("/api/groups/{id}", name="delete_group_action", requirements={"id": "\d+"})
      * @Rest\View(statusCode=204)
+     * @Operation(
+     *     path="/api/groups/{id}",
+     *     operationId="deleteGroupAction",
+     *     tags={"Group"},
+     *     summary="Delete group by id",
+     *     @SWG\Response(
+     *         response="204",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
      */
     public function deleteGroupAction(Request $request)
     {

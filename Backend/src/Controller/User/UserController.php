@@ -115,7 +115,7 @@ class UserController extends AbstractController
      *     )
      * )
      */
-    public function postUsersAction(Request $request, UserPasswordEncoderInterface $encoder)
+    public function postUsersAction(Request $request, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer)
     {
         if(!$this->userHasRole($this->getUser(), "ROLE_ADMIN"))
             return $this->notAuthorized();
@@ -147,7 +147,33 @@ class UserController extends AbstractController
         }
 
         if($form->isValid()) {
-            $user->setPassword($encoder->encodePassword($user, "123456"));
+            $user->setPlainPassword($this->randomPassword(12));
+
+            $mailAddress = "";
+            if($this->userHasRole($user, "ROLE_TEACHER"))
+                $mailAddress= $user->getUsername() . "@univ-lehavre.fr";
+            if($this->userHasRole($user, "ROLE_TUTOR"))
+                $mailAddress= $user->getUsername() . "@etu.univ-lehavre.fr";
+
+            $message = (new \Swift_Message('Création du compte SchoolShare'))
+                ->setFrom(['contact@schoolshare.com' => "SchoolShare"])
+                ->setTo(/*$mailAddress*/)
+                ->setBody("Nouveau compte sur SchoolShare ...")
+                ->addPart($this->renderView(
+                    'mail/newPassword.html.twig',
+                    [
+                        'name' => $user->getFirstname(),
+                        'username' => $user->getUsername(),
+                        'password' => $user->getPlainPassword(),
+                        'type' => "create"
+                    ]
+                ),
+                    'text/html'
+                );
+
+            $mailer->send($message);
+
+            $user->setPassword($encoder->encodePassword($user, $user->getPlainPassword()));
             $user->setPlainPassword("");
 
             $manager = $this->getDoctrine()->getManager();
@@ -164,10 +190,11 @@ class UserController extends AbstractController
      * Patch user by id
      * @Rest\Patch("/api/users/{id}", name="patch_user_action")
      * @Rest\View(serializerGroups={"user"})
-     * @Rest\RequestParam(name="username",  description="Username of school", nullable=true)
-     * @Rest\RequestParam(name="firstname", description="Firstname of user",  nullable=true)
-     * @Rest\RequestParam(name="lastname",  description="Lastname of user",   nullable=true)
-     * @Rest\RequestParam(name="roles",     description="Role of user : ['USER_TEACHER', 'USER_TUTOR', 'USER_ADMIN'", nullable=true)
+     * @Rest\RequestParam(name="username",       description="Username of school", nullable=true)
+     * @Rest\RequestParam(name="firstname",      description="Firstname of user",  nullable=true)
+     * @Rest\RequestParam(name="lastname",       description="Lastname of user",   nullable=true)
+     * @Rest\RequestParam(name="plainPassword",  description="Password of user",   nullable=true)
+     * @Rest\RequestParam(name="roles",          description="Role of user : ['USER_TEACHER', 'USER_TUTOR', 'USER_ADMIN'", nullable=true)
      * @Operation(
      *     path="/api/users/{id}",
      *     operationId="PatchUser",
@@ -208,7 +235,6 @@ class UserController extends AbstractController
         }
 
         $form->submit($request->request->all(), false);
-
         if($form->isValid()) {
             $user->setUpdateAt(new \DateTime());
             if(!empty($user->getPlainPassword())){
@@ -256,4 +282,20 @@ class UserController extends AbstractController
         $manager->flush();
     }
 
+    public function randomPassword($nb_car, $chaine = 'AZERTYUIOPQSDFGHJKLMWXCVBNazertyuiopqsdfghjklmwxcvbn123456789!_-@#$%&,.?:')
+    {
+        $nb_lettres = strlen($chaine) - 1;
+        $generation = '';
+        $re = '/^.*(?=.{8,})(?=.*[!-@#$%^&(),.?":{}|<>].*[!-@#$%^&(),.?":{}|<>].*)(?=.*[A-Z].*[A-Z].*)(?=.*[a-z].*[a-z].*).*$/m';
+        while(!preg_match($re, $generation)) {
+            $generation = '';
+            for($i=0; $i < $nb_car; $i++)
+            {
+                $pos = mt_rand(0, $nb_lettres);
+                $car = $chaine[$pos];
+                $generation .= $car;
+            }
+        }
+        return $generation;
+    }
 }
