@@ -64,13 +64,13 @@ class PasswordForgetController extends UserController
 
         $message = (new \Swift_Message('Mot de passe oublié'))
             ->setFrom(['contact@schoolshare.com' => "SchoolShare"])
-            ->setTo("aerosmith129@gmail.com"/*$mailAddress*/)
+            ->setTo("disadah759@mailfile.org"/*$mailAddress*/)
             ->setBody("Reinitialiser votre mot de passe ...")
             ->addPart($this->renderView(
                 'mail/resetPassword.html.twig',
                 [
                     'name' => $user->getFirstname(),
-                    'token' => $token->getToken()
+                    'token' => $token->getToken(),
                 ]
             ),
                 'text/html'
@@ -107,7 +107,7 @@ class PasswordForgetController extends UserController
         if($this->verifyToken($request)){
             return new JsonResponse(array("code" => 200), Response::HTTP_OK);
         }
-        return new JsonResponse(array("code" => 406, "message" => "token expired"), Response::HTTP_NOT_ACCEPTABLE);
+        return new JsonResponse(array("code" => 406, "message" => ("token expired")), Response::HTTP_NOT_ACCEPTABLE);
     }
 
     /**
@@ -160,7 +160,7 @@ class PasswordForgetController extends UserController
 
                 $message = (new \Swift_Message('Nouveau mot de passe'))
                     ->setFrom(['contact@schoolshare.com' => "SchoolShare"])
-                    ->setTo(/*$mailAddress*/)
+                    ->setTo("disadah759@mailfile.org"/*$mailAddress*/)
                     ->setBody("Reinitialiser votre mot de passe ...")
                     ->addPart($this->renderView(
                         'mail/newPassword.html.twig',

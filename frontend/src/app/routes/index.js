@@ -11,10 +11,12 @@ import EditGroup from '../pages/admin/group'
 import GererUtilisateur from '../pages/admin/users'
 import EditModule from '../pages/admin/module'
 import Test from '../pages/test'
+import PasswordReset from "../pages/home/passwordReset";
 
 const routes = {
     '/' : () => <Home />,
     '/passwordForget' : () => <Password />,
+    '/passwordReset/:token' : (token) => <PasswordReset token={token} />,
     '/test' : () => <Test />,
     '/seances' : () => <Seances />,
     '/seances/ajout' : () => <Ajout />,
@@ -24,8 +26,7 @@ const routes = {
     '/administration/editModule' : () => <EditModule />,
     '/administration/utilisateurs' : () =><GererUtilisateur/>,
     '/userProfil' : () => <Userprofil/>,
-    '/administration/utilisateurs' : () =><GererUtilisateur/>,
-    '/administration/groupe' : () => <EditGroup />
+    '/administration/groupe' : () => <EditGroup />,
 };
 
 export default routes;
