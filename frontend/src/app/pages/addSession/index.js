@@ -9,56 +9,61 @@ import style from './addSession.module.css'
 
 export default function AjoutSeance()
 {
-    const [status, setStatus] = useState( false );
-
-    const [module, setModule] = useState(true);
-    const [type, setType]     = useState( false);
-    const [group, setGroup]   = useState(false);
-    const [button, setButton] = useState(false);
-
-    function handleChangeModule(){
-        setStatus(!status);
-        setModule(!module);
-        setType(!type);
-    }
-    function handleChangeType(){
-        setStatus(!status);
-        setType(!type);
-        setGroup(!group);
-    }
+    const [module, setModule] = useState("module");
+    const [type, setType]     = useState("type");
+    const [group, setGroup]   = useState("groupe");
+    //const [button, setButton] = useState(false);
 
     return (
         <Container fluid>
             <h1 className={style.title}>Ajout séance</h1>
             <div className={style.Border}>                
                 <form> 
-                            {module ? <FormSelect onChange={() => handleChangeModule()} className= {style.AddSubject}>
-                                <option value="first"> Module </option>
+                    { (module == "module") ?
+                            <FormSelect onChange={(e) => setModule(e.target.value)} className= {style.AddSubject}>
+                                <option value="module">Module</option>
                                 <option value="systeme">Systeme</option>
                                 <option value="algo">Algo</option>
                                 <option value="bado">BADO</option>
                                 <option value="cpoa">CPOA</option>
-                            </FormSelect> : <div></div>}
-                            
-                            {type ?  <div><FormSelect  onChange={() => handleChangeType()} className= {style.AddSubject}>
-                                <option value="first">Type</option>
+                            </FormSelect>
+                    : <div></div>
+                    }
+                    
+                    { (module != "module" && type == "type") ?
+                        <div>
+                            <FormSelect  onChange={(e) => setType(e.target.value)} className= {style.AddSubject}>
+                                <option value="type">Type</option>
                                 <option value="td">TD</option>
                                 <option value="tp">TP</option>
                                 <option value="amphi">Amphi</option>
-                            </FormSelect> <Button className={style.AddSubject} onClick={() => handleChangeModule()}>Retour</Button> </div>: <div> </div>}
-                            
-                            {group ? <div><FormSelect  onChange={() => setButton(true)} className= {style.AddSubject}>
-                                <option value="first" >Groupe</option>
-                                <option value="a1" >A1</option>
-                                <option value="a2" >A2</option>
-                                <option value="b1" >B1</option>
-                                <option value="b2" >B2</option>
-                                <option value="c2" >C2</option>
-                            </FormSelect> <Button className={style.AddSubject} onClick={() =>handleChangeType()}>Retour</Button> </div> : <div></div>}
+                            </FormSelect>
+                            <Button className={style.AddSubject} onClick={() => setType("type", setModule("module"))}>Retour</Button>
+                        </div> : <div></div>
+                    }
+                    
+                    { (type != "type") ?
+                        <div>
+                            <FormSelect  onChange={(e) => setGroup(e.target.value)} className= {style.AddSubject}>
+                            <option value="groupe" >Groupe</option>
+                            <option value="a1" >A1</option>
+                            <option value="a2" >A2</option>
+                            <option value="b1" >B1</option>
+                            <option value="b2" >B2</option>
+                            <option value="c2" >C2</option>
+                            </FormSelect>
+                            <Button className={style.AddSubject} onClick={() => setGroup("groupe", setType("type"))}>Retour</Button>
+                        </div> : <div></div>
+                    }
 
-                            { button ? <Button className={style.AddSubject}>Valider</Button> : <div></div>}
-                        </form>
-                    </div>
+                    { (group != "groupe") ?
+                    <Button className={style.AddSubject}>Valider</Button>
+                    : <div></div>
+                    }
+
+                    <span className= {style.AddSubject}>Module : {module} Type : {type} Groupe : {group}</span>
+                </form>
+            </div>
         </Container>
     )
 }
