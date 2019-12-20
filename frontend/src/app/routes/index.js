@@ -36,7 +36,7 @@ const routes = {
     '/userProfil' : () => <Userprofile/>,
     '/administration/groupe' : () => <EditGroup />,
     '/seances/ajoutSeance': () => <AddSession />,
-    '/seances/:seanceId'  : (seanceId) => <ViewsSession seanceId={seanceId}  />
+    '/seance/:seanceId'  : (seanceId) => <ViewsSession seanceId={seanceId}  />
 };
 
 export default routes;

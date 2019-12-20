@@ -9,7 +9,6 @@ import { ApiIsAdmin } from "../api/userFetch";
  * @param {*} props 
  */
 export default function ProtectedRouteAdmin(props) {
-
   useEffect(() => {
     ApiIsAdmin()
       .catch(() => {
