@@ -18,9 +18,10 @@
 }
 
 .Content{
+    
     margin: auto;
     background-color: #BE4F23;
-    height: 40%;
+    height:40%;
     width: 50%;
     padding:5px;
     box-shadow:2px  2px 2px gray,
@@ -53,6 +54,8 @@
     color: white;
 }
 
+
+
 .title{
     text-align: center;
     margin-top: 2%;
@@ -68,30 +71,26 @@
     width: 80%;
     height: 100%;
 }
-
 .page{
     height: 60%;
     width: 65%;
     margin-top: 5%;
     margin-left: 18%;
     margin-right: 15%;
-    background-color: rgba(114, 114, 114, 0.562);
+    background-color: lightgray;
     padding:5px;
-    box-shadow:2px 2px 2px gray,
+    box-shadow:2px 2px 2px rgb(194, 191, 191),
               -1px -1px 2px white;
 }
-
-
 .bas{
     height: 3%;
     width: 100%;
     margin-top: 2%;
     margin-left: 15%;
-    background-color: gray;
+    background-color: lightgray;
 }
-
 .add{
     width: 3%;
     height: 3%;
-    margin-left: 20%;
+    margin-left: 5%;
 }
