@@ -9,6 +9,8 @@ import Toggle from '../../components/options_components/Toggle'
 import { FormSelect, Button } from 'shards-react'
 import { toast } from 'react-toastify';
 
+import PageLoader from '../../components/layouts/loader'
+
 toast.configure();
 
 export default function Ajout() {

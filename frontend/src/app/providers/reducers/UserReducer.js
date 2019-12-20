@@ -1,7 +1,7 @@
 /**
  * Reducer that dispatch all user actions
  */
-import { SET_ISLOGGEDIN } from "../../types";
+import { SET_ISLOGGEDIN, SET_USER } from "../../types/actionsTypes";
 
  const initialState = {
     user : {},
@@ -14,6 +14,12 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoggedIn  : action.value
+            }
+        case SET_USER:
+            console.log(state)
+            return {
+                ...state,
+                user : action.user
             }
         default:
             return initialState;

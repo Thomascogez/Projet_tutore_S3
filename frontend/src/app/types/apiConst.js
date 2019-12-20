@@ -1,13 +1,22 @@
 
-const PATH_API = "http://localhost:8000";
+/**
+ * All Api routes goes here
+ */
+
+
+const PATH_API = "http://172.26.3.40:8000";
 
 const PASSWORD_FORGET_GET = PATH_API + "/api/users/passwordReset";
 const PASSWORD_FORGET_VERIFY = PATH_API + "/api/users/passwordReset";
+const CHECK_STILL_VALID = PATH_API + "/api/users/my";
 
 const LOGIN_CHECK = PATH_API + "/api/login_check";
+const CHECK_IS_ADMIN = PATH_API + "/api/users/isAdmin";
 
 export {
     PASSWORD_FORGET_GET,
     PASSWORD_FORGET_VERIFY,
-    LOGIN_CHECK
+    CHECK_STILL_VALID,
+    LOGIN_CHECK, 
+    CHECK_IS_ADMIN
 };

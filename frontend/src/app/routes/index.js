@@ -17,18 +17,19 @@ import PasswordReset from "../pages/home/passwordReset";
 
 
 import ProtectedRoute from '../utils/protectedRoute'
+import ProtectedRouteAdmin from '../utils/protectedRouteAdmin';
 
 const routes = {
     '/' : () => <Home />,
     '/passwordForget' : () => <Password />,
     '/passwordReset/:token' : (token) => <PasswordReset token={token} />,
-    '/test' : () =><ProtectedRoute> <Test /></ProtectedRoute>,
+    '/test' : () => <Test />,
     '/options' : () => <Options />,
     '/seances' : () => <Seances />,
     '/seances/addEvent' : () => <AddEvent />,
     '/administration/utilisateurs/ajout/etape1' : () => <AddUser />,
     '/administration/utilisateurs/ajout/etape2' : () => <AddUserPage2 />,
-    '/administration' : () =><Administration />,
+    '/administration' : () => <ProtectedRoute><ProtectedRouteAdmin> <Administration /> </ProtectedRouteAdmin></ProtectedRoute>,
     '/administration/editModule' : () => <EditModule />,
     '/administration/utilisateurs' : () =><GererUtilisateur/>,
     '/userProfil' : () => <Userprofile/>,

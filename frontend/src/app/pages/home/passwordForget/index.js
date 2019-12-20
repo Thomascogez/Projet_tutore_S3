@@ -18,7 +18,7 @@ toast.configure();
 
 export default function Home() {
     const [username, setUsername] = useState("");
-    const [errorUsername, setErrorUsername] = useState("");
+    const [errorUsername, setErrorUsername] = useState({isError:false,message:""});
     const [loading, setLoading] = useState(false);
 
     const sendForget = () => {
@@ -30,7 +30,7 @@ export default function Home() {
             })
             .catch(error => {
                 setLoading(false)
-                setErrorUsername(error.response.data.message);
+                setErrorUsername({isError:true,message:error.response.data.message});
             })
     };
 
@@ -56,9 +56,9 @@ export default function Home() {
                                 placeholder="identifiant ..."
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
-                                invalid={true}
+                                invalid={errorUsername.isError}
                             />
-                            {(errorUsername)?(<label className={style.textError}>{errorUsername}</label>):''}
+                            {(errorUsername.isError)?(<label className={style.textError}>{errorUsername.message}</label>):''}
                         </FormGroup>
                     )}
                     <Button type="success" onClick={() => sendForget() }>Changer le mot de passe    </Button>

@@ -1,6 +1,6 @@
-import { LOGIN_CHECK    } from "../../types/apiConst";
-import { SET_ISLOGGEDIN } from "../../types";
-import axios from "axios";
+import { SET_ISLOGGEDIN, SET_USER } from "../../types/actionsTypes";
+import { navigate } from 'hookrouter';
+import { APIlogin, APIgetMyAccount } from '../../api/userFetch'
 
 /**
  * userAction.js
@@ -9,16 +9,19 @@ import axios from "axios";
  *
  */
 
+
+ /**
+  * login
+  * 
+  * Action to dispatch user login info on store
+  * @param {*} username 
+  * @param {*} password 
+  */
 const login = (username, password) => {
     return dispatch => {
-        return axios
-            .post(LOGIN_CHECK, {
-                username,
-                password
-            })
+        return APIlogin(username, password)
             .then(data => {
                 if (data.message) {
-                    console.log(data);
                     //if we receive an error message from the server
                     dispatch({
                         type: SET_ISLOGGEDIN,
@@ -43,4 +46,42 @@ const login = (username, password) => {
     };
 };
 
-export { login };
+/**
+ * logout
+ * 
+ * Logout the user from the app
+ */
+const logout = () => {
+    localStorage.removeItem('token');
+    navigate('/');
+    return {
+        type: SET_ISLOGGEDIN,
+        value: false
+    }
+}
+
+
+
+//TODO: check
+const checkLogin = () => {
+    return dispatch => {
+        return APIgetMyAccount()
+            .then(data => {
+                dispatch({
+                    type: SET_ISLOGGEDIN,
+                    value: true
+                })
+                
+            })
+            .catch(err => {
+                dispatch({
+                    type: SET_ISLOGGEDIN,
+                    value: false
+                })
+                
+            })
+
+    }
+}
+
+export { login, logout, checkLogin };
