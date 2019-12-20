@@ -12,7 +12,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
 
-    protected function userHasRole(User $user, String $role) {
+    protected function userHasRole(User $user, String $role)
+    {
 
         foreach ($user->getRoles() as $data) {
             if($role === $data) {
