@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Container,Button,Fade, FormSelect, Collapse } from 'shards-react'
+import { Container,Button,Fade, FormSelect, Row, Col } from 'shards-react'
 
 import style from './addSession.module.css'
 
@@ -15,55 +15,80 @@ export default function AjoutSeance()
     const [type, setType]     = useState("type");
     const [group, setGroup]   = useState("groupe");
 
-    const [state, setState] = useState(false);
+    const [state, setState]   = useState(false);
+    const [state2, setState2] = useState(false);
+    const [state3, setState3] = useState(false);
 
     function ChangeModule(e)
     {
-        setState(!state);
+        setState(true);
         setModule(e.target.value);        
     }
 
     function ChangeType(e)
     {
         setType(e.target.value);
+        setState2(true)
+    }
+    function ChangeButtonValid(e)
+    {
+        setGroup(e.target.value);
+        setState3(true)
     }
 
-    return (
+    return ( 
         <Container fluid>
             <h1 className={style.title}>Ajout séance</h1>
             <div className={style.Border}>                
                 <form> 
-                    <FormSelect onChange={(e) => ChangeModule(e)} className= {style.AddSubject}>
-                        <option value="module">Module</option>
-                        <ListeComponent lst={lstModule} />
-                    </FormSelect>
-                    
-                    { (module != "module") ?
-                        <Collapse open={state}>
-                            <Fade in={state}>
-                                <FormSelect  onChange={(e) => setType(e.target.value)} className= {style.AddSubject}>
-                                    <option value="type">Type</option>
-                                    <ListeComponent lst={lstType} />
+                    <Container>
+                        <Row className={style.Ligne}>
+                            <Col lg="12" sm="12">
+                                <FormSelect onChange={(e) => ChangeModule(e)} className= {style.AddSubject}>
+                                    <option value="module">Module</option>
+                                    <ListeComponent lst={lstModule} />
                                 </FormSelect>
-                             </Fade>
-                        </Collapse>
-                        : <React.Fragment/>
-                    }
-                    
+                            </Col>
+                        </Row>
 
-                    { (type != "type" && module != "module") ?
-                       
-                        <FormSelect  onChange={(e) => setGroup(e.target.value)} className= {style.AddSubject}>
-                            <option value="groupe" >Groupe</option>
-                            <ListeComponent lst={lstGroupe} />
-                        </FormSelect>
-                    : <React.Fragment/>
-                    }
-
-                    { (group != "groupe" && module!="module" && type!="type") ?
-                        <Button className={style.AddSubject}>Valider</Button>
-                    : <React.Fragment/>
-                    }
+                        <Row className={style.Ligne}>     
+                            <Col  lg="12" sm="12">                   
+                                { (module != "module") ?
+                                        <Fade in={state}>
+                                            <FormSelect  onChange={(e) => ChangeType(e)} className= {style.AddSubject}>
+                                                <option value="type">Type</option>
+                                                <ListeComponent lst={lstType} />
+                                            </FormSelect>
+                                        </Fade>
+                                    : <React.Fragment/>
+                                } 
+                            </Col>
+                        </Row>
+                        
+                        <Row className={style.Ligne}>
+                            <Col  lg="12" sm="12">
+                                { (type != "type" && module != "module") ?
+                                        <Fade in={state2}>                      
+                                            <FormSelect  onChange={(e) =>ChangeButtonValid(e)} className= {style.AddSubject}>
+                                                <option value="groupe" >Groupe</option>
+                                                <ListeComponent lst={lstGroupe} />
+                                            </FormSelect>
+                                        </Fade>
+                                : <React.Fragment/>
+                                }
+                            </Col>
+                        </Row>
+                        <Row className={style.Ligne}>
+                            <Col  lg="12" sm="12">
+                                { (group != "groupe" && module!="module" && type!="type") ?
+                                        <Fade in={state3}>
+                                            <Button className={style.AddSubject}>Valider</Button>
+                                        </Fade>
+                                : <React.Fragment/>
+                                }
+                            </Col>
+                        </Row>
+                    </Container>
                 </form>
             </div>
         </Container>
