@@ -783,140 +783,168 @@ class AppFixtures extends Fixture
         $groups = array();
 
         $group = new Groups();
-        $group->setName("info2");
+        $group->setName("info2")
+            ->setColor($faker->hexColor);
         $groups[0] = $group;
 
         $group = new Groups();
-        $group->setName("info1");
+        $group->setName("info1")
+            ->setColor($faker->hexColor);
         $groups[1] = $group;
 
         $group = new Groups();
         $group->setName("A")
+            ->setColor($faker->hexColor)
             ->setParent($groups[0]);
         $groups[2] = $group;
 
         $group = new Groups();
         $group->setName("B")
+            ->setColor($faker->hexColor)
             ->setParent($groups[0]);
         $groups[3] = $group;
 
         $group = new Groups();
         $group->setName("C")
+            ->setColor($faker->hexColor)
             ->setParent($groups[0]);
         $groups[4] = $group;
 
         $group = new Groups();
         $group->setName("D")
+            ->setColor($faker->hexColor)
             ->setParent($groups[0]);
         $groups[5] = $group;
 
         $group = new Groups();
         $group->setName("F")
+            ->setColor($faker->hexColor)
             ->setParent($groups[1]);
         $groups[6] = $group;
 
         $group = new Groups();
         $group->setName("G")
+            ->setColor($faker->hexColor)
             ->setParent($groups[1]);
         $groups[7] = $group;
 
         $group = new Groups();
         $group->setName("H")
+            ->setColor($faker->hexColor)
             ->setParent($groups[1]);
         $groups[8] = $group;
 
         $group = new Groups();
         $group->setName("I")
+            ->setColor($faker->hexColor)
             ->setParent($groups[1]);
         $groups[9] = $group;
 
         $group = new Groups();
         $group->setName("J")
+            ->setColor($faker->hexColor)
             ->setParent($groups[1]);
         $groups[10] = $group;
 
         $group = new Groups();
         $group->setName("A1")
+            ->setColor($faker->hexColor)
             ->setParent($groups[2]);
         $groups[11] = $group;
 
         $group = new Groups();
         $group->setName("B1")
+            ->setColor($faker->hexColor)
             ->setParent($groups[3]);
         $groups[12] = $group;
 
         $group = new Groups();
         $group->setName("B2")
+            ->setColor($faker->hexColor)
             ->setParent($groups[3]);
         $groups[13] = $group;
 
         $group = new Groups();
         $group->setName("C1")
+            ->setColor($faker->hexColor)
             ->setParent($groups[4]);
         $groups[14] = $group;
 
         $group = new Groups();
         $group->setName("C2")
+            ->setColor($faker->hexColor)
             ->setParent($groups[4]);
         $groups[15] = $group;
 
         $group = new Groups();
         $group->setName("D1")
+            ->setColor($faker->hexColor)
             ->setParent($groups[5]);
         $groups[16] = $group;
 
         $group = new Groups();
         $group->setName("D2")
+            ->setColor($faker->hexColor)
             ->setParent($groups[5]);
         $groups[17] = $group;
 
         $group = new Groups();
         $group->setName("F1")
+            ->setColor($faker->hexColor)
             ->setParent($groups[6]);
         $groups[18] = $group;
 
         $group = new Groups();
         $group->setName("F2")
+            ->setColor($faker->hexColor)
             ->setParent($groups[6]);
         $groups[19] = $group;
 
         $group = new Groups();
         $group->setName("G1")
+            ->setColor($faker->hexColor)
             ->setParent($groups[7]);
         $groups[20] = $group;
 
         $group = new Groups();
         $group->setName("G2")
+            ->setColor($faker->hexColor)
             ->setParent($groups[7]);
         $groups[21] = $group;
 
         $group = new Groups();
         $group->setName("H1")
+            ->setColor($faker->hexColor)
             ->setParent($groups[8]);
         $groups[22] = $group;
 
         $group = new Groups();
         $group->setName("H2")
+            ->setColor($faker->hexColor)
             ->setParent($groups[8]);
         $groups[23] = $group;
 
         $group = new Groups();
         $group->setName("I1")
+            ->setColor($faker->hexColor)
             ->setParent($groups[9]);
         $groups[24] = $group;
 
         $group = new Groups();
         $group->setName("I2")
+            ->setColor($faker->hexColor)
             ->setParent($groups[9]);
         $groups[25] = $group;
 
         $group = new Groups();
         $group->setName("J1")
+            ->setColor($faker->hexColor)
             ->setParent($groups[10]);
         $groups[26] = $group;
 
         $group = new Groups();
         $group->setName("J2")
+            ->setColor($faker->hexColor)
             ->setParent($groups[10]);
         $groups[27] = $group;
 

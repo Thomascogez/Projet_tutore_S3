@@ -3,6 +3,7 @@ import Modal, { Button, FormInput, ButtonGroup } from "shards-react";
 import { FaCheck, FaTimes, FaBold } from "react-icons/fa";
 import ColorPicker from '../../colorPicker_component/colorPicker'
 import DeleteGroup from "./DeleteGroup";
+import Loader from 'react-loader-spinner'
 
 export default function Groupe({name,color }) {
     const [editing, setEditing] = useState(false);

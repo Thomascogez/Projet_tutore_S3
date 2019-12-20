@@ -61,6 +61,12 @@ class Groups
      */
     private $users;
 
+    /**
+     * @ORM\Column(type="string", length=7, nullable=true)
+     * @Groupss({"user", "session_detail", "groups", "group_info"})
+     */
+    private $color;
+
     public function __construct()
     {
         $this->groups = new ArrayCollection();
@@ -183,6 +189,18 @@ class Groups
             $this->users->removeElement($user);
             $user->removeGroup($this);
         }
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }

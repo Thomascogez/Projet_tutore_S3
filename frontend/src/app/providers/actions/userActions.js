@@ -32,15 +32,16 @@ const login = (username, password) => {
                     localStorage.setItem("token", data.data.token);
                     dispatch({
                         type: SET_ISLOGGEDIN,
-                        value: true
+                        value: true,
+                        error: false
                     });
                 }
             })
             .catch(err => {
-                // if error
                 dispatch({
                     type: SET_ISLOGGEDIN,
-                    value: false
+                    value: false,
+                    error: true
                 });
             });
     };

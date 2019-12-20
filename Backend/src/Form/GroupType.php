@@ -13,6 +13,7 @@ class GroupType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('color')
             ->add('parent', null, array(
                 'required' => false
             ));

@@ -2,12 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d14a8399-2bba-4ca7-9a97-266b73f1d265" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Backend/cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/todo.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/.env" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Controller/AbstractController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Controller/AbstractController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Controller/User/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Controller/User/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/Controller/Group/GroupController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Controller/Group/GroupController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Controller/SecurityController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/DataFixtures/AppFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/DataFixtures/AppFixtures.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/Entity/Groups.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Entity/Groups.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/Form/GroupType.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Form/GroupType.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/home/passwordForget/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/home/passwordForget/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/administration_components/groupe/Groupe.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/administration_components/groupe/Groupe.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/layouts/loader/loader.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/layouts/loader/loader.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/admin/group/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/admin/group/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/home/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/home/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/providers/actions/userActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/providers/actions/userActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/providers/reducers/UserReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/providers/reducers/UserReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/types/actionsTypes.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/types/actionsTypes.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,6 +224,7 @@
       <workItem from="1576764254834" duration="122000" />
       <workItem from="1576764749991" duration="7444000" />
       <workItem from="1576826470260" duration="5030000" />
+      <workItem from="1576845512969" duration="11058000" />
     </task>
     <task id="LOCAL-00001" summary="Init project">
       <created>1576486472217</created>
@@ -263,7 +275,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576769214490</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Add getter admin api">
+      <created>1576845633664</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1576845633664</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -291,7 +310,8 @@
     <MESSAGE value="Forgetpassword api, navbar fix" />
     <MESSAGE value="Link forget password to backend" />
     <MESSAGE value="Add login" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add login" />
+    <MESSAGE value="Add getter admin api" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add getter admin api" />
   </component>
   <component name="WindowStateProjectService">
     <state x="391" y="177" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog" timestamp="1576569731889">
@@ -302,21 +322,37 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="371" y="95" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576590507866" />
-    <state x="265" y="0" key="CommitChangelistDialog2" timestamp="1576769214031">
+    <state x="265" y="0" key="CommitChangelistDialog2" timestamp="1576845633070">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="265" y="0" key="CommitChangelistDialog2/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576769214031" />
+    <state x="265" y="0" key="CommitChangelistDialog2/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576845633070" />
     <state x="265" y="0" key="CommitChangelistDialog2/0.0.1280.680@0.0.1280.680" timestamp="1576752355974" />
-    <state x="121" y="50" key="DiffContextDialog" timestamp="1576845596142">
+    <state x="121" y="50" key="DiffContextDialog" timestamp="1576857681562">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="121" y="50" key="DiffContextDialog/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576845596142" />
+    <state x="121" y="50" key="DiffContextDialog/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576857681562" />
     <state x="121" y="50" key="DiffContextDialog/0.0.1280.680@0.0.1280.680" timestamp="1576826682738" />
     <state x="421" y="95" key="FileChooserDialogImpl" timestamp="1576769552483">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="421" y="95" key="FileChooserDialogImpl/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576769552483" />
     <state x="632" y="145" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1576500877314" />
+    <state width="1237" height="163" key="GridCell.Tab.0.bottom" timestamp="1576845645640">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="163" key="GridCell.Tab.0.bottom/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576845645640" />
+    <state width="1237" height="163" key="GridCell.Tab.0.center" timestamp="1576845645640">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="163" key="GridCell.Tab.0.center/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576845645640" />
+    <state width="1237" height="163" key="GridCell.Tab.0.left" timestamp="1576845645640">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="163" key="GridCell.Tab.0.left/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576845645640" />
+    <state width="1237" height="163" key="GridCell.Tab.0.right" timestamp="1576845645640">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="163" key="GridCell.Tab.0.right/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576845645640" />
     <state x="332" y="155" key="NewPhpClassDialog" timestamp="1576599857936">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -325,10 +361,10 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="142" y="0" key="SettingsEditor/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576769554910" />
-    <state x="233" y="73" key="Vcs.Push.Dialog.v2" timestamp="1576769216217">
+    <state x="233" y="73" key="Vcs.Push.Dialog.v2" timestamp="1576857696970">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="233" y="73" key="Vcs.Push.Dialog.v2/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576769216217" />
+    <state x="233" y="73" key="Vcs.Push.Dialog.v2/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576857696970" />
     <state x="233" y="73" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1576752358467" />
     <state x="450" y="257" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1576566702630">
       <screen x="0" y="0" width="1280" height="680" />
@@ -339,18 +375,18 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="0" y="0" width="742" height="680" key="find.popup/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576486234145" />
-    <state x="341" y="132" key="git4idea.merge.GitPullDialog" timestamp="1576845602008">
+    <state x="341" y="132" key="git4idea.merge.GitPullDialog" timestamp="1576857687402">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="341" y="132" key="git4idea.merge.GitPullDialog/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576845602008" />
+    <state x="341" y="132" key="git4idea.merge.GitPullDialog/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576857687402" />
     <state x="341" y="132" key="git4idea.merge.GitPullDialog/0.0.1280.680@0.0.1280.680" timestamp="1576826689435" />
     <state x="297" y="151" key="run.anything.popup" timestamp="1576571953287">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="297" y="151" key="run.anything.popup/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576571953287" />
-    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup" timestamp="1576743313241">
+    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup" timestamp="1576855517659">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576743313241" />
+    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup/0.0.1280.680/0.1080.1920.515@0.0.1280.680" timestamp="1576855517659" />
   </component>
 </project>

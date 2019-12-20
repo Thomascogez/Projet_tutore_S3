@@ -72,6 +72,7 @@ class GroupController extends AbstractController
      * @Rest\Post("/api/groups", name="post_group_action")
      * @Rest\View(serializerGroups={"group_info"})
      * @Rest\RequestParam(name="name",  description="Name of group", nullable=false)
+     * @Rest\RequestParam(name="color",  description="Color of group", nullable=false)
      * @Rest\RequestParam(name="parent",  description="Parent name of group", nullable=true)
      * @Operation(
      *     path="/api/groups",
@@ -96,7 +97,7 @@ class GroupController extends AbstractController
 
         $form = $this->createForm(GroupType::class, $group);
 
-        $form->submit(array("name" => $request->get('name')), false);
+        $form->submit(array("name" => $request->get('name'), 'color' => $request->get('color')), false);
 
         $parent = null;
         if ($request->get('parent')) {
@@ -122,6 +123,7 @@ class GroupController extends AbstractController
      * Update group by id
      * @Rest\Patch("/api/groups/{id}", name="patch_group_action", requirements={"id": "\d+"})
      * @Rest\RequestParam(name="name",  description="Name of group", nullable=true)
+     * @Rest\RequestParam(name="color",  description="Color of group", nullable=true)
      * @Rest\RequestParam(name="parent",  description="Parent name of group", nullable=true)
      * @Rest\View(serializerGroups={"group_info"})
      * @Operation(
@@ -148,7 +150,11 @@ class GroupController extends AbstractController
 
         $form = $this->createForm(GroupType::class, $group);
 
-        $form->submit(($request->get('name')) ? array("name" => $request->get('name')) : null, false);
+        $sub = array();
+        if( $request->get('name') ) $sub['name'] = $request->get('name');
+        if( $request->get('color') ) $sub['color'] = $request->get('color');
+
+        $form->submit($sub, false);
 
         $parent = null;
         if ($request->get('parent')) {
