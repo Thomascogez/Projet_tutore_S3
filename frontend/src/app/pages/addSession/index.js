@@ -1,10 +1,6 @@
 import React, {useState} from 'react'
-import { Container, Row, Col, FormSelect } from 'shards-react'
+import { Container,Button,Fade, FormSelect, Collapse } from 'shards-react'
 
-import { Button,ButtonGroup,} from "shards-react";
-import { Form, FormInput, FormGroup } from "shards-react";
-import { FormTextarea } from "shards-react";
-import { IoMdAddCircleOutline } from "react-icons/io";
 import style from './addSession.module.css'
 
 import ListeModule from '../../components/addSession_components/listeModule'
@@ -21,21 +17,33 @@ export default function AjoutSeance()
     const [type, setType]     = useState("type");
     const [group, setGroup]   = useState("groupe");
 
+    const [state, setState] = useState(false);
+
+    function ChangeModule(e)
+    {
+        setModule(e.target.value);
+        setState(!state);
+    }
+
     return (
         <Container fluid>
             <h1 className={style.title}>Ajout séance</h1>
             <div className={style.Border}>                
                 <form> 
-                    <FormSelect onChange={(e) => setModule(e.target.value)} className= {style.AddSubject}>
+                    <FormSelect onChange={(e) => ChangeModule(e)} className= {style.AddSubject}>
                         <option value="module">Module</option>
                         <ListeModule lstModule={lstModule} />
                     </FormSelect>
                     
                     { (module != "module") ?
-                        <FormSelect  onChange={(e) => setType(e.target.value)} className= {style.AddSubject}>
-                            <option value="type">Type</option>
-                            <ListeType lstType={lstType} />
-                        </FormSelect>
+                        <Collapse open={state}>
+                            {/* <Fade in={state}> */}
+                                <FormSelect  onChange={(e) => setType(e.target.value)} className= {style.AddSubject}>
+                                    <option value="type">Type</option>
+                                    <ListeType lstType={lstType} />
+                                </FormSelect>
+                          {/* </Fade> */}
+                        </Collapse>
                         : <React.Fragment/>
                     }
                     
