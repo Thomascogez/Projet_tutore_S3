@@ -8,6 +8,7 @@ import React, { useState } from "react";
 import Toggle from '../../components/options_components/Toggle'
 import { FormSelect, Button } from 'shards-react'
 import { toast } from 'react-toastify';
+import style from "./style.module.css";
 
 import PageLoader from '../../components/layouts/loader'
 
@@ -38,6 +39,7 @@ export default function Ajout() {
             <option value="Bado">Bado</option>
         </FormSelect> : <div></div>}
         <span>{status}</span>
+        <div className={style.test}></div>
     </div>
   );
 }
