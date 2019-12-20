@@ -3,9 +3,7 @@ import { Container,Button,Fade, FormSelect, Collapse } from 'shards-react'
 
 import style from './addSession.module.css'
 
-import ListeModule from '../../components/addSession_components/listeModule'
-import ListeType from '../../components/addSession_components/listeType'
-import ListeGroupe from '../../components/addSession_components/listeGroupe'
+import ListeComponent from '../../components/addSession_components/listeComponent'
 
 export default function AjoutSeance()
 {
@@ -21,8 +19,13 @@ export default function AjoutSeance()
 
     function ChangeModule(e)
     {
-        setModule(e.target.value);
         setState(!state);
+        setModule(e.target.value);        
+    }
+
+    function ChangeType(e)
+    {
+        setType(e.target.value);
     }
 
     return (
@@ -32,17 +35,17 @@ export default function AjoutSeance()
                 <form> 
                     <FormSelect onChange={(e) => ChangeModule(e)} className= {style.AddSubject}>
                         <option value="module">Module</option>
-                        <ListeModule lstModule={lstModule} />
+                        <ListeComponent lst={lstModule} />
                     </FormSelect>
                     
                     { (module != "module") ?
                         <Collapse open={state}>
-                            {/* <Fade in={state}> */}
+                            <Fade in={state}>
                                 <FormSelect  onChange={(e) => setType(e.target.value)} className= {style.AddSubject}>
                                     <option value="type">Type</option>
-                                    <ListeType lstType={lstType} />
+                                    <ListeComponent lst={lstType} />
                                 </FormSelect>
-                          {/* </Fade> */}
+                             </Fade>
                         </Collapse>
                         : <React.Fragment/>
                     }
@@ -52,7 +55,7 @@ export default function AjoutSeance()
                        
                         <FormSelect  onChange={(e) => setGroup(e.target.value)} className= {style.AddSubject}>
                             <option value="groupe" >Groupe</option>
-                            <ListeGroupe lstGroupe={lstGroupe} />
+                            <ListeComponent lst={lstGroupe} />
                         </FormSelect>
                     : <React.Fragment/>
                     }
