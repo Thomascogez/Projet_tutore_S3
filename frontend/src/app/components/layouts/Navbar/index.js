@@ -3,7 +3,7 @@ import { Navbar, NavLink, NavbarToggler, Collapse, Nav, NavbarBrand, NavItem } f
 import { navigate } from 'hookrouter'
 import style from './navbar.module.css'
 import logo from '../../../assets/images/scShare_logoNav.png'
-import ProfilRound from '../../../components/profileRound_component/ProfilRound'
+import ProfilRound from '../../../components/profileRound_component/ProfilRoundNav'
 
 export default function NavBar() {
 
@@ -11,6 +11,10 @@ export default function NavBar() {
     const[open, setOpen] = useState(false);
 
     var location = window.location.pathname;
+
+    const logout = () => {
+        localStorage.removeItem('token');
+    };
 
     return (
         <Navbar className={style.Navbar} expand="md">

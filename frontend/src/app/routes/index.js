@@ -1,6 +1,6 @@
 import React from 'react'
 import Home from '../pages/home'
-import Userprofil from '../pages/userProfil'
+import Userprofile from '../pages/userProfil/_index'
 import Password from '../pages/home/passwordForget'
 import Seances from '../pages/event'
 import AddEvent from '../pages/event/addEvent'
@@ -15,11 +15,14 @@ import AddSession from '../pages/addSession'
 import Test from '../pages/test'
 import PasswordReset from "../pages/home/passwordReset";
 
+
+import ProtectedRoute from '../utils/protectedRoute'
+
 const routes = {
     '/' : () => <Home />,
     '/passwordForget' : () => <Password />,
     '/passwordReset/:token' : (token) => <PasswordReset token={token} />,
-    '/test' : () => <Test />,
+    '/test' : () =><ProtectedRoute> <Test /></ProtectedRoute>,
     '/options' : () => <Options />,
     '/seances' : () => <Seances />,
     '/seances/addEvent' : () => <AddEvent />,
@@ -28,8 +31,7 @@ const routes = {
     '/administration' : () =><Administration />,
     '/administration/editModule' : () => <EditModule />,
     '/administration/utilisateurs' : () =><GererUtilisateur/>,
-    '/userProfil' : () => <Userprofil/>,
-    '/administration/utilisateurs' : () =><GererUtilisateur/>,
+    '/userProfil' : () => <Userprofile/>,
     '/administration/groupe' : () => <EditGroup />,
     '/seances/ajoutSeance': () => <AddSession />
 };

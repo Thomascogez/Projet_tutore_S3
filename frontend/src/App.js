@@ -1,25 +1,20 @@
 import React from 'react';
 import NavBar from './app/components/layouts/Navbar'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import { useRoutes } from 'hookrouter'
 import routes from './app/routes'
+import store from "./app/providers/store";
+import {Provider} from "react-redux";
 
-toast.configure({
-  autoClose: 8000,
-  draggable: false,
-});
 
 function App() {
 
   const routeResult = useRoutes(routes);
   return (
-    <div>
+    <Provider store={store}>
       <NavBar />
-        <ToastContainer />
         {routeResult ? routeResult : "404"}  {/*TODO: 404 page  */}
-    </div>
+    </Provider>
   );
 }
 
