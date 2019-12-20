@@ -12,7 +12,12 @@ export default function AjoutSeance()
     const [module, setModule] = useState("module");
     const [type, setType]     = useState("type");
     const [group, setGroup]   = useState("groupe");
-    //const [button, setButton] = useState(false);
+    const tab = [];
+
+    function aaa(e) {
+        setGroup(e)
+        tab.push(e)
+    }
 
     return (
         <Container fluid>
@@ -44,7 +49,7 @@ export default function AjoutSeance()
                     
                     { (type != "type") ?
                         <div>
-                            <FormSelect  onChange={(e) => setGroup(e.target.value)} className= {style.AddSubject}>
+                            <FormSelect  onChange={(e) => aaa(e.target.value)} className= {style.AddSubject}>
                             <option value="groupe" >Groupe</option>
                             <option value="a1" >A1</option>
                             <option value="a2" >A2</option>
