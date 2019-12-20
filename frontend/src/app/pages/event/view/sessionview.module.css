@@ -1,40 +1,25 @@
-.UserProfileContainer{
+.SessionViewContainer {
     width: 90% !important;
     height: 80% !important;
-  
     margin-top: 20px;
     padding: 30px;
-   
 }
-
-.UserProfileRow{
+.SessionViewRow{
     height: 100%;
+}
+.CreatorCard {
+    text-align: center;
+    padding: 5px;
 }
 .ViewCollapse {
     font-size: 25px;
     border-bottom: 1px solid #d3d3d3;
-    margin: 5px 0px 5px 0px ;
+    margin: 10px 0px 10px 0px ;
     cursor: pointer;
-}
-.Group {
-    width: 100%;
-    display: block;
-    padding: 5px;
-    margin: 3px;
-}
-
-.UserCard{
-    border-radius: 0px;
-    text-align: center;
-    padding: 10px;
-}
-.UserEditCard{
-    border-radius: 0px;
-    padding: 10px;
 }
 
 .UserProfileLetter {
-    margin: 5px auto 5px auto;
+    margin: 0px auto 0px auto;
     width: 150px;
     height: 150px;
     text-align: center;
@@ -42,4 +27,3 @@
     font-size: 40px;
     text-transform: uppercase;
 }
-

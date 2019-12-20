@@ -7,8 +7,6 @@ import 'react-widgets/dist/css/react-widgets.css';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { Provider } from 'react-redux';
-import store from './app/providers/store'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 

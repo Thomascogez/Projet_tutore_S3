@@ -14,26 +14,29 @@ import Options from '../pages/options'
 import AddSession from '../pages/addSession'
 import Test from '../pages/test'
 import PasswordReset from "../pages/home/passwordReset";
+import ViewsSession from '../pages/event/view/index'
 
 
 import ProtectedRoute from '../utils/protectedRoute'
+import ProtectedRouteAdmin from '../utils/protectedRouteAdmin';
 
 const routes = {
     '/' : () => <Home />,
     '/passwordForget' : () => <Password />,
     '/passwordReset/:token' : (token) => <PasswordReset token={token} />,
-    '/test' : () =><ProtectedRoute> <Test /></ProtectedRoute>,
+    '/test' : () => <Test />,
     '/options' : () => <Options />,
     '/seances' : () => <Seances />,
     '/seances/addEvent' : () => <AddEvent />,
     '/administration/utilisateurs/ajout/etape1' : () => <AddUser />,
     '/administration/utilisateurs/ajout/etape2' : () => <AddUserPage2 />,
-    '/administration' : () =><Administration />,
+    '/administration' : () => <ProtectedRoute><ProtectedRouteAdmin> <Administration /> </ProtectedRouteAdmin></ProtectedRoute>,
     '/administration/editModule' : () => <EditModule />,
     '/administration/utilisateurs' : () =><GererUtilisateur/>,
     '/userProfil' : () => <Userprofile/>,
     '/administration/groupe' : () => <EditGroup />,
-    '/seances/ajoutSeance': () => <AddSession />
+    '/seances/ajoutSeance': () => <AddSession />,
+    '/seances/:seanceId'  : (seanceId) => <ViewsSession seanceId={seanceId}  />
 };
 
 export default routes;

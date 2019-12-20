@@ -11,6 +11,7 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use Nelmio\ApiDocBundle\Annotation\Operation;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -297,5 +298,31 @@ class UserController extends AbstractController
             }
         }
         return $generation;
+    }
+
+    /**
+     * Get if current user is admin
+     * @Rest\Get("/api/users/isAdmin", name="get_user_is_admin_action")
+     * @Rest\View()
+     * @Operation(
+     *     path="/api/users/isAdmin",
+     *     operationId="getIsAdminAction",
+     *     tags={"User"},
+     *     summary="Get if current user is admin",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
+     */
+    public function getIsAdminAction()
+    {
+        if($this->userHasRole($this->getUser(), "ROLE_ADMIN"))
+            return new JsonResponse(array("code" => Response::HTTP_OK, "message" => "true"), Response::HTTP_OK);
+        else
+            return $this->notAuthorized();
     }
 }

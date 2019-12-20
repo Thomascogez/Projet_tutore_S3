@@ -12,39 +12,33 @@ import {
 import logo from "../../../assets/images/scShare_logo.png";
 import style from "./../home.module.css";
 import { navigate } from "hookrouter";
-import axios from 'axios';
-import {PASSWORD_FORGET_VERIFY} from "../../../types/apiConst";
+
 import Loader from 'react-loader-spinner'
 import { toast } from 'react-toastify';
+import { ApiPasswordForgetCheck, ApiPasswordPatch } from '../../../api/PasswordReset'
 
 toast.configure();
 
 export default function PasswordReset(props) {
     const [loading, setLoading] = useState(true);
-    console.log(props)
-    const req = {
-        'token': props.token
-    };
+   
 
     useEffect(() => {
-        axios.post(PASSWORD_FORGET_VERIFY, req)
+        ApiPasswordForgetCheck({'token': props.token})
             .then( () =>  setLoading(!loading))
             .catch(() =>  navigate("/")       );
     }, []);
 
-
-    const [username, setUsername] = useState("");
-    const [errorUsername, setErrorUsername] = useState("");
-
     const acceptRestore = () => {
-
-        axios.patch(PASSWORD_FORGET_VERIFY, req)
+        
+        ApiPasswordPatch({'token': props.token})
             .then(res => {
                 toast.success("Un nouveau mot de passe vous à été envoyé en email !");
                 navigate('/');
             })
             .catch(error => {
-                setErrorUsername(error.response.data.message);
+               navigate('/');
+               toast.error("Demande expirée")
             })
     };
 
