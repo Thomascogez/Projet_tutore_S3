@@ -39,6 +39,7 @@ export default function AjoutSeance()
                         : <React.Fragment/>
                     }
                     
+
                     { (type != "type" && module != "module") ?
                        
                         <FormSelect  onChange={(e) => setGroup(e.target.value)} className= {style.AddSubject}>

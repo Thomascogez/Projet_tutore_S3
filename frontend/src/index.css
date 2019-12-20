@@ -9,6 +9,10 @@ html, body, #root, #root>div {
 button{
   border-radius: 0px !important;
 }
+.btn-primary{
+  background-color:rgba(11, 191, 140, 0.93) !important;
+  border-color:rgba(11, 191, 140, 0.93) !important;
+}
 
 /* Animations */
 .fade-appear {
