@@ -25,7 +25,7 @@ export default function Seances() {
             </Col>
             <Col lg="11" sm="11">
               <WorkContainer>
-                <Work color="green" name="algo" finished={false} />
+                <Work color="green" name="algo" finished={false} typeCours="TP" />
                 <Work color="blue" name="cpoa" finished={true} />
                 <Work color="aqua" name="bado" finished={true} />
                 <Work color="tomato" name="salut" finished={false} />
@@ -41,7 +41,7 @@ export default function Seances() {
             </Col>
             <Col lg="11" sm="11">
               <WorkContainer>
-                <Work color="green" name="algo" finished={false} />
+                <Work color="green" name="algo" finished={false}  />
                 <Work color="blue" name="cpoa" finished={true} />
                 <Work color="aqua" name="bado" finished={true} />
                 <Work color="tomato" name="salut" finished={false} />

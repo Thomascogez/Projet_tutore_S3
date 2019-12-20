@@ -14,6 +14,7 @@ import Options from '../pages/options'
 import AddSession from '../pages/addSession'
 import Test from '../pages/test'
 import PasswordReset from "../pages/home/passwordReset";
+import ViewsSession from '../pages/event/view/index'
 
 
 import ProtectedRoute from '../utils/protectedRoute'
@@ -34,7 +35,8 @@ const routes = {
     '/administration/utilisateurs' : () =><GererUtilisateur/>,
     '/userProfil' : () => <Userprofile/>,
     '/administration/groupe' : () => <EditGroup />,
-    '/seances/ajoutSeance': () => <AddSession />
+    '/seances/ajoutSeance': () => <AddSession />,
+    '/seances/:seanceId'  : (seanceId) => <ViewsSession seanceId={seanceId}  />
 };
 
 export default routes;
