@@ -1,10 +1,11 @@
 import React from "react";
-
+import ProfileRound from '../profileRound_component/ProfileRound'
 export default function Comment(props)
 {
+   
     return (
         <div>
-            De : {props.name} à : {props.date} {props.hour}  : {props.comment}
+           <ProfileRound  letter="t" bgcolor="red" fcolor="#fff" />
         </div>
     )
 }

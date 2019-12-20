@@ -10,8 +10,9 @@ import {
   CardHeader,
   Collapse
 } from "shards-react";
-import { FaAngleRight, FaAngleDown } from "react-icons/fa";
+import { FaAngleRight, FaAngleDown,FaFileAlt } from "react-icons/fa";
 import ProfileRound from "../../../components/profileRound_component/ProfileRound";
+import Comment from '../../../components/sessions_components/Comment'
 import style from "./sessionview.module.css";
 export default function ViewsEvent() {
   const [eventCollapse, setEventCollapse] = useState(false);
@@ -47,6 +48,7 @@ export default function ViewsEvent() {
               Informations de la séances
             </CardHeader>
             <CardBody>
+              <h1>Base de donnée <Badge theme="success">TP</Badge></h1>
               <div
                 onClick={() => setEventCollapse(!eventCollapse)}
                 className={style.ViewCollapse}
@@ -55,7 +57,7 @@ export default function ViewsEvent() {
                 événements de la séances
               </div>
               <Collapse open={eventCollapse}>
-                <table className="table">
+                <table className={`table-responsive table table-striped ${style.EventTable}`}>
                   <thead>
                     <tr>
                       <th scope="col">Professeur</th>
@@ -68,10 +70,24 @@ export default function ViewsEvent() {
                   <tbody>
                     <tr>
                       <th scope="row">Hadoum boukachour</th>
-                      <td>Requêtes 1 a 7</td>
+                      <td><a href="#">Voir plus de détails</a> </td>
                       <td>00h30</td>
-                      <td>a faire</td>
-                      <td><a href="#">Voir les piéces jointes</a></td>
+                      <td><Badge theme="info">Fait</Badge></td>
+                      <td style={{textAlign:"center"}}><FaFileAlt color="gray" /></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Hadoum boukachour</th>
+                      <td><a href="#">Voir plus de détails</a> </td>
+                      <td>00h30</td>
+                      <td><Badge theme="warning">a faire</Badge></td>
+                      <td style={{textAlign:"center"}}><FaFileAlt color="green" /></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Hadoum boukachour</th>
+                      <td><a href="#">Voir plus de détails</a> </td>
+                      <td>00h30</td>
+                      <td><Badge theme="warning">a faire</Badge></td>
+                      <td style={{textAlign:"center"}}><FaFileAlt color="green" /></td>
                     </tr>
                   </tbody>
                 </table>
@@ -84,7 +100,7 @@ export default function ViewsEvent() {
                 Ajouter un commentaire
               </div>
               <Collapse open={commentCollapse}>
-                  
+                  <Comment />
               </Collapse>
             </CardBody>
           </Card>

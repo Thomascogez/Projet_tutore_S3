@@ -39,7 +39,7 @@
   max-height: 110px !important;
   width: 100%;
   border: 1px solid rgb(211,211,211);
-  overflow-x: auto;
+  overflow-x: scroll ;
   overflow-y: hidden;
   white-space: nowrap;
   margin: 10px 0px 10px 0px;

@@ -3,19 +3,17 @@ import { Container, Row, Col, Button } from "shards-react";
 import style from "./sessions.module.css";
 import { navigate } from "hookrouter";
 import { FaBookOpen } from "react-icons/fa";
-
 //seances components
 import WeekContainer from "../../components/sessions_components/WeekContainer";
 import WorkContainer from "../../components/sessions_components/WorkContainers";
 import DayContainer from "../../components/sessions_components/DayContainer";
 import MounthSelector from "../../components/sessions_components/MounthSelector";
 import Work from "../../components/sessions_components/Work";
-import Comment from "../../components/sessions_components/Comment";
 
 export default function Seances() {
   return (
     <Container fluid className={style.SeancesContainer}>
-      <Button onClick={() => navigate("/seances/ajoutSeance")}><FaBookOpen style={{marginRight:"15px"}}/> Ajouter séance</Button>
+      <Button onClick={() => navigate("/seances/ajoutSeance")}><FaBookOpen style={{ marginRight: "15px" }} /> Ajouter séance</Button>
       <MounthSelector mounth="Décembre" />
       <Row className={style.WorkRow}>
         <Col lg="1" sm="12">
@@ -43,17 +41,17 @@ export default function Seances() {
               <DayContainer day="mardi" />
             </Col>
             <Col lg="11" sm="11">
-              <WorkContainer>
-                <Work color="green" name="algo" finished={false}  />
-                <Work color="blue" name="cpoa" finished={true} />
-                <Work color="aqua" name="bado" finished={true} />
-                <Work color="tomato" name="salut" finished={false} />
-                <Work color="red" name="math" finished={false} />
-                <Work color="green" name="algo" finished={false} />
-                <Work color="blue" name="cpoa" finished={false} />
-                <Work color="aqua" name="bado" finished={true} />
-                <Work color="tomato" name="salut" finished={false} />
-              </WorkContainer>
+                <WorkContainer>
+                  <Work color="green" name="algo" finished={false} />
+                  <Work color="blue" name="cpoa" finished={true} />
+                  <Work color="aqua" name="bado" finished={true} />
+                  <Work color="tomato" name="salut" finished={false} />
+                  <Work color="red" name="math" finished={false} />
+                  <Work color="green" name="algo" finished={false} />
+                  <Work color="blue" name="cpoa" finished={false} />
+                  <Work color="aqua" name="bado" finished={true} />
+                  <Work color="tomato" name="salut" finished={false} />
+                </WorkContainer>
             </Col>
           </Row>
         </Col>

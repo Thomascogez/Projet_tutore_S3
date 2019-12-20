@@ -4,7 +4,7 @@
  */
 
 
-const PATH_API = "http://172.26.3.40:8000";
+const PATH_API = "https://www.schoolshare.tools";
 
 const PASSWORD_FORGET_GET = PATH_API + "/api/users/passwordReset";
 const PASSWORD_FORGET_VERIFY = PATH_API + "/api/users/passwordReset";
