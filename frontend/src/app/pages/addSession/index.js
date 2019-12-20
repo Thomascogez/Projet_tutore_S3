@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { Container,Button,Fade, FormSelect, Row, Col } from 'shards-react'
+import {navigate} from 'hookrouter'
 
 import style from './addSession.module.css'
 
@@ -38,6 +39,7 @@ export default function AjoutSeance()
 
     return ( 
         <Container fluid>
+            <Button onClick={() => navigate("/seances")} style={{marginTop:"25px", marginLeft:"20px"}}>Retour </Button>
             <h1 className={style.title}>Ajout séance</h1>
             <div className={style.Border}>                
                 <form> 
