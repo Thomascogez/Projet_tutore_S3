@@ -1,3 +1,4 @@
+
 /**
  * All Api routes goes here
  */
@@ -23,7 +24,7 @@ export {
     PASSWORD_FORGET_GET,
     PASSWORD_FORGET_VERIFY,
     CHECK_STILL_VALID,
-    LOGIN_CHECK, 
+    LOGIN_CHECK,
     CHECK_IS_ADMIN,
     ALL_GROUPS
 };

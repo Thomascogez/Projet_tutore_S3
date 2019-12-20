@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import style from '../../pages/event/sessions.module.css'
+import style from '../../pages/sessions/sessions.module.css'
 
 import { FaCheckCircle } from 'react-icons/fa'
 import Modal from './Modal'

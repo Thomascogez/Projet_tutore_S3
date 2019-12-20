@@ -4,7 +4,7 @@ import {navigate} from 'hookrouter'
 
 import style from './addSession.module.css'
 
-import ListeComponent from '../../components/addSession_components/listeComponent'
+import ListeComponent from '../../../components/addSession_components/listeComponent'
 
 export default function AjoutSeance()
 {

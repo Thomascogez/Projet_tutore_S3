@@ -2,22 +2,16 @@ import React, {useState, useEffect} from 'react'
 import adminStyle from '../../../components/administration_components/module/adminmodule.module.css';
 import BarreRecherche from '../../../components/administration_components/module/BarreRecherche'
 import Groupe from '../../../components/administration_components/groupe/Groupe'
-import axios from "axios";
-import Loader from "react-loader-spinner";
 import PageLoader from "../../../components/layouts/loader";
+import {getAllGroups} from "../../../api/groups";
 
 export default function Group()
 {
     const [groups, setGroups] = useState({});
 
     useEffect(() => {
-        axios.get("http://localhost:8000/api/groups", {
-            headers: { Authorization: "Bearer " + localStorage.getItem("token") }
-        }).then(data => {
-            setGroups(data.data);
-        })
+        getAllGroups(setGroups);
     }, []);
-
 
     return (
         <div>

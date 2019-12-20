@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Badge, Button } from "shards-react";
 
 
-import style from "../../pages/event/sessions.module.css";
+import style from "../../pages/sessions/sessions.module.css";
 import {FaAngleDown, FaAngleRight} from 'react-icons/fa'
 export default function CoursModal({
   name,
