@@ -40,6 +40,7 @@ class AppFixtures extends Fixture
             ->setPassword($this->encoder->encodePassword($user, "123456"))
             ->setRoles(array("ROLE_TEACHER"))
             ->setCreatedAt(new \DateTime())
+            ->setColor("#" . sprintf('%06x', mt_rand(0, 1<<18 - 1)))
             ->setUpdateAt(new \DateTime());
         $users[] = $user;
 
@@ -50,6 +51,7 @@ class AppFixtures extends Fixture
             ->setPassword($this->encoder->encodePassword($user, "123456"))
             ->setRoles(array("ROLE_TEACHER"))
             ->setCreatedAt(new \DateTime())
+            ->setColor("#" . sprintf('%06x', mt_rand(0, 1<<18 - 1)))
             ->setUpdateAt(new \DateTime());
         $users[] = $user;
 
@@ -60,6 +62,7 @@ class AppFixtures extends Fixture
             ->setPassword($this->encoder->encodePassword($user, "123456"))
             ->setRoles(array("ROLE_TEACHER"))
             ->setCreatedAt(new \DateTime())
+            ->setColor("#" . sprintf('%06x', mt_rand(0, 1<<18 - 1)))
             ->setUpdateAt(new \DateTime());
         $users[] = $user;
 
@@ -70,6 +73,7 @@ class AppFixtures extends Fixture
             ->setPassword($this->encoder->encodePassword($user, "123456"))
             ->setRoles(array("ROLE_TEACHER"))
             ->setCreatedAt(new \DateTime())
+            ->setColor("#" . sprintf('%06x', mt_rand(0, 1<<18 - 1)))
             ->setUpdateAt(new \DateTime());
         $users[] = $user;
 
@@ -80,6 +84,7 @@ class AppFixtures extends Fixture
             ->setPassword($this->encoder->encodePassword($user, "123456"))
             ->setRoles(array("ROLE_TEACHER", "ROLE_ADMIN"))
             ->setCreatedAt(new \DateTime())
+            ->setColor("#" . sprintf('%06x', mt_rand(0, 1<<18 - 1)))
             ->setUpdateAt(new \DateTime());
         $users[] = $user;
 
@@ -90,6 +95,7 @@ class AppFixtures extends Fixture
             ->setPassword($this->encoder->encodePassword($user, "123456"))
             ->setRoles(array("ROLE_TUTOR"))
             ->setCreatedAt(new \DateTime())
+            ->setColor("#" . sprintf('%06x', mt_rand(0, 1<<18 - 1)))
             ->setUpdateAt(new \DateTime());
         $users[] = $user;
 
@@ -100,6 +106,7 @@ class AppFixtures extends Fixture
             ->setPassword($this->encoder->encodePassword($user, "123456"))
             ->setRoles(array("ROLE_TUTOR"))
             ->setCreatedAt(new \DateTime())
+            ->setColor("#" . sprintf('%06x', mt_rand(0, 1<<18 - 1)))
             ->setUpdateAt(new \DateTime());
         $users[] = $user;
 
@@ -110,6 +117,7 @@ class AppFixtures extends Fixture
             ->setPassword($this->encoder->encodePassword($user, "123456"))
             ->setRoles(array("ROLE_TUTOR"))
             ->setCreatedAt(new \DateTime())
+            ->setColor("#" . sprintf('%06x', mt_rand(0, 1<<18 - 1)))
             ->setUpdateAt(new \DateTime());
         $users[] = $user;
 
@@ -120,6 +128,7 @@ class AppFixtures extends Fixture
             ->setPassword($this->encoder->encodePassword($user, "123456"))
             ->setRoles(array("ROLE_TUTOR"))
             ->setCreatedAt(new \DateTime())
+            ->setColor("#" . sprintf('%06x', mt_rand(0, 1<<18 - 1)))
             ->setUpdateAt(new \DateTime());
         $users[] = $user;
 

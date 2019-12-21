@@ -1,34 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d14a8399-2bba-4ca7-9a97-266b73f1d265" name="Default Changelist" comment="Link forget password to backend">
-      <change afterPath="$PROJECT_DIR$/frontend/src/app/providers/actions/groupActions.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/app/providers/reducers/groupReducer.js" afterDir="false" />
+    <list default="true" id="d14a8399-2bba-4ca7-9a97-266b73f1d265" name="Default Changelist" comment="Add color">
+      <change afterPath="$PROJECT_DIR$/Backend/bado.bat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/config/packages/nelmio_cors.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/config/packages/nelmio_cors.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Controller/Group/GroupController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Controller/Group/GroupController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Controller/Module/ModuleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Controller/Module/ModuleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Controller/Session/Event/AttachmentEventController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Controller/Session/Event/AttachmentEventController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Controller/Session/Event/EventController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Controller/Session/Event/EventController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Controller/Session/SessionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Controller/Session/SessionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Controller/Types/EventTypeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Controller/Types/EventTypeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Controller/Types/SessionTypeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Controller/Types/SessionTypeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Controller/User/Groups/UserGroupsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Controller/User/Groups/UserGroupsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Controller/User/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Controller/User/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/api/groups.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/api/groups.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/administration_components/groupe/DeleteGroup.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/administration_components/groupe/DeleteGroup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/administration_components/groupe/Groupe.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/administration_components/groupe/Groupe.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/layouts/Navbar/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/layouts/Navbar/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/layouts/Navbar/navbar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/layouts/Navbar/navbar.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/profileRound_component/ProfilRoundNav.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/profileRound_component/ProfilRoundNav.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/admin/group/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/admin/group/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/home/home.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/home/home.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/sessions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/sessions/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/sessions/sessions.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/sessions/sessions.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/providers/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/providers/reducers/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/types/actionsTypes.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/types/actionsTypes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/types/apiConst.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/types/apiConst.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/DataFixtures/AppFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/DataFixtures/AppFixtures.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Entity/User.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -237,7 +214,7 @@
       <workItem from="1576764254834" duration="122000" />
       <workItem from="1576764749991" duration="4376000" />
       <workItem from="1576872850615" duration="78000" />
-      <workItem from="1576872929727" duration="15544000" />
+      <workItem from="1576872929727" duration="16585000" />
     </task>
     <task id="LOCAL-00001" summary="Init project">
       <created>1576486472217</created>
@@ -288,7 +265,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576877768646</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Fix API &amp; delete groups">
+      <created>1576889644898</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1576889644898</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -316,7 +300,8 @@
     <MESSAGE value="Forgetpassword api, navbar fix" />
     <MESSAGE value="Link forget password to backend" />
     <MESSAGE value="Refractor code and route order" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refractor code and route order" />
+    <MESSAGE value="Fix API &amp; delete groups" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix API &amp; delete groups" />
   </component>
   <component name="WindowStateProjectService">
     <state x="391" y="177" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog" timestamp="1576569731889">
