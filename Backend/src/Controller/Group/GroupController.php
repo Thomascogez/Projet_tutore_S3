@@ -211,5 +211,6 @@ class GroupController extends AbstractController
         $manager->remove($group);
         $manager->flush();
 
+        return $this->getDoctrine()->getRepository(Groups::class)->findAll();
     }
 }

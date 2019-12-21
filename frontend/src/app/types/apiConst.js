@@ -15,7 +15,8 @@ const CHECK_STILL_VALID = PATH_API + "/api/users/my";
 const LOGIN_CHECK = PATH_API + "/api/login_check";
 
 // -------------------- ADMIN  -------------------------//
-const ALL_GROUPS = PATH_API + "/api/groups";
+const ALL_GROUPS   = PATH_API + "/api/groups";
+const DELETE_GROUP = PATH_API + "/api/groups";
 
 // --------------------   TEST  ---------------------- //
 const CHECK_IS_ADMIN = PATH_API + "/api/users/isAdmin";
@@ -26,5 +27,6 @@ export {
     CHECK_STILL_VALID,
     LOGIN_CHECK,
     CHECK_IS_ADMIN,
-    ALL_GROUPS
+    ALL_GROUPS,
+    DELETE_GROUP
 };

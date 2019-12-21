@@ -121,7 +121,7 @@ class UserGroupsController extends UserController
     /**
      * Delete group on user with id user and id group
      * @Rest\Delete("/api/users/{id}/groups/{id_group}", requirements={"id": "\d+", "id_group": "\d+"}, name="delete_users_groups_action")
-     * @Rest\View(serializerGroups={"user"})
+     * @Rest\View(serializerGroups={"groups"})
      * @Operation(
      *     path="/api/users/{id}/groups/{id_group}",
      *     operationId="deleteUserGroupAction",

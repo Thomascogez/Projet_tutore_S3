@@ -215,7 +215,7 @@ class EventController extends AbstractController
     /**
      * delete event by id and session id
      * @Rest\Delete("/api/sessions/{id_session}/events/{id_event}", name="delete_event_action", requirements={"id_session": "\d+", "id_event": "\d+"})
-     * @Rest\View(statusCode=204)
+     * @Rest\View(serializerGroups={"events"})
      * @Operation(
      *     path="/api/sessions/{id_session}/events/{id_event}",
      *     operationId="deleteEventAction",
@@ -246,6 +246,8 @@ class EventController extends AbstractController
             $manager = $this->getDoctrine()->getManager();
             $manager->remove($event);
             $manager->flush();
+
+            return $session->getEvents();
         } else {
             return $this->notAuthorized();
         }

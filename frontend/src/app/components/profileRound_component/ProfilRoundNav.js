@@ -3,7 +3,7 @@ import {Dropdown, DropdownMenu, DropdownItem, NavLink} from "shards-react";
 import {FaUserNinja, FaCog, FaPowerOff, FaUserCog} from "react-icons/fa";
 import { navigate } from 'hookrouter'
 
-export default function ProfilRound({bgcolor,fcolor,letter, logout})
+export default function ProfilRound({bgcolor, fcolor, letter, logout})
 {
     const [open, setOpen] = useState(false);
     return (

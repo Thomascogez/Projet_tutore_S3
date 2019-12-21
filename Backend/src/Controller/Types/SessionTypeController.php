@@ -150,7 +150,7 @@ class SessionTypeController extends AbstractController
     /**
      * Delete session type by id
      * @Rest\Delete("/api/session_types/{id}", requirements={"id": "\d+"}, name="delete_session_types_action")
-     * @Rest\View(statusCode=204)
+     * @Rest\View(serializerGroups={"session_type"})
      * @Operation(
      *     path="/api/session_types/{id}",
      *     operationId="deleteSessionTypeAction",
@@ -177,5 +177,6 @@ class SessionTypeController extends AbstractController
         $manager = $this->getDoctrine()->getManager();
         $manager->remove($sessType);
         $manager->flush();
+        return $this->getDoctrine()->getRepository(SessionType::class)->findAll();
     }
 }

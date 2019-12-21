@@ -169,7 +169,7 @@ class AttachmentEventController extends EventController
     /**
      * Delete attachment by attachment id and event id
      * @Rest\Delete("/api/sessions/{id_session}/events/{id_event}/attachments/{id_attachment}", name="delete_attachment_event_action", requirements={"id_session": "\d+", "id_event": "\d+", "id_attachment": "\d+"})
-     * @Rest\View(statusCode=204)
+     * @Rest\View(serializerGroups={"attachment"})
      * @Operation(
      *     path="/api/sessions/{id_session}/events/{id_event}/attachments/{id_attachment}",
      *     operationId="deleteAttachmentEventAction",
@@ -204,6 +204,8 @@ class AttachmentEventController extends EventController
             $manager = $this->getDoctrine()->getManager();
             $manager->remove($attach);
             $manager->flush();
+
+            return $event->getAttachmentEvents();
         } else {
             return $this->notAuthorized();
         }

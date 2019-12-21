@@ -177,7 +177,7 @@ class EventTypeController extends AbstractController
     /**
      * Delete event type by id
      * @Rest\Delete("/api/event_types/{id}", requirements={"id": "\d+"}, name="delete_event_types_action")
-     * @Rest\View(statusCode=204)
+     * @Rest\View(serializerGroups={"event_type"})
      * @Operation(
      *     path="/api/event_types/{id}",
      *     operationId="deleteEventTypeAction",
@@ -204,5 +204,7 @@ class EventTypeController extends AbstractController
         $manager = $this->getDoctrine()->getManager();
         $manager->remove($eventType);
         $manager->flush();
+
+        return $this->getDoctrine()->getRepository(EventType::class)->findAll();
     }
 }

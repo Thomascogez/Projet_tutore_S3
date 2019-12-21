@@ -24,7 +24,7 @@ export default function Seances() {
             <Col lg="1" sm="1">
               <DayContainer day="Lundi" />
             </Col>
-            <Col lg="11" sm="11">
+            <Col lg="11" sm="11" >
               <WorkContainer>
                 <Work color="green" name="algo" finished={false} typeCours="TP" />
                 <Work color="blue" name="cpoa" finished={true} />
