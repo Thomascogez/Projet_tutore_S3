@@ -3,14 +3,16 @@ import adminStyle from '../../../components/administration_components/module/adm
 import BarreRecherche from '../../../components/administration_components/module/BarreRecherche'
 import Groupe from '../../../components/administration_components/groupe/Groupe'
 import PageLoader from "../../../components/layouts/loader";
-import {getAllGroups} from "../../../api/groups";
+import {useDispatch, useSelector} from "react-redux";
+import {getGroups} from "../../../providers/actions/groupActions";
 
 export default function Group()
 {
-    const [groups, setGroups] = useState({});
+    const dispatch = useDispatch();
+    const groupState = useSelector(state => state.group);
 
-    useEffect(() => {
-        getAllGroups(setGroups);
+    useEffect( () => {
+        dispatch(getGroups());
     }, []);
 
     return (
@@ -28,10 +30,10 @@ export default function Group()
                         </tr>
                     </thead>
                     <tbody >
-                        { (groups.length > 0) ? (
+                        { (groupState.groups.length > 0) ? (
                             <React.Fragment>
-                                {groups.map((m) =>
-                                    <Groupe name={m.name} color={m.color} />
+                                {groupState.groups.map((m) =>
+                                    <Groupe name={m.name} color={m.color} key={m.id} id={m.id}/>
                                 ) }
                             </React.Fragment>
                         ):(<React.Fragment />
@@ -39,8 +41,7 @@ export default function Group()
                     </tbody>
                 </table>
             </div>
-
-            { (groups.length > 0) ? (
+            { (groupState.groups.length > 0) ? (
                 <React.Fragment />
             ):(
                 <PageLoader />

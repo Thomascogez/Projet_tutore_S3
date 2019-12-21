@@ -259,7 +259,7 @@ class SessionController extends AbstractController
     /**
      * Delete session by id
      * @Rest\Delete("/api/sessions/{id}", requirements={"id": "\d+"}, name="delete_session_action")
-     * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
+     * @Rest\View(serializerGroups={"session_detail"})
      * @Operation(
      *     path="/api/sessions/{id}",
      *     operationId="deleteSessionAction",
@@ -283,5 +283,7 @@ class SessionController extends AbstractController
         $manager = $this->getDoctrine()->getManager();
         $manager->remove($session);
         $manager->flush();
+
+        return $this->getDoctrine()->getRepository(Session::class)->findAll();
     }
 }

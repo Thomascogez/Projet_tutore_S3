@@ -71,6 +71,12 @@ class User implements UserInterface
     private $lastname;
 
     /**
+     * @ORM\Column(type="string", length=7, nullable=true)
+     * @Groups({"user", "group_info", "events"})
+     */
+    private $color;
+
+    /**
      * Date created account
      * @ORM\Column(type="date")
      * @Assert\NotNull()
@@ -425,6 +431,18 @@ class User implements UserInterface
         if ($passwordForget->getUser() !== $this) {
             $passwordForget->setUser($this);
         }
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }

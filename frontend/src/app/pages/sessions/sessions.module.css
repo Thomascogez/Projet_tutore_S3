@@ -21,7 +21,6 @@
   font-weight: 470;
 }
 
-
 .DayContainer{
   height: 105px !important;
   margin-top: 10px;
@@ -127,7 +126,7 @@
 {
   text-align: right;
   margin-right : 2%;
-  margin-bottom : 5%; 
+  margin-bottom : 5%;
 }
 
 .comment

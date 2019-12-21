@@ -182,5 +182,6 @@ class ModuleController extends AbstractController
         $manager = $this->getDoctrine()->getManager();
         $manager->remove($module);
         $manager->flush();
+        return $this->getDoctrine()->getRepository(Module::class)->findAll();
     }
 }

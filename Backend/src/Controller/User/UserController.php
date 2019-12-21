@@ -281,7 +281,10 @@ class UserController extends AbstractController
         $manager = $this->getDoctrine()->getManager();
         $manager->remove($user);
         $manager->flush();
+        return $this->getDoctrine()->getRepository(User::class)->findAll();
     }
+
+
 
     public function randomPassword($nb_car, $chaine = 'AZERTYUIOPQSDFGHJKLMWXCVBNazertyuiopqsdfghjklmwxcvbn123456789!_-@#$%&,.?:')
     {

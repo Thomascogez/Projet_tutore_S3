@@ -5,10 +5,12 @@
 import { combineReducers } from 'redux';
 
 import userReducer from './UserReducer'
+import groupReducer from "./groupReducer";
 
 const rootReducer = combineReducers(
     {
-        user : userReducer
+        user : userReducer,
+        group : groupReducer
     }
 )
 
