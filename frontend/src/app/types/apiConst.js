@@ -31,5 +31,6 @@ export {
     LOGIN_CHECK,
     CHECK_IS_ADMIN,
     ALL_GROUPS,
-    DELETE_GROUP
+    DELETE_GROUP,
+    GET_USER_PROFILE
 };

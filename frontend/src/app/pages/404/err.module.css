@@ -1,0 +1,39 @@
+.page_404{ padding:40px 0; background:#fff;
+}
+
+.page_404  img{ width:100%;}
+
+.fourzerofourbg{
+    margin-top: 30px;
+    background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+    height: 400px;
+    background-position: center;
+}
+
+
+.fourzerofourbg h1{
+    font-size:80px;
+}
+.fourzerofourbg h1:hover{
+    animation: rotateAnim 1s linear infinite;
+}
+
+.fourzerofourbg h3{
+    font-size:80px;
+}
+
+.link404{
+    color: #fff!important;
+    padding: 10px 20px;
+    background: #39ac31;
+    margin: 20px 0;
+    display: inline-block;
+}
+.contantbox404{ margin-top:-50px;}
+
+@keyframes rotateAnim {
+    from {transform: rotateZ(0);}
+    to {
+        transform: rotateZ(360deg);
+    }
+}

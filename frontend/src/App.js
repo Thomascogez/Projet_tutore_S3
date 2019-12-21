@@ -6,6 +6,8 @@ import routes from './app/routes'
 import store from "./app/providers/store";
 import {Provider} from "react-redux";
 
+import Err404 from './app/pages/404';
+
 
 function App() {
 
@@ -13,7 +15,7 @@ function App() {
   return (
     <Provider store={store}>
       <NavBar />
-        {routeResult ? routeResult : "404"}  {/*TODO: 404 page  */}
+        {routeResult ? routeResult : <Err404 />}  {/*TODO: 404 page  */}
     </Provider>
   );
 }
