@@ -2,8 +2,6 @@ import React, {useState} from "react";
 import style from '../../pages/sessions/sessions.module.css'
 
 import { FaCheckCircle } from 'react-icons/fa'
-import Modal from './Modal'
-
 export default function Matiere({color, name, finished, cours, typeCours, children}) {
   const [open, setOpen] = useState(false);
   return (

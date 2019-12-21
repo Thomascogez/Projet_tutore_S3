@@ -1,0 +1,12 @@
+
+
+
+.CommentProfileImage  {
+    width: 50px !important;
+    height: 50px !important;
+    text-align: center;
+    line-height: 50px;
+    margin-right: 15px;
+    text-transform: uppercase;
+}
+

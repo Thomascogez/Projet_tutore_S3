@@ -9,6 +9,9 @@ const PATH_API = "https://schoolshare.tools";
 // --------------------   PASSWORD FORGET  ---------------------- //
 const PASSWORD_FORGET_GET = PATH_API + "/api/users/passwordReset";
 const PASSWORD_FORGET_VERIFY = PATH_API + "/api/users/passwordReset";
+
+const GET_USER_PROFILE = PATH_API + "/api/users/my";
+
 const CHECK_STILL_VALID = PATH_API + "/api/users/my";
 
 // --------------------   USER LOGIN  ---------------------- //
@@ -26,5 +29,6 @@ export {
     CHECK_STILL_VALID,
     LOGIN_CHECK,
     CHECK_IS_ADMIN,
-    ALL_GROUPS
+    ALL_GROUPS,
+    GET_USER_PROFILE
 };

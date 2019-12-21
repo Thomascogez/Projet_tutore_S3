@@ -1,6 +1,6 @@
 import { SET_ISLOGGEDIN, SET_USER } from "../../types/actionsTypes";
 import { navigate } from 'hookrouter';
-import { APIlogin, APIgetMyAccount } from '../../api/userFetch'
+import { APIlogin, APIgetMyAccount, APIcheckStillValid } from '../../api/userFetch'
 
 /**
  * userAction.js
@@ -62,11 +62,9 @@ const logout = () => {
 }
 
 
-
-//TODO: check
 const checkLogin = () => {
     return dispatch => {
-        return APIgetMyAccount()
+        return APIcheckStillValid()
             .then(data => {
                 dispatch({
                     type: SET_ISLOGGEDIN,
@@ -85,4 +83,25 @@ const checkLogin = () => {
     }
 }
 
-export { login, logout, checkLogin };
+const getUserProfile = () => {
+    return dispatch => {
+        return APIgetMyAccount()
+            .then(data => {
+                console.log(data.data);
+                
+                dispatch({
+                    type : SET_USER,
+                    value: data.data
+                })
+            })
+            .catch(err => {
+                navigate('/')
+                    dispatch({
+                        type : SET_USER,
+                        value: {}
+                    })
+            })
+    }
+}
+
+export { login, logout, checkLogin, getUserProfile };

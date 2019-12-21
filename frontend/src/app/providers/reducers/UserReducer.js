@@ -25,7 +25,7 @@ const userReducer = (state = initialState, action) => {
         case SET_USER:
             return {
                 ...state,
-                user: action.user
+                user: action.value
             }
         default:
             return initialState;
