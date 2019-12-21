@@ -7,6 +7,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getUserProfile } from '../../providers/actions/userActions'
 
 import ProfileRound from '../../components/profileRound_component/ProfileRound'
+
+//page loader
+
+import ProfileLoader from '../../components/loader/ProfileLoader'
+
 export default function UserProfile() {
     const [collapseGroup, setcollapseGroup] = useState(false);
     const [collapseEdit, setcollapseEdit] = useState(true);
@@ -22,7 +27,7 @@ export default function UserProfile() {
             <Row className={style.UserProfileRow}>
                 <Col sm="12" lg="4">
                     <Card className={style.UserCard} >
-                        <ProfileRound className={style.UserProfileLetter} bgcolor={user.user.color} letter={user.user.firstname ? user.user.firstname.charAt(0) : ""} fcolor="#fff" />
+                        <>{user.user.firstname ? <ProfileRound size="Big" bgcolor={user.user.color} letter={user.user.firstname.charAt(0) } fcolor="#fff" /> : <ProfileLoader /> }</>
                         <CardBody>
                             <CardTitle>{`${user.user.firstname} ${user.user.lastname}`}</CardTitle>
                             <Badge theme="light">{user.user.username}</Badge>

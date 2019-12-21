@@ -11,10 +11,10 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 ReactDOM.render(
-        <div>
+        <>
             <ToastContainer />
             <App />
-        </div>
+        </>
 
 
 , document.getElementById('root'));

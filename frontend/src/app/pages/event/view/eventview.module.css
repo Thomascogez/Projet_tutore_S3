@@ -20,26 +20,8 @@
 .EventTable{
     width: 100% !important;
 }
-.UserProfileLetter {
-    margin: 0px auto 0px auto;
-    width: 150px;
-    height: 150px;
-    text-align: center;
-    line-height: 150px;
-    font-size: 40px;
-    text-transform: uppercase;
-}
 
-.CommentProfileImage  {
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    line-height: 50px;
-    display: inline-block;
-    margin-right: 15px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-}
+
 
 .AddComment textarea {
     display:inline-block;

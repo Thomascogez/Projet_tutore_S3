@@ -1,8 +1,8 @@
 import React from 'react'
-
-export default function ProfileRound({letter, bgcolor, fcolor, className}) {
+import style from "./profileround.module.css"
+export default function ProfileRound({letter, bgcolor, fcolor, size}) {
     return (
-        <div className = {className} style={{borderRadius:"50%", fontWeight:"450", backgroundColor:bgcolor, color:fcolor}}>
+        <div className = {`${style.ProfileRound} ${style[size]}`} style={{backgroundColor:bgcolor, color:fcolor}}>
             {letter}
         </div>
     )

@@ -1,0 +1,35 @@
+.ProfileRound{
+    border-radius: 50%;
+    font-weight:450; 
+    cursor: pointer;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.Small{
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    display: inline-block;
+    margin-right: 15px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+
+.Medium{
+    font-size:20px; 
+    width:50px; 
+    height:50px;
+    line-height:47px; 
+
+}
+
+.Big {
+    margin: 5px auto 5px auto;
+    width: 150px;
+    height: 150px;
+    line-height: 150px;
+    font-size: 40px;
+}

@@ -27,7 +27,7 @@ export default function ViewsEvent() {
               Créateur de la séance
             </CardHeader>
             <ProfileRound
-              className={style.UserProfileLetter}
+              size = "Big"
               bgcolor="red"
               letter="t"
               fcolor="#fff"
@@ -113,17 +113,17 @@ export default function ViewsEvent() {
                   </thead>
                   <tbody>
                     <tr>
-                      <th scope="row"> <ProfileRound className={style.CommentProfileImage}  letter="t" bgcolor="blue" fcolor="#fff" /></th>
+                      <th scope="row"> <ProfileRound size="Small"  letter="t" bgcolor="blue" fcolor="#fff" /></th>
                       <td>Mauris id dignissim turpis. Donec ornare lacus pulvinar aliquet vestibulum. Pellentesque tempor ornare lacus, aliquet sodales tellus. Nullam porttitor ligula sed sem laoreet, nec luctus turpis sollicitudin. Nullam vulputate, ante sit amet ullamcorper vehicula, risus est molestie eros, eget iaculis tortor ipsum volutpat tellus</td>
                       <td>Le 23/09/19</td>
                     </tr>
                     <tr>
-                      <th scope="row"> <ProfileRound className={style.CommentProfileImage}  letter="t" bgcolor="blue" fcolor="#fff" /></th>
+                      <th scope="row"> <ProfileRound size="Small"  letter="t" bgcolor="blue" fcolor="#fff" /></th>
                       <td>Mauris id dignissim turpis. Donec ornare lacus pulvinar aliquet vestibulum. Pellentesque tempor ornare lacus, aliquet sodales tellus. Nullam porttitor ligula sed sem laoreet, nec luctus turpis sollicitudin. Nullam vulputate, ante sit amet ullamcorper vehicula, risus est molestie eros, eget iaculis tortor ipsum volutpat tellus</td>
                       <td>Le 23/09/19</td>
                     </tr>
                     <tr>
-                      <th scope="row"> <ProfileRound className={style.CommentProfileImage}  letter="t" bgcolor="blue" fcolor="#fff" /></th>
+                      <th scope="row"> <ProfileRound size="Small"  letter="t" bgcolor="blue" fcolor="#fff" /></th>
                       <td>Mauris id dignissim turpis. Donec ornare lacus pulvinar aliquet vestibulum. Pellentesque tempor ornare lacus, aliquet sodales tellus. Nullam porttitor ligula sed sem laoreet, nec luctus turpis sollicitudin. Nullam vulputate, ante sit amet ullamcorper vehicula, risus est molestie eros, eget iaculis tortor ipsum volutpat tellus</td>
                       <td>Le 23/09/19</td>
                     </tr>
@@ -131,7 +131,7 @@ export default function ViewsEvent() {
                 </table>
                 <div className={style.AddComment}>
                   <h5>Ajouter un nouveau commentaire</h5>
-                  <ProfileRound className={style.CommentProfileImage} letter="t" bgcolor="blue" fcolor="#fff" />
+                  <ProfileRound size="Small" letter="t" bgcolor="blue" fcolor="#fff" />
                   <FormTextarea placeholder="Votre commentaire ... (120 charactères max.)" maxLength="120" />
                   <Button style={{ marginLeft: "10px", }}>Ajouter</Button>
                 </div>
