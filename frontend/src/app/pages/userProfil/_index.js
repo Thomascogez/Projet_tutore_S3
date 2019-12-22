@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Row, Col, Card, CardHeader, CardTitle, CardBody, Badge, Collapse, FormInput, FormGroup, Button } from 'shards-react'
 import { FaAngleRight, FaAngleDown } from 'react-icons/fa'
+
 import style from './_userprofile.module.css'
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,15 +12,22 @@ import ProfileRound from '../../components/profileRound_component/ProfileRound'
 //page loader
 
 import ProfileLoader from '../../components/loader/ProfileLoader'
+import TextLoader from '../../components/loader/TextLoader'
 
 export default function UserProfile() {
+
+    // hook that handle collapse view
     const [collapseGroup, setcollapseGroup] = useState(false);
     const [collapseEdit, setcollapseEdit] = useState(true);
+
+    
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getUserProfile())
+        dispatch(getUserProfile()) //Fetch user profile on component load
     }, [])
+
+    //user info from the store
     const user = useSelector(state => state.user);
 
     return (
@@ -29,8 +37,9 @@ export default function UserProfile() {
                     <Card className={style.UserCard} >
                         <>{user.user.firstname ? <ProfileRound size="Big" bgcolor={user.user.color} letter={user.user.firstname.charAt(0) } fcolor="#fff" /> : <ProfileLoader /> }</>
                         <CardBody>
-                            <CardTitle>{`${user.user.firstname} ${user.user.lastname}`}</CardTitle>
-                            <Badge theme="light">{user.user.username}</Badge>
+                            <CardTitle>{user.user.firstname ? user.user.firstname+" "+user.user.lastname  : <TextLoader width="100" x="51" />}</CardTitle>
+                           <>{user.user.username ? <Badge theme="light">{user.user.username }</Badge>:<TextLoader width="80" x="60" />}  </>
+                            
                         </CardBody>
 
                     </Card>
@@ -44,21 +53,25 @@ export default function UserProfile() {
                                 {collapseGroup ? <FaAngleDown /> : <FaAngleRight />} Voir vos groupes
                             </div>
                             <Collapse open={collapseGroup}>
-                                {user.user.groups ? user.user.groups.map(group => (<h5 style={{ color: group.color }} >{group.name}</h5>)) : <div></div>}
+                                {user.user.groups ? user.user.groups.map(group => (<h5 className={style.Group} style={{ backgroundColor: group.color } } key={group.name} >{group.name}</h5>)) : <div></div>}
                             </Collapse>
 
                             <div onClick={() => setcollapseEdit(!collapseEdit)} className={style.ViewCollapse}>
                                 {collapseEdit ? <FaAngleDown /> : <FaAngleRight />} Edition de vos information
                             </div>
                             <Collapse open={collapseEdit}>
-                                <Row>
-                                    <Col sm="12" lg="6"><FormGroup><label htmlFor="#name">Nom</label><FormInput type="text" value={user.user.lastname} id="#name" placeholder="Votre nom ..." /></FormGroup></Col>
-                                    <Col sm="12" lg="6"><FormGroup><label htmlFor="#surname">Prénom</label><FormInput type="text" value={user.user.firstname} id="#surname" placeholder="Votre prénom ..." /></FormGroup></Col>
-                                    <Col sm="12" lg="6"><FormGroup><label htmlFor="#password">Nouveau mot de passe</label><FormInput type="password" id="#password" placeholder="Nouveau mot de passe ..." /></FormGroup></Col>
-                                    <Col sm="12" lg="6"><FormGroup><label htmlFor="#password">Confirmer Nouveau mot de passe</label><FormInput id="#password" placeholder="Confirmer votre nouveau mot de passe ..." /></FormGroup></Col>
-
-                                </Row>
-                                <Button style={{ width: "100%", margin: "10px auto 0px auto" }} theme="primary">Valider vos Changement</Button>
+                                <form>
+                                    <Row>
+                                    
+                                            <Col sm="12" lg="6"><FormGroup><label htmlFor="#name">Nom</label><FormInput name="firstname" defaultValue={user.user.lastname}  type="text"  id="#name" placeholder="Votre nom ..." /></FormGroup></Col>
+                                            <Col sm="12" lg="6"><FormGroup><label htmlFor="#surname">Prénom</label><FormInput name="lastname" type="text" defaultValue={user.user.firstname} id="#surname" placeholder="Votre prénom ..." /></FormGroup></Col>
+                                            <Col sm="12" lg="6"><FormGroup><label htmlFor="#password">Nouveau mot de passe</label><FormInput name="password" type="password" id="#password"  placeholder="Nouveau mot de passe ..." /></FormGroup></Col>
+                                            <Col sm="12" lg="6"><FormGroup><label htmlFor="#passwordvalidate">Confirmer Nouveau mot de passe</label><FormInput name="passwordvalidation" id="#passwordvalidate" placeholder="Confirmer votre nouveau mot de passe ..." /></FormGroup></Col>
+                                    
+                                    </Row>
+                                
+                                    <Button style={{ width: "100%", margin: "10px auto 0px auto" }} theme="primary">Valider vos Changement</Button>
+                                </form>
                             </Collapse>
 
 

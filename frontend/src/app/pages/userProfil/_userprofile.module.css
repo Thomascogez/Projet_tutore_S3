@@ -1,7 +1,6 @@
 .UserProfileContainer{
     width: 90% !important;
     height: 80% !important;
-  
     margin-top: 20px;
     padding: 30px;
    
@@ -17,8 +16,10 @@
     cursor: pointer;
 }
 .Group {
-    width: 100%;
-    display: block;
+    padding: 3px;
+    margin: 0px 5px 0px 5px;
+    color:#fff;
+
     padding: 5px;
     margin: 3px;
 }

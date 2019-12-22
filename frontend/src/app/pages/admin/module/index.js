@@ -22,7 +22,7 @@ export default function gererModule()
             {<BarreRecherche />}
 
             <div style={{margin:50, marginTop:100, padding:10}}>
-                <table  className={`table table-striped ${adminStyle.Scroll}`}>
+                <table  className={`table table-striped table-responsive ${adminStyle.Scroll}`}>
                     <thead>
                         <tr>
                             <th>Module</th>

@@ -24,6 +24,9 @@ const DELETE_GROUP = PATH_API + "/api/groups";
 // --------------------   TEST  ---------------------- //
 const CHECK_IS_ADMIN = PATH_API + "/api/users/isAdmin";
 
+
+const GET_GROUP_BY_ID = PATH_API + "/api/sessions/{id}"
+
 export {
     PASSWORD_FORGET_GET,
     PASSWORD_FORGET_VERIFY,
@@ -32,5 +35,6 @@ export {
     CHECK_IS_ADMIN,
     ALL_GROUPS,
     DELETE_GROUP,
-    GET_USER_PROFILE
+    GET_USER_PROFILE,
+    GET_GROUP_BY_ID
 };
