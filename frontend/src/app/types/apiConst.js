@@ -19,6 +19,7 @@ const LOGIN_CHECK = PATH_API + "/api/login_check";
 
 // -------------------- ADMIN  -------------------------//
 const ALL_GROUPS   = PATH_API + "/api/groups";
+const EDIT_GROUPS  = PATH_API + "/api/groups";
 const DELETE_GROUP = PATH_API + "/api/groups";
 
 // --------------------   TEST  ---------------------- //
@@ -36,5 +37,6 @@ export {
     ALL_GROUPS,
     DELETE_GROUP,
     GET_USER_PROFILE,
-    GET_GROUP_BY_ID
+    GET_GROUP_BY_ID,
+    EDIT_GROUPS
 };
