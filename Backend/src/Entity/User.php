@@ -31,7 +31,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=15, unique=true)
      * @Assert\LessThanOrEqual(15)
      * @Assert\NotBlank()
-     * @Groups({"user", "group_info", "events"})
+     * @Groups({"user", "group_info", "events", "session_detail"})
      */
     private $username;
 
@@ -72,7 +72,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=7, nullable=true)
-     * @Groups({"user", "group_info", "events"})
+     * @Groups({"user", "group_info", "events", "session_detail"})
      */
     private $color;
 

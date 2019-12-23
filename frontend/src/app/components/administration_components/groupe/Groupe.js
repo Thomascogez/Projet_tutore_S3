@@ -12,6 +12,7 @@ toast.configure();
 export default function Groupe(props) {
     const [editing, setEditing] = useState(false);
     const [deleting, setDeleting] = useState(false);
+    const [error, setError] = useState({});
     props = props.group;
 
     const groupState = useSelector(state => state.group);
@@ -37,16 +38,19 @@ export default function Groupe(props) {
                     setName(req.name);
                     setColor(req.color);
                     setParent(req.parent);
+                    setEditing(false);
                 })
-                .catch(data => {
-                    console.log(data.message);
-                    toast.error(data.message);
+                .catch(err => {
+                    console.log(err.response.data)
+                    toast.error(err.response.data.message);
+                    if(err.response.data.errors) {
+                        setError(err.response.data.errors.children);
+                    }
                     setName(props.name);
                     setColor(props.color);
-                    setParent(props.parent.name);
+                    setParent((props.parent)?props.parent.name:'');
                 })
         }
-        setEditing(false);
     };
 
     const handleCancel = () => {
@@ -71,6 +75,7 @@ export default function Groupe(props) {
                 <td>
                     {editing ?
                         <FormSelect value={parent} onChange={(e) => setParent(e.target.value)}>
+                            <option style={{fontWeight: "bold"}} key={null}>Aucun groupe</option>
                             {groupState.groups.map(m => (
                                 <React.Fragment>
                                     {m.name !== name ? (
