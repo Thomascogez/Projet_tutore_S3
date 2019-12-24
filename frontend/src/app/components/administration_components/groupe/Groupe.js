@@ -41,7 +41,6 @@ export default function Groupe(props) {
                     setEditing(false);
                 })
                 .catch(err => {
-                    console.log(err.response.data)
                     toast.error(err.response.data.message);
                     if(err.response.data.errors) {
                         setError(err.response.data.errors.children);
