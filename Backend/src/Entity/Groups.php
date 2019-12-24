@@ -30,6 +30,7 @@ class Groups
      * @ORM\Column(type="string", length=10)
      * @Assert\LessThanOrEqual(10)
      * @Assert\NotBlank()
+     * @Assert\NotNull()
      * @Groupss({"user", "session_detail", "groups", "group_info"})
      */
     private $name;

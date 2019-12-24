@@ -1,5 +1,5 @@
 import axios from "axios";
-import {ALL_GROUPS, DELETE_GROUP} from "../types/apiConst";
+import {ALL_GROUPS, DELETE_GROUP, EDIT_GROUPS} from "../types/apiConst";
 
 
 const APIgetAllGroups = (setGroups) => {
@@ -14,8 +14,14 @@ const APIDeleteGroup = (idGroup) => {
     })
 }
 
+const APIEditGroup = (group) => {
+    return axios.patch(EDIT_GROUPS + "/" + group.id, group, {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+    })
+};
 
 export {
     APIgetAllGroups,
     APIDeleteGroup,
+    APIEditGroup,
 };

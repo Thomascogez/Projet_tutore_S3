@@ -24,6 +24,7 @@ export default function DeleteGroup(props) {
             <Modal size="lg" open={props.open} toggle={props.setOpen}>
                 <ModalHeader className={style.header}>Suppression du groupe</ModalHeader>
                 <ModalBody>Voulez-vous confirmer la suppression du Groupe <span style={{color: props.color, fontWeight: "bold"}}>{props.name}</span> ?</ModalBody>
+                <ModalBody style={{fontWeight: "bold"}}>Cette action supprimeras tous les groupes dépendants de ce groupe !</ModalBody>
                 <ModalFooter class={style.comment}>
                     <Button onClick={() => props.setOpen(!props.open)}>Annuler</Button>
                     <Button onClick={(e) => handleRemove(e)} theme={"danger"}>Confirmer</Button>

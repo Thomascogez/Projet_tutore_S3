@@ -8,7 +8,7 @@ import {getGroups} from "../../../providers/actions/groupActions";
 
 export default function Group()
 {
-    const dispatch = useDispatch();
+    const dispatch   = useDispatch();
     const groupState = useSelector(state => state.group);
 
     useEffect( () => {
@@ -26,6 +26,7 @@ export default function Group()
                         <tr>
                             <th>Groupe</th>
                             <th>Couleur</th>
+                            <th>Dépendance</th>
                             <th style={{width: 20 + '%'}}>Edition</th>
                         </tr>
                     </thead>
@@ -33,7 +34,7 @@ export default function Group()
                         { (groupState.groups.length > 0) ? (
                             <React.Fragment>
                                 {groupState.groups.map((m) =>
-                                    <Groupe name={m.name} color={m.color} key={m.id} id={m.id}/>
+                                    <Groupe key={m.id} group={m}/>
                                 ) }
                             </React.Fragment>
                         ):(<React.Fragment />

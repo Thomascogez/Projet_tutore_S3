@@ -10,8 +10,10 @@ use App\Form\GroupType;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\Operation;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Swagger\Annotations as SWG;
+use Symfony\Component\HttpFoundation\Response;
 
 define("GROUPS_NOT_FOUND", "Groupe is not found");
 
@@ -105,7 +107,11 @@ class GroupController extends AbstractController
             if (!$parent) {
                 $form->get('parent')->addError(new FormError("Parent is not found"));
             }
+            if($parent === $group) {
+                return new JsonResponse(array("code" => Response::HTTP_BAD_REQUEST, "message" => "Un groupe ne peut pas être lui meme parent"));
+            }
         }
+
 
         if ($form->isValid()) {
             $group->setParent($parent);
@@ -167,6 +173,9 @@ class GroupController extends AbstractController
                 } else {
                     $form->get('parent')->addError(new FormError("Parent not this"));
                 }
+                if($parent === $group) {
+                    $form->get('parent')->addError(new FormError("Un groupe ne peut pas être lui meme parent"));
+            }
             }
         }
 
