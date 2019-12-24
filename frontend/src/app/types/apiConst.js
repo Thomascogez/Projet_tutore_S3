@@ -25,7 +25,7 @@ const DELETE_GROUP = PATH_API + "/api/groups";
 const CHECK_IS_ADMIN = PATH_API + "/api/users/isAdmin";
 
 
-const GET_GROUP_BY_ID = PATH_API + "/api/sessions/{id}"
+const GET_GROUP_BY_ID = PATH_API + "/api/sessions"
 
 export {
     PASSWORD_FORGET_GET,
