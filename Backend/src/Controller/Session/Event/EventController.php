@@ -57,11 +57,11 @@ class EventController extends AbstractController
     /**
      * Get all events
      * @Rest\Get("/api/sessions/{id_session}/events", name="get_events_action", requirements={"id_session": "\d+"})
-     * @Rest\View(serializerGroups={"events"})
+     * @Rest\View(serializerGroups={"comment"})
      * @Operation(
      *     path="/api/sessions/{id_session}/events",
      *     operationId="getEventsAction",
-     *     tags={"Event"},
+     *     tags={"Comment"},
      *     summary="Get all events",
      *     @SWG\Response(
      *         response="200",

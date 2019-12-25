@@ -4,64 +4,87 @@ import {FaCheck, FaTimes} from "react-icons/fa";
 import DeleteGroup from "./DeleteGroup";
 import {useSelector} from "react-redux";
 import {toast} from 'react-toastify';
-import {APIEditGroup} from "../../../api/groups";
+import {APIAddGroup, APIEditGroup} from "../../../api/groups";
 import InputColor from "react-input-color";
+import { navigate } from 'hookrouter'
 
 toast.configure();
-
 export default function Groupe(props) {
-    const [editing, setEditing] = useState(false);
+    const [editing, setEditing] = useState((props === null));
     const [deleting, setDeleting] = useState(false);
     const [error, setError] = useState({});
     props = props.group;
 
     const groupState = useSelector(state => state.group);
 
-    const [name, setName] = useState(props.name);
-    const [color, setColor] = useState(props.color);
-    const [parent, setParent] = useState((props.parent) ? props.parent.name : "");
+    const [name, setName] = useState((props != null)?props.name:"");
+    const [color, setColor] = useState((props != null)?props.color:"");
+    const [parent, setParent] = useState((props != null)?((props.parent) ? props.parent.name : ""):"");
 
     const handleValidate = () => {
-        const req = {
-            id: props.id,
+        let req = {
             name: name,
             color: color,
             parent: parent
         };
+        if(props != null) req = {...req, id: props.id};
         if (req.name === "") {
             toast.error("Le nom du groupe ne peut être vide !");
-            setName(props.name);
+            setName((props != null)?props.name:'');
         } else {
-            APIEditGroup(req)
-                .then(res => {
-                    toast.success("Modification effectué !");
-                    setName(req.name);
-                    setColor(req.color);
-                    setParent(req.parent);
-                    setEditing(false);
-                })
-                .catch(err => {
-                    toast.error(err.response.data.message);
-                    if(err.response.data.errors) {
-                        setError(err.response.data.errors.children);
-                    }
-                    setName(props.name);
-                    setColor(props.color);
-                    setParent((props.parent)?props.parent.name:'');
-                })
+            if(props === null) {
+                APIAddGroup(req)
+                    .then(res => {
+                        toast.success("Nouveau groupe ajouté !");
+                        setEditing(false);
+                        window.location.reload();
+
+                    })
+                    .catch(err => {
+                        toast.error(err.response.data.message);
+                        if(err.response.data.errors) {
+                            setError(err.response.data.errors.children);
+                        }
+                    })
+            } else {
+                APIEditGroup(req)
+                    .then(res => {
+                        toast.success("Modification effectué !");
+                        setName(req.name);
+                        setColor(req.color);
+                        setParent(req.parent);
+                        setEditing(false);
+                    })
+                    .catch(err => {
+                        toast.error(err.response.data.message);
+                        if(err.response.data.errors) {
+                            setError(err.response.data.errors.children);
+                        }
+                        setName(props.name);
+                        setColor(props.color);
+                        setParent((props.parent)?props.parent.name:'');
+                    })
+            }
         }
     };
 
     const handleCancel = () => {
-        //when cancel editing
         setEditing(false);
     };
     return (
         <React.Fragment>
             <tr>
                 <td>
-                    {editing ?
-                        <FormInput value={name} onChange={e => setName(e.target.value)} placeholder="Nom ..."/> : name}
+                    {(props === null)?(
+                        editing ?
+                            <FormInput value={name} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
+                            :
+                            <a onClick={() => setEditing(true)} href="javascript:void(0);"><span style={{fontWeight: "bold"}}>Ajouter un groupe ...</span></a>
+                    ):(
+                        editing ?
+                            <FormInput value={name} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
+                            :name
+                    )}
                 </td>
                 <td>
                     <div style={{width: 100}}>
@@ -85,8 +108,11 @@ export default function Groupe(props) {
                                 </React.Fragment>
                             ))}
                         </FormSelect>
-                        :
-                        (parent) ? parent : "Aucun groupe"
+                        :(
+                            (props != null)? (
+                                (parent) ? parent : "Aucun groupe"
+                            ):(<React.Fragment />)
+                        )
                     }
                 </td>
                 <td>
@@ -101,12 +127,18 @@ export default function Groupe(props) {
                         </ButtonGroup>
                     ) : (
                         <ButtonGroup>
-                            <Button onClick={() => setEditing(true)}>Edition</Button>
-                            <Button onClick={() => setDeleting(!deleting)} theme="danger">Supprimer</Button>
+                            {(props != null)? (
+                                <React.Fragment>
+                                    <Button onClick={() => setEditing(true)}>Edition</Button>
+                                    <Button onClick={() => setDeleting(!deleting)} theme="danger">Supprimer</Button>
+                                </React.Fragment>
+                            ):(<React.Fragment />)}
                         </ButtonGroup>
                     )}
                 </td>
-                <DeleteGroup open={deleting} setOpen={setDeleting} name={name} color={color} id={props.id}/>
+                {(props != null)? (
+                    <DeleteGroup open={deleting} setOpen={setDeleting} name={name} color={color} id={props.id}/>
+                ):(<React.Fragment />)}
           </tr>
       </React.Fragment>
   );

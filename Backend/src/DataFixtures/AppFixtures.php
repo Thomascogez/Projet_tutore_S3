@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\AttachmentEvent;
+use App\Entity\Comment;
 use App\Entity\Event;
 use App\Entity\EventType;
 use App\Entity\Groups;
@@ -1005,6 +1006,16 @@ class AppFixtures extends Fixture
                     $manager->persist($attach);
                 }
                 $manager->persist($event);
+            }
+
+            for($i = 0; $i < random_int(0, 5); $i++) {
+                $comment = new Comment();
+                $comment->setCreatedAt($faker->dateTimeBetween("2019-09-01", "2020-06-30"))
+                    ->setUpdateAt($faker->dateTimeBetween("2019-09-01", "2020-06-30"))
+                    ->setUser($users[random_int(0, sizeof($users) - 2)])
+                    ->setSession($session)
+                    ->setComment($faker->realText(300));
+                $manager->persist($comment);
             }
         }
 

@@ -8,6 +8,8 @@ import {getGroups} from "../../../providers/actions/groupActions";
 
 export default function Group()
 {
+    const [loader, setLoader] = useState(false);
+
     const dispatch   = useDispatch();
     const groupState = useSelector(state => state.group);
 
@@ -31,10 +33,11 @@ export default function Group()
                         </tr>
                     </thead>
                     <tbody >
+                        <Groupe key={-1} group={null} />
                         { (groupState.groups.length > 0) ? (
                             <React.Fragment>
                                 {groupState.groups.map((m) =>
-                                    <Groupe key={m.id} group={m}/>
+                                    <Groupe key={m.id} group={m} />
                                 ) }
                             </React.Fragment>
                         ):(<React.Fragment />
@@ -42,7 +45,7 @@ export default function Group()
                     </tbody>
                 </table>
             </div>
-            { (groupState.groups.length > 0) ? (
+            { (groupState.groups.length > 0 || loader === true) ? (
                 <React.Fragment />
             ):(
                 <PageLoader />

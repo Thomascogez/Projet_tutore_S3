@@ -22,7 +22,7 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"user", "session_detail", "group_info", "events"})
+     * @Groups({"user", "session_detail", "group_info", "events", "comment"})
      */
     private $id;
 
@@ -31,14 +31,14 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=15, unique=true)
      * @Assert\LessThanOrEqual(15)
      * @Assert\NotBlank()
-     * @Groups({"user", "group_info", "events", "session_detail"})
+     * @Groups({"user", "group_info", "events", "session_detail", "comment"})
      */
     private $username;
 
     /**
      * Role in website ["ROLE_TEACHER", "ROLE_TUTOR", "ROLE_ADMIN"]
      * @ORM\Column(type="json")
-     * @Groups({"user"})
+     * @Groups({"user", "comment"})
      */
     private $roles = [];
 
@@ -131,6 +131,11 @@ class User implements UserInterface
      */
     private $passwordForget;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user", orphanRemoval=true)
+     */
+    private $comments;
+
     public function __construct()
     {
         $this->semaphores = new ArrayCollection();
@@ -138,6 +143,7 @@ class User implements UserInterface
         $this->groups = new ArrayCollection();
         $this->modules = new ArrayCollection();
         $this->events = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -443,6 +449,37 @@ class User implements UserInterface
     public function setColor(?string $color): self
     {
         $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getUser() === $this) {
+                $comment->setUser(null);
+            }
+        }
 
         return $this;
     }

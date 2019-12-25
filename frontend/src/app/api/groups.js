@@ -8,11 +8,12 @@ const APIgetAllGroups = (setGroups) => {
     })
 }
 
-const APIDeleteGroup = (idGroup) => {
-    return axios.delete(DELETE_GROUP + '/' + idGroup, {
+const APIAddGroup = (group) => {
+    return axios.post(EDIT_GROUPS, group, {
         headers: { Authorization: "Bearer " + localStorage.getItem("token") }
     })
-}
+};
+
 
 const APIEditGroup = (group) => {
     return axios.patch(EDIT_GROUPS + "/" + group.id, group, {
@@ -20,8 +21,15 @@ const APIEditGroup = (group) => {
     })
 };
 
+const APIDeleteGroup = (idGroup) => {
+    return axios.delete(DELETE_GROUP + '/' + idGroup, {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+    })
+}
+
 export {
     APIgetAllGroups,
     APIDeleteGroup,
     APIEditGroup,
+    APIAddGroup
 };
