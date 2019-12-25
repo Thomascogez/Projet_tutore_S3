@@ -156,7 +156,7 @@ class ModuleController extends AbstractController
     /**
      * Delete module by id
      * @Rest\Delete("/api/modules/{id}", name="delete_module_action", requirements={"id": "\d+"})
-     * @Rest\View(statusCode=204)
+     * @Rest\View(statusCode=204, serializerGroups={"modules_info"})
      * @Operation(
      *     path="/api/modules/{id}",
      *     operationId="deleteModuleAction",

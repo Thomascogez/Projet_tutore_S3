@@ -6,7 +6,6 @@ import {useSelector} from "react-redux";
 import {toast} from 'react-toastify';
 import {APIAddGroup, APIEditGroup} from "../../../api/groups";
 import InputColor from "react-input-color";
-import { navigate } from 'hookrouter'
 
 toast.configure();
 export default function Groupe(props) {

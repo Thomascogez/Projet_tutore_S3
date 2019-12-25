@@ -1,5 +1,6 @@
 import {GET_ALL_GROUPS, GET_ALL_MODULES, SET_ISLOGGEDIN} from "../../types/actionsTypes";
 import {APIDeleteModule, APIgetAllModule} from "../../api/modules";
+import {login} from "./userActions";
 
 
 const getModules = () => {
@@ -23,6 +24,7 @@ const removeModules = (idModule) => {
                     value: data.data
                 });
             })
+            .catch(err => console.log(err.response))
     }
 }
 

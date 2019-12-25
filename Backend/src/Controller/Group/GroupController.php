@@ -193,7 +193,7 @@ class GroupController extends AbstractController
     /**
      * Delete group by id
      * @Rest\Delete("/api/groups/{id}", name="delete_group_action", requirements={"id": "\d+"})
-     * @Rest\View(statusCode=204)
+     * @Rest\View(statusCode=204, serializerGroups={"group_info"})
      * @Operation(
      *     path="/api/groups/{id}",
      *     operationId="deleteGroupAction",

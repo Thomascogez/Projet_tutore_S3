@@ -9,6 +9,11 @@ import PageLoader from "../../../components/layouts/loader";
 
 export default function Modules()
 {
+    function tri(a,b)
+    {
+        if (a.code < b.code) return -1;
+        else return 1;
+    }
     const dispatch    = useDispatch();
     const moduleState = useSelector(state => state.module);
 

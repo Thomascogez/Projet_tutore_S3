@@ -84,7 +84,7 @@ export default function Module(props) {
             <td>
                 {(props === null)?(
                 editing ?
-                    <FormInput value={name} onChange={e => setCode(e.target.value)} placeholder="Code ..."/>
+                    <FormInput value={code} onChange={e => setCode(e.target.value)} placeholder="Code ..."/>
                 :
                     <a onClick={() => setEditing(true)} href="javascript:void(0);"><span style={{fontWeight: "bold"}}>Ajouter un module ...</span></a>
                 ):(
@@ -128,7 +128,7 @@ export default function Module(props) {
             )}
             </td>
             {(props != null)? (
-              <DeleteGroup open={deleting} setOpen={setDeleting} name={name} color={color} id={props.id}/>
+              <DeleteModal open={deleting} setOpen={setDeleting} name={name} color={color} id={props.id}/>
             ):(<React.Fragment />)}
         </tr>
     );
