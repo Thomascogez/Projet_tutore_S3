@@ -23,7 +23,8 @@ class GroupType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Groups::class,
-            'csrf_protection' => false
+            'csrf_protection' => false,
+            'allow_extra_fields' => true
         ]);
     }
 }

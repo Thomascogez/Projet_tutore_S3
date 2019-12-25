@@ -2,7 +2,7 @@ import userReducer from "./UserReducer";
 import {GET_ALL_GROUPS} from "../../types/actionsTypes";
 
 /**
- * Reducer that dispatch all user actions
+ * Reducer that dispatch all groups actions
  */
 
 const initialState = {

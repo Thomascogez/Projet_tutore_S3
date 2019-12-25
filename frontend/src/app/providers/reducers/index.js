@@ -6,11 +6,13 @@ import { combineReducers } from 'redux';
 
 import userReducer from './UserReducer'
 import groupReducer from "./groupReducer";
+import moduleReducer from "./moduleReducer";
 
 const rootReducer = combineReducers(
     {
         user : userReducer,
-        group : groupReducer
+        group : groupReducer,
+        module: moduleReducer
     }
 )
 

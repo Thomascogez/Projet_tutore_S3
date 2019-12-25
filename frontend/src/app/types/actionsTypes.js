@@ -11,9 +11,13 @@ const RESET_INVALID_MESSAGE = "RESET_INVALID_MESSAGE";
 //Group actions
 const GET_ALL_GROUPS        = "GET_ALL_GROUPS";
 
+//module actions
+const GET_ALL_MODULES        = "GET_ALL_MODULES";
+
 export {
     SET_ISLOGGEDIN,
     SET_USER,
     RESET_INVALID_MESSAGE,
-    GET_ALL_GROUPS
+    GET_ALL_GROUPS,
+    GET_ALL_MODULES,
 }

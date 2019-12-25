@@ -4,6 +4,7 @@ import { FaUserPlus, FaUserFriends, FaBookReader } from 'react-icons/fa'
 import { TiGroup } from 'react-icons/ti'
 import { navigate } from 'hookrouter'
 import style from './admin.module.css'
+import {IoLogoBuffer} from "react-icons/io";
 
 export default function index() {
     return (
@@ -35,11 +36,11 @@ export default function index() {
                 <Col sm="12" lg="4">
                     <Card className={style.AdminCard} >
                         <CardHeader></CardHeader>
-                        <FaBookReader className={style.AdminCardIcon} />
+                        <IoLogoBuffer className={style.AdminCardIcon} />
                         <CardBody>
-                            <CardTitle>Gérer les séances</CardTitle>
+                            <CardTitle>Gérer les modules</CardTitle>
                             <p>Ajouter, modifier, supprimer.</p>
-                            <Button className={style.AdminCardBtn} onClick = {() => navigate('/administration/editModule')}>Continuer</Button>
+                            <Button className={style.AdminCardBtn} onClick = {() => navigate('/administration/modules')}>Continuer</Button>
                         </CardBody>
                     </Card>
 

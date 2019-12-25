@@ -127,7 +127,7 @@ class CommentController extends SessionController
      * @Rest\RequestParam(name="content", description="Content of comment", nullable=true)
      * @Rest\View(serializerGroups={"comment"}, statusCode=200)
      * @Operation(
-     *     path="/api/sessions/{id_session}/comments",
+     *     path="/api/sessions/{id_session}/comments/{id_comment}",
      *     operationId="patchCommentAction",
      *     tags={"Comment"},
      *     summary="Patch comment on session",
@@ -178,7 +178,7 @@ class CommentController extends SessionController
      * @Operation(
      *     path="/api/sessions/{id_session}/comments/{id_comment}",
      *     operationId="deleteCommentAction",
-     *     tags={"Event"},
+     *     tags={"Comment"},
      *     summary="Delete comment by id and session id",
      *     @SWG\Response(
      *         response="204",

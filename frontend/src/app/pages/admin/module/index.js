@@ -1,42 +1,54 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import adminStyle from '../../../components/administration_components/module/adminmodule.module.css';
-import {
-    Button
-  } from "shards-react"
-  import BarreRecherche from '../../../components/administration_components/module/BarreRecherche'
-  import Module from '../../../components/administration_components/module/Module'
+import BarreRecherche from '../../../components/administration_components/module/BarreRecherche'
+import Module from '../../../components/administration_components/module/Module'
+import {useDispatch, useSelector} from "react-redux";
+import {getModules} from "../../../providers/actions/moduleAction";
+import Groupe from "../../../components/administration_components/groupe/Groupe";
+import PageLoader from "../../../components/layouts/loader";
 
-export default function gererModule()
+export default function Modules()
 {
-    const module = [{name:"MATH",color:"#FF0000"},
-                    {name:"CPOA",color:"#00FF00"},
-                    {name:"JAVA",color:"#0000FF"},
-                    {name:"Base de données",color:"#F0F00F"},
-                    {name:"Algo",color:"#ABCDEF"},
-                    {name:"Expression",color:"#0ABF9A"},
-                    {name:"MPA",color:"#FEDCBA"},
-                   ];
+    const dispatch    = useDispatch();
+    const moduleState = useSelector(state => state.module);
+
+    useEffect( () => {
+        dispatch(getModules());
+    }, []);
+
     return (
         <div >
             <h1 style={{padding:20}}>Gestion des modules</h1>   
             {<BarreRecherche />}
 
             <div style={{margin:50, marginTop:100, padding:10}}>
-                <table  className={`table table-striped table-responsive ${adminStyle.Scroll}`}>
+                <table  className={`table table-striped ${adminStyle.Scroll}`}>
                     <thead>
                         <tr>
+                            <th>Code</th>
                             <th>Module</th>
                             <th>Couleur</th>
                             <th style={{width: 20 + '%'}}>Edition</th>
                         </tr>
                     </thead>
                     <tbody >
-                        {module.map((m) =>
-                                <Module name={m.name} color={m.color} />
-                            ) }
+                        { (moduleState.modules.length > 0) ? (
+                            <React.Fragment>
+                                <Module key={-1} module={null} />
+                                {moduleState.modules.map((m) =>
+                                    <Module key={m.id} module={m} />
+                                ) }
+                            </React.Fragment>
+                        ):(<React.Fragment />
+                        )}
                     </tbody>
                 </table>
             </div>
+            { (moduleState.modules.length > 0 ) ? (
+                <React.Fragment />
+            ):(
+                <PageLoader />
+            )}
         </div>
     )
 

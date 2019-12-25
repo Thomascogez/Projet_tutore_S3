@@ -37,7 +37,7 @@ const routes = {
     '/administration/utilisateurs' : () =><GererUtilisateur/>,
     '/administration/utilisateurs/ajout/etape1' : () => <AddUser />,
     '/administration/utilisateurs/ajout/etape2' : () => <AddUserPage2 />,
-    '/administration/module' : () => <EditModule />,
+    '/administration/modules' : () => <EditModule />,
     '/administration/groupe' : () => <EditGroup />,
 
     '/test' : () => <Test />,

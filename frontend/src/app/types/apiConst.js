@@ -22,6 +22,10 @@ const ALL_GROUPS   = PATH_API + "/api/groups";
 const EDIT_GROUPS  = PATH_API + "/api/groups";
 const DELETE_GROUP = PATH_API + "/api/groups";
 
+const ALL_MODULES    = PATH_API + "/api/modules";
+const EDIT_MODULES   = PATH_API + "/api/modules";
+const DELETE_MODULES = PATH_API + "/api/modules";
+
 // --------------------   TEST  ---------------------- //
 const CHECK_IS_ADMIN = PATH_API + "/api/users/isAdmin";
 
@@ -38,5 +42,8 @@ export {
     DELETE_GROUP,
     GET_USER_PROFILE,
     GET_GROUP_BY_ID,
-    EDIT_GROUPS
+    EDIT_GROUPS,
+    ALL_MODULES,
+    EDIT_MODULES,
+    DELETE_MODULES
 };

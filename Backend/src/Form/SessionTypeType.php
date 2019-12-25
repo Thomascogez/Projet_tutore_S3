@@ -21,6 +21,7 @@ class SessionTypeType extends AbstractType
         $resolver->setDefaults([
             'data_class' => SessionType::class,
             'csrf_protection' => false,
+            'allow_extra_fields' => true
         ]);
     }
 }
