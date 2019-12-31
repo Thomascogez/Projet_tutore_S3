@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Row, Col, Card, CardHeader, CardImg, CardBody, CardTitle, Button, CardFooter } from 'shards-react'
-import { FaUserPlus, FaUserFriends, FaBookReader } from 'react-icons/fa'
+import { FaUserFriends, FaBookOpen } from 'react-icons/fa'
 import { TiGroup } from 'react-icons/ti'
 import { navigate } from 'hookrouter'
 import style from './admin.module.css'
@@ -44,6 +44,19 @@ export default function index() {
                         </CardBody>
                     </Card>
 
+                </Col>
+            </Row>
+            <Row style={{paddingTop: "20px"}}>
+                <Col sm="12" lg="4">
+                    <Card className={style.AdminCard} >
+                        <CardHeader></CardHeader>
+                        <FaBookOpen className={style.AdminCardIcon} />
+                        <CardBody>
+                            <CardTitle>Gérer les types<br/>(séances et évènements)</CardTitle>
+                            <p>Ajouter, modifier, supprimer.</p>
+                            <Button className={style.AdminCardBtn} onClick = {() => navigate('/administration/type')}>Continuer</Button>
+                        </CardBody>
+                    </Card>
                 </Col>
             </Row>
         </Container>

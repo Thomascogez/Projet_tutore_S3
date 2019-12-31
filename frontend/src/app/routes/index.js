@@ -15,6 +15,7 @@ import AddSession from '../pages/sessions/addSession'
 import Test from '../pages/test'
 import PasswordReset from "../pages/home/passwordReset";
 import ViewsSession from '../pages/event/view/index'
+import Types from "../pages/admin/types/index.php";
 
 
 import ProtectedRoute from '../utils/protectedRoute'
@@ -39,6 +40,7 @@ const routes = {
     '/administration/utilisateurs/ajout/etape2' : () => <AddUserPage2 />,
     '/administration/modules' : () => <EditModule />,
     '/administration/groupe' : () => <EditGroup />,
+    '/administration/type' : () => <Types />,
 
     '/test' : () => <Test />,
 };

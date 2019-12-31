@@ -7,12 +7,14 @@ import { combineReducers } from 'redux';
 import userReducer from './UserReducer'
 import groupReducer from "./groupReducer";
 import moduleReducer from "./moduleReducer";
+import typeReducer from "./TypesReducer";
 
 const rootReducer = combineReducers(
     {
         user : userReducer,
         group : groupReducer,
-        module: moduleReducer
+        module: moduleReducer,
+        type:   typeReducer
     }
 )
 

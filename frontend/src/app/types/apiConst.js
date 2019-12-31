@@ -26,6 +26,14 @@ const ALL_MODULES    = PATH_API + "/api/modules";
 const EDIT_MODULES   = PATH_API + "/api/modules";
 const DELETE_MODULES = PATH_API + "/api/modules";
 
+const ALL_EVENT_TYPES   = PATH_API + "/api/event_types";
+const EDIT_EVENT_TYPE   = PATH_API + "/api/event_types";
+const DELETE_EVENT_TYPE = PATH_API + "/api/event_types";
+
+const ALL_SESSION_TYPES   = PATH_API + "/api/session_types";
+const EDIT_SESSION_TYPE   = PATH_API + "/api/session_types";
+const DELETE_SESSION_TYPE = PATH_API + "/api/session_types";
+
 // --------------------   TEST  ---------------------- //
 const CHECK_IS_ADMIN = PATH_API + "/api/users/isAdmin";
 
@@ -45,5 +53,11 @@ export {
     EDIT_GROUPS,
     ALL_MODULES,
     EDIT_MODULES,
-    DELETE_MODULES
+    DELETE_MODULES,
+    ALL_EVENT_TYPES,
+    EDIT_EVENT_TYPE,
+    DELETE_EVENT_TYPE,
+    ALL_SESSION_TYPES,
+    EDIT_SESSION_TYPE,
+    DELETE_SESSION_TYPE,
 };
