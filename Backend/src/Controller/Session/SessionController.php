@@ -119,7 +119,7 @@ class SessionController extends AbstractController
      * @Rest\View(serializerGroups={"session_detail"}, statusCode=201)
      * @Rest\RequestParam(name="module",  description="Module code",   nullable=false)
      * @Rest\RequestParam(name="type",    description="Type name",     nullable=false)
-     * @Rest\RequestParam(name="groupe",  description="Groupe name",   nullable=false)
+     * @Rest\RequestParam(name="group",   description="Group name",    nullable=false)
      * @Operation(
      *     path="/api/sessions",
      *     operationId="postSessionAction",
@@ -144,8 +144,9 @@ class SessionController extends AbstractController
         $type = $this->getDoctrine()->getRepository(\App\Entity\SessionType::class)->findOneBy(array("name" => $request->get('type')));
         $group = $this->getDoctrine()->getRepository(Groups::class)->findOneBy(array("name" => $request->get('group')));
 
-        $form->submit(null, false);
 
+
+        $form->submit(null, false);
         if (!$module) {
             $form->get('module')->addError(new FormError("Module don't exist"));
         }

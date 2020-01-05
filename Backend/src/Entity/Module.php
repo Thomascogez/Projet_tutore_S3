@@ -30,7 +30,7 @@ class Module
      * @ORM\Column(type="string", length=8)
      * @Assert\LessThanOrEqual(8)
      * @Assert\NotBlank()
-     * @Groups({"session_detail", "modules", "modules_info"})
+     * @Groups({"user", "session_detail", "modules", "modules_info"})
      */
     private $code;
 
