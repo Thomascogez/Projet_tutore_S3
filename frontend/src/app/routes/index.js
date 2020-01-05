@@ -11,7 +11,7 @@ import EditGroup from '../pages/admin/group'
 import GererUtilisateur from '../pages/admin/users'
 import EditModule from '../pages/admin/module'
 import Options from '../pages/options'
-import AddSession from '../pages/sessions/addSession'
+import AddSession from '../pages/sessions/addSession/_index'
 import Test from '../pages/test'
 import PasswordReset from "../pages/home/passwordReset";
 import ViewsSession from '../pages/event/view/index'

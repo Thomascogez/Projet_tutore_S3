@@ -25,6 +25,11 @@ const DELETE_GROUP = PATH_API + "/api/groups";
 const ALL_MODULES    = PATH_API + "/api/modules";
 const EDIT_MODULES   = PATH_API + "/api/modules";
 const DELETE_MODULES = PATH_API + "/api/modules";
+const GET_MODULE     = PATH_API + "/api/modules";
+// --------------------   Session  ---------------------- //
+const GET_ALL_SESSION_TYPES = PATH_API+"/api/session_types"
+
+const GET_ALL_EVENT_TYPES   = PATH_API+"/api/event_types"
 
 const ALL_EVENT_TYPES   = PATH_API + "/api/event_types";
 const EDIT_EVENT_TYPE   = PATH_API + "/api/event_types";
@@ -67,4 +72,7 @@ export {
     ALL_SESSION_TYPES,
     EDIT_SESSION_TYPE,
     DELETE_SESSION_TYPE,
+    GET_MODULE,
+    GET_ALL_SESSION_TYPES,
+    GET_ALL_EVENT_TYPES
 };

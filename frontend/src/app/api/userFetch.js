@@ -28,6 +28,7 @@ const APIlogin = (username, password) => {
  * Check if a user information is still valid
  */
 const APIcheckStillValid = () => {
+  console.log("salut");
   return axios.get(CHECK_STILL_VALID, {
     headers: { Authorization: "Bearer " + localStorage.getItem("token") }
   });

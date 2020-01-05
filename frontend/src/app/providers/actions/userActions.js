@@ -4,6 +4,7 @@ import {APIlogin, APIgetMyAccount, APIcheckStillValid, APIGetAllUsers, APIDelete
 import {APIDeleteEventType, APIgetAllEventTypes} from "../../api/type/event";
 import {ALL_EVENT_TYPES, ALL_USERS, DELETE_USERS} from "../../types/apiConst";
 
+
 /**
  * userAction.js
  *
@@ -11,100 +12,103 @@ import {ALL_EVENT_TYPES, ALL_USERS, DELETE_USERS} from "../../types/apiConst";
  *
  */
 
-
- /**
-  * login
-  * 
-  * Action to dispatch user login info on store
-  * @param {*} username 
-  * @param {*} password 
-  */
+/**
+ * login
+ *
+ * Action to dispatch user login info on store
+ * @param {*} username
+ * @param {*} password
+ */
 const login = (username, password) => {
-    return dispatch => {
-        return APIlogin(username, password)
-            .then(data => {
-                if (data.message) {
-                    //if we receive an error message from the server
-                    dispatch({
-                        type: SET_ISLOGGEDIN,
-                        value: false
-                    });
-                } else {
-                    // Everything ok : log the user
-                    localStorage.setItem("token", data.data.token);
-                    dispatch({
-                        type: SET_ISLOGGEDIN,
-                        value: true,
-                        error: false
-                    });
-                }
-            })
-            .catch(err => {
-                dispatch({
-                    type: SET_ISLOGGEDIN,
-                    value: false,
-                    error: true
-                });
-            });
-    };
+  return dispatch => {
+    return APIlogin(username, password)
+      .then(data => {
+        if (data.message) {
+          //if we receive an error message from the server
+          dispatch({
+            type: SET_ISLOGGEDIN,
+            value: false,
+          });
+        } else {
+          // Everything ok : log the user
+          localStorage.setItem("token", data.data.token);
+
+          dispatch({
+            type: SET_ISLOGGEDIN,
+            value: true,
+            error: false,
+          });
+          dispatch(getUserProfile());
+        }
+      })
+      .catch(err => {
+        dispatch({
+          type: SET_ISLOGGEDIN,
+          value: false,
+          error: true
+        });
+      });
+  };
 };
 
 /**
  * logout
- * 
+ *
  * Logout the user from the app
  */
 const logout = () => {
-    localStorage.removeItem('token');
-    navigate('/');
-    return {
-        type: SET_ISLOGGEDIN,
-        value: false
-    }
-}
-
+  localStorage.removeItem("token");
+  navigate("/");
+  return {
+    type: SET_ISLOGGEDIN,
+    value: false
+  };
+};
 
 const checkLogin = () => {
-    return dispatch => {
-        return APIcheckStillValid()
-            .then(data => {
-                dispatch({
-                    type: SET_ISLOGGEDIN,
-                    value: true
-                })
-                
-            })
-            .catch(err => {
-                dispatch({
-                    type: SET_ISLOGGEDIN,
-                    value: false
-                })
-                
-            })
+  return dispatch => {
+    return APIcheckStillValid()
+      .then(data => {
+        console.log(data);
 
-    }
-}
+        dispatch({
+          type: SET_ISLOGGEDIN,
+          value: true,
+          error:false,
+          user :data.data
+        });
+      })
+      .catch(err => {
+        console.log(err);
+
+        dispatch({
+          type: SET_ISLOGGEDIN,
+          value: false,
+          error:false
+        });
+      });
+  };
+};
 
 const getUserProfile = () => {
-    return dispatch => {
-        return APIgetMyAccount()
-            .then(data => {
-                console.log(data.data);
-                
-                dispatch({
-                    type : SET_USER,
-                    value: data.data
-                })
-            })
-            .catch(err => {
-                navigate('/')
-                    dispatch({
-                        type : SET_USER,
-                        value: {}
-                    })
-            })
-    }
-}
+  return dispatch => {
+    return APIgetMyAccount()
+      .then(data => {
+        console.log(data.data);
+        dispatch({
+          type: SET_USER,
+          value: data.data
+        });
+      })
+      .catch(err => {
+        navigate("/");
+        dispatch({
+          type: SET_USER,
+          value: {}
+        });
+      });
+  };
+};
 
 //Event types actions
 const getUsers = () => {

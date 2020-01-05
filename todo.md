@@ -5,6 +5,10 @@
     * Suppression  ("/api/groups/:id" delete)
  * Views séances : 
    * page de redirection si la séances n'est pas trouvé
+
+
+
+ <b> Moove all collapse opener to a new component  </b>
    
     
     
