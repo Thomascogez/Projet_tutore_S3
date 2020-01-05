@@ -123,7 +123,7 @@ class SessionController extends AbstractController
     {
         $session = new Session();
         $form = $this->createForm(SessionType::class, $session);
-        $session->setCreatedAt(new DateTime());
+        $session->setCreatedAt(new \DateTime());
 
         $module = $this->getDoctrine()->getRepository(Module::class)->findOneBy(array("code" => $request->get('module')));
         $type = $this->getDoctrine()->getRepository(\App\Entity\SessionType::class)->findOneBy(array("name" => $request->get('type')));
