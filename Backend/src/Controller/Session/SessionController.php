@@ -14,6 +14,7 @@ use App\Form\SessionType;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Request\ParamFetcherInterface;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -75,6 +76,8 @@ class SessionController extends AbstractController
      */
     public function getSessionsAction(ParamFetcherInterface $paramFetcher, Request $request)
     {
+        $sessions = array();
+
         $month = $paramFetcher->get('month');
         $year = $paramFetcher->get('year');
 
@@ -91,10 +94,22 @@ class SessionController extends AbstractController
             $groups = $this->getDoctrine()->getRepository(Groups::class)->findOneBy(array("name" => $paramFetcher->get('group'), "type" => $paramFetcher->get('type')));
         }
         if (!$groups) {
-            $sessions = $this->getDoctrine()->getRepository(Session::class)->findByDate($from, $to);
+            $tmp = $this->getDoctrine()->getRepository(Session::class)->findByDate($from, $to);
         } else {
-            $sessions = $groups->getSessions();
+            $tmp = $groups->getSessions();
         }
+
+        foreach ($tmp as $index) {
+            if(!isset($sessions[date('W', $index->getCreatedAt()->getTimestamp())])){
+                $sessions[date('W', $index->getCreatedAt()->getTimestamp())] = array();
+            }
+            if(!isset($sessions[date('d', $index->getCreatedAt()->getTimestamp())])){
+                $sessions[date('W', $index->getCreatedAt()->getTimestamp())][date('d', $index->getCreatedAt()->getTimestamp())] = array();
+            }
+
+            $sessions[date('W', $index->getCreatedAt()->getTimestamp())][date('d', $index->getCreatedAt()->getTimestamp())] = $index;
+        }
+
         return $sessions;
     }
 
