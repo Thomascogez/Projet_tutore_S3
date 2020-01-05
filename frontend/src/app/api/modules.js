@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ALL_MODULES, DELETE_MODULES, EDIT_MODULES} from "../types/apiConst";
+import { ALL_MODULES, DELETE_MODULES, EDIT_MODULES, GET_MODULE } from "../types/apiConst";
 
 
 const APIgetAllModule = (setModule) => {
@@ -27,9 +27,19 @@ const APIDeleteModule = (idModule) => {
     })
 }
 
+
+const APIgetModuleInfo = (moduleID) => {
+  
+    return axios.get(GET_MODULE+"/"+moduleID, {
+      headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+    });
+  };
+
+
 export {
     APIgetAllModule,
     APIDeleteModule,
     APIEditModule,
-    APIAddModule
+    APIAddModule,
+    APIgetModuleInfo
 };

@@ -1,6 +1,5 @@
-import {GET_ALL_GROUPS, GET_ALL_MODULES, SET_ISLOGGEDIN} from "../../types/actionsTypes";
+import {GET_ALL_MODULES, SET_MODULE, ADD_EVENT, SET_TYPE } from "../../types/actionsTypes";
 import {APIDeleteModule, APIgetAllModule} from "../../api/modules";
-import {login} from "./userActions";
 
 
 const getModules = () => {
@@ -28,7 +27,17 @@ const removeModules = (idModule) => {
     }
 }
 
+//add Module 
+
+const setModuleID = (id) => {
+    return {
+        type:SET_MODULE,
+        value: id
+    }
+}
+
 export {
     getModules,
-    removeModules
+    removeModules, 
+    setModuleID
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col, Button } from "shards-react";
+import { Container, Row, Col, Button, Card, CardHeader } from "shards-react";
 import style from "./sessions.module.css";
 import { navigate } from "hookrouter";
 import { FaBookOpen } from "react-icons/fa";
@@ -16,10 +16,9 @@ export default function Seances() {
       <Button onClick={() => navigate("/seances/ajoutSeance")}><FaBookOpen style={{ marginRight: "15px" }} /> Ajouter séance</Button>
       <MounthSelector mounth="Décembre" />
       <Row className={style.WorkRow}>
-        <Col lg="1" sm="12">
-          <WeekContainer week="24" />
-        </Col>
-        <Col lg="11" sm="12">
+        <Card>
+        <CardHeader>Semaine n°24</CardHeader>
+        <Col lg="12" sm="12">
           <Row className={style.DailyWorkRow}>
             <Col lg="1" sm="1">
               <DayContainer day="Lundi" />
@@ -55,6 +54,7 @@ export default function Seances() {
             </Col>
           </Row>
         </Col>
+        </Card>
       </Row>
       <Row className={style.WorkRow}>
         <Col lg="1" sm="12">
