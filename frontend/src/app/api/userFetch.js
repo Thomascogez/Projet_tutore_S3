@@ -1,4 +1,11 @@
-import { LOGIN_CHECK, CHECK_STILL_VALID, CHECK_IS_ADMIN, GET_USER_PROFILE } from "../types/apiConst";
+import {
+  LOGIN_CHECK,
+  CHECK_STILL_VALID,
+  CHECK_IS_ADMIN,
+  GET_USER_PROFILE,
+  ALL_USERS,
+  EDIT_USERS, DELETE_MODULES, DELETE_USERS
+} from "../types/apiConst";
 import axios from "axios";
 
 /**
@@ -47,7 +54,25 @@ const ApiIsAdmin = () => {
   });
 }
 
+const APIGetAllUsers = () => {
+  return axios.get(ALL_USERS, {
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+  });
+}
+
+const APIEditUser = (user) => {
+  return axios.get(EDIT_USERS, user, {
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+  });
+}
+
+const APIDeleteUser = (idUser) => {
+  return axios.delete(DELETE_USERS + '/' + idUser, {
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+  })
+}
 
 
 
-export { APIlogin, APIcheckStillValid, ApiIsAdmin, APIgetMyAccount };
+
+export { APIlogin, APIcheckStillValid, ApiIsAdmin, APIgetMyAccount, APIDeleteUser, APIEditUser, APIGetAllUsers };

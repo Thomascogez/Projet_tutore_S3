@@ -20,7 +20,6 @@ export default function EventType(props) {
     const [name, setName]       = useState((props != null)?props.name   :"");
     const [teacher, setTeacher] = useState((props != null)?props.roleTypeEvent.teacher:false);
     const [tutor, setTutor]     = useState((props != null)?props.roleTypeEvent.tutor  :false);
-    console.log(props)
 
     const handleValidate = () => {
         let req = {

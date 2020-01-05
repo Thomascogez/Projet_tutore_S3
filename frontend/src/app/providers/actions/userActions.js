@@ -1,6 +1,8 @@
-import { SET_ISLOGGEDIN, SET_USER } from "../../types/actionsTypes";
+import {GET_ALL_USERS, SET_ISLOGGEDIN, SET_USER} from "../../types/actionsTypes";
 import { navigate } from 'hookrouter';
-import { APIlogin, APIgetMyAccount, APIcheckStillValid } from '../../api/userFetch'
+import {APIlogin, APIgetMyAccount, APIcheckStillValid, APIGetAllUsers, APIDeleteUser} from '../../api/userFetch'
+import {APIDeleteEventType, APIgetAllEventTypes} from "../../api/type/event";
+import {ALL_EVENT_TYPES, ALL_USERS, DELETE_USERS} from "../../types/apiConst";
 
 /**
  * userAction.js
@@ -104,4 +106,31 @@ const getUserProfile = () => {
     }
 }
 
-export { login, logout, checkLogin, getUserProfile };
+//Event types actions
+const getUsers = () => {
+    console.log("ok1")
+    return dispatch => {
+        return APIGetAllUsers()
+            .then(data => {
+                dispatch({
+                    type: GET_ALL_USERS,
+                    value: data.data
+                });
+            })
+    }
+}
+
+const removeUser = (idUser) => {
+    return dispatch => {
+        return APIDeleteUser(idUser)
+            .then(data => {
+                dispatch({
+                    type: ALL_USERS,
+                    value: data.data
+                });
+            })
+    }
+}
+
+
+export { login, logout, checkLogin, getUserProfile, getUsers, removeUser };

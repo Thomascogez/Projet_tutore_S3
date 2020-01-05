@@ -34,13 +34,20 @@ const ALL_SESSION_TYPES   = PATH_API + "/api/session_types";
 const EDIT_SESSION_TYPE   = PATH_API + "/api/session_types";
 const DELETE_SESSION_TYPE = PATH_API + "/api/session_types";
 
+const ALL_USERS    = PATH_API + "/api/users";
+const EDIT_USERS   = PATH_API + "/api/users";
+const DELETE_USERS = PATH_API + "/api/users";
+
 // --------------------   TEST  ---------------------- //
 const CHECK_IS_ADMIN = PATH_API + "/api/users/isAdmin";
 
 
-const GET_GROUP_BY_ID = PATH_API + "/api/sessions"
+const GET_GROUP_BY_ID = PATH_API + "/api/sessions";
 
 export {
+    ALL_USERS,
+    EDIT_USERS,
+    DELETE_USERS,
     PASSWORD_FORGET_GET,
     PASSWORD_FORGET_VERIFY,
     CHECK_STILL_VALID,

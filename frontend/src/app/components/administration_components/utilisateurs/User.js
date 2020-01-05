@@ -1,117 +1,142 @@
 import React, { useState } from "react";
 import {
-  Button,
-  FormInput,
-  ButtonGroup,
-  Modal,
-  ModalHeader,
-  ModalBody
+Button,
+FormInput,
+ButtonGroup,
+Modal,
+ModalHeader,
+ModalBody
 } from "shards-react";
 import { FaCheck, FaTimes } from "react-icons/fa";
 
-export default function User({ identifier, name, surname, groups, roles }) {
-  const [editing, setEditing] = useState(false);
-  const [toggleViewGroup, setToggleViewGroup] = useState(false);
-  const [toggleEditGroup, setToggleEditGroup] = useState(false);
-  const [toggleViewRole, setToggleViewRole] = useState(false);
-  const [toggleEditRole, setToggleEditRole] = useState(false);
+export default function User(props) {
+    const [editing, setEditing] = useState(false);
+    const [deleting, setDeleting] = useState(false);
+    const [toggleViewGroup, setToggleViewGroup] = useState(false);
+    const [toggleEditGroup, setToggleEditGroup] = useState(false);
+    const [toggleViewRole, setToggleViewRole] = useState(false);
+    const [toggleEditRole, setToggleEditRole] = useState(false);
 
-  const handleValidate = () => {
-    //when validate editing
-    setEditing(false);
-  };
+    props = props.user;
 
-  const handleCancel = () => {
-    //when cancel editing
-    setEditing(false);
-  };
+    const [firstname, setFirstname] = useState(props.firstname);
+    const [username, setUsername]   = useState(props.username);
+    const [lastname, setLastname]   = useState(props.lastname);
+    const [groups, setGroups]       = useState(props.groups);
+    const [modules, setModules]     = useState(props.modules);
+    const [roles, setRoles]         = useState(props.roles);
 
-  return (
-    <tr>
-      <th scope="row">{identifier}</th>
-      <td>
-        {editing ? <FormInput value={name} placeholder="Nom ..." /> : name}
-      </td>
-      <td>
-        {editing ? (
-          <FormInput value={surname} placeholder="Prénom ..." />
-        ) : (
-          surname
-        )}
-      </td>
-      <td>
-        {editing ? (
-          <a href="#" onClick={() => setToggleEditGroup(!toggleEditGroup)}>
-            Gérer groupes
-          </a>
-        ) : (
-          <a href="#" onClick={() => setToggleViewGroup(!toggleViewGroup)}>
-            Voir groupe
-          </a>
-        )}
-      </td>
-      <td>
-        {editing ? (
-          <a href="#" onClick = { ()=> setToggleEditRole(!toggleEditRole)}>Gérer rôles</a>
-        ) :( 
-          <a href="#" onClick = { ()=> setToggleViewRole(!toggleViewRole)}>Voir rôles</a>)
-        }
-      </td>
-      <td>
-        {editing ? (
-          <ButtonGroup>
-            <Button onClick={() => handleValidate()} theme="success">
-              <FaCheck />
-            </Button>
-            <Button onClick={() => handleCancel()} theme="danger">
-              <FaTimes />
-            </Button>
-          </ButtonGroup>
-        ) : (
-          <Button onClick={() => setEditing(true)}>Edition</Button>
-        )}
-      </td>
+    const handleValidate = () => {
+        //when validate editing
+        setEditing(false);
+    };
 
-      {/* Modals */}
-      <Modal
-        open={toggleViewGroup}
-        toggle={() => setToggleViewGroup(!toggleViewGroup)}
-      >
-        <ModalHeader>
-          Groupes de {name} {surname}
-        </ModalHeader>
-        <ModalBody>👋 Hello there!</ModalBody>
-      </Modal>
+    const handleCancel = () => {
+        //when cancel editing
+        setEditing(false);
+    };
 
-      <Modal
-        open={toggleEditGroup}
-        toggle={() => setToggleEditGroup(!toggleEditGroup)}
-      >
-        <ModalHeader>
-          Edition des groupes de {name} {surname}
-        </ModalHeader>
-        <ModalBody>👋 Hello there!</ModalBody>
-      </Modal>
+    return (
+        <tr>
+            <th scope="row">{username}</th>
+            <td>
+                {editing ? <FormInput value={lastname} placeholder="Nom ..." /> : lastname}
+            </td>
+            <td>
+                {editing ? (
+                  <FormInput value={firstname} placeholder="Prénom ..." />
+                ) : (
+                  firstname
+                )}
+            </td>
+            <td>
+                {editing ? (
+                    <a href="#" onClick={() => setToggleEditGroup(!toggleEditGroup)}>
+                        Gérer groupes
+                    </a>
+                ) : (
+                    <a href="#" onClick={() => setToggleViewGroup(!toggleViewGroup)}>
+                        Voir groupe
+                    </a>
+                )}
+            </td>
+          <td>
+              {editing ? (
+                  <a href="#" onClick = { ()=> setToggleEditRole(!toggleEditRole)}>Gérer modules</a>
+              ) :(
+                  <a href="#" onClick = { ()=> setToggleViewRole(!toggleViewRole)}>Voir modules</a>)
+              }
+          </td>
 
-      <Modal
-        open={toggleEditRole}
-        toggle={() => setToggleEditRole(!toggleEditRole)}
-      >
-        <ModalHeader>
-          Edition des rôles de de {name} {surname}
-        </ModalHeader>
-        <ModalBody>👋 Hello there!</ModalBody>
-      </Modal>
+        <td>
+            {editing ? (
+                <a href="#" onClick = { ()=> setToggleEditRole(!toggleEditRole)}>Gérer modules</a>
+            ) :(
+                <React.Fragment>
+                    {(roles.includes("ROLE_ADMIN")?<span style={{color: "red", fontWeight: "bold"}}>Admin, </span>:"")}
+                    {(roles.includes("ROLE_TEACHER")?"Professeur":"")}
+                    {(roles.includes("ROLE_TUTOR")?"Tuteur":"")}
+                </React.Fragment>
+            )}
+        </td>
+          <td>
+            {editing ? (
+              <ButtonGroup>
+                <Button onClick={() => handleValidate()} theme="success">
+                  <FaCheck />
+                </Button>
+                <Button onClick={() => handleCancel()} theme="danger">
+                  <FaTimes />
+                </Button>
+              </ButtonGroup>
+            ) : (
+                <React.Fragment>
+                    <Button onClick={() => setEditing(true)}>Edition</Button>
+                    <Button onClick={() => setDeleting(!deleting)} theme="danger">Supprimer</Button>
+                </React.Fragment>
+            )}
+          </td>
 
-      <Modal
-        open={toggleViewRole}
-        toggle={() => setToggleViewRole(!setToggleViewRole)}
-      >
-        <ModalHeader>
-          Rôle de {name} {surname}
-        </ModalHeader>
-        <ModalBody>👋 Hello there!</ModalBody>
-      </Modal>
-    </tr>
-  );
+          {/* Modals */}
+          <Modal
+            open={toggleViewGroup}
+            toggle={() => setToggleViewGroup(!toggleViewGroup)}
+          >
+            <ModalHeader>
+              Groupes de  {props.firstname} {props.lastname}
+            </ModalHeader>
+            <ModalBody>👋 Hello there!</ModalBody>
+          </Modal>
+
+          <Modal
+            open={toggleEditGroup}
+            toggle={() => setToggleEditGroup(!toggleEditGroup)}
+          >
+            <ModalHeader>
+              Edition des groupes de {props.name} {props.firstname}
+            </ModalHeader>
+            <ModalBody>👋 Hello there!</ModalBody>
+          </Modal>
+
+          <Modal
+            open={toggleEditRole}
+            toggle={() => setToggleEditRole(!toggleEditRole)}
+          >
+            <ModalHeader>
+              Edition des rôles de de {props.firstname} {props.lastname}
+            </ModalHeader>
+            <ModalBody>👋 Hello there!</ModalBody>
+          </Modal>
+
+          <Modal
+            open={toggleViewRole}
+            toggle={() => setToggleViewRole(!setToggleViewRole)}
+          >
+            <ModalHeader>
+              Rôle de  {props.firstname} {props.lastname}
+            </ModalHeader>
+            <ModalBody>👋 Hello there!</ModalBody>
+          </Modal>
+        </tr>
+    );
 }

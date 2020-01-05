@@ -1,10 +1,11 @@
 /**
  * Reducer that dispatch all user actions
  */
-import {RESET_INVALID_MESSAGE, SET_ISLOGGEDIN, SET_USER} from "../../types/actionsTypes";
+import {RESET_INVALID_MESSAGE, SET_ISLOGGEDIN, SET_USER, GET_ALL_USERS} from "../../types/actionsTypes";
 
 const initialState = {
     user: {},
+    allUsers: {},
     loginMessage: false,
     isLoggedIn: false
 }
@@ -26,6 +27,11 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 user: action.value
+            }
+        case GET_ALL_USERS:
+            return {
+                ...state,
+                allUsers: action.value
             }
         default:
             return initialState;
