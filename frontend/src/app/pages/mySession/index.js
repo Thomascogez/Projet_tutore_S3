@@ -38,26 +38,17 @@ export default function MySession()
                                 <div>
                                     {
                                         Object.entries(m[1]). map(n => (
-                                            <Row>
+                                            <div>
                                                 {
                                                     Object.entries(n[1]). map(o => (
-                                                        <div>
-                                                            {console.log(o[1])}
+                                                        <Row>
                                                             <Col>{moment(o[1][0].createdAt).format('DD/MM/YYYY')}</Col>
-                                                            {Object.keys(o[1][0].module).map(q => (
-                                                                <Col>
-                                                                    { q[1]}
-                                                                </Col>
-                                                            ))}
-                                                            {Object.keys(o[1][0].groupe).map(q => (
-                                                                <Col>
-                                                                    {q[2]}
-                                                                </Col>
-                                                            ))}
-                                                        </div>
+                                                            <Col>{o[1][0].module.name}</Col>
+                                                            <Col>{o[1][0].groupe.name}</Col>
+                                                        </Row>
                                                     ))
                                                 }
-                                            </Row>
+                                            </div>
                                             
                                         ))
                                     }
