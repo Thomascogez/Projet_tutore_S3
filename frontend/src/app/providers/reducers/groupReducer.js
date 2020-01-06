@@ -6,7 +6,7 @@ import {GET_ALL_GROUPS} from "../../types/actionsTypes";
  */
 
 const initialState = {
-    groups: {}
+    groups: []
 };
 
 
@@ -18,7 +18,7 @@ const groupReducer = (state = initialState, action) => {
                 groups: action.value
             };
         default:
-            return initialState;
+            return state;
     }
 };
 

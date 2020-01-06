@@ -23,7 +23,7 @@ const typeReducer = (state = initialState, action) => {
                 eventType: action.value
             };
         default:
-            return initialState;
+            return state;
     }
 };
 

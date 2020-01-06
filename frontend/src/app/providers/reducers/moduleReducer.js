@@ -17,7 +17,7 @@ const moduleReducer = (state = initialState, action) => {
                 modules: action.value
             };
         default:
-            return initialState;
+            return state;
     }
 };
 

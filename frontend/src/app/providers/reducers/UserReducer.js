@@ -21,9 +21,9 @@ const initialState = {
     groups: [],
     modules: []
   },
-  allUsers: {},
   loginMessage: false,
-  isLoggedIn: false
+  isLoggedIn: false,
+  allUsers: {},
 };
 
 const userReducer = (state = initialState, action) => {
@@ -52,7 +52,7 @@ const userReducer = (state = initialState, action) => {
               allUsers: action.value
           }
     default:
-      return initialState;
+      return state;
   }
 };
 
