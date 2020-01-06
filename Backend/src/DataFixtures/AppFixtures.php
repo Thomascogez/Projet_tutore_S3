@@ -12,6 +12,7 @@ use App\Entity\RoleTypeEvent;
 use App\Entity\Semaphore;
 use App\Entity\Session;
 use App\Entity\SessionType;
+use App\Entity\Setting;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -32,6 +33,10 @@ class AppFixtures extends Fixture
 
         $faker = Factory::create('fr_FR'); // create a French faker
 
+        $setting = new Setting();
+        $setting->setMaxAttachmentEvent(5)
+            ->setMaxEventSession(5);
+        $manager->persist($setting);
 
         $users = array();
         $user = new User();

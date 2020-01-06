@@ -20,7 +20,7 @@ export default () => {
 
                                 <div className={style.contantbox404} >
                                     <h3 className="h2" >
-                                        Le Pivert dans son milieu naturel
+                                        Cette page est introuvable
                                     </h3>
 
                                     <p>La page que vous essayez de charger n'éxiste pas ou plus !</p>

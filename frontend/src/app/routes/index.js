@@ -16,6 +16,8 @@ import Test from '../pages/test'
 import PasswordReset from "../pages/home/passwordReset";
 import ViewsSession from '../pages/event/view/index'
 import Types from "../pages/admin/types/index";
+import MyEvents from "../pages/event/myEvents"
+import MySession from "../pages/mySession/index";
 
 
 import ProtectedRoute from '../utils/protectedRoute'
@@ -28,6 +30,9 @@ const routes = {
 
     '/profil' : () => <Userprofile/>,
     '/options' : () => <Options />,
+    '/mesSeances': () => <MySession />,
+
+    '/myEvents' : () => <MyEvents />,
 
     '/seances' : () => <Seances />,
     '/seances/ajoutSeance': () => <AddSession />,

@@ -19,14 +19,14 @@ class Session
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"user", "session_detail", "session", "modules_info", "group_info"})
+     * @Groups({"user", "session_detail", "session", "modules_info", "group_info", "events"})
      */
     private $id;
 
     /**
      * Session module
      * @ORM\ManyToOne(targetEntity="App\Entity\Module", inversedBy="sessions")
-     * @Groups({"user", "session_detail"})
+     * @Groups({"user", "session_detail", "events"})
      */
     private $module;
 
@@ -35,21 +35,21 @@ class Session
      * @ORM\Column(type="date")
      * @Assert\NotNull()
      * @Assert\Date()
-     * @Groups({"session_detail"})
+     * @Groups({"session_detail", "events"})
      */
     private $createdAt;
 
     /**
      * Session group
      * @ORM\ManyToOne(targetEntity="App\Entity\Groups", inversedBy="sessions")
-     * @Groups({"session_detail"})
+     * @Groups({"session_detail", "events"})
      */
     private $groupe;
 
     /**
      * User created session
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="sessions")
-     * @Groups({"session_detail"})
+     * @Groups({"session_detail", "events"})
      */
     private $user;
 
@@ -70,7 +70,7 @@ class Session
     /**
      * Type session
      * @ORM\Column(type="string", length=10)
-     * @Groups({"session_detail"})
+     * @Groups({"session_detail", "events"})
      */
     private $type;
 

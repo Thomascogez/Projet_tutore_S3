@@ -21,7 +21,7 @@ class Module
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"user", "session_detail", "modules", "modules_info"})
+     * @Groups({"user", "session_detail", "modules", "modules_info", "events"})
      */
     private $id;
 
@@ -30,7 +30,7 @@ class Module
      * @ORM\Column(type="string", length=8)
      * @Assert\LessThanOrEqual(8)
      * @Assert\NotBlank()
-     * @Groups({"user", "session_detail", "modules", "modules_info"})
+     * @Groups({"user", "session_detail", "modules", "modules_info", "events"})
      */
     private $code;
 
@@ -39,7 +39,7 @@ class Module
      * @ORM\Column(type="string", length=20)
      * @Assert\LessThanOrEqual(20)
      * @Assert\NotBlank()
-     * @Groups({"user", "session_detail", "modules", "modules_info"})
+     * @Groups({"user", "session_detail", "modules", "modules_info", "events"})
      */
     private $name;
 
@@ -47,7 +47,7 @@ class Module
      * Color for frontend module
      * @ORM\Column(type="string", length=7, nullable=true)
      * @Assert\LessThanOrEqual(7)
-     * @Groups({"user", "session_detail", "modules", "modules_info"})
+     * @Groups({"user", "session_detail", "modules", "modules_info", "events"})
      */
     private $color;
 

@@ -103,11 +103,11 @@ class SessionController extends AbstractController
             if(!isset($sessions[date('W', $index->getCreatedAt()->getTimestamp())])){
                 $sessions[date('W', $index->getCreatedAt()->getTimestamp())] = array();
             }
-            if(!isset($sessions[date('d', $index->getCreatedAt()->getTimestamp())])){
+            if(!isset($sessions[date('W', $index->getCreatedAt()->getTimestamp())][date('d', $index->getCreatedAt()->getTimestamp())])){
                 $sessions[date('W', $index->getCreatedAt()->getTimestamp())][date('d', $index->getCreatedAt()->getTimestamp())] = array();
             }
 
-            $sessions[date('W', $index->getCreatedAt()->getTimestamp())][date('d', $index->getCreatedAt()->getTimestamp())] = $index;
+            $sessions[date('W', $index->getCreatedAt()->getTimestamp())][date('d', $index->getCreatedAt()->getTimestamp())][] = $index;
         }
 
         return $sessions;
