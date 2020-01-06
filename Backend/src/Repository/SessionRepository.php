@@ -25,6 +25,7 @@ class SessionRepository extends ServiceEntityRepository
             ->andWhere('j.createdAt BETWEEN :from AND :to')
             ->setParameter('from', $from )
             ->setParameter('to', $to)
+            ->orderBy("j.createdAt")
             ->getQuery()
             ->getResult();
     }

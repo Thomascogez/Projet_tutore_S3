@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
-Button,
-FormInput,
-ButtonGroup,
-Modal,
-ModalHeader,
-ModalBody
+    Button,
+    FormInput,
+    ButtonGroup,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    FormCheckbox,
+    FormRadio
 } from "shards-react";
 import { FaCheck, FaTimes } from "react-icons/fa";
+
 
 export default function User(props) {
     const [editing, setEditing] = useState(false);
@@ -35,6 +38,26 @@ export default function User(props) {
         //when cancel editing
         setEditing(false);
     };
+
+    const handleRole = (event, name) => {
+        let tmp = roles;
+        const index = tmp.indexOf(name);
+        if (index > -1) {
+            if(name === "ROLE_TUTOR")
+                setRoles(roles.filter( role => role !== "ROLE_TEACHER"))
+            else if(name === "ROLE_TEACHER")
+                setRoles(roles.filter( role => role !== "ROLE_TUTOR"))
+            else
+                setRoles(roles.filter( role => role !== name))
+        } else {
+            setRoles([...roles, name])
+        }
+    }
+
+    useEffect(() => {
+        console.log(roles)
+    }, [roles]);
+
 
     return (
         <tr>
@@ -70,13 +93,17 @@ export default function User(props) {
 
         <td>
             {editing ? (
-                <a href="#" onClick = { ()=> setToggleEditRole(!toggleEditRole)}>Gérer modules</a>
-            ) :(
-                <React.Fragment>
-                    {(roles.includes("ROLE_ADMIN")?<span style={{color: "red", fontWeight: "bold"}}>Admin, </span>:"")}
+                <>
+                    <FormCheckbox                       checked={roles.includes("ROLE_ADMIN")}   onChange={e => handleRole(e, "ROLE_ADMIN")}   >Admin     </FormCheckbox>
+                    <FormRadio name={"role" + props.id} checked={roles.includes("ROLE_TEACHER")} onChange={e => handleRole(e, "ROLE_TEACHER")} >Professeur</FormRadio>
+                    <FormRadio name={"role" + props.id} checked={roles.includes("ROLE_TUTOR")}   onChange={e => handleRole(e, "ROLE_TUTOR")}   >Tuteur    </FormRadio>
+                </>
+            ):(
+                <>
+                    {(roles.includes("ROLE_ADMIN"  )?<span style={{color: "red", fontWeight: "bold"}}>Admin, </span>:"")}
                     {(roles.includes("ROLE_TEACHER")?"Professeur":"")}
-                    {(roles.includes("ROLE_TUTOR")?"Tuteur":"")}
-                </React.Fragment>
+                    {(roles.includes("ROLE_TUTOR"  )?"Tuteur"    :"")}
+                </>
             )}
         </td>
           <td>
