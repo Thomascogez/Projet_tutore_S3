@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d14a8399-2bba-4ca7-9a97-266b73f1d265" name="Default Changelist" comment="Add color">
-      <change afterPath="$PROJECT_DIR$/Backend/bado.bat" afterDir="false" />
+    <list default="true" id="d14a8399-2bba-4ca7-9a97-266b73f1d265" name="Default Changelist" comment="fix api">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/DataFixtures/AppFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/DataFixtures/AppFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/config/packages/nelmio_cors.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/config/packages/nelmio_cors.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/Controller/Group/GroupController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/Controller/Group/GroupController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/administration_components/groupe/Groupe.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/administration_components/groupe/Groupe.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,6 +22,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="CSS File" />
         <option value="JavaScript File" />
       </list>
     </option>
@@ -165,11 +166,15 @@
     <property name="ChangesTree.GroupingKeys" value="directory" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/frontend/src/app/components/administration_components/users" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="I:\Site PHP HTML SQL\Projet_tutore_S3\frontend\src\app\components\administration_components\users" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="I:\Site PHP HTML SQL\Projet_tutore_S3\frontend\src\app\pages\sessions" />
       <recent name="C:\Users\benji\Desktop\Projet_tutore_S3" />
@@ -214,7 +219,9 @@
       <workItem from="1576764254834" duration="122000" />
       <workItem from="1576764749991" duration="4376000" />
       <workItem from="1576872850615" duration="78000" />
-      <workItem from="1576872929727" duration="16585000" />
+      <workItem from="1576872929727" duration="19699000" />
+      <workItem from="1578255690070" duration="9767000" />
+      <workItem from="1578334239689" duration="12460000" />
     </task>
     <task id="LOCAL-00001" summary="Init project">
       <created>1576486472217</created>
@@ -272,7 +279,56 @@
       <option name="project" value="LOCAL" />
       <updated>1576889644898</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Add user color">
+      <created>1576890600426</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1576890600426</updated>
+    </task>
+    <task id="LOCAL-00010" summary="404">
+      <created>1576893653403</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1576893653403</updated>
+    </task>
+    <task id="LOCAL-00011" summary="fix api">
+      <created>1578260430576</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1578260430576</updated>
+    </task>
+    <task id="LOCAL-00012" summary="fix api">
+      <created>1578264579488</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1578264579488</updated>
+    </task>
+    <task id="LOCAL-00013" summary="fix api">
+      <created>1578268773885</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1578268773885</updated>
+    </task>
+    <task id="LOCAL-00014" summary="API   -&gt; Restriction tutor">
+      <created>1578349390851</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1578349390851</updated>
+    </task>
+    <task id="LOCAL-00015" summary="&#10;FRONT -&gt; Finish user admin">
+      <created>1578349401425</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1578349401425</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -301,7 +357,12 @@
     <MESSAGE value="Link forget password to backend" />
     <MESSAGE value="Refractor code and route order" />
     <MESSAGE value="Fix API &amp; delete groups" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix API &amp; delete groups" />
+    <MESSAGE value="Add user color" />
+    <MESSAGE value="404" />
+    <MESSAGE value="fix api" />
+    <MESSAGE value="API   -&gt; Restriction tutor" />
+    <MESSAGE value="&#10;FRONT -&gt; Finish user admin" />
+    <option name="LAST_COMMIT_MESSAGE" value="&#10;FRONT -&gt; Finish user admin" />
   </component>
   <component name="WindowStateProjectService">
     <state x="391" y="177" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog" timestamp="1576569731889">

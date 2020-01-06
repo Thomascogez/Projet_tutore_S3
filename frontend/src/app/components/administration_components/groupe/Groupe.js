@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, ButtonGroup, FormInput, FormSelect} from "shards-react";
+import {Button, ButtonGroup, FormInput, FormSelect, Badge} from "shards-react";
 import {FaCheck, FaTimes} from "react-icons/fa";
 import DeleteGroup from "./DeleteGroup";
 import {useSelector} from "react-redux";
@@ -18,7 +18,7 @@ export default function Groupe(props) {
 
     const [name, setName] = useState((props != null)?props.name:"");
     const [color, setColor] = useState((props != null)?props.color:"");
-    const [parent, setParent] = useState((props != null)?((props.parent) ? props.parent.name : ""):"");
+    const [parent, setParent] = useState((props != null)?((props.parent) ? props.parent : ""):"");
 
     const handleValidate = () => {
         let req = {
@@ -82,7 +82,7 @@ export default function Groupe(props) {
                     ):(
                         editing ?
                             <FormInput value={name} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
-                            :name
+                            :<Badge style={{backgroundColor: color, width: "100px"}}>{name}</Badge>
                     )}
                 </td>
                 <td>
@@ -109,7 +109,7 @@ export default function Groupe(props) {
                         </FormSelect>
                         :(
                             (props != null)? (
-                                (parent) ? parent : "Aucun groupe"
+                                (parent) ? <Badge style={{backgroundColor: parent.color, width: "100px"}}>{parent.name}</Badge> : "Aucun groupe"
                             ):(<React.Fragment />)
                         )
                     }
