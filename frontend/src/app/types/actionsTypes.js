@@ -17,11 +17,11 @@ const GET_ALL_MODULES        = "GET_ALL_MODULES";
 
 
 
-//add module
+//add session
 
-const SET_MODULE = "SET_MODULE" ;
-const SET_TYPE   = "SET_TYPE"   ;
-const ADD_EVENT  = "ADD_EVENT"  ;
+const ADD_SESSION           = "ADD_SESSION" ;
+const SET_SESSION_TYPE      = "SET_SESSION_TYPE";
+
 
 export {
     SET_ISLOGGEDIN,
@@ -30,7 +30,7 @@ export {
     GET_ALL_GROUPS,
     GET_ALL_MODULES,
     GET_ALL_USERS,
-    SET_MODULE,
-    SET_TYPE,
-    ADD_EVENT
+    ADD_SESSION,
+    SET_SESSION_TYPE
+    
 }

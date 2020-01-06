@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Container,
   Card,
@@ -9,15 +9,19 @@ import {
   Button,
   FormRadio,
   Badge,
+  Modal,  
+  ModalHeader,
+  ModalFooter
 } from "shards-react";
 import { Multiselect } from "react-widgets";
 import Collapse from "../../../components/layouts/Collapse";
 import style from "./_addsession.module.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from 'axios'
 import { toast } from 'react-toastify';
 import { APIgetSessionTypes, APIpostNewSession } from "../../../api/sessionFetch";
 import Loader from 'react-loader-spinner'
+import { addSession, setSessionType } from '../../../providers/actions/addSessionActions'
 
 
 /**
@@ -26,7 +30,11 @@ import Loader from 'react-loader-spinner'
  * Page used to handle the add of sessions
  */
 export default function AddSession() {
+
+  const dispatch = useDispatch();
+
   const user = useSelector(state => state.user);
+  
   const INITIAL_STATE = {
     module: "",
     name: "",
@@ -34,18 +42,8 @@ export default function AddSession() {
     type: "",
     groups: [],
   }
-  const [newSeance, setnewSeance] = useState({
-    module: "",
-    name: "",
-    color: "",
-    type: "",
-    groups: [],
+  const [newSeance, setnewSeance] = useState(INITIAL_STATE);
 
-  });
-  useEffect(() => {
-    console.log(newSeance);
-
-  }, [newSeance])
 
 
   const [types, setTypes] = useState([]);
@@ -53,6 +51,7 @@ export default function AddSession() {
   const [collapseTypeModule, setcollapseTypeModule] = useState(false);
   const [collapseGroups, setcollapseGroups] = useState(false);
   const [requestPending, setRequestPending] = useState(false)
+  const [modal, setModal] = useState(false)
 
   /**
    * handleSelectModule
@@ -64,6 +63,7 @@ export default function AddSession() {
    */
   const handleSelectModule = (module, name, color) => {
     setnewSeance({ ...newSeance, module, name, color });
+
     setcollapseSelectModule(false);
 
     APIgetSessionTypes() //fetching session types
@@ -76,6 +76,10 @@ export default function AddSession() {
 
   const handleSetType = type => {
     setnewSeance({ ...newSeance, type });
+
+    //update redux store for next step
+    dispatch(setSessionType(type))
+
     setcollapseTypeModule(false);
     setcollapseGroups(true);
   };
@@ -99,13 +103,19 @@ export default function AddSession() {
     });
 
     axios.all(requests)
-      .then(() => {
+      .then((data) => {
+        data.forEach(seance => {
+
+          //get info of new session for next step
+          dispatch(addSession(seance.data))
+        })
         setRequestPending(false);
         toast.success("Séance(s) ajoutée(s) avec succès")
         setnewSeance(INITIAL_STATE)
         setcollapseGroups(false)
         setcollapseTypeModule(false)
         setcollapseSelectModule(true)
+        setModal(true)
         
       })
       .catch(() => {
@@ -203,7 +213,8 @@ export default function AddSession() {
                   <Multiselect
                     value={newSeance.groups}
                     onChange={value =>
-                      setnewSeance({ ...newSeance, groups: value })
+                      setnewSeance({ ...newSeance, groups: value },
+                      )
                     }
                     data={user.user.groups.map(group => group.name)}
                   />
@@ -215,6 +226,11 @@ export default function AddSession() {
           </Card>
         </Col>
       </Row>
+      <Modal size="lg" open={modal} toggle={() => setModal(!modal)}>
+          <ModalHeader>Voulez-vous ajouter des événements maintenant ?</ModalHeader>
+          <ModalFooter> <Button theme="success">Oui</Button> <Button theme="danger">Non</Button></ModalFooter>
+        </Modal>
     </Container>
+    
   );
 }

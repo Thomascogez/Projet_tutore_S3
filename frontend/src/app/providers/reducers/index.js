@@ -7,7 +7,7 @@ import { combineReducers } from 'redux';
 import userReducer from './UserReducer'
 import groupReducer from "./groupReducer";
 import moduleReducer from "./moduleReducer";
-import addModuleReducer from './addModuleReducer'
+import addSessionReducer from './addSessionReducer'
 import typeReducer from "./TypesReducer";
 
 const rootReducer = combineReducers(
@@ -15,7 +15,7 @@ const rootReducer = combineReducers(
         user : userReducer,
         group : groupReducer,
         module: moduleReducer,
-        addModule : addModuleReducer,
+        addSession : addSessionReducer,
         type:   typeReducer
     }
 )

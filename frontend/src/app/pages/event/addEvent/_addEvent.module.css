@@ -1,0 +1,23 @@
+.AddEventContainer {
+    margin-top: 50px;
+    width: 90% !important;
+}
+
+.Module {
+    padding: 3px;
+    margin: 0px 5px 0px 5px;
+    color:#fff;
+    padding: 5px;
+    margin: 3px;
+    cursor: pointer;
+}
+
+.PickTime {
+    margin-left: 20px;
+}
+
+.PickTime input {
+    border: none;
+    border-bottom: 1px solid #D3D3D3;
+    
+}
