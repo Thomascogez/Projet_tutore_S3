@@ -103,6 +103,7 @@ class User implements UserInterface
     /**
      * All session of user
      * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="user", cascade={"remove"})
+     * @ORM\OrderBy({"createdAt" = "ASC"})
      */
     private $sessions;
 
@@ -123,6 +124,7 @@ class User implements UserInterface
     /**
      * All event created by user
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="user", cascade={"remove"})
+     * @ORM\OrderBy({"session" = "ASC"})
      */
     private $events;
 

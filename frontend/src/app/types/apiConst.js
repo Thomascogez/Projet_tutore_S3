@@ -46,12 +46,16 @@ const DELETE_USERS = PATH_API + "/api/users";
 
 //--------------------- USERS  -----------------------//
 const ALL_USER_EVENT = PATH_API + "/api/users/events";
+// --------------------  USER --------------------- //
+
+const GET_MY_SESSION = PATH_API + "/api/users/sessions";
+
 
 // --------------------   TEST  ---------------------- //
 const CHECK_IS_ADMIN = PATH_API + "/api/users/isAdmin";
 
-
 const GET_GROUP_BY_ID = PATH_API + "/api/sessions";
+
 
 export {
     ALL_USERS,
@@ -80,5 +84,6 @@ export {
     GET_ALL_SESSION_TYPES,
     GET_ALL_EVENT_TYPES,
     POST_NEW_SESSION,
-    ALL_USER_EVENT
+    ALL_USER_EVENT,
+    GET_MY_SESSION
 };

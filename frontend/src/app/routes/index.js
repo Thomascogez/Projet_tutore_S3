@@ -17,6 +17,7 @@ import PasswordReset from "../pages/home/passwordReset";
 import ViewsSession from '../pages/event/view/index'
 import Types from "../pages/admin/types/index.php";
 import MyEvents from "../pages/event/myEvents"
+import MySession from "../pages/mySession/index";
 
 
 import ProtectedRoute from '../utils/protectedRoute'
@@ -29,6 +30,7 @@ const routes = {
 
     '/profil' : () => <Userprofile/>,
     '/options' : () => <Options />,
+    '/mesSeances': () => <MySession />,
 
     '/myEvents' : () => <MyEvents />,
 
