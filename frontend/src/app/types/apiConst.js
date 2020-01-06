@@ -44,6 +44,9 @@ const ALL_USERS    = PATH_API + "/api/users";
 const EDIT_USERS   = PATH_API + "/api/users";
 const DELETE_USERS = PATH_API + "/api/users";
 
+//--------------------- USERS  -----------------------//
+const ALL_USER_EVENT = PATH_API + "/api/users/events";
+
 // --------------------   TEST  ---------------------- //
 const CHECK_IS_ADMIN = PATH_API + "/api/users/isAdmin";
 
@@ -76,5 +79,6 @@ export {
     GET_MODULE,
     GET_ALL_SESSION_TYPES,
     GET_ALL_EVENT_TYPES,
-    POST_NEW_SESSION
+    POST_NEW_SESSION,
+    ALL_USER_EVENT
 };

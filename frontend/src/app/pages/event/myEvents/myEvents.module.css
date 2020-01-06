@@ -1,0 +1,16 @@
+.Title{
+    text-align: center;
+    margin-top: 30px;
+}
+
+.EventsContainer{
+    width: 90% !important;
+    height: 80% !important;
+    padding: 40px 30px 0px 30px;
+    /* box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3), inset 0px 4px 4px rgba(0, 0, 0, 0.25); */
+    margin: 50px auto 0px auto;
+}
+
+.EventTable{
+    width: 100% !important;
+}

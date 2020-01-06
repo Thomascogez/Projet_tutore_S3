@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ALL_EVENT_TYPES } from '../types/apiConst'
+import { GET_ALL_EVENT_TYPES, ALL_USER_EVENT } from '../types/apiConst'
 
 /**
  * APIgetEventTypes
@@ -12,5 +12,11 @@ const APIgetEventTypes = () => {
     })
 }
 
+const APIgetMyEvents = () => {
+    return axios(ALL_USER_EVENT,{
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+    })
+}
 
-export { APIgetEventTypes }
+
+export { APIgetEventTypes, APIgetMyEvents }

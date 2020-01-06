@@ -8,7 +8,7 @@ const ModalViewsFiles = ({files}) => {
         <>
             <a href="#" onClick={() => setOpen(!open)} style={{color:"green"}}><FaFileAlt/></a>
             <Modal s open={open} toggle={setOpen}>
-                <ModalHeader>Piéces jointes de l'événements</ModalHeader>
+                <ModalHeader>Pièces jointes de l'évènement</ModalHeader>
                 <ModalBody>
                 {files && files.map(item =>(
                     <File key={item.id} link={item.source} />
