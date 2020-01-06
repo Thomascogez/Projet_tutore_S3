@@ -7,10 +7,12 @@ import {
     ModalHeader,
     ModalBody,
     FormCheckbox,
-    FormRadio, Collapse, Badge, CardBody
+    FormRadio,
+    Badge
 } from "shards-react";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import style from "../../../pages/userProfil/_userprofile.module.css";
+import {Multiselect} from "react-widgets";
 
 
 export default function User(props) {
@@ -20,15 +22,17 @@ export default function User(props) {
     const [toggleEditGroup, setToggleEditGroup] = useState(false);
     const [toggleViewModule, setToggleViewModule] = useState(false);
     const [toggleEditModule, setToggleEditModule] = useState(false);
+    const [allGroups, setAllGroups] = useState(props.groups);
+    const [allModules, setAllModules] = useState(props.modules);
 
     props = props.user;
 
     const [firstname, setFirstname] = useState(props.firstname);
-    const [username, setUsername]   = useState(props.username);
-    const [lastname, setLastname]   = useState(props.lastname);
-    const [groups, setGroups]       = useState(props.groups);
-    const [modules, setModules]     = useState(props.modules);
-    const [roles, setRoles]         = useState((props.roles.includes("ROLE_TEACHER")?"ROLE_TEACHER":(props.roles.includes("ROLE_TUTOR")?"ROLE_TUTOR":"")));
+    const [username , setUsername]  = useState(props.username);
+    const [lastname , setLastname]  = useState(props.lastname);
+    const [groups   , setGroups]    = useState(props.groups);
+    const [modules  , setModules]   = useState(props.modules);
+    const [roles    , setRoles]     = useState((props.roles.includes("ROLE_TEACHER")?"ROLE_TEACHER":(props.roles.includes("ROLE_TUTOR")?"ROLE_TUTOR":"")));
 
     const [admin, setAdmin] = useState(props.roles.includes("ROLE_ADMIN"));
 
@@ -46,20 +50,27 @@ export default function User(props) {
 
     }
 
-    useEffect(() => {
-        console.log(roles)
-    }, [roles]);
 
+    let TagItem = ({ item }) => (
+        <Badge style={{backgroundColor: item.color}}>
+            {item.name}
+        </Badge>
+    );
 
+    let ListItem = ({ item }) => (
+        <Badge style={{backgroundColor: item.color}}>
+            {item.name}
+        </Badge>
+    );
     return (
         <tr>
             <th scope="row">{username}</th>
             <td>
-                {editing ? <FormInput value={lastname} placeholder="Nom ..." /> : lastname}
+                {editing ? <FormInput value={lastname} onChange={e => setLastname(e.target.value)} placeholder="Nom ..." /> : lastname}
             </td>
             <td>
                 {editing ? (
-                  <FormInput value={firstname} placeholder="Prénom ..." />
+                  <FormInput value={firstname} onChange={e => setFirstname(e.target.value)} placeholder="Prénom ..." />
                 ) : (
                   firstname
                 )}
@@ -134,19 +145,20 @@ export default function User(props) {
             toggle={() => setToggleEditGroup(!toggleEditGroup)}
           >
             <ModalHeader>
-              Edition des groupes de {props.name} {props.firstname}
+              Edition des groupes de {props.firstname} {props.lastname}
             </ModalHeader>
-            <ModalBody>👋 Hello there!</ModalBody>
-          </Modal>
-
-          <Modal
-            open={toggleEditModule}
-            toggle={() => setToggleEditModule(!toggleEditModule)}
-          >
-            <ModalHeader>
-              Edition des modules de {props.firstname} {props.lastname}
-            </ModalHeader>
-            <ModalBody>👋 Hello there!</ModalBody>
+              <ModalBody>
+                  <>
+                      <Multiselect
+                          tagComponent={TagItem}
+                          itemComponent={ListItem}
+                          value={groups}
+                          data={allGroups}
+                          onChange={e => setGroups(e)}
+                          textField="name"
+                      />
+                  </>
+              </ModalBody>
           </Modal>
 
           <Modal
@@ -165,6 +177,28 @@ export default function User(props) {
                   )) : <div></div>}
               </ModalBody>
           </Modal>
+
+            <Modal
+                size="lg"
+                open={toggleEditModule}
+                toggle={() => setToggleEditModule(!toggleEditModule)}
+            >
+                <ModalHeader>
+                    Edition des modules de {props.firstname} {props.lastname}
+                </ModalHeader>
+                <ModalBody>
+                    <>
+                        <Multiselect
+                            tagComponent={TagItem}
+                            itemComponent={ListItem}
+                            value={modules}
+                            data={allModules}
+                            onChange={e => setModules(e)}
+                            textField="name"
+                        />
+                    </>
+                </ModalBody>
+            </Modal>
         </tr>
     );
 }

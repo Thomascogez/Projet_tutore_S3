@@ -43,7 +43,7 @@ class UserSessionController extends AbstractController
                 $sessions[date('Y', $index->getCreatedAt()->getTimestamp())][date('W', $index->getCreatedAt()->getTimestamp())][date('d', $index->getCreatedAt()->getTimestamp())] = array();
             }
 
-            $sessions[date('Y', $index->getCreatedAt()->getTimestamp())][date('W', $index->getCreatedAt()->getTimestamp())][date('d', $index->getCreatedAt()->getTimestamp())] = $index;
+            $sessions[date('Y', $index->getCreatedAt()->getTimestamp())][date('W', $index->getCreatedAt()->getTimestamp())][date('d', $index->getCreatedAt()->getTimestamp())][] = $index;
         }
 
         return $sessions;
@@ -79,7 +79,7 @@ class UserSessionController extends AbstractController
                 $event[$index->getSession()->getId()] = array();
             }
 
-            $event[$index->getSession()->getId()] = $index;
+            $event[$index->getSession()->getId()][] = $index;
         }
 
         return $event;

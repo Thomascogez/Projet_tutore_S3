@@ -13,15 +13,21 @@ import User from "../../../components/administration_components/utilisateurs/Use
 import style from "./users.module.css";
 import {getUsers, login} from "../../../providers/actions/userActions";
 import PageLoader from "../../../components/layouts/loader";
+import {APIgetAllGroups} from "../../../api/groups";
+import {APIgetAllModule} from "../../../api/modules";
 
 export default function UserPage() {
 
-    const [loader, setLoader] = useState(false);
+    const [loader, setLoader]   = useState(false);
+    const [groups, setGroups]   = useState([]);
+    const [modules, setModules] = useState([]);
     const dispatch = useDispatch();
 
     const userState = useSelector(state => state.user);
 
     useEffect(() => {
+        APIgetAllGroups().then(data => setGroups (data.data))
+        APIgetAllModule().then(data => setModules(data.data))
         dispatch(getUsers());
     }, []);
 
@@ -53,11 +59,12 @@ export default function UserPage() {
                     </thead>
                     <tbody>
 
+
                     { (userState.allUsers.length > 0) ? (
                         <React.Fragment>
-                            {userState.allUsers.map((m) =>
-                                <User key={m.id} user={m} />
-                            ) }
+                            {(groups.length > 0 && modules.length > 0)?userState.allUsers.map((m) =>
+                                <User key={m.id} user={m} groups={groups} modules={modules} />
+                            ) : ""}
                         </React.Fragment>
                     ):(<React.Fragment />
                     )}
