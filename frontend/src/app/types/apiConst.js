@@ -44,16 +44,14 @@ const ALL_USERS    = PATH_API + "/api/users";
 const EDIT_USERS   = PATH_API + "/api/users";
 const DELETE_USERS = PATH_API + "/api/users";
 
-<<<<<<< HEAD
 
 //file upload 
-=======
 //--------------------- USERS  -----------------------//
 const ALL_USER_EVENT = PATH_API + "/api/users/events";
 // --------------------  USER --------------------- //
 
 const GET_MY_SESSION = PATH_API + "/api/users/sessions";
->>>>>>> 6018854ec6f93b5223337824628d968a3c8dfcfa
+const GET_ALL_SESSIONS = PATH_API + "/api/sessions"
 
 
 // --------------------   TEST  ---------------------- //
@@ -90,5 +88,6 @@ export {
     GET_ALL_EVENT_TYPES,
     POST_NEW_SESSION,
     ALL_USER_EVENT,
-    GET_MY_SESSION
+    GET_MY_SESSION,
+    GET_ALL_SESSIONS
 };

@@ -42,7 +42,7 @@ export default function Seances() {
         <>
           <MounthSelector mounth="Décembre" />
 
-          {Object.entries(allSeance).map(key1 => (
+          {/* {Object.entries(allSeance).map(key1 => (
             <>
               <Row className={style.WorkRow}>
                 <Card>
@@ -71,7 +71,7 @@ export default function Seances() {
                 </Card>
               </Row>
             </>
-          ))}
+          ))} */}
         </>
       )}
     </Container>
