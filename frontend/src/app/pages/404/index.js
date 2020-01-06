@@ -20,9 +20,10 @@ export default () => {
 
                                 <div className={style.contantbox404} >
                                     <h3 className="h2" >
-                                        La page que vous essayez de charger n'éxiste pas ou plus !
+                                        Cette page est introuvable
                                     </h3>
 
+                                    <p>La page que vous essayez de charger n'éxiste pas ou plus !</p>
 
                                     <Button onClick={() => navigate('/') } className={style.link404} >Retour a l'accueil</Button>
                                 </div>
