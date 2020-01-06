@@ -1,4 +1,4 @@
-import React, { useState, isValidElement } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Card,
@@ -14,8 +14,11 @@ import { Multiselect } from "react-widgets";
 import Collapse from "../../../components/layouts/Collapse";
 import style from "./_addsession.module.css";
 import { useSelector } from "react-redux";
+import axios from 'axios'
+import { toast } from 'react-toastify';
+import { APIgetSessionTypes, APIpostNewSession } from "../../../api/sessionFetch";
+import Loader from 'react-loader-spinner'
 
-import { APIgetSessionTypes } from "../../../api/sessionFetch";
 
 /**
  * AddSession
@@ -24,32 +27,43 @@ import { APIgetSessionTypes } from "../../../api/sessionFetch";
  */
 export default function AddSession() {
   const user = useSelector(state => state.user);
-
-  const [newSeance, setnewSeance] = useState({
-    id: "",
+  const INITIAL_STATE = {
+    module: "",
     name: "",
     color: "",
     type: "",
     groups: [],
-    events: []
+  }
+  const [newSeance, setnewSeance] = useState({
+    module: "",
+    name: "",
+    color: "",
+    type: "",
+    groups: [],
+
   });
+  useEffect(() => {
+    console.log(newSeance);
+
+  }, [newSeance])
 
 
   const [types, setTypes] = useState([]);
   const [collapseSelectModule, setcollapseSelectModule] = useState(true);
   const [collapseTypeModule, setcollapseTypeModule] = useState(false);
   const [collapseGroups, setcollapseGroups] = useState(false);
+  const [requestPending, setRequestPending] = useState(false)
 
   /**
    * handleSelectModule
    *
    * update newSeance hook when a module is selected
-   * @param {*} id    id of the selected module
-   * @param {*} name  name of it (only for display)
-   * @param {*} color color if it (only for display)
+   * @param {*} module  selected module
+   * @param {*} name    name of it (only for display)
+   * @param {*} color   color if it (only for display)
    */
-  const handleSelectModule = (id, name, color) => {
-    setnewSeance({ ...newSeance, id, name, color });
+  const handleSelectModule = (module, name, color) => {
+    setnewSeance({ ...newSeance, module, name, color });
     setcollapseSelectModule(false);
 
     APIgetSessionTypes() //fetching session types
@@ -67,14 +81,46 @@ export default function AddSession() {
   };
 
   const isValid = () => {
-    return newSeance.id !== "" && newSeance.type !== "" && newSeance.groups.length > 0
+    return newSeance.module !== "" && newSeance.type !== "" && newSeance.groups.length > 0
   }
+
+  /**
+   * postSession
+   * 
+   * Handle the post of one or multiple sessions
+   */
+  const postSession = () => {
+
+    let requests = [];
+
+    setRequestPending(true);
+    (newSeance.groups).forEach(group => {
+      requests.push(APIpostNewSession(newSeance.module, newSeance.type, group))
+    });
+
+    axios.all(requests)
+      .then(() => {
+        setRequestPending(false);
+        toast.success("Séance(s) ajoutée(s) avec succès")
+        setnewSeance(INITIAL_STATE)
+        setcollapseGroups(false)
+        setcollapseTypeModule(false)
+        setcollapseSelectModule(true)
+        
+      })
+      .catch(() => {
+        setRequestPending(false);
+
+      })
+  }
+
+
 
 
   return (
     <Container fluid className={style.AddSessionContainer}>
       <Row>
-        {newSeance.id !== "" && (
+        {newSeance.module !== "" && (
           <Col sm="12" lg="3">
             <Card>
               <CardHeader>Résumé</CardHeader>
@@ -95,12 +141,19 @@ export default function AddSession() {
                 <hr />
               </CardBody>
 
-              <Button disabled={!isValid()}>Ajouter la séances </Button>
+              <Button disabled={!isValid() || requestPending} onClick={() => postSession()}>{requestPending ? <Loader
+                type="ThreeDots"
+                color="#FFF"
+                height={30}
+                width={100}
+                timeout={3000} //3 secs
+
+              /> : "Ajouter la séances"}</Button>
             </Card>
           </Col>
         )}
 
-        <Col sm="12" lg={newSeance.id !== "" ? 9 : 12}>
+        <Col sm="12" lg={newSeance.module !== "" ? 9 : 12}>
           <Card>
             <CardHeader>Ajout d'une nouvelle séances</CardHeader>
             <CardBody>
@@ -112,9 +165,9 @@ export default function AddSession() {
                 {user.user.modules &&
                   user.user.modules.map(module => (
                     <Badge
-                      key={module.id}
+                      key={module.module}
                       onClick={() =>
-                        handleSelectModule(module.id, module.name, module.color)
+                        handleSelectModule(module.code, module.name, module.color)
                       }
                       className={style.Module}
                       style={{ backgroundColor: module.color }}
@@ -157,7 +210,7 @@ export default function AddSession() {
                 )}
               </Collapse>
 
-             
+
             </CardBody>
           </Card>
         </Col>

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_GROUP_BY_ID, GET_ALL_SESSION_TYPES } from '../types/apiConst'
+import { GET_GROUP_BY_ID, GET_ALL_SESSION_TYPES, POST_NEW_SESSION } from '../types/apiConst'
 
 const CancelToken = axios.CancelToken;
 const source = CancelToken.source();
@@ -30,4 +30,16 @@ const APIgetSessionTypes = () => {
 }
 
 
-export {APIgetSession, APIgetSessionTypes}
+const APIpostNewSession = (code, type, groups ) => {
+  
+    let group = groups  //TODO: test to remove
+    let module = code
+    console.log(module ,type, group);
+    return axios.post(POST_NEW_SESSION,
+        { module, type, group }, 
+        {headers: { Authorization: "Bearer " + localStorage.getItem("token") }}
+        )
+}
+
+
+export {APIgetSession, APIgetSessionTypes, APIpostNewSession}

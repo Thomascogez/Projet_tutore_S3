@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import style from '../../pages/sessions/sessions.module.css'
 
 import { FaCheckCircle } from 'react-icons/fa'
-export default function Matiere({color, name, finished, cours, typeCours, children}) {
+export default function Matiere({color, name, finished}) {
   const [open, setOpen] = useState(false);
   return (
     <div onClick={() => setOpen(!open)} className={style.Work} >

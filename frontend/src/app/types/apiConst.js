@@ -28,6 +28,7 @@ const DELETE_MODULES = PATH_API + "/api/modules";
 const GET_MODULE     = PATH_API + "/api/modules";
 // --------------------   Session  ---------------------- //
 const GET_ALL_SESSION_TYPES = PATH_API+"/api/session_types"
+const POST_NEW_SESSION      = PATH_API+"/api/sessions"
 
 const GET_ALL_EVENT_TYPES   = PATH_API+"/api/event_types"
 
@@ -74,5 +75,6 @@ export {
     DELETE_SESSION_TYPE,
     GET_MODULE,
     GET_ALL_SESSION_TYPES,
-    GET_ALL_EVENT_TYPES
+    GET_ALL_EVENT_TYPES,
+    POST_NEW_SESSION
 };
