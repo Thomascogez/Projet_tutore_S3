@@ -40,7 +40,7 @@ export default function Modules()
                         { (moduleState.modules.length > 0) ? (
                             <React.Fragment>
                                 <Module key={-1} module={null} />
-                                {moduleState.modules.map((m) =>
+                                {moduleState.modules.map(m =>
                                     <Module key={m.id} module={m} />
                                 ) }
                             </React.Fragment>

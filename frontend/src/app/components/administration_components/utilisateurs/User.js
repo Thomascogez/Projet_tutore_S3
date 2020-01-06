@@ -7,9 +7,10 @@ import {
     ModalHeader,
     ModalBody,
     FormCheckbox,
-    FormRadio
+    FormRadio, Collapse, Badge, CardBody
 } from "shards-react";
 import { FaCheck, FaTimes } from "react-icons/fa";
+import style from "../../../pages/userProfil/_userprofile.module.css";
 
 
 export default function User(props) {
@@ -17,8 +18,8 @@ export default function User(props) {
     const [deleting, setDeleting] = useState(false);
     const [toggleViewGroup, setToggleViewGroup] = useState(false);
     const [toggleEditGroup, setToggleEditGroup] = useState(false);
-    const [toggleViewRole, setToggleViewRole] = useState(false);
-    const [toggleEditRole, setToggleEditRole] = useState(false);
+    const [toggleViewModule, setToggleViewModule] = useState(false);
+    const [toggleEditModule, setToggleEditModule] = useState(false);
 
     props = props.user;
 
@@ -27,7 +28,9 @@ export default function User(props) {
     const [lastname, setLastname]   = useState(props.lastname);
     const [groups, setGroups]       = useState(props.groups);
     const [modules, setModules]     = useState(props.modules);
-    const [roles, setRoles]         = useState(props.roles);
+    const [roles, setRoles]         = useState((props.roles.includes("ROLE_TEACHER")?"ROLE_TEACHER":(props.roles.includes("ROLE_TUTOR")?"ROLE_TUTOR":"")));
+
+    const [admin, setAdmin] = useState(props.roles.includes("ROLE_ADMIN"));
 
     const handleValidate = () => {
         //when validate editing
@@ -40,18 +43,7 @@ export default function User(props) {
     };
 
     const handleRole = (event, name) => {
-        let tmp = roles;
-        const index = tmp.indexOf(name);
-        if (index > -1) {
-            if(name === "ROLE_TUTOR")
-                setRoles(roles.filter( role => role !== "ROLE_TEACHER"))
-            else if(name === "ROLE_TEACHER")
-                setRoles(roles.filter( role => role !== "ROLE_TUTOR"))
-            else
-                setRoles(roles.filter( role => role !== name))
-        } else {
-            setRoles([...roles, name])
-        }
+
     }
 
     useEffect(() => {
@@ -85,22 +77,22 @@ export default function User(props) {
             </td>
           <td>
               {editing ? (
-                  <a href="#" onClick = { ()=> setToggleEditRole(!toggleEditRole)}>Gérer modules</a>
+                  <a href="#" onClick = { ()=> setToggleEditModule(!toggleEditModule)}>Gérer modules</a>
               ) :(
-                  <a href="#" onClick = { ()=> setToggleViewRole(!toggleViewRole)}>Voir modules</a>)
+                  <a href="#" onClick = { ()=> setToggleViewModule(!toggleViewModule)}>Voir modules</a>)
               }
           </td>
 
         <td>
             {editing ? (
                 <>
-                    <FormCheckbox                       checked={roles.includes("ROLE_ADMIN")}   onChange={e => handleRole(e, "ROLE_ADMIN")}   >Admin     </FormCheckbox>
-                    <FormRadio name={"role" + props.id} checked={roles.includes("ROLE_TEACHER")} onChange={e => handleRole(e, "ROLE_TEACHER")} >Professeur</FormRadio>
-                    <FormRadio name={"role" + props.id} checked={roles.includes("ROLE_TUTOR")}   onChange={e => handleRole(e, "ROLE_TUTOR")}   >Tuteur    </FormRadio>
+                    <FormCheckbox checked={admin} onChange={() => setAdmin(!admin)} >Admin</FormCheckbox>
+                    <FormRadio name={"role" + props.id} checked={(roles === "ROLE_TEACHER")} onChange={() => setRoles("ROLE_TEACHER")} >Professeur</FormRadio>
+                    <FormRadio name={"role" + props.id} checked={(roles === "ROLE_TUTOR")}   onChange={() => setRoles("ROLE_TUTOR")}   >Tuteur    </FormRadio>
                 </>
             ):(
                 <>
-                    {(roles.includes("ROLE_ADMIN"  )?<span style={{color: "red", fontWeight: "bold"}}>Admin, </span>:"")}
+                    {(admin)?<span style={{color: "red", fontWeight: "bold"}}>Admin, </span>:""}
                     {(roles.includes("ROLE_TEACHER")?"Professeur":"")}
                     {(roles.includes("ROLE_TUTOR"  )?"Tuteur"    :"")}
                 </>
@@ -130,9 +122,11 @@ export default function User(props) {
             toggle={() => setToggleViewGroup(!toggleViewGroup)}
           >
             <ModalHeader>
-              Groupes de  {props.firstname} {props.lastname}
+              Groupes de {props.firstname} {props.lastname}
             </ModalHeader>
-            <ModalBody>👋 Hello there!</ModalBody>
+            <ModalBody>
+                {groups ? groups.map(group => (<h5 className={style.Group} style={{ backgroundColor: group.color } } key={group.name} >{group.name}</h5>)) : <div></div>}
+            </ModalBody>
           </Modal>
 
           <Modal
@@ -146,23 +140,30 @@ export default function User(props) {
           </Modal>
 
           <Modal
-            open={toggleEditRole}
-            toggle={() => setToggleEditRole(!toggleEditRole)}
+            open={toggleEditModule}
+            toggle={() => setToggleEditModule(!toggleEditModule)}
           >
             <ModalHeader>
-              Edition des rôles de de {props.firstname} {props.lastname}
+              Edition des modules de {props.firstname} {props.lastname}
             </ModalHeader>
             <ModalBody>👋 Hello there!</ModalBody>
           </Modal>
 
           <Modal
-            open={toggleViewRole}
-            toggle={() => setToggleViewRole(!setToggleViewRole)}
+            open={toggleViewModule}
+            toggle={() => setToggleViewModule(!setToggleViewModule)}
           >
             <ModalHeader>
-              Rôle de  {props.firstname} {props.lastname}
+              Modules de {props.firstname} {props.lastname}
             </ModalHeader>
-            <ModalBody>👋 Hello there!</ModalBody>
+              <ModalBody>
+                  {modules ? modules.map(module => (
+                      <Badge
+                          className={style.Module}
+                          style={{ backgroundColor: module.color, margin:"5px" }}
+                      >{module.name}</Badge>
+                  )) : <div></div>}
+              </ModalBody>
           </Modal>
         </tr>
     );
