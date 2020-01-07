@@ -1,8 +1,6 @@
-import {GET_ALL_USERS, SET_ISLOGGEDIN, SET_USER} from "../../types/actionsTypes";
+import {GET_ALL_USERS, SET_ISLOGGEDIN, SET_USER, SET_PROFILE_COLOR,SET_USER_PROFILE} from "../../types/actionsTypes";
 import { navigate } from 'hookrouter';
 import {APIlogin, APIgetMyAccount, APIcheckStillValid, APIGetAllUsers, APIDeleteUser} from '../../api/userFetch'
-import {APIDeleteEventType, APIgetAllEventTypes} from "../../api/type/event";
-import {ALL_EVENT_TYPES, ALL_USERS, DELETE_USERS} from "../../types/apiConst";
 
 
 /**
@@ -137,4 +135,19 @@ const removeUser = (idUser) => {
 }
 
 
-export { login, logout, checkLogin, getUserProfile, getUsers, removeUser };
+const setProfileColor = (color)  => {
+  return {
+    type : SET_PROFILE_COLOR,
+    value : color
+  }
+}
+
+const setUserProfile = (profile) => {
+  return {
+    type : SET_USER_PROFILE,
+    value : profile
+  }
+}
+
+
+export { login, logout, checkLogin, getUserProfile, getUsers, removeUser,setProfileColor,setUserProfile };

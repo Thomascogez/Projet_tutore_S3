@@ -24,37 +24,34 @@ export default function MySession()
 	return (
 		<Container fluid className={style.EventsContainer}>
 			<Card >
-				<CardHeader><h5>Mes sessions</h5></CardHeader>
-				<div>
-					<table>
-						<thead>
+				<CardHeader><h5>Mes seances</h5></CardHeader>
+				<div className="table-responsive">
+					<table className={`table  ${style.EventTable}`}>
 							<tr>
 								<th>Date</th>
 								<th>Module</th>
 								<th>Groupe</th>
+								<th>Supprimer</th>
 							</tr>
-						</thead>
-						<tbody>						
 							{ (Object.keys(mySession).length === 0)? (
 								<PageLoader />
-							):(                            
-								Object.entries(mySession). map(m => (
-									<div>
+							):(
+								Object.entries(mySession). map(years => (
+									<>
 										{
-											Object.entries(m[1]). map(n => (
-												<div>
+											Object.entries(years[1]). map(week => (
+												<>
 													{
-														Object.entries(n[1]). map(o => (
-															<Session session={o[1][0]} />
+														Object.entries(week[1]). map(day => (
+															<Session session={day[1][0]} />
 														))
 													}
-												</div>												
+												</>
 											))
 										}
-									</div>									
+									</>
 								))
 							)}
-						</tbody>
 					</table>
 				</div>
 			</Card>
