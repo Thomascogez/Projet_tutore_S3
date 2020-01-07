@@ -1010,7 +1010,7 @@ class AppFixtures extends Fixture
                         ->setSource($faker->url)
                         ->setName(str_replace(" ", "-", $faker->realText(20)))
                         ->setExtension(substr($faker->fileExtension, 0, 9))
-                        ->setSize($faker->randomFloat());
+                        ->setSize(random_int(100, 10000));
                     $manager->persist($attach);
                 }
                 $manager->persist($event);

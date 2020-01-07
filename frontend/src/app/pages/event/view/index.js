@@ -72,7 +72,6 @@ export default function ViewsEvent(props) {
     //fetch the api to get information about the session
     APIgetSession(props.seanceId.seanceId)
       .then(data => {
-        console.log(data.data);
         setInfo(data.data);
       })
       .catch(err => console.log(err));
@@ -85,8 +84,6 @@ export default function ViewsEvent(props) {
     APIgetComment(info.id)
       .then(data =>{ 
           setComments(data.data)
-          console.log(data.data);
-          
         })
       .catch();
   }, [info]);
