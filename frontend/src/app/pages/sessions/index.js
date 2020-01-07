@@ -75,7 +75,7 @@ export default function Seances() {
 
           {Object.entries(allSessions).map(weekSessions => (
             <>
-            { console.log( key1[1] ) }
+            
               <Row className={style.WorkRow}>
                 <Card style={{ width: "100%" }}>
 

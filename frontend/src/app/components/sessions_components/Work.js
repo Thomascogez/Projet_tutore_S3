@@ -1,8 +1,10 @@
 import React, {useState} from "react";
 import style from '../../pages/sessions/sessions.module.css'
 
+import { navigate } from "hookrouter"
+
 import { FaCheckCircle } from 'react-icons/fa'
-export default function Matiere({color, name, duration,done, finished}) {
+export default function Matiere({color, name, duration,done, finished, id}) {
   const [open, setOpen] = useState(false);
 
 
