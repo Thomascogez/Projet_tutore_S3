@@ -1,25 +1,23 @@
-import { ADD_SESSION, SET_SESSION_TYPE } from '../../types/actionsTypes'
+import { SET_SESSIONADD, SET_GROUP_SET_SESSIONADD } from '../../types/actionsTypes'
 
 
 const initialState = {
-    sessions  : [],
-    type    : "",
+    sessions  : {},
+    groups    : [],
     
 }
 
 export default (state = initialState, { type, value }) => {
     switch (type) {
-
-    case ADD_SESSION:
-        value.groupname = value.groupe.name
+    case SET_SESSIONADD:
         return { 
             ...state,
-            sessions : [...state.sessions, value]
+            sessions : value
         }
-    case SET_SESSION_TYPE:
+    case SET_GROUP_SET_SESSIONADD:
         return { 
             ...state,
-            type : value
+            groups : value
         }
    
     default:

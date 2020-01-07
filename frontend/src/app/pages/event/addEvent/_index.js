@@ -27,7 +27,6 @@ import Collapse from "../../../components/layouts/Collapse";
 import style from "./_addEvent.module.css";
 import { APIgetAllEventTypes } from "../../../api/type/event";
 import { APIpostFile } from "../../../api/file";
-import { APIpostNewSession } from "../../../api/sessionFetch";
 import { APIpostNewEvent } from "../../../api/event";
 
 Moment.locale('fr')
@@ -38,7 +37,8 @@ export default function AddEvent() {
   const addSession = useSelector(state => state.addSession)
   
   const INITIAL_STATE = {
-    sessionID : addSession.sessions.map(session => session.id),
+    sessionID : addSession.sessions.id,
+    groups : addSession.groups,
     type : "",
     name :"",
     duration:"",
@@ -47,9 +47,12 @@ export default function AddEvent() {
 
   const [newEvent, setNewEvent] = useState(INITIAL_STATE)
   
+  useEffect(() => {
+    console.log(newEvent);
+  }, [newEvent])
 
-  // console.log(addSession.sessions[0].module);
-  
+
+   
   const [types, setTypes] = useState([]); //hook that all fetched types
  
 
@@ -65,48 +68,43 @@ export default function AddEvent() {
   }, []);
 
   //collapse hooks
-  const [collapseGroup, setCollapseGroup] = useState(false);
   const [collapseType, setCollapseType] = useState(true);
   const [collapseDesc, setCollapseDesc] = useState(false);
   const [collapseDuration, setCollapseDuration] = useState(false);
-
-  const [selectedGroup, setSelectedGroup] = useState(addSession.sessions);
   const [files, setFiles] = useState([])
+
 
   const handleFileUpload = () => {
     console.log(files);
-    APIpostFile(3,3,files)
-      .then(data => console.log(data))
-      .catch(err => console.log(err))
+    
   }
+   
 
-  const handleSelectGroup = (val) => {
-    setSelectedGroup(val); 
-    setNewEvent({...newEvent, sessionID : val.map(v => v.id)})
-  }
+
   
   const isValid = () => {
-    return newEvent.type !== "" && newEvent.name.trim() !== "" && newEvent.sessionID.length > 0
+    return newEvent.type !== "" && newEvent.name.trim() !== "" && newEvent.groups.length > 0
   }
 
   const handleAddEvent = () => {
 
     if(isValid) {
-      let requests = []
-      let {type,name, duration, dueAt} = newEvent
-      newEvent.sessionID.forEach(session => {
-        requests.push(APIpostNewEvent(session, name, type, duration, dueAt))
-      })
-      // axios.all(requests)
-      //   .then(data => {
-      //     if(files.length > 0) {
-      //       for (let i = 0; i < newEvent.sessionID.length; i++) {
-              
-      //       }
-      //     }
-      //   })
+      let { sessionID, type, name, duration, dueAt } = newEvent
+      
+       APIpostNewEvent(sessionID, name, type, duration, dueAt)
+        .then(data =>{
+          let request = []
+          
+          files.forEach(file => {
+            console.log(data.data.id);
+            
+            request.push(APIpostFile(sessionID,data.data.id,file))
+          })
 
-
+          axios.all(request)
+            .then(data => console.log(data))
+         })
+        .catch(err => console.log(err))
     }
   }
 
@@ -121,18 +119,16 @@ export default function AddEvent() {
               <h5>Module</h5>
               <Badge
                 className={style.Module}
-                style={{ backgroundColor: addSession.sessions.length > 0 && addSession.sessions[0].module.color }}
+                style={{ backgroundColor: addSession.sessions.module && addSession.sessions.module.color }}
               >       
-                {addSession.sessions.length > 0 && addSession.sessions[0].module.name}
+                {addSession.sessions.module && addSession.sessions.module.name}
               </Badge>
 
               <Badge theme="success">{newEvent.type}</Badge>
               <hr />
 
               <h5>Groupes</h5>          
-              {selectedGroup.map((group,i)=> (
-                <Badge key={i+""+group.groupe.name} style={{backgroundColor: group.groupe&&group.groupe.color }}> {group.groupe&&group.groupe.name}</Badge>
-              ))}
+              {addSession.groups.join(", ")}
               <hr />
 
             </CardBody>
@@ -144,18 +140,7 @@ export default function AddEvent() {
           <Card>
             <CardHeader>Ajout d'un événement</CardHeader>
             <CardBody>
-              <Collapse
-                open={collapseGroup}
-                title="Choix du / des groupes"
-                toggler={setCollapseGroup}
-              >
-                <Multiselect
-                  data={addSession.sessions}
-                  defaultValue={selectedGroup}
-                  textField="groupname"
-                  onChange={val => handleSelectGroup(val)}
-                />
-              </Collapse>
+       
               <Collapse
                 open={collapseType}
                 title="Choix du type"
@@ -211,7 +196,7 @@ export default function AddEvent() {
               <FilePond
                 style={{ height: "200px" }}
                 allowMultiple={true}
-                onupdatefiles={fileItems => {fileItems.map(fileItem => setFiles(fileItem.file))}}
+                onupdatefiles={fileItems => {setFiles(fileItems.map(fileItem => fileItem.file))}}
               />
               <Button onClick={() => handleFileUpload()}>Salut</Button>
             </CardBody>
