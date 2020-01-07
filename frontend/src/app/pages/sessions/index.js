@@ -20,6 +20,7 @@ export default function Seances() {
   const [allSeance, setAllSeance] = useState({});
   const [date, setDate] = useState(moment().format("YYYY MM"));
   const [loading, setLoading] = useState(true);
+  var  duration = 0;
 
     useEffect(() => {
         setLoading(true)
@@ -50,9 +51,9 @@ export default function Seances() {
           <MounthSelector getSetDate={getSetDate} date={date}/>
 
           {Object.entries(allSeance).length === 0?(<h2>Aucune séance sur ce mois</h2>):("")}
-
             {Object.entries(allSeance).map(key1 => (
             <>
+            { console.log( key1[1] ) }
               <Row className={style.WorkRow}>
                 <Card style={{width:"90%"}}>
                   <CardHeader> Semaine {key1[0]} </CardHeader>
@@ -61,6 +62,7 @@ export default function Seances() {
                     <Row className={style.DailyWorkRow}>
                         { Object.entries(key1[1]).map(key2 =>(
                             <>
+                            
                             <Col lg="1" sm="1">
                                 { <DayContainer day= { moment(date.replace(/ /g,"") + key2[0]).format('dddd') + " " + key2[0]} /> }
                             </Col>
@@ -69,8 +71,11 @@ export default function Seances() {
                                 <WorkContainer>
                                     { Object.entries(key2[1]).map(key3 =>(
                                         <>
-                                            {console.log(key3[1])}
-                                            { <Work color={key3[1].module.color === ""? "#000000":key3[1].module.color}  name={key3[1].module.name} />  }
+                                           
+                                            { <Work color={ key3[1].module.color === ""? "#000000":key3[1].module.color }  
+                                                    name={key3[1].module.name} 
+                                                    duration={Object.entries(key3[1].events.map( key4 =>( console.log( key4.duration ) )))}
+                                                     />  }
                                         </>
                                     ))}
                                 </WorkContainer>
