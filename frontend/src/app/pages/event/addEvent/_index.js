@@ -37,6 +37,7 @@ export default function AddEvent() {
 
 
   //TODO: reset AFTER SEND
+  //TODO: config file 
   useEffect(() => {
     if( addSession.groups.length === 0) navigate('/seances')
     APIgetAllEventTypes().then(data => {
@@ -115,6 +116,8 @@ export default function AddEvent() {
                 setFileUploadPending(false);
               })
               .catch(err => {
+                console.log(err.response);
+                
                 toast.error("Erreur lors de l'ajout de Fichier(s)");
                 setFileUploadPending(false);
               });
@@ -131,7 +134,7 @@ export default function AddEvent() {
     <>
       <Container fluid className={style.AddEventContainer}>
         <Row>
-          <Col lg="3" sm="12">
+          <Col className="order-first" lg="3" sm="12">
             <Card>
               <CardHeader>Résumé de l'événement</CardHeader>
               <CardBody>
@@ -179,7 +182,7 @@ export default function AddEvent() {
             </Card>
           </Col>
 
-          <Col lg="9" sm="12">
+          <Col  lg="9" sm="12">
             <Card>
               <CardHeader>Ajout d'un événement</CardHeader>
               <CardBody>

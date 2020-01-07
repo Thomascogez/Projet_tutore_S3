@@ -122,7 +122,7 @@ export default function AddSession() {
     <Container fluid className={style.AddSessionContainer}>
       <Row>
         {newSeance.module !== "" && (
-          <Col sm="12" lg="3">
+          <Col  sm="12" lg="3">
             <Card>
               <CardHeader>Résumé</CardHeader>
               <CardBody>
@@ -152,7 +152,7 @@ export default function AddSession() {
           </Col>
         )}
 
-        <Col sm="12" lg={newSeance.module !== "" ? 9 : 12}>
+        <Col className="order-first" sm="12" lg={newSeance.module !== "" ? 9 : 12}>
           <Card>
             <CardHeader>Ajout d'une nouvelle séances</CardHeader>
             <CardBody>
