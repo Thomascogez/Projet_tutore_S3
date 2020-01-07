@@ -5,6 +5,7 @@ import File from './File'
 const ModalViewsFiles = ({files}) => {
     const [open, setOpen] = useState(false)
     return (
+
         <>
             <a href="#" onClick={() => setOpen(!open)} style={{color:"green"}}><FaFileAlt/></a>
             <Modal s open={open} toggle={setOpen}>

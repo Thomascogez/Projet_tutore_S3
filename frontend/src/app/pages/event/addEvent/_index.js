@@ -29,10 +29,11 @@ import { APIgetAllEventTypes } from "../../../api/type/event";
 import { APIpostFile } from "../../../api/file";
 import { APIpostNewEvent } from "../../../api/event";
 
-Moment.locale("fr");
-momentLocalizer();
+
 
 export default function AddEvent() {
+  Moment.locale("fr");
+  momentLocalizer();
   const addSession = useSelector(state => state.addSession);
 
 
@@ -134,7 +135,7 @@ export default function AddEvent() {
     <>
       <Container fluid className={style.AddEventContainer}>
         <Row>
-          <Col className="order-first" lg="3" sm="12">
+          <Col  lg="3" sm="12">
             <Card>
               <CardHeader>Résumé de l'événement</CardHeader>
               <CardBody>
@@ -182,7 +183,7 @@ export default function AddEvent() {
             </Card>
           </Col>
 
-          <Col  lg="9" sm="12">
+          <Col className="order-first"  lg="9" sm="12">
             <Card>
               <CardHeader>Ajout d'un événement</CardHeader>
               <CardBody>
@@ -238,7 +239,6 @@ export default function AddEvent() {
                           ).asHours()
                         })
                       }
-                      format="hh:mm"
                       culture="fr"
                       date={false}
                     />
