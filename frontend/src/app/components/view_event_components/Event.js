@@ -21,7 +21,7 @@ export default function data({data}) {
           <ModalViewDetail text={data.name} />
         </td>
         { console.log( data ) }
-        <td>  ('0' + Math.floor(data.duration) % 24).slice(-2) + 'h' + ((data.duration % 1)*60 + '0').slice(0, 2) </td>
+        <td>  {('0' + Math.floor(data.duration) % 24).slice(-2) + 'h' + ((data.duration % 1)*60 + '0').slice(0, 2)} </td>
 
         <td>{moment(data.dueAt).format("DD/MM//YYYY")}</td>
 
