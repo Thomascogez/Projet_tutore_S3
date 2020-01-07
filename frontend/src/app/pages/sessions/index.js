@@ -16,7 +16,7 @@ import PageLoader from "../../components/layouts/loader";
 
 export default function Seances() {
   moment.locale("fr");
-  const [allSessions, setAllSessions] = useState([]);
+  const [allSessions, setAllSessions] = useState({});
   const [date, setDate] = useState(moment().format("YYYY MM"));
   const [loading, setLoading] = useState(true);
 
@@ -33,23 +33,30 @@ export default function Seances() {
     setLoading(true);
     APIgetAllSession(moment(date).format("MM"), moment(date).format("YYYY")) //fetching session types
         .then(data => {
-            let tmp = [];
+            let tmp = {};
 
             Object.entries(data.data).map(weekSessions => {
                 tmp[weekSessions[0]] = [];
                 let test = Object.entries(weekSessions[1]).sort(sortFunction);
+
 
                 test.map(daySessions => {
                     tmp[weekSessions[0]].push(daySessions)
                 })
             })
             setAllSessions(tmp);
+
+            setLoading(false)
         })
       .catch(err => console.log(err));
   }, [date]);
 
+  useEffect(() => {
+      console.log(allSessions.length);    
+  }, [allSessions])
+
   const getSetDate = useCallback(value => {
-    setDate(value);
+    setDate(value.format("YYYY MM"));
   }, []);
 
   return (
@@ -62,28 +69,28 @@ export default function Seances() {
       ( <>
           <MounthSelector getSetDate={getSetDate} date={date} />
 
-          {allSessions.length === 0 ? ( <h2>Aucune séance sur ce mois</h2> ) : ( "" )}
+          {Object.entries(allSessions).length === 0 ? ( <h2>Aucune séance sur ce mois</h2> ) : ( "" )}
 
-          {allSessions.map(weekSessions => (
+          {Object.entries(allSessions).map(weekSessions => (
             <>
-            {console.log(weekSessions)}
               <Row className={style.WorkRow}>
                 <Card style={{ width: "100%" }}>
                   <CardHeader> Semaine {weekSessions[0]} </CardHeader>
 
                   <Col lg="12" sm="12">
                     <Row className={style.DailyWorkRow}>
-                      {Object.entries(weekSessions[1]).map(key2 => (
+                      {Object.entries(weekSessions[1]).map(daySessions => (
                         <>
                           <Col lg="1" sm="1">
-                            { <DayContainer day={ moment( date.replace(/ /g, "") + key2[0] ).format("dddd") + " " + key2[0] } /> }
+                            { <DayContainer day={ moment( date.replace(/ /g, "") + daySessions[1][0] ).format("dddd") + " " + daySessions[1][0] } /> }
                           </Col>
 
                           <Col lg="11" sm="11">
                             <WorkContainer>
-                              {Object.entries(key2[1]).map(key3 => (
-                                  
-                                    <Work color={ key3[1].module.color === "" ? "#000000" : key3[1].module.color } name={key3[1].module.name} />
+                              {Object.entries(daySessions[1][1]).map(session => (
+                                  <>
+                                        <Work key={session[1].id} id={session[1].id} color={ session[1].module.color === "" ? "#000000" : session[1].module.color } name={session[1].module.name} />
+                                  </>
                               ))}
                             </WorkContainer>
                           </Col>
