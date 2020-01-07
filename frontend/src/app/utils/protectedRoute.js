@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
-import { navigate } from "hookrouter";
+import React, {useEffect} from "react";
+import {navigate} from "hookrouter";
 import JwtDecode from "jwt-decode";
 
 /**
  * ProtectedRoute
- * 
+ *
  * Higher order component that check JWT token validity an the authentification of the user to access protected routes
- * @param {*} props 
+ * @param {*} props
  */
 export default function ProtectedRoute(props) {
   useEffect(() => {

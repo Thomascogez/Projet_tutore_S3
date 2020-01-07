@@ -2,8 +2,8 @@ import React from 'react'
 import ModalViewDetail from './ModalViewDetails'
 import ModalViewFiles from './ModalViewsFiles'
 import moment from 'moment';
-import { FaFileAlt } from 'react-icons/fa';
-import { Badge } from 'shards-react'
+import {FaFileAlt} from 'react-icons/fa';
+import {Badge} from 'shards-react'
 
 export default function data({data}) {
 

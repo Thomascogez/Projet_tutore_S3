@@ -1,10 +1,8 @@
-import React, {useEffect, useState} from "react";
-import { Badge } from "shards-react";
+import React, {useState} from "react";
+import {Badge, Button, ButtonGroup} from "shards-react";
 import ModalViewFiles from '../view_event_components/ModalViewsFiles'
-import { FaFileAlt } from 'react-icons/fa';
+import {FaCheck, FaFileAlt, FaTimes} from 'react-icons/fa';
 import moment from 'moment';
-import {Button, ButtonGroup} from "shards-react";
-import {FaCheck, FaTimes} from "react-icons/fa";
 import ModalViewDetails from "../view_event_components/ModalViewDetails"
 
 export default function Event(props) {
@@ -14,7 +12,7 @@ export default function Event(props) {
 
     const [name, setName] = useState(props.name)
     const [session, setSession] = useState(props.session)
-    const duree = ('0' + Math.floor(props.duration) % 24).slice(-2) + 'h' + ((props.duration % 1)*60 + '0').slice(0, 2)
+    const duree = (props.duration) ? ('0' + Math.floor(props.duration) % 24).slice(-2) + 'h' + ((props.duration % 1) * 60 + '0').slice(0, 2) : "00h00";
 
     return (
         <React.Fragment>
@@ -31,12 +29,12 @@ export default function Event(props) {
                 </td>
                 <td>{session.type}</td>
                 <td><ModalViewDetails text={name}/></td>
-                <td>{duree}</td>
-                <td>{moment(props.dueAt).format("DD/MM/YYYY")}</td>
+                <td>{duree !== "00h00" ? duree : "Pas définie"}</td>
+                <td>{(props.dueAt) ? moment(props.dueAt).format("DD/MM/YYYY") : "Pas définie"}</td>
                 <td>
                     {props.attachmentEvents.length !== 0 ?(
                         <ModalViewFiles
-                        files={props.attachmentdatas}
+                            files={props.attachmentEvents}
                         />
                     ) : (
                         <FaFileAlt style={{ color: "grey" }} />

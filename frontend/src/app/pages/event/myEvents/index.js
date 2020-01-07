@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import { Card, Container, CardHeader } from 'shards-react'
+import {Card, CardHeader, Container} from 'shards-react'
 import style from './myEvents.module.css';
 import Event from '../../../components/event_components/Event';
-import { APIgetMyEvents } from '../../../api/event';
+import {APIgetMyEvents} from '../../../api/event';
 
 export default function MyEvents() {
 
@@ -15,7 +15,7 @@ export default function MyEvents() {
             setEvents(data.data)
             Object.entries(data.data).forEach(event => {
                 event[1].forEach(m => {
-                    setTotalDuration(totalDuration => m.duration+totalDuration)
+                    if (m.duration) setTotalDuration(totalDuration => m.duration + totalDuration)
                 })
             });
                 
@@ -34,7 +34,7 @@ export default function MyEvents() {
                             <th>Nom séance</th>
                             <th>Type séance</th>
                             <th>Description</th>
-                            <th>Durée({totalDuration})</th>
+                            <th>Durée ({totalDuration}h)</th>
                             <th>Echéance</th>
                             <th>Pièces jointes</th>
                             <th>Edition</th>
