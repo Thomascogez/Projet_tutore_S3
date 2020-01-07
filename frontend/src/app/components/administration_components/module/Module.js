@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Modal, { Button, FormInput, ButtonGroup } from "shards-react";
 import { FaCheck, FaTimes, FaBold } from "react-icons/fa";
-import ColorPicker from '../../colorPicker_component/colorPicker'
 import DeleteModal from "./DeleteModal";
 import {useSelector} from "react-redux";
 import InputColor from "react-input-color";

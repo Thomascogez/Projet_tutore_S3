@@ -7,11 +7,12 @@ import ProfilRound from "../../../components/profileRound_component/ProfilRoundN
 import { useSelector } from "react-redux";
 import Loader from "react-loader-spinner";
 
+
 export default function NavBar() {
-  console.log(window.location.href);
-
+  
+  
   const user = useSelector(state => state.user);
-
+  
   return (
     <Navbar className={style.Navbar} expand="md">
       <NavbarBrand className={style.Brand} onClick={() => navigate("/seances")}>
