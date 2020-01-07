@@ -5,6 +5,7 @@ import { TiGroup } from 'react-icons/ti'
 import { navigate } from 'hookrouter'
 import style from './admin.module.css'
 import {IoLogoBuffer} from "react-icons/io";
+import {GiTeacher} from "react-icons/gi";
 
 export default function index() {
     return (
@@ -55,6 +56,17 @@ export default function index() {
                             <CardTitle>Gérer les types<br/>(séances et évènements)</CardTitle>
                             <p>Ajouter, modifier, supprimer.</p>
                             <Button className={style.AdminCardBtn} onClick = {() => navigate('/administration/type')}>Continuer</Button>
+                        </CardBody>
+                    </Card>
+                </Col>
+                <Col sm="12" lg="4">
+                    <Card className={style.AdminCard} >
+                        <CardHeader></CardHeader>
+                        <GiTeacher className={style.AdminCardIcon} />
+                        <CardBody>
+                            <CardTitle>Gérer les séances</CardTitle>
+                            <p>Ajouter, modifier, supprimer.</p>
+                            <Button className={style.AdminCardBtn} onClick = {() => navigate('/administration/sessions')}>Continuer</Button>
                         </CardBody>
                     </Card>
                 </Col>

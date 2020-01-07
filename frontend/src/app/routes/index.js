@@ -22,30 +22,32 @@ import MySession from "../pages/mySession/index";
 
 import ProtectedRoute from '../utils/protectedRoute'
 import ProtectedRouteAdmin from '../utils/protectedRouteAdmin';
+import Sessions from "../pages/admin/sessions";
 
 const routes = {
     '/' : () => <Home />,
     '/passwordForget' : () => <Password />,
     '/passwordReset/:token' : (token) => <PasswordReset token={token} />,
 
-    '/profil' : () => <Userprofile/>,
-    '/options' : () => <Options />,
-    '/mesSeances': () => <MySession />,
+    '/profil' : () =>    <ProtectedRoute> <Userprofile/></ProtectedRoute>,
+    '/options' : () =>   <ProtectedRoute> <Options />   </ProtectedRoute>,
+    '/mesSeances': () => <ProtectedRoute> <MySession /> </ProtectedRoute>,
 
-    '/myEvents' : () => <MyEvents />,
+    '/myEvents' : () =>                  <ProtectedRoute> <MyEvents /> </ProtectedRoute>,
 
-    '/seances' : () => <Seances />,
-    '/seances/ajoutSeance': () => <AddSession />,
-    '/seance/:seanceId'  : (seanceId) => <ViewsSession seanceId={seanceId}  />,
-    '/seances/evenement/ajout' : () => <AddEvent />,
+    '/seances' : () =>                   <ProtectedRoute> <Seances />                          </ProtectedRoute>,
+    '/seances/ajoutSeance': () =>        <ProtectedRoute> <AddSession />                       </ProtectedRoute>,
+    '/seance/:seanceId'  : (seanceId) => <ProtectedRoute> <ViewsSession seanceId={seanceId} /> </ProtectedRoute>,
+    '/seances/evenement/ajout' : () =>   <ProtectedRoute> <AddEvent />                         </ProtectedRoute>,
 
-    '/administration' : () => <ProtectedRoute><ProtectedRouteAdmin> <Administration /> </ProtectedRouteAdmin></ProtectedRoute>,
-    '/administration/utilisateurs' : () =><GererUtilisateur/>,
-    '/administration/utilisateurs/ajout/etape1' : () => <AddUser />,
-    '/administration/utilisateurs/ajout/etape2' : () => <AddUserPage2 />,
-    '/administration/modules' : () => <EditModule />,
-    '/administration/groupe' : () => <EditGroup />,
-    '/administration/type' : () => <Types />,
+    '/administration' : () =>                           <ProtectedRoute><ProtectedRouteAdmin> <Administration /> </ProtectedRouteAdmin></ProtectedRoute>,
+    '/administration/utilisateurs' : () =>              <ProtectedRoute><ProtectedRouteAdmin> <GererUtilisateur/></ProtectedRouteAdmin></ProtectedRoute>,
+    '/administration/utilisateurs/ajout/etape1' : () => <ProtectedRoute><ProtectedRouteAdmin> <AddUser />        </ProtectedRouteAdmin></ProtectedRoute>,
+    '/administration/utilisateurs/ajout/etape2' : () => <ProtectedRoute><ProtectedRouteAdmin> <AddUserPage2 />   </ProtectedRouteAdmin></ProtectedRoute>,
+    '/administration/modules' : () =>                   <ProtectedRoute><ProtectedRouteAdmin> <EditModule />     </ProtectedRouteAdmin></ProtectedRoute>,
+    '/administration/groupe' : () =>                    <ProtectedRoute><ProtectedRouteAdmin> <EditGroup />      </ProtectedRouteAdmin></ProtectedRoute>,
+    '/administration/type' : () =>                      <ProtectedRoute><ProtectedRouteAdmin> <Types />          </ProtectedRouteAdmin></ProtectedRoute>,
+    '/administration/sessions' : () =>                  <ProtectedRoute><ProtectedRouteAdmin> <Sessions />       </ProtectedRouteAdmin></ProtectedRoute>,
 
     '/test' : () => <Test />,
 };
