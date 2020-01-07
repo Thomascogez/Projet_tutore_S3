@@ -40,13 +40,6 @@ class Session
     private $createdAt;
 
     /**
-     * Session group
-     * @ORM\ManyToOne(targetEntity="App\Entity\Groups", inversedBy="sessions")
-     * @Groups({"session_detail", "events"})
-     */
-    private $groupe;
-
-    /**
      * User created session
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="sessions")
      * @Groups({"session_detail", "events"})
@@ -79,11 +72,19 @@ class Session
      */
     private $comments;
 
+    /**
+     * Session group
+     * @ORM\ManyToMany(targetEntity="App\Entity\Groups", inversedBy="sessions")
+     * @Groups({"session_detail", "events"})
+     */
+    private $groups;
+
     public function __construct()
     {
         $this->semaphores = new ArrayCollection();
         $this->events = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->groups = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -114,19 +115,7 @@ class Session
 
         return $this;
     }
-
-    public function getGroupe(): ?\App\Entity\Groups
-    {
-        return $this->groupe;
-    }
-
-    public function setGroupe(?\App\Entity\Groups  $groupe): self
-    {
-        $this->groupe = $groupe;
-
-        return $this;
-    }
-
+    
     public function getUser(): ?User
     {
         return $this->user;
@@ -239,6 +228,32 @@ class Session
             if ($comment->getSession() === $this) {
                 $comment->setSession(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|\App\Entity\Groups[]
+     */
+    public function getGroups(): Collection
+    {
+        return $this->groups;
+    }
+
+    public function addGroup(\App\Entity\Groups $group): self
+    {
+        if (!$this->groups->contains($group)) {
+            $this->groups[] = $group;
+        }
+
+        return $this;
+    }
+
+    public function removeGroup(\App\Entity\Groups $group): self
+    {
+        if ($this->groups->contains($group)) {
+            $this->groups->removeElement($group);
         }
 
         return $this;

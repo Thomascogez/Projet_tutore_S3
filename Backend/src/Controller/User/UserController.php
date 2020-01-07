@@ -8,6 +8,7 @@ use App\Entity\Groups;
 use App\Entity\Module;
 use App\Entity\User;
 use App\Form\UserType;
+use Faker\Factory;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use Nelmio\ApiDocBundle\Annotation\Operation;
@@ -207,8 +208,11 @@ class UserController extends AbstractController
 
             $mailer->send($message);
 
+            $faker = Factory::create('fr_FR'); // create a French faker
+
             $user->setPassword($encoder->encodePassword($user, $user->getPlainPassword()));
             $user->setPlainPassword("");
+            $user->setColor($faker->rgbColor);
 
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($user);
@@ -230,6 +234,7 @@ class UserController extends AbstractController
      * @Rest\RequestParam(name="plainPassword",  description="Password of user",   nullable=true)
      * @Rest\RequestParam(name="module",         description="Array of modules",   nullable=true)
      * @Rest\RequestParam(name="groups",         description="Array of groups ",   nullable=true)
+     * @Rest\RequestParam(name="color",          description="Color of user",   nullable=true)
      * @Rest\RequestParam(name="roles",          description="Role of user : ['USER_TEACHER', 'USER_TUTOR', 'USER_ADMIN'", nullable=true)
      * @Operation(
      *     path="/api/users/{id}",
@@ -305,12 +310,19 @@ class UserController extends AbstractController
         }
 
         $form->submit($request->request->all(), false);
+
+        $user->setPlainPassword($request->get('plainPassword'));
+        if(!empty($user->getPlainPassword())){
+            $re = '/^.*(?=.{8,})(?=.*[!-@#$%^&(),.?":{}|<>].*[!-@#$%^&(),.?":{}|<>].*)(?=.*[A-Z].*[A-Z].*)(?=.*[a-z].*[a-z].*).*$/m';
+            if(!preg_match($re, $user->getPlainPassword())) {
+                $form->get('plainPassword')->addError(new FormError("Password don't respect : 8 length, 2 uppercase, 2 lowercase, 2 special character"));
+            }
+            $user->setPassword($encoder->encodePassword($user, $user->getPlainPassword()));
+            $user->setPlainPassword("");
+        }
+
         if($form->isValid()) {
             $user->setUpdateAt(new \DateTime());
-            if(!empty($user->getPlainPassword())){
-                $user->setPassword($encoder->encodePassword($user, $user->getPlainPassword()));
-                $user->setPlainPassword("");
-            }
 
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($user);

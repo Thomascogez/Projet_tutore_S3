@@ -64,7 +64,9 @@ class SessionController extends AbstractController
 
             $test = false;
             foreach ($this->getUser()->getGroups() as $groups) {
-                if($groups === $session->getGroupe()) $test = true;
+                foreach ($session->getGroups() as $group) {
+                    if($groups === $group) $test = true;
+                }
             }
             if(!$test) return $this->notAuthorized();
         }
@@ -99,25 +101,28 @@ class SessionController extends AbstractController
         $sessions = array();
 
         $month = $paramFetcher->get('month');
-        $year = $paramFetcher->get('year');
+        $year  = $paramFetcher->get('year' );
 
         if ($month == 0) $month = date('M');
-        if ($year == 0) $year = date('Y');
+        if ($year == 0)  $year  = date('Y');
 
 
         $from = new \DateTime($year . "-" . $month . "-01");
         $to = new \DateTime($year . "-" . $month . "-31");
 
-        if($paramFetcher->get('type') == NULL) {
+        $groups = null;
+        $type   = null;
+
+        if($paramFetcher->get('group') !== "") {
             $groups = $this->getDoctrine()->getRepository(Groups::class)->findOneBy(array("name" => $paramFetcher->get('group')));
-        } else {
-            $groups = $this->getDoctrine()->getRepository(Groups::class)->findOneBy(array("name" => $paramFetcher->get('group'), "type" => $paramFetcher->get('type')));
+            if(!$groups) return $this->isNotFound("Group not found");
         }
-        if (!$groups) {
-            $tmp = $this->getDoctrine()->getRepository(Session::class)->findByDate($from, $to);
-        } else {
-            $tmp = $groups->getSessions();
+        if($paramFetcher->get('type') !== ""){
+            $type = $this->getDoctrine()->getRepository(\App\Entity\SessionType::class)->findOneBy(array("name" => $paramFetcher->get('type')));
+            if(!$type) return $this->isNotFound("Type not found");
         }
+
+        $tmp = $this->getDoctrine()->getRepository(Session::class)->findByDate($from, $to, $groups, $type);
 
         foreach ($tmp as $index) {
 
@@ -138,8 +143,11 @@ class SessionController extends AbstractController
                     $test = true;
 
                 $test2 = false;
+
                 foreach ($this->getUser()->getGroups() as $groups) {
-                    if($groups === $index->getGroupe()) $test2 = true;
+                    foreach ($index->getGroups() as $group) {
+                        if($groups === $group) $test2 = true;
+                    }
                 }
                 if($test2)
                     $test = true;
@@ -168,9 +176,9 @@ class SessionController extends AbstractController
      * Add session
      * @Rest\Post("/api/sessions", name="post_session_action")
      * @Rest\View(serializerGroups={"session_detail"}, statusCode=201)
-     * @Rest\RequestParam(name="module",  description="Module code",   nullable=false)
-     * @Rest\RequestParam(name="type",    description="Type name",     nullable=false)
-     * @Rest\RequestParam(name="group",   description="Group name",    nullable=false)
+     * @Rest\RequestParam(name="module",  description="Module code",              nullable=false)
+     * @Rest\RequestParam(name="type",    description="Type name",                nullable=false)
+     * @Rest\RequestParam(name="groups",   description="Groups array of name",    nullable=false)
      * @Operation(
      *     path="/api/sessions",
      *     operationId="postSessionAction",
@@ -193,8 +201,6 @@ class SessionController extends AbstractController
 
         $module = $this->getDoctrine()->getRepository(Module::class)->findOneBy(array("code" => $request->get('module')));
         $type = $this->getDoctrine()->getRepository(\App\Entity\SessionType::class)->findOneBy(array("name" => $request->get('type')));
-        $group = $this->getDoctrine()->getRepository(Groups::class)->findOneBy(array("name" => $request->get('group')));
-
 
 
         $form->submit(null, false);
@@ -204,9 +210,6 @@ class SessionController extends AbstractController
         if (!$type) {
             $form->get('type')->addError(new FormError("Type don't exist"));
         }
-        if (!$group) {
-            $form->get('groupe')->addError(new FormError("Group don't exist"));
-        }
 
         if(!$this->userHasRole($this->getUser(), "ROLE_ADMIN")) {
             $test = false;
@@ -214,20 +217,28 @@ class SessionController extends AbstractController
                 if ($data == $module) $test = true;
             }
             if (!$test) $form->get('module')->addError(new FormError("Not authorization"));
+        }
 
+        foreach ($request->get('groups') as $groupReq) {
+            $group = $this->getDoctrine()->getRepository(Groups::class)->findOneBy(array("name" => $groupReq));
             $test = false;
-            foreach ($this->getUser()->getGroups() as $data) {
-                if ($data == $group) $test = true;
-            }
-            if (!$test) $form->get('groupe')->addError(new FormError("Not authorization"));
+
+            if(!$this->userHasRole($this->getUser(), "ROLE_ADMIN")) {
+                foreach ($this->getUser()->getGroups() as $data) {
+                    if ($data == $group) $test = true;
+                }
+            } else $test = true;
+
+            if(!$group) $form->get('groups')->addError(new FormError("Group " . $groupReq . " don't exist  "));
+            else if (!$test) $form->get('groups')->addError(new FormError("Not authorization group " . $groupReq));
+            else $session->addGroup($group);
         }
 
         if ($form->isValid()) {
 
             $session->setModule($module)
                 ->setUser($this->getUser())
-                ->setType($type->getName())
-                ->setGroupe($group);
+                ->setType($type->getName());
 
             $manager = $this->getDoctrine()->getManager();
 
@@ -251,9 +262,9 @@ class SessionController extends AbstractController
      * Update session by id
      * @Rest\Patch("/api/sessions/{id}", requirements={"id": "\d+"}, name="patch_session_action")
      * @Rest\View(serializerGroups={"session_detail"})
-     * @Rest\RequestParam(name="module",  description="Module code",   nullable=true)
-     * @Rest\RequestParam(name="type",    description="Type name",     nullable=true)
-     * @Rest\RequestParam(name="groupe",  description="Groupe name",   nullable=true)
+     * @Rest\RequestParam(name="module",  description="Module code",            nullable=true)
+     * @Rest\RequestParam(name="type",    description="Type name",              nullable=true)
+     * @Rest\RequestParam(name="groups",  description="Groups array of name",   nullable=true)
      * @Operation(
      *     path="/api/sessions/{id}",
      *     operationId="patchSessionAction",
@@ -280,7 +291,6 @@ class SessionController extends AbstractController
 
         $module = $this->getDoctrine()->getRepository(Module::class)->findOneBy(array("code" => $request->get('module')));
         $type = $this->getDoctrine()->getRepository(\App\Entity\SessionType::class)->findOneBy(array("name" => $request->get('type')));
-        $group = $this->getDoctrine()->getRepository(Groups::class)->findOneBy(array("name" => $request->get('group')));
 
         $form->submit(null, false);
 
@@ -303,16 +313,23 @@ class SessionController extends AbstractController
                 $session->setType($type->getName());
             }
         }
-        if ($request->get('group') != NULL) {
-            if (!$group) {
-                $form->get('groupe')->addError(new FormError("Group don't exist"));
-            } else {
+        if ($request->get('groups') != NULL) {
+            foreach ($session->getGroups() as $group) {
+                $session->removeGroup($group);
+            }
+            foreach ($request->get('groups') as $groupReq) {
+                $group = $this->getDoctrine()->getRepository(Groups::class)->findOneBy(array("name" => $groupReq));
                 $test = false;
-                foreach ($this->getUser()->getGroups() as $data) {
-                    if ($data == $group) $test = true;
-                }
-                if (!$test && !$this->userHasRole($this->getUser(), "ROLE_ADMIN")) $form->get('groupe')->addError(new FormError("Not authorization"));
-                else $session->setGroupe($group);
+
+                if(!$this->userHasRole($this->getUser(), "ROLE_ADMIN")) {
+                    foreach ($this->getUser()->getGroups() as $data) {
+                        if ($data == $group) $test = true;
+                    }
+                } else $test = true;
+
+                if(!$group) $form->get('groups')->addError(new FormError("Group " . $groupReq . " don't exist  "));
+                else if (!$test) $form->get('groups')->addError(new FormError("Not authorization group " . $groupReq));
+                else $session->addGroup($group);
             }
         }
 
