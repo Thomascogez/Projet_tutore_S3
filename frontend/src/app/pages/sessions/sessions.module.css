@@ -4,7 +4,7 @@
 .SeancesContainer {
   width: 95% !important;
   padding: 5px;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 .WeekContainer {
@@ -114,7 +114,8 @@
   width: 100%;
   font-size: 25px;
   line-height: 25px;
-  margin-bottom: 10px;
+  margin-bottom: 50px !important;
+  
 }
 
 .SessionEventCollapse{

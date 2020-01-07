@@ -10,7 +10,7 @@ import WorkContainer from "../../components/sessions_components/WorkContainers";
 import DayContainer from "../../components/sessions_components/DayContainer";
 import MounthSelector from "../../components/sessions_components/MounthSelector";
 import Work from "../../components/sessions_components/Work";
-import {APIgetAllSession} from "../../api/sessionFetch";
+import { APIgetAllSession } from "../../api/sessionFetch";
 import PageLoader from "../../components/layouts/loader";
 import Collapse from "../../components/layouts/Collapse/CollapseSessions";
 import {
@@ -18,6 +18,7 @@ import {
   MainButton,
   ChildButton,
 } from 'react-floating-button-menu';
+import CollapseLoader from "../../components/loader/CollapseLoader";
 
 export default function Seances() {
   moment.locale("fr");
@@ -45,6 +46,8 @@ export default function Seances() {
   }
 
   useEffect(() => {
+    console.log("ok");
+
     setLoading(true);
     APIgetAllSession(moment(date).format("MM"), moment(date).format("YYYY")) //fetching session types
       .then(data => {
@@ -53,14 +56,11 @@ export default function Seances() {
         Object.entries(data.data).map(weekSessions => {
           tmp[parseInt(weekSessions[0])] = [];
           let test = Object.entries(weekSessions[1]).sort(sortFunction);
-
-
           test.map(daySessions => {
             tmp[parseInt(weekSessions[0])].push(daySessions)
           })
         })
         setAllSessions(tmp);
-
         setLoading(false)
       })
       .catch(err => console.log(err));
@@ -77,15 +77,41 @@ export default function Seances() {
   return (
     <>
       <Container fluid className={style.SeancesContainer}>
-        {/* <Button onClick={() => navigate("/seances/ajoutSeance")}>
-          <FaBookOpen style={{ marginRight: "15px" }} /> Ajouter séance
-      </Button> */}
+        <MounthSelector getSetDate={getSetDate} date={date} />
+        {loading ?
+          <>
+            <Card style={{ margin: "5px 0px 5px 0px" }}>
+              <CardBody>
+                <CollapseLoader />
+              </CardBody>
+            </Card>
+            <Card style={{ margin: "5px 0px 5px 0px" }}>
+              <CardBody>
+                <CollapseLoader />
+              </CardBody>
+            </Card>
+            <Card style={{ margin: "5px 0px 5px 0px" }}>
+              <CardBody>
+                <CollapseLoader />
+              </CardBody>
+            </Card>
+            <Card style={{ margin: "5px 0px 5px 0px" }}>
+              <CardBody>
+                <CollapseLoader />
+              </CardBody>
+            </Card>
+            <Card style={{ margin: "5px 0px 5px 0px" }}>
+              <CardBody>
+                <CollapseLoader />
+              </CardBody>
+            </Card>
+          </>
 
-        {loading ? (<> <PageLoader /> </>) :
-          (<>
-            <MounthSelector getSetDate={getSetDate} date={date} />
+          :
+          <>
 
-            {Object.entries(allSessions).length === 0 ? (<h2>Aucune séance sur ce mois</h2>) : ("")}
+
+            {Object.entries(allSessions).length === 0 ? !loading && <h2>Aucune séance sur ce mois</h2> : ("")}
 
             {Object.entries(allSessions).map(weekSessions => (
               <>
@@ -97,7 +123,6 @@ export default function Seances() {
                         title={"Semaine " + weekSessions[0] + " ( du " + moment().day("Lundi").year((date.split(" "))[0]).week(weekSessions[0]).format("DD/MM/Y") + " au " + moment().day("Lundi").year((date.split(" "))[0]).week(weekSessions[0]).add(6, 'days').format("DD/MM/Y") + " )"}
                       >
 
-                        {/* <Col lg="1" sm="12"> */}
                         <Row className={style.DailyWorkRow}>
                           {Object.entries(weekSessions[1]).map(daySessions => (
                             <>
@@ -128,13 +153,16 @@ export default function Seances() {
                       </Collapse>
                     </CardBody>
                   </Card>
+
                 </Row>
               </>
             ))}
+
           </>
-          )}
+        }
+
         <FloatingMenu
-          className= "floating-button"
+          className="floating-button"
           slideSpeed={500}
           direction="up"
           spacing={8}
