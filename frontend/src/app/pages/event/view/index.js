@@ -57,7 +57,6 @@ export default function ViewsEvent(props) {
         .then(data => {
           //toast success
           setVerifBut(false)
-          console.log(verifBut);         
         })
         .catch(err => {
           //toast err
@@ -140,11 +139,11 @@ export default function ViewsEvent(props) {
           <Card>
             <CardHeader style={{ marginBottom: "10px" }}>
               Groupe :{" "}
-              {info.groupe && (
-                <Badge style={{ backgroundColor: info.groupe.color }}>
-                  {info.groupe.name}
+              {(info.groups)?info.groups.map(group => (
+                <Badge style={{ backgroundColor: group.color, marginRight: "10px" }}>
+                  {group.name}
                 </Badge>
-              )}
+              )):""}
             </CardHeader>
             <CardBody>
               <h1>

@@ -9,7 +9,7 @@ const ModalViewsFiles = ({files}) => {
 
         <>
             <a href="#" onClick={() => setOpen(!open)} style={{color:"green"}}><FaFileAlt/></a>
-            <Modal s open={open} toggle={setOpen}>
+            <Modal size="lg" open={open} toggle={setOpen}>
                 <ModalHeader>Pièces jointes de l'évènement</ModalHeader>
                 <ModalBody>
                     <table className={`table table-striped`}>

@@ -20,10 +20,13 @@ export default function data({data}) {
         <td>
           <ModalViewDetail text={data.name} />
         </td>
-        { console.log( data ) }
-        <td>  {('0' + Math.floor(data.duration) % 24).slice(-2) + 'h' + ((data.duration % 1)*60 + '0').slice(0, 2)} </td>
+        <td>
+            {data.duration?(
+                ('0' + Math.floor(data.duration) % 24).slice(-2) + 'h' + ((data.duration % 1)*60 + '0').slice(0, 2)
+            ):("Pas définie")}
+        </td>
 
-        <td>{moment(data.dueAt).format("DD/MM//YYYY")}</td>
+        <td>{(data.dueAt)?(moment(data.dueAt).format("DD/MM/YYYY")):"Pas définie"}</td>
 
         <td style={{ textAlign: "center" }}>
           {data.attachmentEvents.length !== 0 ? (
