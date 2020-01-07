@@ -16,7 +16,7 @@ export default function MySession()
 	useEffect(() => {
 		APIgetMySession()
 		.then(data => {     
-			setMySession(data.data);            
+			setMySession(data.data);           
 		})
 		.catch(err => console.log(err));
 	}, [])

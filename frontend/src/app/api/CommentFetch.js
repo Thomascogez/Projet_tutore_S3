@@ -24,12 +24,11 @@ const APIgetComment = sessionid => {
  * @param {*} sessionid 
  * @param {*} message 
  */
-const APIpostComment = (sessionid, content) => {
+const APIpostComment = (sessionid, comment) => {
   return axios.post(
-    `https://schoolshare.tools/api/sessions/${sessionid}/comments`,content,
-    {
-      headers: { Authorization: "Bearer " + localStorage.getItem("token") },
-    }
+    `https://schoolshare.tools/api/sessions/${sessionid}/comments`,
+    {"comment": comment},
+    { headers: { Authorization: "Bearer " + localStorage.getItem("token")} }
   );
 };
 

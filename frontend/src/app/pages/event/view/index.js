@@ -13,8 +13,7 @@ import {
   Button
 } from "shards-react";
 
-
-
+import Loader from 'react-loader-spinner'
 import { FaAngleRight, FaAngleDown } from "react-icons/fa";
 import ProfileRound from "../../../components/profileRound_component/ProfileRound";
 import style from "./eventview.module.css";
@@ -46,15 +45,18 @@ export default function ViewsEvent(props) {
 
   const [newComment, setNewComment] = useState(""); //hook that handle new comment
 
-  const handleCommentSubmit = () => {  //handle comment submit 
+  const [verifBut, setVerifBut] = useState(false);
 
-    if( newComment != null && newComment.length !== 0  && newComment.trim !== " " && newComment.length < 120){
+  const handleCommentSubmit = () => {  //handle comment submit
+
+    setVerifBut(true);
+
+    if( newComment != null && newComment.length !== 0  && newComment.length < 120){
 
       APIpostComment(info.id, newComment)
         .then(data => {
           //toast success
-          console.log("ok");
-          
+          console.log(data);         
         })
         .catch(err => {
           //toast err
@@ -231,7 +233,13 @@ export default function ViewsEvent(props) {
                     value={newComment}
                     onChange = {e => setNewComment(e.target.value)}
                   />
-                  <Button onClick={() => handleCommentSubmit()} style={{ marginLeft: "10px" }}>Ajouter</Button>
+                  <Button disabled={verifBut || newComment === ""} onClick={() => handleCommentSubmit()} style={{ marginLeft: "10px" }}>{verifBut ? <Loader
+                    type="ThreeDots"
+                    color="#FFF"
+                    height={20}
+                    width={50}
+              /> : "Ajouter"}</Button>
+                  
                 </div>
               </Collapse>
             </CardBody>
