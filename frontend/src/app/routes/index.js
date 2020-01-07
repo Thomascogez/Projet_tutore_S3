@@ -16,9 +16,8 @@ import Test from '../pages/test'
 import PasswordReset from "../pages/home/passwordReset";
 import ViewsSession from '../pages/event/view/index'
 import Types from "../pages/admin/types/index";
-import MyEvents from "../pages/event/myEvents"
+import MyEvents from "../pages/event/myEvents";
 import MySession from "../pages/mySession/index";
-
 
 import ProtectedRoute from '../utils/protectedRoute'
 import ProtectedRouteAdmin from '../utils/protectedRouteAdmin';
@@ -39,6 +38,7 @@ const routes = {
     '/seances/ajoutSeance': () =>        <ProtectedRoute> <AddSession />                       </ProtectedRoute>,
     '/seance/:seanceId'  : (seanceId) => <ProtectedRoute> <ViewsSession seanceId={seanceId} /> </ProtectedRoute>,
     '/seances/evenement/ajout' : () =>   <ProtectedRoute> <AddEvent />                         </ProtectedRoute>,
+    '/seances/modifier' : () =>          <ProtectedRoute> <AddSession />                       </ProtectedRoute>,
 
     '/administration' : () =>                           <ProtectedRoute><ProtectedRouteAdmin> <Administration /> </ProtectedRouteAdmin></ProtectedRoute>,
     '/administration/utilisateurs' : () =>              <ProtectedRoute><ProtectedRouteAdmin> <GererUtilisateur/></ProtectedRouteAdmin></ProtectedRoute>,
