@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_GROUP_BY_ID, GET_ALL_SESSION_TYPES,GET_ALL_SESSIONS, POST_NEW_SESSION, GET_MY_SESSION } from '../types/apiConst'
+import { GET_GROUP_BY_ID, GET_ALL_SESSION_TYPES,GET_ALL_SESSIONS, POST_NEW_SESSION, GET_MY_SESSION, DEL_SESSION_ID } from '../types/apiConst'
 
 const CancelToken = axios.CancelToken;
 const source = CancelToken.source();
@@ -49,4 +49,11 @@ const APIgetMySession = () => {
         {headers: { Authorization: "Bearer " + localStorage.getItem("token") }}
     )
 }
-export { APIgetAllSession, APIgetSession, APIgetSessionTypes, APIpostNewSession, APIgetMySession}
+
+const APIdelSessionID = (id) => {
+    return axios.delete(DEL_SESSION_ID + '/' + id,
+        {headers: {Authorization: "Bearer " + localStorage.getItem("token") }}
+    )
+}
+
+export { APIgetAllSession, APIgetSession, APIgetSessionTypes, APIpostNewSession, APIgetMySession, APIdelSessionID}
