@@ -31,7 +31,7 @@ export default function MySession()
 								<th>Date</th>
 								<th>Module</th>
 								<th>Groupe</th>
-								<th>Supprimer</th>
+								<th>Modification</th>
 							</tr>
 							{ (Object.keys(mySession).length === 0)? (
 								<PageLoader />
