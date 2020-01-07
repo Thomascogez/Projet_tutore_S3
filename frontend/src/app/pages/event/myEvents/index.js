@@ -7,16 +7,25 @@ import { APIgetMyEvents } from '../../../api/event';
 export default function MyEvents() {
 
     const [events, setEvents] = useState({})
+    const[totalDuration, setTotalDuration] = useState(0);
 
     useEffect(() => {
         APIgetMyEvents()
-        .then(data =>{setEvents(data.data)})
+        .then(data =>{
+            setEvents(data.data)
+            Object.entries(data.data).forEach(event => {
+                event[1].forEach(m => {
+                    setTotalDuration(totalDuration => m.duration+totalDuration)
+                })
+            });
+                
+        })
     }, [])
 
     return (
         <Container fluid className={style.EventsContainer}>        
             <Card >
-                <CardHeader><h5>Mes évènements</h5></CardHeader>
+                <CardHeader><h5>Mes évènements </h5></CardHeader>
                 <div className="table-responsive">
                     <table className={`table  ${style.EventTable}`}>
                         <thead>
@@ -25,7 +34,7 @@ export default function MyEvents() {
                             <th>Nom séance</th>
                             <th>Type séance</th>
                             <th>Description</th>
-                            <th>Durée</th>
+                            <th>Durée({totalDuration})</th>
                             <th>Echéance</th>
                             <th>Pièces jointes</th>
                             <th>Edition</th>
