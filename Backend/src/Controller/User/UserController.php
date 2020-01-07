@@ -311,8 +311,7 @@ class UserController extends AbstractController
 
         $form->submit($request->request->all(), false);
 
-        $user->setPlainPassword($request->get('plainPassword'));
-        if(!empty($user->getPlainPassword())){
+        if($request->get('plainPassword') != null){
             $re = '/^.*(?=.{8,})(?=.*[!-@#$%^&(),.?":{}|<>].*[!-@#$%^&(),.?":{}|<>].*)(?=.*[A-Z].*[A-Z].*)(?=.*[a-z].*[a-z].*).*$/m';
             if(!preg_match($re, $user->getPlainPassword())) {
                 $form->get('plainPassword')->addError(new FormError("Password don't respect : 8 length, 2 uppercase, 2 lowercase, 2 special character"));

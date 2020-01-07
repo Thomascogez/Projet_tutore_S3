@@ -1,15 +1,23 @@
 import React, {useEffect, useState} from 'react'
 import adminStyle from '../../../components/administration_components/module/adminmodule.module.css';
 import BarreRecherche from '../../../components/administration_components/module/BarreRecherche'
-import Module from '../../../components/administration_components/module/Module'
-import {useDispatch, useSelector} from "react-redux";
-import {getModules} from "../../../providers/actions/moduleAction";
 import PageLoader from "../../../components/layouts/loader";
 import {APIgetAllSession} from "../../../api/sessionFetch";
 import Session from "../../../components/administration_components/session/Session";
+import moment from "moment";
+import "moment/locale/fr";
+import {Card, Col, FormSelect, Row, CardBody} from "shards-react";
+import Collapse from "../../../components/layouts/Collapse/CollapseSessions";
 
 export default function Sessions()
 {
+    const [date, setDate] = useState(moment());
+    const [arrayYears, setArrayYears] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    const jsUcfirst = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 
     function sortFunction(a, b) {
         if (a[0] === b[0]) {
@@ -20,24 +28,39 @@ export default function Sessions()
         }
     }
 
+    moment.locale('fr')
+
     const [sessions, setSessions] = useState({});
+
     useEffect( () => {
-        APIgetAllSession()
+        setLoading(!loading);
+        let year = [];
+        for(let i = moment().year()+3; i > moment().year()-30; i--)
+            year.push(i);
+        setArrayYears(year);
+
+        APIgetAllSession(date.format("MM"), date.format("YYYY")) //fetching session types
             .then(data => {
-                let tmp = [];
+                let tmp = {};
 
                 Object.entries(data.data).map(weekSessions => {
-                    tmp[weekSessions[0]] = [];
+                    tmp[parseInt(weekSessions[0])] = [];
                     let test = Object.entries(weekSessions[1]).sort(sortFunction);
 
                     test.map(daySessions => {
-                        tmp[weekSessions[0]].push(daySessions)
+                        tmp[parseInt(weekSessions[0])].push(daySessions)
                     })
                 })
-                console.log(tmp)
-                setSessions(data.data);
+                setSessions(tmp);
+                setLoading(false)
             })
-    }, []);
+            .catch(err => console.log(err));
+    }, [date]);
+
+    useEffect(() => {
+        console.log(sessions)
+    }, [sessions])
+
 
     return (
         <div >
@@ -45,32 +68,68 @@ export default function Sessions()
             {<BarreRecherche />}
 
             <div style={{margin:50, marginTop:100, padding:10}}>
-                <table  className={`table table-striped ${adminStyle.Scroll}`}>
-                    <thead>
-                    <tr>
-                        <th>Code</th>
-                        <th>Module</th>
-                        <th>Couleur</th>
-                        <th style={{width: 20 + '%'}}>Edition</th>
-                    </tr>
-                    </thead>
-                    <tbody >
-                    { (sessions.length > 0) ? (
-                        <React.Fragment>
-                            <Session key={-1} session={null} />
-                            {sessions.map(m =>
-                                <Session key={m.id} session={m} />
-                            ) }
-                        </React.Fragment>
-                    ):(<React.Fragment />
-                    )}
-                    </tbody>
-                </table>
+                <Row style={{marginBottom: "7px"}}>
+                    <Col md="6">
+                        <FormSelect style={{fontWeight: "bold"}}  value={date.format("M")} onChange={e => setDate(moment(date).set('month', e.target.value-1))}>
+                            { moment.months().map(m => (<option style={{fontWeight: "bold"}} value={moment.months().indexOf(m)+1}>{jsUcfirst(m)}</option>)) }
+                        </FormSelect>
+                    </Col>
+                    <Col md="6">
+                        <FormSelect style={{fontWeight: "bold"}} value={date.format("YYYY")} onChange={e => setDate(moment(date).set('year', e.target.value))} >
+                            { arrayYears.map(m => (<option style={{fontWeight: "bold"}} value={m} >{m}</option>)) }
+                        </FormSelect>
+                    </Col>
+                </Row>
+                <Card>
+                    <CardBody>
+
+                        { (Object.entries(sessions).length > 0) ? (
+                            <React.Fragment>
+                                {Object.entries(sessions).map(weekSessions =>
+                                    <>
+                                        <Collapse title={<><span style={{fontWeight: "bold"}}>Semaine n°{weekSessions[0]}</span><span style={{fontSize: "20px"}}> (du {moment().day("Lundi").year(date.year()).week(weekSessions[0]).format("DD/MM/Y")} au {moment().day("Dimanche").year(date.year()).week(weekSessions[0]).format("DD/MM/Y")})</span></>}>
+
+                                                {
+                                                    Object.entries(weekSessions[1]).map(daySessions => (
+                                                        <>
+                                                            {console.log(moment( date.year()+"-"+date.month() + daySessions[1][0] ).format("dddd"))}
+                                                            <Collapse title={<>{moment( date.year()+"-"+date.month() + daySessions[1][0] ).format("dddd DD") }</>}>
+                                                                <table  className={`table table-striped table-hover table-bordered ${adminStyle.Scroll}`}>
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th>Date</th>
+                                                                        <th>Utilisateur</th>
+                                                                        <th>Module</th>
+                                                                        <th>Groupes</th>
+                                                                        <th>Type</th>
+                                                                        <th style={{width: 20 + '%'}}>Edition</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody >
+                                                                    {
+                                                                        daySessions[1][1].map(session => (
+                                                                            <Session key={session.id} session={session}/>
+                                                                        ))
+                                                                    }
+                                                                    </tbody>
+                                                                </table>
+                                                            </Collapse>
+                                                        </>
+                                                    ))
+                                                }
+                                        </Collapse>
+                                    </>
+                                ) }
+                            </React.Fragment>
+                        ):(<React.Fragment />
+                        )}
+                    </CardBody>
+                </Card>
             </div>
-            { (Object.entries(sessions).length > 0 ) ? (
-                <React.Fragment />
-            ):(
+            { (loading) ? (
                 <PageLoader />
+            ):(
+                <React.Fragment />
             )}
         </div>
     )

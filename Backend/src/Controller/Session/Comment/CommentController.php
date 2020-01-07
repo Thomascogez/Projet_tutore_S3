@@ -76,7 +76,7 @@ class CommentController extends SessionController
     /**
      * Add new comment on session
      * @Rest\Post("/api/sessions/{id_session}/comments", name="post_comment_action", requirements={"id_session": "\d+"})
-     * @Rest\RequestParam(name="content", description="Content of comment", nullable=false)
+     * @Rest\RequestParam(name="comment", description="Comment text", nullable=false)
      * @Rest\View(serializerGroups={"comment"}, statusCode=201)
      * @Operation(
      *     path="/api/sessions/{id_session}/comments",
@@ -97,7 +97,13 @@ class CommentController extends SessionController
         $session = $this->getDoctrine()->getRepository(Session::class)->find($request->get('id_session'));
         if (!$session) return $this->isNotFound(SESSIONS_NOT_FOUND);
 
-        if ($session->getGroupe()->getUsers()->contains($this->getUser())) {
+        $test = false;
+        foreach ($session->getGroups() as $group) {
+            if($group->getUsers()->contains($this->getUser()))
+                $test = true;
+        }
+
+        if ($test) {
             $comment = new Comment();
 
             $form = $this->createForm(CommentType::class, $comment);
