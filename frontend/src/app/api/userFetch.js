@@ -61,8 +61,8 @@ const APIGetAllUsers = () => {
   });
 }
 
-const APIEditUser = (user) => {
-  return axios.get(EDIT_USERS, user, {
+const APIEditUser = (idUser, user) => {
+  return axios.patch(EDIT_USERS + "/" + idUser, user, {
     headers: { Authorization: "Bearer " + localStorage.getItem("token") }
   });
 }

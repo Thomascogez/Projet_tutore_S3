@@ -14,10 +14,8 @@ use App\Form\SessionType;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Request\ParamFetcherInterface;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Nelmio\ApiDocBundle\Annotation\Operation;
 use Swagger\Annotations as SWG;
 
@@ -46,8 +44,30 @@ class SessionController extends AbstractController
     public function getSessionAction(Request $request)
     {
         $session = $this->getDoctrine()->getRepository(Session::class)->find($request->get('id'));
-
         if (!$session) return $this->isNotFound(SESSION_NOT_FOUND);
+
+        $years = array();
+
+        if($this->userHasRole($this->getUser(), "ROLE_TUTOR")) {
+            $date = $this->getUser()->getCreatedAt();
+
+            if($date->format("m") >= 8 && $date->format("m") <= 12)
+                $years = [$date->format("Y")+0, $date->format("Y")+1];
+            if($date->format("m") >= 1 && $date->format("m") <= 7)
+                $years = [$date->format("Y")-1, $date->format("Y")+0];
+
+            $dateSession = $session->getCreatedAt();
+
+            if($dateSession->format("Y") == $years[0] && $dateSession->format("m") >= 8){}
+            else if($dateSession->format("Y") == $years[1] && $dateSession->format("m") <= 7){}
+            else return $this->notAuthorized();
+
+            $test = false;
+            foreach ($this->getUser()->getGroups() as $groups) {
+                if($groups === $session->getGroupe()) $test = true;
+            }
+            if(!$test) return $this->notAuthorized();
+        }
 
         return $session;
     }
@@ -100,14 +120,45 @@ class SessionController extends AbstractController
         }
 
         foreach ($tmp as $index) {
-            if(!isset($sessions[date('W', $index->getCreatedAt()->getTimestamp())])){
-                $sessions[date('W', $index->getCreatedAt()->getTimestamp())] = array();
-            }
-            if(!isset($sessions[date('W', $index->getCreatedAt()->getTimestamp())][date('d', $index->getCreatedAt()->getTimestamp())])){
-                $sessions[date('W', $index->getCreatedAt()->getTimestamp())][date('d', $index->getCreatedAt()->getTimestamp())] = array();
+
+            $test = false;
+            if($this->userHasRole($this->getUser(), "ROLE_TUTOR")) {
+                $date = $this->getUser()->getCreatedAt();
+
+                if($date->format("m") >= 8 && $date->format("m") <= 12)
+                    $years = [$date->format("Y")+0, $date->format("Y")+1];
+                if($date->format("m") >= 1 && $date->format("m") <= 7)
+                    $years = [$date->format("Y")-1, $date->format("Y")+0];
+
+                $dateSession = $index->getCreatedAt();
+
+                if($dateSession->format("Y") == $years[0] && $dateSession->format("m") >= 8)
+                    $test = true;
+                else if($dateSession->format("Y") == $years[1] && $dateSession->format("m") <= 7)
+                    $test = true;
+
+                $test2 = false;
+                foreach ($this->getUser()->getGroups() as $groups) {
+                    if($groups === $index->getGroupe()) $test2 = true;
+                }
+                if($test2)
+                    $test = true;
+                else $test = false;
+            } else
+                $test = true;
+
+            if($test) {
+
+                if(!isset($sessions[date('W', $index->getCreatedAt()->getTimestamp())])){
+                    $sessions[date('W', $index->getCreatedAt()->getTimestamp())] = array();
+                }
+                if(!isset($sessions[date('W', $index->getCreatedAt()->getTimestamp())][date('d', $index->getCreatedAt()->getTimestamp())])){
+                    $sessions[date('W', $index->getCreatedAt()->getTimestamp())][date('d', $index->getCreatedAt()->getTimestamp())] = array();
+                }
+
+                $sessions[date('W', $index->getCreatedAt()->getTimestamp())][date('d', $index->getCreatedAt()->getTimestamp())][] = $index;
             }
 
-            $sessions[date('W', $index->getCreatedAt()->getTimestamp())][date('d', $index->getCreatedAt()->getTimestamp())][] = $index;
         }
 
         return $sessions;
@@ -157,17 +208,19 @@ class SessionController extends AbstractController
             $form->get('groupe')->addError(new FormError("Group don't exist"));
         }
 
-        $test = false;
-        foreach ($this->getUser()->getModules() as $data) {
-            if ($data == $module) $test = true;
-        }
-        if (!$test) $form->get('module')->addError(new FormError("Not authorization"));
+        if(!$this->userHasRole($this->getUser(), "ROLE_ADMIN")) {
+            $test = false;
+            foreach ($this->getUser()->getModules() as $data) {
+                if ($data == $module) $test = true;
+            }
+            if (!$test) $form->get('module')->addError(new FormError("Not authorization"));
 
-        $test = false;
-        foreach ($this->getUser()->getGroups() as $data) {
-            if ($data == $group) $test = true;
+            $test = false;
+            foreach ($this->getUser()->getGroups() as $data) {
+                if ($data == $group) $test = true;
+            }
+            if (!$test) $form->get('groupe')->addError(new FormError("Not authorization"));
         }
-        if (!$test) $form->get('groupe')->addError(new FormError("Not authorization"));
 
         if ($form->isValid()) {
 
@@ -218,8 +271,10 @@ class SessionController extends AbstractController
     public function patchSessionAction(Request $request)
     {
         $session = $this->getDoctrine()->getRepository(Session::class)->find($request->get('id'));
-        if (!$session) return $this->isNotFound(SESSION_NOT_FOUND);
-        if ($session->getUser() !== $this->getUser()) return $this->notAuthorized();
+        if(!$this->userHasRole($this->getUser(), "ROLE_ADMIN")) {
+            if (!$session) return $this->isNotFound(SESSION_NOT_FOUND);
+            if ($session->getUser() !== $this->getUser()) return $this->notAuthorized();
+        }
 
         $form = $this->createForm(SessionType::class, $session);
 
@@ -237,7 +292,7 @@ class SessionController extends AbstractController
                 foreach ($this->getUser()->getModules() as $data) {
                     if ($data == $module) $test = true;
                 }
-                if (!$test) $form->get('module')->addError(new FormError("Not authorization"));
+                if (!$test && !$this->userHasRole($this->getUser(), "ROLE_ADMIN")) $form->get('module')->addError(new FormError("Not authorization"));
                 else $session->setModule($module);
             }
         }
@@ -256,7 +311,7 @@ class SessionController extends AbstractController
                 foreach ($this->getUser()->getGroups() as $data) {
                     if ($data == $group) $test = true;
                 }
-                if (!$test) $form->get('groupe')->addError(new FormError("Not authorization"));
+                if (!$test && !$this->userHasRole($this->getUser(), "ROLE_ADMIN")) $form->get('groupe')->addError(new FormError("Not authorization"));
                 else $session->setGroupe($group);
             }
         }
@@ -293,8 +348,10 @@ class SessionController extends AbstractController
     public function deleteSessionAction(Request $request)
     {
         $session = $this->getDoctrine()->getRepository(Session::class)->find($request->get('id'));
-        if (!$session) return $this->isNotFound(SESSION_NOT_FOUND);
-        if ($session->getUser() !== $this->getUser()) return $this->notAuthorized();
+        if(!$this->userHasRole($this->getUser(), "ROLE_ADMIN")) {
+            if (!$session) return $this->isNotFound(SESSION_NOT_FOUND);
+            if ($session->getUser() !== $this->getUser()) return $this->notAuthorized();
+        }
 
         $manager = $this->getDoctrine()->getManager();
         $manager->remove($session);
@@ -302,4 +359,5 @@ class SessionController extends AbstractController
 
         return $this->getDoctrine()->getRepository(Session::class)->findAll();
     }
+
 }

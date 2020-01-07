@@ -13,6 +13,12 @@ import {
 import { FaCheck, FaTimes } from "react-icons/fa";
 import style from "../../../pages/userProfil/_userprofile.module.css";
 import {Multiselect} from "react-widgets";
+import {APIEditUser} from "../../../api/userFetch";
+import {toast} from 'react-toastify';
+import DeleteGroup from "../groupe/DeleteGroup";
+import DeleteUser from "./DeleteUser";
+
+toast.configure();
 
 
 export default function User(props) {
@@ -27,8 +33,8 @@ export default function User(props) {
 
     props = props.user;
 
-    const [firstname, setFirstname] = useState(props.firstname);
     const [username , setUsername]  = useState(props.username);
+    const [firstname, setFirstname] = useState(props.firstname);
     const [lastname , setLastname]  = useState(props.lastname);
     const [groups   , setGroups]    = useState(props.groups);
     const [modules  , setModules]   = useState(props.modules);
@@ -37,7 +43,37 @@ export default function User(props) {
     const [admin, setAdmin] = useState(props.roles.includes("ROLE_ADMIN"));
 
     const handleValidate = () => {
-        //when validate editing
+
+        let tmpGroups = [];
+        groups.map(e => {
+            tmpGroups.push(e.name)
+        })
+        let tmpModules = [];
+        modules.map(e => {
+            tmpModules.push(e.code)
+        })
+
+        const req = {
+            "firstname": firstname,
+            "lastname": lastname,
+            "module": tmpModules,
+            "groupes": tmpGroups,
+            "roles": (admin)?[roles, "ROLE_ADMIN"]:[roles]
+        }
+
+        APIEditUser(props.id, req)
+            .then(data => {
+                toast.success("Modification effectué !")
+            })
+            .catch(err => {
+                toast.error("Une erreur c'est produite !")
+                setUsername(props.username)
+                setLastname(props.lastname)
+                setFirstname(props.firstname)
+                setModules(props.modules)
+                setGroups(props.groups)
+                setRoles((props.roles.includes("ROLE_TEACHER")?"ROLE_TEACHER":(props.roles.includes("ROLE_TUTOR")?"ROLE_TUTOR":"")))
+            })
         setEditing(false);
     };
 
@@ -199,6 +235,10 @@ export default function User(props) {
                     </>
                 </ModalBody>
             </Modal>
+
+            {(props != null)? (
+                <DeleteUser open={deleting} setOpen={setDeleting} user={props} />
+            ):(<React.Fragment />)}
         </tr>
     );
 }

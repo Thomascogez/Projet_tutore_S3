@@ -9,7 +9,7 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import { FaSearch } from "react-icons/fa";
 
-import User from "../../../components/administration_components/utilisateurs/User";
+import User from "../../../components/administration_components/users/User";
 import style from "./users.module.css";
 import {getUsers, login} from "../../../providers/actions/userActions";
 import PageLoader from "../../../components/layouts/loader";

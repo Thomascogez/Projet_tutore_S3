@@ -4,6 +4,8 @@
 namespace App\Controller\User;
 
 use App\Controller\AbstractController;
+use App\Entity\Groups;
+use App\Entity\Module;
 use App\Entity\User;
 use App\Form\UserType;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -101,6 +103,8 @@ class UserController extends AbstractController
      * @Rest\RequestParam(name="username",  description="Username of school", nullable=false)
      * @Rest\RequestParam(name="firstname", description="Firstname of user",  nullable=false)
      * @Rest\RequestParam(name="lastname",  description="Lastname of user",   nullable=false)
+     * @Rest\RequestParam(name="module",    description="Array of modules",   nullable=true)
+     * @Rest\RequestParam(name="groups",    description="Array of groups ",   nullable=true)
      * @Rest\RequestParam(name="roles",     description="Role of user : ['USER_TEACHER', 'USER_TUTOR', 'USER_ADMIN'", nullable=false)
      * @Operation(
      *     path="/api/users",
@@ -142,6 +146,35 @@ class UserController extends AbstractController
         if(!$test) {
             $form->add('roles');
         }
+
+        $groups = $request->get('groupes');
+        if($groups != null) {
+            $form->add('groups');
+            foreach ($groups as $group) {
+                $tmp = $this->getDoctrine()->getRepository(Groups::class)->findOneBy(array("name" => $group));
+                if($tmp != null) {
+                    $user->addGroup($tmp);
+                } else {
+                    $form->get('groups')->addError(new FormError("Group " . $group . " don't exist"));
+                    break;
+                }
+            }
+        }
+
+        $modules = $request->get('module');
+        if($modules != null) {
+            $form->add('modules');
+            foreach ($modules as $module) {
+                $tmp = $this->getDoctrine()->getRepository(Module::class)->findOneBy(array("code" => $module));
+                if($tmp != null) {
+                    $user->addModule($tmp);
+                } else {
+                    $form->get('modules')->addError(new FormError("Module " . $module . " don't exist"));
+                    break;
+                }
+            }
+        }
+
         $form->submit($request->request->all(), false);
         if(!$test) {
             $form->get('roles')->addError(new FormError("The choice is : ROLE_TEACHER, ROLE_ADMIN, ROLE_TUTOR"));
@@ -195,6 +228,8 @@ class UserController extends AbstractController
      * @Rest\RequestParam(name="firstname",      description="Firstname of user",  nullable=true)
      * @Rest\RequestParam(name="lastname",       description="Lastname of user",   nullable=true)
      * @Rest\RequestParam(name="plainPassword",  description="Password of user",   nullable=true)
+     * @Rest\RequestParam(name="module",         description="Array of modules",   nullable=true)
+     * @Rest\RequestParam(name="groups",         description="Array of groups ",   nullable=true)
      * @Rest\RequestParam(name="roles",          description="Role of user : ['USER_TEACHER', 'USER_TUTOR', 'USER_ADMIN'", nullable=true)
      * @Operation(
      *     path="/api/users/{id}",
@@ -235,6 +270,40 @@ class UserController extends AbstractController
             $form->get('roles')->addError(new FormError("Erreur"));
         }
 
+        $groups = $request->get('groupes');
+        if($groups != null) {
+            $form->add('groups');
+            foreach ($user->getGroups() as $group) {
+                $user->removeGroup($group);
+            }
+            foreach ($groups as $group) {
+                $tmp = $this->getDoctrine()->getRepository(Groups::class)->findOneBy(array("name" => $group));
+                if($tmp != null) {
+                    $user->addGroup($tmp);
+                } else {
+                    $form->get('groups')->addError(new FormError("Group " . $group . " don't exist"));
+                    break;
+                }
+            }
+        }
+
+        $modules = $request->get('module');
+        if($modules != null) {
+            $form->add('modules');
+            foreach ($user->getModules() as $module) {
+                $user->removeModule($module);
+            }
+            foreach ($modules as $module) {
+                $tmp = $this->getDoctrine()->getRepository(Module::class)->findOneBy(array("code" => $module));
+                if($tmp != null) {
+                    $user->addModule($tmp);
+                } else {
+                    $form->get('modules')->addError(new FormError("Module " . $module . " don't exist"));
+                    break;
+                }
+            }
+        }
+
         $form->submit($request->request->all(), false);
         if($form->isValid()) {
             $user->setUpdateAt(new \DateTime());
@@ -255,7 +324,7 @@ class UserController extends AbstractController
     /**
      * Delete user by id
      * @Rest\Delete("/api/users/{id}", name="delete_user_action")
-     * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
+     * @Rest\View(statusCode=Response::HTTP_NO_CONTENT, serializerGroups={"user"})
      * @Operation(
      *     path="/api/users/{id}",
      *     operationId="DeleteUser",

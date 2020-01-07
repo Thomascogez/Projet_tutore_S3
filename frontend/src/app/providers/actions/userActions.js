@@ -129,7 +129,7 @@ const removeUser = (idUser) => {
         return APIDeleteUser(idUser)
             .then(data => {
                 dispatch({
-                    type: ALL_USERS,
+                    type: GET_ALL_USERS,
                     value: data.data
                 });
             })

@@ -107,8 +107,13 @@ class GroupController extends AbstractController
             if (!$parent) {
                 $form->get('parent')->addError(new FormError("Parent is not found"));
             }
-            if($parent === $group) {
-                return new JsonResponse(array("code" => Response::HTTP_BAD_REQUEST, "message" => "Un groupe ne peut pas être lui meme parent"));
+
+            $tmp = $parent;
+            while($tmp != null) {
+                if($tmp === $group) {
+                    return new JsonResponse(array("code" => Response::HTTP_BAD_REQUEST, "message" => "Un groupe ne peut pas être lui meme parent"));
+                }
+                $tmp = $tmp->getParent();
             }
         }
 
@@ -173,9 +178,13 @@ class GroupController extends AbstractController
                 } else {
                     $form->get('parent')->addError(new FormError("Parent not this"));
                 }
-                if($parent === $group) {
-                    $form->get('parent')->addError(new FormError("Un groupe ne peut pas être lui meme parent"));
-            }
+                $tmp = $parent;
+                while($tmp != null) {
+                    if($tmp === $group) {
+                        return new JsonResponse(array("code" => Response::HTTP_BAD_REQUEST, "message" => "Un groupe ne peut pas être lui meme parent"));
+                    }
+                    $tmp = $tmp->getParent();
+                }
             }
         }
 
