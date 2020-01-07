@@ -87,7 +87,7 @@ export default function Seances() {
               <Row className={style.WorkRow}>
                 <Card style={{ width: "100%" }}>
                     <Collapse
-                        title={"Semaine " + weekSessions[0] + " ( du " + moment().day("Lundi").year((date.split(" "))[0]).week(weekSessions[0]).format("DD/MM/Y") + " au " + moment().day("Lundi").year((date.split(" "))[0]).week(weekSessions[0]).add(7,'days').format("DD/MM/Y") + " )"}
+                        title={"Semaine " + weekSessions[0] + " ( du " + moment().day("Lundi").year((date.split(" "))[0]).week(weekSessions[0]).format("DD/MM/Y") + " au " + moment().day("Lundi").year((date.split(" "))[0]).week(weekSessions[0]).add(6,'days').format("DD/MM/Y") + " )"}
                     >
 
                         <Col lg="12" sm="12">
