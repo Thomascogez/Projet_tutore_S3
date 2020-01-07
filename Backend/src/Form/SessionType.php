@@ -8,6 +8,7 @@ use App\Entity\Session;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,9 +21,7 @@ class SessionType extends AbstractType
                 'class' => Module::class
             ))
             ->add('type')
-            ->add('groupe', EntityType::class, array(
-                'class' => Groups::class
-            ))
+            ->add('groups', CollectionType::class)
             ->add('user', EntityType::class, array(
                 'class' => User::class
             ))
