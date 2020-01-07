@@ -102,9 +102,7 @@ export default function Seances() {
                                 <Col lg="11" sm="11">
                                     <WorkContainer>
                                     { Object.entries(daySessions[1][1]).map(session =>(
-                                        <>
-                                            {console.log(session[1])}
-                                            
+                                        <>                                            
                                             {Object.entries(session[1].events).map(events2 =>(
                                                 <>
                                                     {addDuration(events2[1].duration)}
