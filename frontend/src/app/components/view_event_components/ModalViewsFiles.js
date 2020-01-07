@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { Modal, ModalHeader, ModalBody  } from 'shards-react'
-import { FaFileAlt } from "react-icons/fa";
+import React, {useState} from 'react'
+import {Modal, ModalBody, ModalHeader} from 'shards-react'
+import {FaFileAlt} from "react-icons/fa";
 import File from './File'
 
 const ModalViewsFiles = ({files}) => {
@@ -8,8 +8,11 @@ const ModalViewsFiles = ({files}) => {
     return (
 
         <>
-            <a href="#" onClick={() => setOpen(!open)} style={{color:"green"}}><FaFileAlt/></a>
-            <Modal s open={open} toggle={setOpen}>
+            <a href='#' onClick={(e) => {
+                e.preventDefault();
+                setOpen(!open)
+            }} style={{color: "green"}}><FaFileAlt/></a>
+            <Modal size="lg" open={open} toggle={setOpen}>
                 <ModalHeader>Pièces jointes de l'évènement</ModalHeader>
                 <ModalBody>
                     <table className={`table table-striped`}>

@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
-import { navigate } from "hookrouter";
-import { ApiIsAdmin } from "../api/userFetch";
+import React, {useEffect, useState} from "react";
+import {navigate} from "hookrouter";
+import {ApiIsAdmin} from "../api/userFetch";
+import PageLoader from "../components/layouts/loader";
 
 /**
  * ProtectedRouteAdmin
@@ -9,12 +10,24 @@ import { ApiIsAdmin } from "../api/userFetch";
  * @param {*} props 
  */
 export default function ProtectedRouteAdmin(props) {
-  useEffect(() => {
+
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
     ApiIsAdmin()
+        .then(() => setLoading(false))
       .catch(() => {
         navigate('/seances')
       })
   }, []);
 
-  return <React.Fragment>{props.children}</React.Fragment>;
+    return (
+        <>
+            {loading ? (
+                <PageLoader/>
+            ) : (
+                <>{props.children}</>
+            )}
+        </>
+    );
 }

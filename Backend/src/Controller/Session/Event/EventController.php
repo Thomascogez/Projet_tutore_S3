@@ -107,7 +107,14 @@ class EventController extends AbstractController
         $session = $this->getDoctrine()->getRepository(Session::class)->find($request->get('id_session'));
         if (!$session) return $this->isNotFound(SESSIONS_NOT_FOUND);
 
-        if ($session->getGroups()->getUsers()->contains($this->getUser())) {
+        $test = false;
+        foreach ($this->getUser()->getGroups() as $groups) {
+            foreach ($session->getGroups() as $group) {
+                if($groups === $group) $test = true;
+            }
+        }
+
+        if ($test) {
             $event = new Event();
 
             $setting = $this->getDoctrine()->getRepository(Setting::class)->findAll();

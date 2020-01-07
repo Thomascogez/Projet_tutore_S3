@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { Container, Row, Col, Button, Card, CardBody } from "shards-react";
+import React, {useCallback, useEffect, useState} from "react";
+import {Card, CardBody, Col, Container, Row} from "shards-react";
 import style from "./sessions.module.css";
-import { navigate } from "hookrouter";
-import { FaBookOpen, FaPlus, FaMinus } from "react-icons/fa";
+import {FaBookOpen, FaMinus, FaPlus} from "react-icons/fa";
 import moment from "moment";
 import "moment/locale/fr";
 //seances components
@@ -19,13 +18,13 @@ import {
   ChildButton,
 } from 'react-floating-button-menu';
 import CollapseLoader from "../../components/loader/CollapseLoader";
-
+*
 export default function Seances() {
   moment.locale("fr");
   const [allSessions, setAllSessions] = useState({});
-  const [date, setDate] = useState(moment().format("YYYY MM"));
-  const [loading, setLoading] = useState(true);
-  const [openMenu, setOpenMenu] = useState(false)
+    const [date, setDate] = useState(moment().format("YYYY MM"));
+    const [loading, setLoading] = useState(true);
+    const [openMenu, setOpenMenu] = useState(false);
   var duration = 0;
 
   function addDuration(dur) {
@@ -136,7 +135,7 @@ export default function Seances() {
                                     <>
                                       {Object.entries(session[1].events).map(events2 => (
                                         <>
-                                          {addDuration(events2[1].duration)}
+                                            {(events2[1].duration) ? addDuration(events2[1].duration) : ""}
                                         </>
                                       ))}
 
