@@ -48,12 +48,6 @@ class Groups
      */
     private $groups;
 
-    /**
-     * Session dependencies of group
-     * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="groupe", cascade={"persist", "remove"})
-     * @Groupss({"group_info"})
-     */
-    private $sessions;
 
     /**
      * User authorized of group
@@ -68,11 +62,18 @@ class Groups
      */
     private $color;
 
+    /**
+     * Session dependencies of group
+     * @ORM\ManyToMany(targetEntity="App\Entity\Session", mappedBy="groups")
+     * @Groupss({"group_info"})
+     */
+    private $sessions;
+
     public function __construct()
     {
         $this->groups = new ArrayCollection();
-        $this->sessions = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->sessions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -136,37 +137,6 @@ class Groups
     }
 
     /**
-     * @return Collection|Session[]
-     */
-    public function getSessions(): Collection
-    {
-        return $this->sessions;
-    }
-
-    public function addSession(Session $session): self
-    {
-        if (!$this->sessions->contains($session)) {
-            $this->sessions[] = $session;
-            $session->setGroupe($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSession(Session $session): self
-    {
-        if ($this->sessions->contains($session)) {
-            $this->sessions->removeElement($session);
-            // set the owning side to null (unless already changed)
-            if ($session->getGroupe() === $this) {
-                $session->setGroupe(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|User[]
      */
     public function getUsers(): Collection
@@ -202,6 +172,34 @@ class Groups
     public function setColor(?string $color): self
     {
         $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Session[]
+     */
+    public function getSessions(): Collection
+    {
+        return $this->sessions;
+    }
+
+    public function addSession(Session $session): self
+    {
+        if (!$this->sessions->contains($session)) {
+            $this->sessions[] = $session;
+            $session->addGroup($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSession(Session $session): self
+    {
+        if ($this->sessions->contains($session)) {
+            $this->sessions->removeElement($session);
+            $session->removeGroup($this);
+        }
 
         return $this;
     }
