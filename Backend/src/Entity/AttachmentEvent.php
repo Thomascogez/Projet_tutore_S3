@@ -37,6 +37,24 @@ class AttachmentEvent
      */
     private $source;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     * @Groups({"session_detail", "events", "attachment"})
+     */
+    private $size;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"session_detail", "events", "attachment"})
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     * @Groups({"session_detail", "events", "attachment"})
+     */
+    private $extension;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -62,6 +80,42 @@ class AttachmentEvent
     public function setSource(string $source): self
     {
         $this->source = $source;
+
+        return $this;
+    }
+
+    public function getSize(): ?float
+    {
+        return $this->size;
+    }
+
+    public function setSize(?float $size): self
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getExtension(): ?string
+    {
+        return $this->extension;
+    }
+
+    public function setExtension(?string $extension): self
+    {
+        $this->extension = $extension;
 
         return $this;
     }

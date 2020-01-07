@@ -139,6 +139,7 @@ class AttachmentEventController extends EventController
                 $originFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originFilename);
                 $newFilename = $safeFilename . '-' . uniqid();
+                var_dump(pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION));
 
                 try {
                     $file->move(
@@ -151,7 +152,10 @@ class AttachmentEventController extends EventController
                 }
 
                 $attachment->setSource($filename);
-                $attachment->setEvent($event);
+                $attachment->setEvent($event)
+                    ->setName($originFilename)
+                    ->setExtension(pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION))
+                    ->setSize(filesize($this->getParameter('documents_directory') . '/' . $newFilename . '-' . date("Y") . '-' . date('m') . "/" . $file->getClientOriginalName()));
 
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($attachment);

@@ -1007,7 +1007,10 @@ class AppFixtures extends Fixture
                 for($j = 0; $j < random_int(0, 3); $j++) {
                     $attach = new AttachmentEvent();
                     $attach->setEvent($event)
-                        ->setSource($faker->url);
+                        ->setSource($faker->url)
+                        ->setName(str_replace(" ", "-", $faker->realText(20)))
+                        ->setExtension(substr($faker->fileExtension, 0, 9))
+                        ->setSize($faker->randomFloat());
                     $manager->persist($attach);
                 }
                 $manager->persist($event);
