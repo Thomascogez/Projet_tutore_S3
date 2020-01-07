@@ -3,12 +3,10 @@ import { Card, Container, CardHeader } from 'shards-react'
 import style from './myEvents.module.css';
 import Event from '../../../components/event_components/Event';
 import { APIgetMyEvents } from '../../../api/event';
-import { APIgetAllsessionTypes } from "../../../api/type/session";
 
 export default function MyEvents() {
 
     const [events, setEvents] = useState({})
-    const [types, setTypes] = useState({})
 
     useEffect(() => {
         APIgetMyEvents()
@@ -16,16 +14,14 @@ export default function MyEvents() {
     }, [])
 
     return (
-        <Container fluid className={style.EventsContainer}>
-            {/* <h1 className={style.Title}></h1> */}
-        
+        <Container fluid className={style.EventsContainer}>        
             <Card >
-                <CardHeader>Mes évènements</CardHeader>
+                <CardHeader><h5>Mes évènements</h5></CardHeader>
                 <div className="table-responsive">
                     <table className={`table  ${style.EventTable}`}>
                         <thead>
                         <tr>
-                            <th>Etat</th>
+                            <th>Type</th>
                             <th>Nom séance</th>
                             <th>Type séance</th>
                             <th>Description</th>
@@ -45,7 +41,7 @@ export default function MyEvents() {
                             }
                         </tbody>
                     </table>
-                    </div>
+                </div>
             </Card>
         </Container>
     )

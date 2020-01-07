@@ -50,35 +50,36 @@ export default function Seances() {
           <MounthSelector getSetDate={getSetDate} date={date}/>
 
           {Object.entries(allSeance).length === 0?(<h2>Aucune séance sur ce mois</h2>):("")}
+
             {Object.entries(allSeance).map(key1 => (
             <>
-              {/*<Row className={style.WorkRow}>*/}
-              {/*  <Card>*/}
-              {/*    <CardHeader> Semaine {key1[0]} </CardHeader>*/}
+              <Row className={style.WorkRow}>
+                <Card style={{width:"90%"}}>
+                  <CardHeader> Semaine {key1[0]} </CardHeader>
 
-              {/*    <Col lg="12" sm="12">*/}
-              {/*      <Row className={style.DailyWorkRow}>*/}
-              {/*          { Object.entries(key1[1]).map(key2 =>(*/}
-              {/*              <>*/}
-              {/*              <Col lg="1" sm="1">*/}
-              {/*                  <DayContainer day= { moment(date.format("YYYY")+ "-" + date.format("MM")+ "-" +  key2[0]).format('dddd') } />*/}
-              {/*              </Col>*/}
-              {/*              */}
-              {/*              <Col lg="11" sm="11">*/}
-              {/*                  <WorkContainer>*/}
-              {/*                      { Object.entries(key2[1]).map(key3 =>(*/}
-              {/*                          <>*/}
-              {/*                              /!*<Work color={key3.module.color } name={key3.module.name } finished={false} typeCours="TP" />*!/*/}
-              {/*                          </>*/}
-              {/*                      ))}*/}
-              {/*                  </WorkContainer>*/}
-              {/*              </Col>*/}
-              {/*              </>*/}
-              {/*          ))}*/}
-              {/*      </Row>*/}
-              {/*    </Col>*/}
-              {/*  </Card>*/}
-              {/*</Row>*/}
+                  <Col lg="12" sm="12">
+                    <Row className={style.DailyWorkRow}>
+                        { Object.entries(key1[1]).map(key2 =>(
+                            <>
+                            <Col lg="1" sm="1">
+                                { <DayContainer day= { moment(date.replace(/ /g,"") + key2[0]).format('dddd') + " " + key2[0]} /> }
+                            </Col>
+                            
+                            <Col lg="11" sm="11">
+                                <WorkContainer>
+                                    { Object.entries(key2[1]).map(key3 =>(
+                                        <>
+                                            
+                                        </>
+                                    ))}
+                                </WorkContainer>
+                            </Col>
+                            </>
+                        ))}
+                    </Row>
+                  </Col>
+                </Card>
+              </Row>
             </>
           ))}
         </>
