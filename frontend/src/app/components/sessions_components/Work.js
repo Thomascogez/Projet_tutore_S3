@@ -1,13 +1,10 @@
 import React, {useState} from "react";
 import style from '../../pages/sessions/sessions.module.css'
 
+import { navigate } from "hookrouter"
+
 import { FaCheckCircle } from 'react-icons/fa'
-import { navigate } from "hookrouter";
-
-
-
-export default function Matiere({color, id, name, duree, finished}) {
-
+export default function Matiere({color, name, duration,done, finished, id}) {
   const [open, setOpen] = useState(false);
 
 
@@ -19,8 +16,8 @@ export default function Matiere({color, id, name, duree, finished}) {
 
       <div style={{borderLeftColor:color}} className={style.WorkContent}>
         <div style={finished ?{textDecoration:"line-through", color:"rgb(211,211,211)"} : {} } className={style.WorkTitle}>{name}</div>
-        <span style={finished ?{textDecoration:"line-through", color:"rgb(211,211,211)"} : {} }>durée {duree}</span>
-        <span style={finished ?{textDecoration:"line-through",color:"rgb(211,211,211)"} : {fontWeight:"490"} }>1/4 restant</span>
+        <span style={finished ?{textDecoration:"line-through", color:"rgb(211,211,211)"} : {} }> {duration} </span>
+        <span style={finished ?{textDecoration:"line-through",color:"rgb(211,211,211)"} : {fontWeight:"490"} }> {done}</span>
       </div>        
     </div>
   );
