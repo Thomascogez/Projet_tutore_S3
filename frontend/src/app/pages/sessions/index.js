@@ -46,12 +46,12 @@ export default function Seances() {
             let tmp = {};
 
             Object.entries(data.data).map(weekSessions => {
-                tmp[weekSessions[0]] = [];
+                tmp[parseInt(weekSessions[0])] = [];
                 let test = Object.entries(weekSessions[1]).sort(sortFunction);
 
 
                 test.map(daySessions => {
-                    tmp[weekSessions[0]].push(daySessions)
+                    tmp[parseInt(weekSessions[0])].push(daySessions)
                 })
             })
             setAllSessions(tmp);
@@ -86,9 +86,8 @@ export default function Seances() {
             
               <Row className={style.WorkRow}>
                 <Card style={{ width: "100%" }}>
-
                     <Collapse
-                        title={"Semaine" + weekSessions[0]}
+                        title={"Semaine " + weekSessions[0] + " ( du " + moment().day("Lundi").year((date.split(" "))[0]).week(weekSessions[0]).format("DD/MM/Y") + " au " + moment().day("Lundi").year((date.split(" "))[0]).week(weekSessions[0]).add(6,'days').format("DD/MM/Y") + " )"}
                     >
 
                         <Col lg="12" sm="12">
@@ -102,7 +101,9 @@ export default function Seances() {
                                 <Col lg="11" sm="11">
                                     <WorkContainer>
                                     { Object.entries(daySessions[1][1]).map(session =>(
-                                        <>                                            
+                                        <>
+                                           
+                                            
                                             {Object.entries(session[1].events).map(events2 =>(
                                                 <>
                                                     {addDuration(events2[1].duration)}

@@ -9,200 +9,269 @@ import {
   Badge,
   FormRadio,
   FormTextarea,
-  Button,
-  CardFooter
+  Button
 } from "shards-react";
-import { Multiselect } from "react-widgets";
-import Moment from 'moment'; 
-import 'moment/locale/fr'
-import momentLocalizer from 'react-widgets-moment'; 
-import DateTimePicker from 'react-widgets/lib/DateTimePicker';
-import axios from 'axios'
-import { useSelector } from 'react-redux'
-
+import Moment from "moment";
+import "moment/locale/fr";
+import momentLocalizer from "react-widgets-moment";
+import DateTimePicker from "react-widgets/lib/DateTimePicker";
+import Loader from "react-loader-spinner";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { navigate } from 'hookrouter';
 
 import { FilePond } from "react-filepond";
 import Collapse from "../../../components/layouts/Collapse";
-
+import PageLoader from "../../../components/layouts/loader"
 import style from "./_addEvent.module.css";
 import { APIgetAllEventTypes } from "../../../api/type/event";
 import { APIpostFile } from "../../../api/file";
 import { APIpostNewEvent } from "../../../api/event";
 
-Moment.locale('fr')
-momentLocalizer()
-
+Moment.locale("fr");
+momentLocalizer();
 
 export default function AddEvent() {
-  const addSession = useSelector(state => state.addSession)
-  
-  const INITIAL_STATE = {
-    sessionID : addSession.sessions.id,
-    groups : addSession.groups,
-    type : "",
-    name :"",
-    duration:"",
-    dueAt :""
-  }
+  const addSession = useSelector(state => state.addSession);
 
-  const [newEvent, setNewEvent] = useState(INITIAL_STATE)
-  
+
+  //TODO: reset AFTER SEND
   useEffect(() => {
-    console.log(newEvent);
-  }, [newEvent])
-
-
-   
-  const [types, setTypes] = useState([]); //hook that all fetched types
- 
-
-  useEffect(() => {
-       
-    //TODO: check if the user as value in the store
-
+    if( addSession.groups.length === 0) navigate('/seances')
     APIgetAllEventTypes().then(data => {
       setTypes(data.data);
     });
-
-   
   }, []);
+
+  const INITIAL_STATE = {
+    sessionID: addSession.sessions.id,
+    groups: addSession.groups,
+    type: "",
+    name: "",
+    duration: "",
+    dueAt: ""
+  };
+
+  const [newEvent, setNewEvent] = useState(INITIAL_STATE);
+  const [files, setFiles] = useState([]);
 
   //collapse hooks
   const [collapseType, setCollapseType] = useState(true);
   const [collapseDesc, setCollapseDesc] = useState(false);
   const [collapseDuration, setCollapseDuration] = useState(false);
-  const [files, setFiles] = useState([])
 
+  const [types, setTypes] = useState([]); //hook that all fetched types
 
-  const handleFileUpload = () => {
-    console.log(files);
-    
-  }
-   
+  //loader state
+  const [requestPending, setRequestPending] = useState(false);
+  const [fileUploadPending, setFileUploadPending] = useState(false);
 
-
-  
+  /**
+   * isValid
+   *
+   * Check validity of information
+   */
   const isValid = () => {
-    return newEvent.type !== "" && newEvent.name.trim() !== "" && newEvent.groups.length > 0
+    return (
+      newEvent.type !== "" &&
+      newEvent.name.trim() !== "" &&
+      newEvent.groups.length > 0
+    );
+  };
+
+  const handleSelectType = (type) => {
+    setNewEvent({ ...newEvent, type: type });
+    setCollapseType(false);
+    setCollapseDuration(true);
   }
 
+  /**
+   * handleAddEvent
+   *
+   * Handle post of the event and the files
+   */
   const handleAddEvent = () => {
+    if (isValid) {
+      let { sessionID, type, name, duration, dueAt } = newEvent;
+      setRequestPending(true);
+      APIpostNewEvent(sessionID, name, type, duration, dueAt)
+        .then(data => {
+          setRequestPending(false);
+          toast.success("Evénement ajouté");
 
-    if(isValid) {
-      let { sessionID, type, name, duration, dueAt } = newEvent
-      
-       APIpostNewEvent(sessionID, name, type, duration, dueAt)
-        .then(data =>{
-          let request = []
-          
-          files.forEach(file => {
-            console.log(data.data.id);
+          let request = [];
+          if (files.length > 0) {
+            console.log("salut");
             
-            request.push(APIpostFile(sessionID,data.data.id,file))
-          })
-
-          axios.all(request)
-            .then(data => console.log(data))
-         })
-        .catch(err => console.log(err))
+            setFileUploadPending(true);
+            files.forEach(file => {
+              request.push(APIpostFile(sessionID, data.data.id, file));
+            });
+            axios
+              .all(request)
+              .then(data => {
+                toast.success("Fichier(s) ajouté");
+                setFileUploadPending(false);
+              })
+              .catch(err => {
+                toast.error("Erreur lors de l'ajout de Fichier(s)");
+                setFileUploadPending(false);
+              });
+          }
+        })
+        .catch(err => {
+          toast.error("Erreur lors de l'ajout de l'événement");
+          setRequestPending(false);
+        });
     }
-  }
-
+  };
 
   return (
-    <Container fluid className={style.AddEventContainer}>
-      <Row>
-        <Col lg="3" sm="12">
-          <Card>
-            <CardHeader>Résumé de l'événement</CardHeader>
-            <CardBody>
-              <h5>Module</h5>
-              <Badge
-                className={style.Module}
-                style={{ backgroundColor: addSession.sessions.module && addSession.sessions.module.color }}
-              >       
-                {addSession.sessions.module && addSession.sessions.module.name}
-              </Badge>
+    <>
+      <Container fluid className={style.AddEventContainer}>
+        <Row>
+          <Col lg="3" sm="12">
+            <Card>
+              <CardHeader>Résumé de l'événement</CardHeader>
+              <CardBody>
+                <h5>Module</h5>
+                <Badge
+                  className={style.Module}
+                  style={{
+                    backgroundColor:
+                      addSession.sessions.module &&
+                      addSession.sessions.module.color
+                  }}
+                >
+                  {addSession.sessions.module &&
+                    addSession.sessions.module.name}
+                </Badge>
 
-              <Badge theme="success">{newEvent.type}</Badge>
-              <hr />
+                <hr />
+                {newEvent.type &&<>
+                  <h5>Type</h5>
+                  <Badge theme="success">{newEvent.type}</Badge>
+                  <hr />
+                </>}
 
-              <h5>Groupes</h5>          
-              {addSession.groups.join(", ")}
-              <hr />
-
-            </CardBody>
-            <Button onClick = {() => handleAddEvent()} disabled = {!isValid()} style={{width:"100%"}} theme="success">Ajouter événement</Button>
-          </Card>
-        </Col>
-
-        <Col lg="9" sm="12">
-          <Card>
-            <CardHeader>Ajout d'un événement</CardHeader>
-            <CardBody>
-       
-              <Collapse
-                open={collapseType}
-                title="Choix du type"
-                toggler={setCollapseType}
+                <h5>Groupes</h5>
+                {addSession.groups.join(", ")}
+                <hr />
+              </CardBody>
+              <Button
+                onClick={() => handleAddEvent()}
+                disabled={!isValid() || requestPending}
+                style={{ width: "100%" }}
+                theme="success"
               >
-                {types.length > 0 &&
-                  types.map(type => (
-                    <FormRadio
-                      key = {type.name}
-                      name={type.name}
-                      checked={newEvent.type === type.name}
-                      onChange={() => setNewEvent({...newEvent,type:type.name})}
-                    >
-                      {type.name}
-                    </FormRadio>
-                  ))}
-              </Collapse>
+                {requestPending ? (
+                  <Loader
+                    type="ThreeDots"
+                    color="#FFF"
+                    height={30}
+                    width={100}
+                  />
+                ) : (
+                  "Ajouter événement"
+                )}
+              </Button>
+            </Card>
+          </Col>
 
-              <Collapse
-                open={collapseDuration}
-                title="Echéance et durée"
-                toggler={setCollapseDuration}
-              >
-                <span className={style.PickTime} style={{ display: "block" }}>
-                  <span style={{ fontSize: "20px" }}>
-                    Choix de la date d'échéance:{" "}
-                  </span>{" "}
-                  <DateTimePicker onChange={value => setNewEvent({...newEvent,dueAt:value}) } format='DD/MM/YYYY' culture="fr" time={false}/>
-                </span>
-                <span className={style.PickTime} style={{ display: "block" }}>
-                  <span style={{ fontSize: "20px" }}>
-                    Durée de l'événement:
+          <Col lg="9" sm="12">
+            <Card>
+              <CardHeader>Ajout d'un événement</CardHeader>
+              <CardBody>
+                <Collapse
+                  open={collapseType}
+                  title="Choix du type"
+                  toggler={setCollapseType}
+                >
+                  {types.length > 0 &&
+                    types.map(type => (
+                      <FormRadio
+                        key={type.name}
+                        name={type.name}
+                        checked={newEvent.type === type.name}
+                        onChange={() =>
+                          handleSelectType(type.name)
+                          
+                        }
+                      >
+                        {type.name}
+                      </FormRadio>
+                    ))}
+                </Collapse>
+
+                <Collapse
+                  open={collapseDuration}
+                  title="Echéance et durée"
+                  toggler={setCollapseDuration}
+                >
+                  <span className={style.PickTime} style={{ display: "block" }}>
+                    <span style={{ fontSize: "20px" }}>
+                      Choix de la date d'échéance:{" "}
+                    </span>{" "}
+                    <DateTimePicker
+                      onChange={value =>
+                        setNewEvent({ ...newEvent, dueAt: value })
+                      }
+                      format="DD/MM/YYYY"
+                      culture="fr"
+                      time={false}
+                    />
                   </span>
-                  <DateTimePicker onChange={value => setNewEvent({...newEvent,duration: Moment.duration(Moment(value).format("hh:mm")).asHours()}) } format='hh:mm' culture="fr" date={false} />
-                </span>
-              </Collapse>
+                  <span className={style.PickTime} style={{ display: "block" }}>
+                    <span style={{ fontSize: "20px" }}>
+                      Durée de l'événement:
+                    </span>
+                    <DateTimePicker
+                      onChange={value =>
+                        setNewEvent({
+                          ...newEvent,
+                          duration: Moment.duration(
+                            Moment(value).format("hh:mm")
+                          ).asHours()
+                        })
+                      }
+                      format="hh:mm"
+                      culture="fr"
+                      date={false}
+                    />
+                  </span>
+                </Collapse>
 
-              <Collapse
-                open={collapseDesc}
-                title="Description de l'événement"
-                toggler={setCollapseDesc}
-              >
-                <FormTextarea
-                  value= {newEvent.name}
-                  onChange = {e => setNewEvent({...newEvent, name :e.target.value})}
-                  maxLength="90"
-                  placeHolder="Description de l'événement (90 charactéres max.)..."
+                <Collapse
+                  open={collapseDesc}
+                  title="Description de l'événement"
+                  toggler={setCollapseDesc}
+                >
+                  <FormTextarea
+                    value={newEvent.name}
+                    onChange={e =>
+                      setNewEvent({ ...newEvent, name: e.target.value })
+                    }
+                    maxLength="90"
+                    placeHolder="Description de l'événement (90 charactéres max.)..."
+                  />
+                </Collapse>
+                <span style={{ fontSize: "25px", marginTop: "30px" }}>
+                  Ajout de fichier(s)
+                </span>
+                <FilePond
+                  style={{ height: "200px" }}
+                  allowMultiple={true}
+                  onupdatefiles={fileItems => {
+                    setFiles(fileItems.map(fileItem => fileItem.file));
+                  }}
                 />
-              </Collapse>
-              <span style={{ fontSize: "25px", marginTop: "30px" }}>
-                Ajout de fichier(s)
-              </span>
-              <FilePond
-                style={{ height: "200px" }}
-                allowMultiple={true}
-                onupdatefiles={fileItems => {setFiles(fileItems.map(fileItem => fileItem.file))}}
-              />
-              <Button onClick={() => handleFileUpload()}>Salut</Button>
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+      {fileUploadPending && <PageLoader message="Ajout des fichier ..." />}
+    </>
   );
 }
