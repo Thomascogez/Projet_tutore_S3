@@ -8,8 +8,10 @@ import axios from 'axios';
  */
 const APIpostFile= ( sessionID, eventID, file ) => {
 
-    return axios.post(`https://schoolshare.tools/api/sessions/${sessionID}/events/${eventID}/attachments`,
-    {source : file }
+    let formData = new FormData();
+    formData.append('source',file)
+
+    return axios.post(`https://schoolshare.tools/api/sessions/${sessionID}/events/${eventID}/attachments`,formData 
     ,{
         
         headers: { Authorization: "Bearer " + localStorage.getItem("token") }

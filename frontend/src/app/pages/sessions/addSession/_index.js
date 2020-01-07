@@ -22,6 +22,7 @@ import { toast } from 'react-toastify';
 import { APIgetSessionTypes, APIpostNewSession } from "../../../api/sessionFetch";
 import Loader from 'react-loader-spinner'
 import { addSession, setSessionType } from '../../../providers/actions/addSessionActions'
+import { navigate } from "hookrouter";
 
 
 /**
@@ -228,7 +229,7 @@ export default function AddSession() {
       </Row>
       <Modal size="lg" open={modal} toggle={() => setModal(!modal)}>
           <ModalHeader>Voulez-vous ajouter des événements maintenant ?</ModalHeader>
-          <ModalFooter> <Button theme="success">Oui</Button> <Button theme="danger">Non</Button></ModalFooter>
+          <ModalFooter> <Button onClick= {() => navigate('/seances/evenement/ajout')} theme="success">Oui</Button> <Button theme="danger">Non</Button></ModalFooter>
         </Modal>
     </Container>
     

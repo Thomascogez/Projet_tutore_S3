@@ -36,7 +36,7 @@ const APIgetAllSession = (month, year) => {
 }
 
 const APIpostNewSession = (code, type, group ) => {
-  
+    let module = code;
     console.log(module ,type, group);
     return axios.post(POST_NEW_SESSION,
         { module, type, group }, 

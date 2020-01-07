@@ -11,6 +11,7 @@ export default (state = initialState, { type, value }) => {
     switch (type) {
 
     case ADD_SESSION:
+        value.groupname = value.groupe.name
         return { 
             ...state,
             sessions : [...state.sessions, value]

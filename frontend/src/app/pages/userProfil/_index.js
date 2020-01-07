@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Row, Col, Card, CardHeader, CardTitle, CardBody, Badge, Collapse, FormInput, FormGroup, Button } from 'shards-react'
+import { Container, Row, Col, Card, CardHeader, CardTitle, CardBody, Badge, FormInput, FormGroup, Button } from 'shards-react'
+import Collapse from '../../components/layouts/Collapse'
 import { FaAngleRight, FaAngleDown } from 'react-icons/fa'
 
 import style from './_userprofile.module.css'
@@ -20,7 +21,7 @@ export default function UserProfile() {
     const [collapseGroup, setcollapseGroup] = useState(false);
     const [collapseEdit, setcollapseEdit] = useState(true);
 
-    
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -35,11 +36,11 @@ export default function UserProfile() {
             <Row className={style.UserProfileRow}>
                 <Col sm="12" lg="4">
                     <Card className={style.UserCard} >
-                        <>{user.user.firstname ? <ProfileRound size="Big" bgcolor={user.user.color} letter={user.user.firstname.charAt(0) } fcolor="#fff" /> : <ProfileLoader /> }</>
+                        <>{user.user.firstname ? <ProfileRound size="Big" bgcolor={user.user.color} letter={user.user.firstname.charAt(0)} fcolor="#fff" /> : <ProfileLoader />}</>
                         <CardBody>
-                            <CardTitle>{user.user.firstname ? user.user.firstname+" "+user.user.lastname  : <TextLoader width="100" x="51" />}</CardTitle>
-                           <>{user.user.username ? <Badge theme="light">{user.user.username }</Badge>:<TextLoader width="80" x="60" />}  </>
-                            
+                            <CardTitle>{user.user.firstname ? user.user.firstname + " " + user.user.lastname : <TextLoader width="100" x="51" />}</CardTitle>
+                            <>{user.user.username ? <Badge theme="light">{user.user.username}</Badge> : <TextLoader width="80" x="60" />}  </>
+
                         </CardBody>
 
                     </Card>
@@ -49,30 +50,26 @@ export default function UserProfile() {
                     <Card className={style.UserEditCard} >
                         <CardHeader style={{ fontSize: "25px", fontWeight: "400" }}>Vos Informations</CardHeader>
                         <CardBody>
-                            <div onClick={() => setcollapseGroup(!collapseGroup)} className={style.ViewCollapse}>
-                                {collapseGroup ? <FaAngleDown /> : <FaAngleRight />} Voir vos groupes
-                            </div>
-                            <Collapse open={collapseGroup}>
-                                {user.user.groups ? user.user.groups.map(group => (<h5 className={style.Group} style={{ backgroundColor: group.color } } key={group.name} >{group.name}</h5>)) : <div></div>}
+                            <Collapse title="Voir vos groupes" open={collapseGroup} toggler={setcollapseGroup}>
+                                {user.user.groups ? user.user.groups.map(group => (<h5 className={style.Group} style={{ backgroundColor: group.color }} key={group.name} >{group.name}</h5>)) : <></>}
                             </Collapse>
 
-                            <div onClick={() => setcollapseEdit(!collapseEdit)} className={style.ViewCollapse}>
-                                {collapseEdit ? <FaAngleDown /> : <FaAngleRight />} Edition de vos information
-                            </div>
-                            <Collapse open={collapseEdit}>
+                            <Collapse title="Edition de vos informations" open={collapseEdit} toggler={setcollapseEdit}>
                                 <form>
                                     <Row>
-                                    
-                                            <Col sm="12" lg="6"><FormGroup><label htmlFor="#name">Nom</label><FormInput name="firstname" defaultValue={user.user.lastname}  type="text"  id="#name" placeholder="Votre nom ..." /></FormGroup></Col>
-                                            <Col sm="12" lg="6"><FormGroup><label htmlFor="#surname">Prénom</label><FormInput name="lastname" type="text" defaultValue={user.user.firstname} id="#surname" placeholder="Votre prénom ..." /></FormGroup></Col>
-                                            <Col sm="12" lg="6"><FormGroup><label htmlFor="#password">Nouveau mot de passe</label><FormInput name="password" type="password" id="#password"  placeholder="Nouveau mot de passe ..." /></FormGroup></Col>
-                                            <Col sm="12" lg="6"><FormGroup><label htmlFor="#passwordvalidate">Confirmer Nouveau mot de passe</label><FormInput name="passwordvalidation" id="#passwordvalidate" placeholder="Confirmer votre nouveau mot de passe ..." /></FormGroup></Col>
-                                    
+
+                                        <Col sm="12" lg="6"><FormGroup><label htmlFor="#name">Nom</label><FormInput name="firstname" defaultValue={user.user.lastname} type="text" id="#name" placeholder="Votre nom ..." /></FormGroup></Col>
+                                        <Col sm="12" lg="6"><FormGroup><label htmlFor="#surname">Prénom</label><FormInput name="lastname" type="text" defaultValue={user.user.firstname} id="#surname" placeholder="Votre prénom ..." /></FormGroup></Col>
+                                        <Col sm="12" lg="6"><FormGroup><label htmlFor="#password">Nouveau mot de passe</label><FormInput name="password" type="password" id="#password" placeholder="Nouveau mot de passe ..." /></FormGroup></Col>
+                                        <Col sm="12" lg="6"><FormGroup><label htmlFor="#passwordvalidate">Confirmer Nouveau mot de passe</label><FormInput name="passwordvalidation" id="#passwordvalidate" placeholder="Confirmer votre nouveau mot de passe ..." /></FormGroup></Col>
+
                                     </Row>
-                                
+
                                     <Button style={{ width: "100%", margin: "10px auto 0px auto" }} theme="primary">Valider vos Changement</Button>
                                 </form>
+
                             </Collapse>
+
 
 
                         </CardBody>

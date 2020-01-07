@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { GET_ALL_EVENT_TYPES, ALL_USER_EVENT } from '../types/apiConst'
+import { duration } from 'moment';
 
 /**
  * APIgetEventTypes
@@ -18,5 +19,11 @@ const APIgetMyEvents = () => {
     })
 }
 
+const APIpostNewEvent = (sessionID, name, type, duration = "", dueAt = "") => {
+    return axios.post(`https://schoolshare.tools/api/sessions/${sessionID}/events`,{name, type, duration, dueAt},
+        {headers: { Authorization: "Bearer " + localStorage.getItem("token") }}
+    )
+}
 
-export { APIgetEventTypes, APIgetMyEvents }
+
+export { APIgetEventTypes, APIgetMyEvents, APIpostNewEvent }

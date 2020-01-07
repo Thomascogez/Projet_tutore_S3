@@ -9,13 +9,16 @@ import {
   Badge,
   FormRadio,
   FormTextarea,
-  Button
+  Button,
+  CardFooter
 } from "shards-react";
 import { Multiselect } from "react-widgets";
 import Moment from 'moment'; 
 import 'moment/locale/fr'
 import momentLocalizer from 'react-widgets-moment'; 
 import DateTimePicker from 'react-widgets/lib/DateTimePicker';
+import axios from 'axios'
+import { useSelector } from 'react-redux'
 
 
 import { FilePond } from "react-filepond";
@@ -23,48 +26,42 @@ import Collapse from "../../../components/layouts/Collapse";
 
 import style from "./_addEvent.module.css";
 import { APIgetAllEventTypes } from "../../../api/type/event";
-import { APIgetAllsessionTypes } from "../../../api/type/session";
 import { APIpostFile } from "../../../api/file";
+import { APIpostNewSession } from "../../../api/sessionFetch";
+import { APIpostNewEvent } from "../../../api/event";
 
 Moment.locale('fr')
 momentLocalizer()
 
 
 export default function AddEvent() {
+  const addSession = useSelector(state => state.addSession)
   
-  let testObj = {
-    module: {
-      module: "M3104a",
-      name: "Prog web (PHP)",
-      color: "#D1AFDD"
-    },
-    type: "TP",
-    groups: ["F1", "F2", "H2"]
-  };
+  const INITIAL_STATE = {
+    sessionID : addSession.sessions.map(session => session.id),
+    type : "",
+    name :"",
+    duration:"",
+    dueAt :""
+  }
 
-  let testGroups = [
-    { id: "1", name: "H2" },
-    { id: "2", name: "H3" },
-    { id: "3", name: "H4" }
-  ];
+  const [newEvent, setNewEvent] = useState(INITIAL_STATE)
+  
 
+  // console.log(addSession.sessions[0].module);
+  
   const [types, setTypes] = useState([]); //hook that all fetched types
-
-
  
 
   useEffect(() => {
-   
-    
+       
     //TODO: check if the user as value in the store
 
     APIgetAllEventTypes().then(data => {
       setTypes(data.data);
     });
 
-    APIgetAllsessionTypes()
-      .then(data => console.log('data.data: ', data.data))
-      
+   
   }, []);
 
   //collapse hooks
@@ -73,7 +70,7 @@ export default function AddEvent() {
   const [collapseDesc, setCollapseDesc] = useState(false);
   const [collapseDuration, setCollapseDuration] = useState(false);
 
-  const [selectedGroup, setSelectedGroup] = useState([]);
+  const [selectedGroup, setSelectedGroup] = useState(addSession.sessions);
   const [files, setFiles] = useState({})
 
   const handleFileUpload = () => {
@@ -83,7 +80,33 @@ export default function AddEvent() {
       .catch(err => console.log(err))
   }
 
-  const [selectedType, setSelectedType] = useState("");
+  const handleSelectGroup = (val) => {
+    setSelectedGroup(val); 
+    setNewEvent({...newEvent, sessionID : val.map(v => v.id)})
+  }
+  useEffect(() => {
+   console.log(newEvent);
+   
+  }, [newEvent])
+  const isValid = () => {
+    return newEvent.type !== "" && newEvent.name.trim() !== "" && newEvent.sessionID.length > 0
+  }
+
+  const handleAddEvent = () => {
+
+    if(isValid) {
+      let requests = []
+      let {type,name, duration, dueAt} = newEvent
+      newEvent.sessionID.forEach(session => {
+        requests.push(APIpostNewEvent(session, name, type, duration, dueAt))
+      })
+      axios.all(requests)
+        .then(data => console.log(data))
+
+
+    }
+  }
+
 
   return (
     <Container fluid className={style.AddEventContainer}>
@@ -95,19 +118,22 @@ export default function AddEvent() {
               <h5>Module</h5>
               <Badge
                 className={style.Module}
-                style={{ backgroundColor: testObj.module.color }}
-              >
-                {testObj.module.name}
+                style={{ backgroundColor: addSession.sessions.length > 0 && addSession.sessions[0].module.color }}
+              >       
+                {addSession.sessions.length > 0 && addSession.sessions[0].module.name}
               </Badge>
 
-              <Badge theme="success">{testObj.type}</Badge>
+              <Badge theme="success">{newEvent.type}</Badge>
+              <hr />
 
+              <h5>Groupes</h5>          
+              {selectedGroup.map((group,i)=> (
+                <Badge key={i+""+group.groupe.name} style={{backgroundColor: group.groupe&&group.groupe.color }}> {group.groupe&&group.groupe.name}</Badge>
+              ))}
               <hr />
-              <h5>Groupes</h5>
-              {testObj.groups.join(", ")}
-              <hr />
-              <Button theme="success">Ajouter événement</Button>
+
             </CardBody>
+            <Button onClick = {() => handleAddEvent()} disabled = {!isValid()} style={{width:"100%"}} theme="success">Ajouter événement</Button>
           </Card>
         </Col>
 
@@ -121,10 +147,10 @@ export default function AddEvent() {
                 toggler={setCollapseGroup}
               >
                 <Multiselect
-                  data={testGroups}
-                  defaultValue={testGroups.map(group => group.id)}
-                  valueField="id"
-                  textField="name"
+                  data={addSession.sessions}
+                  defaultValue={selectedGroup}
+                  textField="groupname"
+                  onChange={val => handleSelectGroup(val)}
                 />
               </Collapse>
               <Collapse
@@ -135,9 +161,10 @@ export default function AddEvent() {
                 {types.length > 0 &&
                   types.map(type => (
                     <FormRadio
+                      key = {type.name}
                       name={type.name}
-                      checked={selectedType === type.name}
-                      onChange={() => setSelectedType(type.name)}
+                      checked={newEvent.type === type.name}
+                      onChange={() => setNewEvent({...newEvent,type:type.name})}
                     >
                       {type.name}
                     </FormRadio>
@@ -153,13 +180,13 @@ export default function AddEvent() {
                   <span style={{ fontSize: "20px" }}>
                     Choix de la date d'échéance:{" "}
                   </span>{" "}
-                  <DateTimePicker format='DD/MM/YYYY' culture="fr" time={false}/>
+                  <DateTimePicker onChange={value => setNewEvent({...newEvent,dueAt:value}) } format='DD/MM/YYYY' culture="fr" time={false}/>
                 </span>
                 <span className={style.PickTime} style={{ display: "block" }}>
                   <span style={{ fontSize: "20px" }}>
                     Durée de l'événement:
                   </span>
-                  <DateTimePicker culture="fr" date={false} />
+                  <DateTimePicker onChange={value => setNewEvent({...newEvent,duration: Moment.duration(Moment(value).format("hh:mm")).asHours()}) } format='hh:mm' culture="fr" date={false} />
                 </span>
               </Collapse>
 
@@ -169,8 +196,10 @@ export default function AddEvent() {
                 toggler={setCollapseDesc}
               >
                 <FormTextarea
-                  maxLength="120"
-                  placeHolder="Description de l'événement (120 charactéres max.)..."
+                  value= {newEvent.name}
+                  onChange = {e => setNewEvent({...newEvent, name :e.target.value})}
+                  maxLength="90"
+                  placeHolder="Description de l'événement (90 charactéres max.)..."
                 />
               </Collapse>
               <span style={{ fontSize: "25px", marginTop: "30px" }}>
