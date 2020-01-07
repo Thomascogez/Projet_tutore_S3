@@ -19,6 +19,9 @@ class UserType extends AbstractType
             ))
             ->add('firstname')
             ->add('lastname')
+            ->add('color', null, array(
+                'required' => false
+            ))
         ;
     }
 

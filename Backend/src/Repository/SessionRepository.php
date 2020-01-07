@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Groups;
 use App\Entity\Session;
+use App\Entity\SessionType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -19,14 +21,18 @@ class SessionRepository extends ServiceEntityRepository
         parent::__construct($registry, Session::class);
     }
 
-    public function findByDate(\DateTime $from, \DateTime $to)
+    public function findByDate(\DateTime $from, \DateTime $to, ?Groups $group, ?SessionType $type)
     {
-        return $this->createQueryBuilder('j')
+        $req = $this->createQueryBuilder('j')
             ->andWhere('j.createdAt BETWEEN :from AND :to')
             ->setParameter('from', $from )
             ->setParameter('to', $to)
-            ->orderBy("j.createdAt")
-            ->getQuery()
+            ->orderBy("j.createdAt");
+
+        if($group) $req->andWhere(":group MEMBER OF j.groups")->setParameter("group", $group);
+        if($type)  $req->andWhere("j.type = :type"           )->setParameter("type", $type->getName()  );
+
+        return $req->getQuery()
             ->getResult();
     }
 
