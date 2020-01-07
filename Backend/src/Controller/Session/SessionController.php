@@ -71,6 +71,8 @@ class SessionController extends AbstractController
             if(!$test) return $this->notAuthorized();
         }
 
+        foreach ($session->getSemaphores() as $semaphore)
+            if($semaphore->getUser() != $this->getUser()) $session->removeSemaphore($semaphore);
         return $session;
     }
 
@@ -154,6 +156,9 @@ class SessionController extends AbstractController
                 else $test = false;
             } else
                 $test = true;
+
+            foreach ($index->getSemaphores() as $semaphore)
+                if($semaphore->getUser() != $this->getUser()) $index->removeSemaphore($semaphore);
 
             if($test) {
 

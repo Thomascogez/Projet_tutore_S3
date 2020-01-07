@@ -5,13 +5,12 @@ import { navigate } from "hookrouter";
 import { FaBookOpen, FaPlus, FaMinus } from "react-icons/fa";
 import moment from "moment";
 import "moment/locale/fr";
-
 //seances components
 import WorkContainer from "../../components/sessions_components/WorkContainers";
 import DayContainer from "../../components/sessions_components/DayContainer";
 import MounthSelector from "../../components/sessions_components/MounthSelector";
 import Work from "../../components/sessions_components/Work";
-import { APIgetAllSession } from "../../api/sessionFetch";
+import {APIgetAllSession} from "../../api/sessionFetch";
 import PageLoader from "../../components/layouts/loader";
 import Collapse from "../../components/layouts/Collapse/CollapseSessions";
 import {

@@ -29,7 +29,7 @@ export default function data({data}) {
           {data.attachmentEvents.length !== 0 ? (
             <ModalViewFiles
               files={data.attachmentEvents}
-            />
+            ></ModalViewFiles>
           ) : (
             <FaFileAlt style={{ color: "grey" }} />
           )}
