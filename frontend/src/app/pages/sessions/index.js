@@ -22,6 +22,14 @@ export default function Seances() {
   const [loading, setLoading] = useState(true);
   var  duration = 0;
 
+    function addDuration(dur) {
+        duration += dur
+    }
+
+    function reinitDuration() {
+        duration = 0
+    }
+
   function sortFunction(a, b) {
     if (a[0] === b[0]) {
         return 0;
@@ -93,9 +101,18 @@ export default function Seances() {
 
                                 <Col lg="11" sm="11">
                                     <WorkContainer>
-                                    {Object.entries(daySessions[1][1]).map(session => (
+                                    { Object.entries(daySessions[1][1]).map(session =>(
                                         <>
-                                                <Work key={session[1].id} id={session[1].id} color={ session[1].module.color === "" ? "#000000" : session[1].module.color } name={session[1].module.name} />
+                                            {console.log(session[1])}
+                                            
+                                            {Object.entries(session[1].events).map(events2 =>(
+                                                <>
+                                                    {addDuration(events2[1].duration)}
+                                                </>
+                                            ))}
+                                            
+                                            <Work key={session[1].id} id={session[1].id} color={ session[1].module.color === "" ? "#000000" : session[1].module.color } name={session[1].module.name} duration={duration} />
+                                            {reinitDuration()}
                                         </>
                                     ))}
                                     </WorkContainer>
