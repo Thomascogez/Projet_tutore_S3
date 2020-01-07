@@ -28,8 +28,8 @@ export default function data({data}) {
         <td style={{ textAlign: "center" }}>
           {data.attachmentEvents.length !== 0 ? (
             <ModalViewFiles
-              files={data.attachmentdatas}
-            />
+              files={data.attachmentEvents}
+            ></ModalViewFiles>
           ) : (
             <FaFileAlt style={{ color: "grey" }} />
           )}
