@@ -157,8 +157,6 @@ export default function AddSession() {
                 color="#FFF"
                 height={30}
                 width={100}
-                timeout={3000} //3 secs
-
               /> : "Ajouter la séances"}</Button>
             </Card>
           </Col>

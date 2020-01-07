@@ -71,7 +71,7 @@ export default function AddEvent() {
   const [collapseDuration, setCollapseDuration] = useState(false);
 
   const [selectedGroup, setSelectedGroup] = useState(addSession.sessions);
-  const [files, setFiles] = useState({})
+  const [files, setFiles] = useState([])
 
   const handleFileUpload = () => {
     console.log(files);
@@ -84,10 +84,7 @@ export default function AddEvent() {
     setSelectedGroup(val); 
     setNewEvent({...newEvent, sessionID : val.map(v => v.id)})
   }
-  useEffect(() => {
-   console.log(newEvent);
-   
-  }, [newEvent])
+  
   const isValid = () => {
     return newEvent.type !== "" && newEvent.name.trim() !== "" && newEvent.sessionID.length > 0
   }
@@ -100,8 +97,14 @@ export default function AddEvent() {
       newEvent.sessionID.forEach(session => {
         requests.push(APIpostNewEvent(session, name, type, duration, dueAt))
       })
-      axios.all(requests)
-        .then(data => console.log(data))
+      // axios.all(requests)
+      //   .then(data => {
+      //     if(files.length > 0) {
+      //       for (let i = 0; i < newEvent.sessionID.length; i++) {
+              
+      //       }
+      //     }
+      //   })
 
 
     }

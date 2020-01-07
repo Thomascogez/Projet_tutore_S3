@@ -5,7 +5,9 @@ import {
   RESET_INVALID_MESSAGE,
   SET_ISLOGGEDIN,
   SET_USER,
-  GET_ALL_USERS
+  GET_ALL_USERS,
+  SET_PROFILE_COLOR,
+  SET_USER_PROFILE
 } from "../../types/actionsTypes";
 
 const initialState = {
@@ -46,11 +48,23 @@ const userReducer = (state = initialState, action) => {
         ...state,
         user: action.value
       };
-      case GET_ALL_USERS:
-          return {
-              ...state,
-              allUsers: action.value
-          }
+
+    case GET_ALL_USERS:
+        return {
+            ...state,
+            allUsers: action.value
+        }
+    case SET_PROFILE_COLOR:
+        return {
+          ...state,
+          user : {...state.user, color: action.value}
+        }
+    case SET_USER_PROFILE : 
+        return {
+          ...state,
+          user : action.value
+        }
+      
     default:
       return state;
   }
