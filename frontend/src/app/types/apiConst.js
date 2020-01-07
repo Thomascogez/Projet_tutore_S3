@@ -50,6 +50,7 @@ const DELETE_USERS = PATH_API + "/api/users";
 const ALL_USER_EVENT = PATH_API + "/api/users/events";
 // --------------------  USER --------------------- //
 
+const DEL_SESSION_ID = PATH_API + "/api/sessions";
 const GET_MY_SESSION = PATH_API + "/api/users/sessions";
 const GET_ALL_SESSIONS = PATH_API + "/api/sessions"
 
@@ -89,5 +90,6 @@ export {
     POST_NEW_SESSION,
     ALL_USER_EVENT,
     GET_MY_SESSION,
-    GET_ALL_SESSIONS
+    GET_ALL_SESSIONS,
+    DEL_SESSION_ID
 };
