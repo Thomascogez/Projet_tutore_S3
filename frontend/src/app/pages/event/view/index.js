@@ -56,7 +56,8 @@ export default function ViewsEvent(props) {
       APIpostComment(info.id, newComment)
         .then(data => {
           //toast success
-          console.log(data);         
+          setVerifBut(false)
+          console.log(verifBut);         
         })
         .catch(err => {
           //toast err
