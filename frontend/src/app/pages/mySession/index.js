@@ -24,13 +24,14 @@ export default function MySession()
 	return (
 		<Container fluid className={style.EventsContainer}>
 			<Card >
-				<CardHeader><h5>Mes sessions</h5></CardHeader>
+				<CardHeader><h5>Mes seances</h5></CardHeader>
 				<div className="table-responsive">
 					<table className={`table  ${style.EventTable}`}>
 							<tr>
 								<th>Date</th>
 								<th>Module</th>
 								<th>Groupe</th>
+								<th>Supprimer</th>
 							</tr>
 							{ (Object.keys(mySession).length === 0)? (
 								<PageLoader />
