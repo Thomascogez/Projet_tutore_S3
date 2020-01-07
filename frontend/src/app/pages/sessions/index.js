@@ -69,7 +69,8 @@ export default function Seances() {
                                 <WorkContainer>
                                     { Object.entries(key2[1]).map(key3 =>(
                                         <>
-                                            
+                                            {console.log(key3[1])}
+                                            { <Work color={key3[1].module.color === ""? "#000000":key3[1].module.color}  name={key3[1].module.name} />  }
                                         </>
                                     ))}
                                 </WorkContainer>
