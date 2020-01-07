@@ -35,11 +35,11 @@ const APIgetAllSession = (month, year) => {
     );
 }
 
-const APIpostNewSession = (code, type, group ) => {
+const APIpostNewSession = (code, type, groups ) => {
     let module = code;
-    console.log(module ,type, group);
+    console.log(module ,type, groups);
     return axios.post(POST_NEW_SESSION,
-        { module, type, group }, 
+        { module, type, groups }, 
         {headers: { Authorization: "Bearer " + localStorage.getItem("token") }}
         )
 }

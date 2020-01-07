@@ -1,24 +1,24 @@
-import { ADD_SESSION, SET_SESSION_TYPE } from '../../types/actionsTypes'
+import { SET_SESSIONADD, SET_GROUP_SET_SESSIONADD } from '../../types/actionsTypes'
 
 
 /**
  * addSessionModule
  * 
- * @param {*} id    id of the session
+ * @param {*} module    
  */
-const addSession = module => {
+const setSession = module => {
     return {
-        type  : ADD_SESSION,
+        type  : SET_SESSIONADD,
         value : module
     }
 }
 
 
-const setSessionType = type => {
+const setGroup = group => {
     return {
-        type  : SET_SESSION_TYPE,
-        value : type
+        type  : SET_GROUP_SET_SESSIONADD,
+        value : group
     }
 }
 
-export { addSession, setSessionType }
+export { setSession, setGroup }

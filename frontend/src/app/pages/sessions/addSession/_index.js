@@ -21,7 +21,7 @@ import axios from 'axios'
 import { toast } from 'react-toastify';
 import { APIgetSessionTypes, APIpostNewSession } from "../../../api/sessionFetch";
 import Loader from 'react-loader-spinner'
-import { addSession, setSessionType } from '../../../providers/actions/addSessionActions'
+import { setGroup, setSession } from '../../../providers/actions/addSessionActions'
 import { navigate } from "hookrouter";
 
 
@@ -79,7 +79,6 @@ export default function AddSession() {
     setnewSeance({ ...newSeance, type });
 
     //update redux store for next step
-    dispatch(setSessionType(type))
 
     setcollapseTypeModule(false);
     setcollapseGroups(true);
@@ -96,20 +95,14 @@ export default function AddSession() {
    */
   const postSession = () => {
 
-    let requests = [];
 
     setRequestPending(true);
-    (newSeance.groups).forEach(group => {
-      requests.push(APIpostNewSession(newSeance.module, newSeance.type, group))
-    });
 
-    axios.all(requests)
-      .then((data) => {
-        data.forEach(seance => {
-
-          //get info of new session for next step
-          dispatch(addSession(seance.data))
-        })
+    APIpostNewSession(newSeance.module, newSeance.type, newSeance.groups)
+      .then(data => {
+        console.log(data.data);
+        dispatch(setSession(data.data))
+        dispatch(setGroup(newSeance.groups))
         setRequestPending(false);
         toast.success("Séance(s) ajoutée(s) avec succès")
         setnewSeance(INITIAL_STATE)
@@ -119,10 +112,7 @@ export default function AddSession() {
         setModal(true)
         
       })
-      .catch(() => {
-        setRequestPending(false);
 
-      })
   }
 
 
