@@ -13,6 +13,7 @@ import MounthSelector from "../../components/sessions_components/MounthSelector"
 import Work from "../../components/sessions_components/Work";
 import { APIgetAllSession } from "../../api/sessionFetch";
 import PageLoader from "../../components/layouts/loader";
+import Collapse from "../../components/layouts/Collapse/CollapseSessions";
 
 export default function Seances() {
   moment.locale("fr");
@@ -75,29 +76,33 @@ export default function Seances() {
             <>
               <Row className={style.WorkRow}>
                 <Card style={{ width: "100%" }}>
-                  <CardHeader> Semaine {weekSessions[0]} </CardHeader>
 
-                  <Col lg="12" sm="12">
-                    <Row className={style.DailyWorkRow}>
-                      {Object.entries(weekSessions[1]).map(daySessions => (
-                        <>
-                          <Col lg="1" sm="1">
-                            { <DayContainer day={ moment( date.replace(/ /g, "") + daySessions[1][0] ).format("dddd") + " " + daySessions[1][0] } /> }
-                          </Col>
+                    <Collapse
+                        title={"Semaine" + weekSessions[0]}
+                    >
 
-                          <Col lg="11" sm="11">
-                            <WorkContainer>
-                              {Object.entries(daySessions[1][1]).map(session => (
-                                  <>
-                                        <Work key={session[1].id} id={session[1].id} color={ session[1].module.color === "" ? "#000000" : session[1].module.color } name={session[1].module.name} />
-                                  </>
-                              ))}
-                            </WorkContainer>
-                          </Col>
-                        </>
-                      ))}
-                    </Row>
-                  </Col>
+                        <Col lg="12" sm="12">
+                            <Row className={style.DailyWorkRow}>
+                            {Object.entries(weekSessions[1]).map(daySessions => (
+                                <>
+                                <Col lg="1" sm="1">
+                                    { <DayContainer day={ moment( date.replace(/ /g, "") + daySessions[1][0] ).format("dddd") + " " + daySessions[1][0] } /> }
+                                </Col>
+
+                                <Col lg="11" sm="11">
+                                    <WorkContainer>
+                                    {Object.entries(daySessions[1][1]).map(session => (
+                                        <>
+                                                <Work key={session[1].id} id={session[1].id} color={ session[1].module.color === "" ? "#000000" : session[1].module.color } name={session[1].module.name} />
+                                        </>
+                                    ))}
+                                    </WorkContainer>
+                                </Col>
+                                </>
+                            ))}
+                            </Row>
+                        </Col>
+                    </Collapse>
                 </Card>
               </Row>
             </>
