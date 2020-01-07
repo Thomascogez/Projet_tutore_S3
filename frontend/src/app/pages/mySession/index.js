@@ -25,8 +25,8 @@ export default function MySession()
 		<Container fluid className={style.EventsContainer}>
 			<Card >
 				<CardHeader><h5>Mes sessions</h5></CardHeader>
-				<div className="table-responsive">
-					<table className={`table  ${style.EventTable}`}>
+				<div>
+					<table>
 						<thead>
 							<tr>
 								<th>Date</th>

@@ -5,11 +5,10 @@ export default function Session({session}) {
 
     return (
         <React.Fragment>
-            {console.log(session)}
-            <tr style={{border:"1px solid black"}}>
-                <td>{moment(session.createdAt).format("DD/MM/YYYY")}</td>
+            <tr>
+                <td >{moment(session.createdAt).format("DD/MM/YYYY")}</td>
                 <td>{session.module.name}</td>
-                <td>{session.groupe.map(groupeName => ( {groupeName}))}</td>
+                <td></td>
             </tr>
         </React.Fragment>
   );
