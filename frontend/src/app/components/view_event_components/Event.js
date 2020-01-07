@@ -6,6 +6,7 @@ import { FaFileAlt } from 'react-icons/fa';
 import { Badge } from 'shards-react'
 
 export default function data({data}) {
+
     return (
         <tr key={data.id}>
         <td>
@@ -19,9 +20,10 @@ export default function data({data}) {
         <td>
           <ModalViewDetail text={data.name} />
         </td>
-        <td>00h30</td>
+        { console.log( data ) }
+        <td>  ('0' + Math.floor(data.duration) % 24).slice(-2) + 'h' + ((data.duration % 1)*60 + '0').slice(0, 2) </td>
 
-        <td>{moment(data.dueAt).format("MM/DD/YYYY")}</td>
+        <td>{moment(data.dueAt).format("DD/MM//YYYY")}</td>
 
         <td style={{ textAlign: "center" }}>
           {data.attachmentEvents.length !== 0 ? (
