@@ -35,7 +35,6 @@ class SettingController extends AbstractController
     public function getSettingsAction(Request $request)
     {
         $setting = $this->getDoctrine()->getRepository(Setting::class)->findAll();
-        var_dump($setting);
         return $setting[0];
     }
 
@@ -79,7 +78,7 @@ class SettingController extends AbstractController
         }
         if($maxAttach) {
             if(preg_match('/^\d+$/', $maxAttach)) {
-                $setting->setAttachmentEvent($maxAttach);
+                $setting->setMaxAttachmentEvent($maxAttach);
             } else {
                 return new JsonResponse(array("code" => 400, "error" => "Max attachment is necessarily a integer"));
             }

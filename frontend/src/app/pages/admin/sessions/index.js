@@ -39,7 +39,7 @@ export default function Sessions()
             year.push(i);
         setArrayYears(year);
 
-        APIgetAllSession(date.format("MM"), date.format("YYYY")) //fetching session types
+        APIgetAllSession(date.format("MM"), date.format("YYYY"), "", "") //fetching session types
             .then(data => {
                 let tmp = {};
 
@@ -54,7 +54,7 @@ export default function Sessions()
                 setSessions(tmp);
                 setLoading(false)
             })
-            .catch(err => console.log(err));
+            .catch(err => console.log(err.response));
     }, [date]);
 
     useEffect(() => {
@@ -92,8 +92,7 @@ export default function Sessions()
                                                 {
                                                     Object.entries(weekSessions[1]).map(daySessions => (
                                                         <>
-                                                            {console.log(moment( date.year()+"-"+date.month() + daySessions[1][0] ).format("dddd"))}
-                                                            <Collapse title={<>{moment( date.year()+"-"+date.month() + daySessions[1][0] ).format("dddd DD") }</>}>
+                                                            <Collapse title={<>{moment( date.year() + "-" + date.format("MM") + "-" + daySessions[1][0]).format("dddd DD") }</>}>
                                                                 <table  className={`table table-striped table-hover table-bordered ${adminStyle.Scroll}`}>
                                                                     <thead>
                                                                     <tr>

@@ -1,0 +1,32 @@
+.AdminGroupContainer
+{
+    margin: 2%;
+}
+
+.AdminGroupeDiv
+{
+    margin:50px;
+    margin-top:100px;
+    padding:10px;
+}
+
+.Titre
+{
+    padding:20px;
+}
+
+@media (max-width:746px)
+{
+    .Titre{
+        text-align: center;
+    }
+    .AdminGroupContainer
+    {
+        margin: 0%;
+    }
+    .AdminGroupeDiv
+    {
+        margin: 0%;
+        margin-top : 50px;
+    }
+}

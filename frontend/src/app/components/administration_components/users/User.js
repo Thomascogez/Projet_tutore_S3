@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {
     Button,
     FormInput,
@@ -15,7 +15,6 @@ import style from "../../../pages/userProfil/_userprofile.module.css";
 import {Multiselect} from "react-widgets";
 import {APIEditUser} from "../../../api/userFetch";
 import {toast} from 'react-toastify';
-import DeleteGroup from "../groupe/DeleteGroup";
 import DeleteUser from "./DeleteUser";
 
 toast.configure();
@@ -56,8 +55,8 @@ export default function User(props) {
         const req = {
             "firstname": firstname,
             "lastname": lastname,
-            "module": tmpModules,
-            "groupes": tmpGroups,
+            "modules": tmpModules,
+            "groups": tmpGroups,
             "roles": (admin)?[roles, "ROLE_ADMIN"]:[roles]
         }
 
@@ -66,7 +65,8 @@ export default function User(props) {
                 toast.success("Modification effectué !")
             })
             .catch(err => {
-                toast.error("Une erreur c'est produite !")
+                console.log(req)
+                console.log(err.response)
                 setUsername(props.username)
                 setLastname(props.lastname)
                 setFirstname(props.firstname)
@@ -79,6 +79,12 @@ export default function User(props) {
 
     const handleCancel = () => {
         //when cancel editing
+        setUsername(props.username)
+        setLastname(props.lastname)
+        setFirstname(props.firstname)
+        setModules(props.modules)
+        setGroups(props.groups)
+        setRoles((props.roles.includes("ROLE_TEACHER")?"ROLE_TEACHER":(props.roles.includes("ROLE_TUTOR")?"ROLE_TUTOR":"")))
         setEditing(false);
     };
 
@@ -102,11 +108,11 @@ export default function User(props) {
         <tr>
             <th scope="row">{username}</th>
             <td>
-                {editing ? <FormInput value={lastname} onChange={e => setLastname(e.target.value)} placeholder="Nom ..." /> : lastname}
+                {editing ? <FormInput invalid={lastname==""} value={lastname} onChange={e => setLastname(e.target.value)} placeholder="Nom ..." /> : lastname}
             </td>
             <td>
                 {editing ? (
-                  <FormInput value={firstname} onChange={e => setFirstname(e.target.value)} placeholder="Prénom ..." />
+                  <FormInput invalid={firstname==""} value={firstname} onChange={e => setFirstname(e.target.value)} placeholder="Prénom ..." />
                 ) : (
                   firstname
                 )}
@@ -148,7 +154,7 @@ export default function User(props) {
           <td>
             {editing ? (
               <ButtonGroup>
-                <Button onClick={() => handleValidate()} theme="success">
+                <Button disabled={lastname=="" || firstname==""} onClick={() => handleValidate()} theme="success">
                   <FaCheck />
                 </Button>
                 <Button onClick={() => handleCancel()} theme="danger">

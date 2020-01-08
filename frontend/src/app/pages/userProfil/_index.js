@@ -128,10 +128,10 @@ export default function UserProfile() {
                             <>
                                 <div onClick={() => setEdittingColor(!edittingColor)}>
                                     <ProfileRound
-                                        size="Big"
                                         bgcolor={user.user.color}
                                         letter={user.user.firstname.charAt(0)}
-                                        fcolor="#fff"
+                                        fcolor="#fff"     
+                                        size='Big'                                   
                                     />
                                 </div>
                                 {edittingColor && <div style={{margin : "0px auto 0px auto"}}><CirclePicker onChange={val => handleColorChange(val.hex)} /></div>}

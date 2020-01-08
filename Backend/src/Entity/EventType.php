@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Event type for autocomplete
  * @ORM\Entity(repositoryClass="App\Repository\EventTypeRepository")
- * @UniqueEntity({"name"})
+ * @UniqueEntity(fields={"name"}, message="Nom de type d'évènement déjà utilisé")
  */
 class EventType
 {

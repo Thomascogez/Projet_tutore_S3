@@ -23,7 +23,7 @@ import Comment from "../../../components/view_event_components/Comment";
 import Event from "../../../components/view_event_components/Event";
 import Unauthorized from "../../401";
 //api
-import { APIgetSession } from "../../../api/sessionFetch";
+import {APIEditSemaphore, APIgetSession} from "../../../api/sessionFetch";
 import { APIgetComment, APIpostComment } from "../../../api/CommentFetch";
 import ProfileLoader from "../../../components/loader/ProfileLoader";
 import TextLoader from "../../../components/loader/TextLoader";
@@ -56,6 +56,7 @@ export default function ViewsEvent({ seanceId }) {
     APIgetSession(seanceId.seanceId)
       .then(data => {
         setInfo(data.data);
+        APIEditSemaphore(Object.entries(data.data.semaphores)[0][1].id, {"status": 1})
       })
       .catch(err => {
         if (err.response.status === 401) setUnauthorized(true);

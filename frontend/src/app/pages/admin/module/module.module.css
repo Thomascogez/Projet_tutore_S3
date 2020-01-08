@@ -1,0 +1,18 @@
+.Titre
+{
+    padding:20px;
+}
+
+.AdminModuleDiv {
+}
+
+@media (max-width: 446px)
+{
+    .Titre{
+        text-align: center;
+    }
+
+    .AdminModuleDiv{
+        margin: 0%;
+    }
+}

@@ -27,12 +27,14 @@ const EDIT_MODULES   = PATH_API + "/api/modules";
 const DELETE_MODULES = PATH_API + "/api/modules";
 const GET_MODULE     = PATH_API + "/api/modules";
 // --------------------   Session  ---------------------- //
-const GET_ALL_SESSION_TYPES = PATH_API+"/api/session_types"
+const GET_ALL_SESSION_TYPES = PATH_API+"/api/session_types";
 const POST_NEW_SESSION      = PATH_API+"/api/sessions"
 const PATCH_SESSION         = PATH_API+"/api/sessions"
 
+const EDIT_SEMAPHORE        = PATH_API + "/api/semaphore";
 
-const GET_ALL_EVENT_TYPES   = PATH_API+"/api/event_types"
+
+const GET_ALL_EVENT_TYPES   = PATH_API+"/api/event_types";
 
 const ALL_EVENT_TYPES   = PATH_API + "/api/event_types";
 const EDIT_EVENT_TYPE   = PATH_API + "/api/event_types";
@@ -45,6 +47,10 @@ const DELETE_SESSION_TYPE = PATH_API + "/api/session_types";
 const ALL_USERS    = PATH_API + "/api/users";
 const EDIT_USERS   = PATH_API + "/api/users";
 const DELETE_USERS = PATH_API + "/api/users";
+const ADD_USERS    = PATH_API + "/api/users";
+
+const GET_ALL_SETTING = PATH_API + "/api/settings";
+const EDIT_SETTINGS   = PATH_API + "/api/settings";
 
 
 //file upload 
@@ -72,6 +78,7 @@ export {
     ALL_USERS,
     EDIT_USERS,
     DELETE_USERS,
+    ADD_USERS,
     PASSWORD_FORGET_GET,
     PASSWORD_FORGET_VERIFY,
     CHECK_STILL_VALID,
@@ -100,5 +107,7 @@ export {
     GET_ALL_SESSIONS,
     DEL_SESSION_ID,
     PATCH_SESSION,
-    GET_SETTINGS
+    GET_ALL_SETTING,
+    EDIT_SETTINGS,
+    EDIT_SEMAPHORE
 };

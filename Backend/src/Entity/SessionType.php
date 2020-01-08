@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * Table for auto complete type of session
  * @ORM\Entity(repositoryClass="App\Repository\SessionTypeRepository")
- * @UniqueEntity({"name"})
+ * @UniqueEntity(fields={"name"}, message="Nom de type de séssion déjà utilisé")
  */
 class SessionType
 {

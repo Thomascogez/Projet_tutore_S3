@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Table of User
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity("username")
+ * @UniqueEntity(fields={"username"}, message="Nom d'utilisateur déjà utilisé")
  */
 class User implements UserInterface
 {
@@ -38,7 +38,7 @@ class User implements UserInterface
     /**
      * Role in website ["ROLE_TEACHER", "ROLE_TUTOR", "ROLE_ADMIN"]
      * @ORM\Column(type="json")
-     * @Groups({"user", "comment"})
+     * @Groups({"user"})
      */
     private $roles = [];
 
@@ -57,7 +57,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=20)
      * @Assert\NotBlank()
      * @Assert\LessThanOrEqual(20)
-     * @Groups({"user", "session_detail", "events"})
+     * @Groups({"user", "session_detail", "events", "comment"})
      */
     private $firstname;
 
@@ -72,7 +72,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=7, nullable=true)
-     * @Groups({"user", "group_info", "events", "session_detail"})
+     * @Groups({"user", "group_info", "events", "session_detail", "comment"})
      */
     private $color;
 

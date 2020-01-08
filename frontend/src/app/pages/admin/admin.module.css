@@ -1,10 +1,7 @@
-
-
 .AdminCardContainer {
     margin-top: 40px;
     width: 80% !important;
 }
-
 
 .AdminCard {
     text-align: center;
@@ -19,4 +16,12 @@
     border-radius: 0px ! important;
     background-color:rgba(11, 191, 140, 0.93) !important;
     border-color:rgba(11, 191, 140, 0.93) !important;
+}
+
+@media (max-width: 991px) {
+    .AdminCardContainer{
+        width: 100% !important;
+        height: 100% !important;
+        margin:0%;
+    }
 }
