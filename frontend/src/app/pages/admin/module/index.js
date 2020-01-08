@@ -4,8 +4,9 @@ import BarreRecherche from '../../../components/administration_components/module
 import Module from '../../../components/administration_components/module/Module'
 import {useDispatch, useSelector} from "react-redux";
 import {getModules} from "../../../providers/actions/moduleAction";
-import Groupe from "../../../components/administration_components/groupe/Groupe";
 import PageLoader from "../../../components/layouts/loader";
+import style from './module.module.css'
+import {Container} from 'shards-react'
 
 export default function Modules()
 {
@@ -22,18 +23,18 @@ export default function Modules()
     }, []);
 
     return (
-        <div >
-            <h1 style={{padding:20}}>Gestion des modules</h1>   
+        <Container fluid >
+            <h1 className={style.Titre}>Gestion des modules</h1>   
             {<BarreRecherche />}
 
-            <div style={{margin:50, marginTop:100, padding:10}}>
-                <table  className={`table table-striped ${adminStyle.Scroll}`}>
+            <div className={`${style.AdminModuleDiv} table-responsive`}>
+                <table  className={adminStyle.Scroll}>
                     <thead>
                         <tr>
-                            <th>Code</th>
+                            <th>Code</th>   
                             <th>Module</th>
                             <th>Couleur</th>
-                            <th style={{width: 20 + '%'}}>Edition</th>
+                            <th style={{width:'5%'}}>Edition</th>
                         </tr>
                     </thead>
                     <tbody >
@@ -54,7 +55,7 @@ export default function Modules()
             ):(
                 <PageLoader />
             )}
-        </div>
+        </Container>
     )
 
 }

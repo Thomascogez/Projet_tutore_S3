@@ -5,6 +5,8 @@ import Groupe from '../../../components/administration_components/groupe/Groupe'
 import PageLoader from "../../../components/layouts/loader";
 import {useDispatch, useSelector} from "react-redux";
 import {getGroups} from "../../../providers/actions/groupActions";
+import { Container } from 'shards-react';
+import style from "./group.module.css"
 
 export default function Group()
 {
@@ -18,11 +20,11 @@ export default function Group()
     }, []);
 
     return (
-        <div>
-            <h1 style={{padding:20}}>Gestion des groupes</h1>   
+        <Container fluid className={style.AdminGroupContainer}>
+            <h1 className={style.Titre}>Gestion des groupes</h1>   
             {<BarreRecherche />}
 
-            <div style={{margin:50, marginTop:100, padding:10}}>
+            <div className={`${style.AdminGroupeDiv} table-responsive`}>
                 <table  className={`table table-striped ${adminStyle.Scroll}`}>
                     <thead>
                         <tr>
@@ -50,6 +52,6 @@ export default function Group()
             ):(
                 <PageLoader />
             )}
-        </div>
+        </Container>
     )
 }
