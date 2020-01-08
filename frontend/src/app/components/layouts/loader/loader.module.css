@@ -3,23 +3,18 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.5);
-    filter: blur(380px);
+    background-color: rgba(255, 255, 255, .15);  
+    backdrop-filter: blur(5px);
     top: 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     
 }
 
 .LoaderContent {
-    text-align: center;
     z-index: 101;
+    width: 0px;
     position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    top: calc(50vh - (/* height */100px / 2));
+    left: calc(50vw - (/* width */140px / 2));
 }
 .LoaderContent h3 {
     color:#fff !important;
