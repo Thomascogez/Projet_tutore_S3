@@ -51,6 +51,9 @@ class EventController extends AbstractController
 
         if ($event->getSession() != $session) return $this->isNotFound("This event not in this session");
 
+        if(!$this->sessionAuthorized($session))
+            return $this->notAuthorized();
+
         return $event;
     }
 
@@ -77,6 +80,9 @@ class EventController extends AbstractController
         $event = $this->getDoctrine()->getRepository(Event::class)->find($request->get('id_event'));
         if (!$event) return $this->isNotFound(EVENT_NOT_FOUND);
 
+        if(!$this->sessionAuthorized($event->getSession()))
+            return $this->notAuthorized();
+
         return $event;
     }
 
@@ -102,6 +108,9 @@ class EventController extends AbstractController
     {
         $session = $this->getDoctrine()->getRepository(Session::class)->find($request->get('id_session'));
         if (!$session) return $this->isNotFound(SESSIONS_NOT_FOUND);
+
+        if(!$this->sessionAuthorized($session))
+            return $this->notAuthorized();
 
         return $session->getEvents();
     }
@@ -284,5 +293,33 @@ class EventController extends AbstractController
         } else {
             return $this->notAuthorized();
         }
+    }
+
+    private function sessionAuthorized(Session $session)
+    {
+        $r = false;
+        if($this->userHasRole($this->getUser(), "ROLE_TUTOR")) {
+            $date = $this->getUser()->getCreatedAt();
+
+            if($date->format("m") >= 8 && $date->format("m") <= 12)
+                $years = [$date->format("Y")+0, $date->format("Y")+1];
+            if($date->format("m") >= 1 && $date->format("m") <= 7)
+                $years = [$date->format("Y")-1, $date->format("Y")+0];
+
+            $dateSession = $session->getCreatedAt();
+
+            if($dateSession->format("Y") == $years[0] && $dateSession->format("m") >= 8){}
+            else if($dateSession->format("Y") == $years[1] && $dateSession->format("m") <= 7){}
+            else return $this->notAuthorized();
+
+            foreach ($this->getUser()->getGroups() as $groups) {
+                foreach ($session->getGroups() as $group) {
+                    if($groups === $group) $r = true;
+                }
+            }
+        } else {
+            $r = true;
+        }
+        return $r;
     }
 }
