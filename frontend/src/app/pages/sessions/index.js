@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-import React, { useCallback, useEffect, useState } from "react";
-import { Card, CardBody, Col, Container, FormSelect, Row, Tooltip } from "shards-react";
-=======
 import React, {useCallback, useEffect, useState} from "react";
 import {Card, CardBody, Col, Container, FormSelect, Row} from "shards-react";
->>>>>>> c5632b0f6c33b8b2782dad15997757fcb969c2a4
 import style from "./sessions.module.css";
 import { FaBookOpen, FaMinus, FaPlus } from "react-icons/fa";
 import moment from "moment";
@@ -206,13 +201,8 @@ export default function Seances() {
 					isOpen={openMenu}
 				>
 					<MainButton
-<<<<<<< HEAD
-						iconResting={<FaPlus style={{ fontSize: 20, color: "black" }} />}
-						iconActive={<FaMinus style={{ fontSize: 20, color: "black" }} />}
-=======
 						iconResting={<FaPlus style={{ fontSize: 20, color: "white"}} />}
 						iconActive={<FaMinus style={{ fontSize: 20, color: "white" }} />}
->>>>>>> c5632b0f6c33b8b2782dad15997757fcb969c2a4
 						backgroundColor="black"
 						onClick={() => setOpenMenu(!openMenu)}
 						size={56}
@@ -224,10 +214,6 @@ export default function Seances() {
 						size={70}
 						onClick={() => navigate("/seances/ajoutSeance")}
 					/>
-<<<<<<< HEAD
-
-=======
->>>>>>> c5632b0f6c33b8b2782dad15997757fcb969c2a4
 				</FloatingMenu>
 			</Container>
 
