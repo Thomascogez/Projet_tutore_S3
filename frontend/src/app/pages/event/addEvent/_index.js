@@ -38,7 +38,6 @@ import { FaTrash } from "react-icons/fa";
 import FileTableLoader from "../../../components/loader/FileTableLoader";
 import RadioLoader from "../../../components/loader/RadioLoader";
 import Unauthorized from "../../401";
-import {login} from "../../../providers/actions/userActions";
 
 export default function AddEvent({ edit, eventID }) {
   //configure date to local for the datePicker
@@ -180,13 +179,13 @@ export default function AddEvent({ edit, eventID }) {
         .all(request)
         .then(() => {
           resetInformations();
-          fetchSession();
+          if(edit)fetchSession()
           toast.success("Fichier(s) ajouté");
           setFileUploadPending(false);
         })
         .catch(err => {
           resetInformations();
-          console.log(err.response);
+          console.log(err);
           toast.error("Erreur lors de l'ajout de Fichier(s)");
           setFileUploadPending(false);
         });

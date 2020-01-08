@@ -5,6 +5,7 @@ import style from "./collapse.module.css";
 import ModalViewDetails from "../../view_event_components/ModalViewDetails"
 import ModalViewFiles from "../../view_event_components/ModalViewsFiles"
 import {FaFileAlt} from 'react-icons/fa';
+import moment from "moment";
 
 export default function Collapse({ title, size, events }) {
   const [open, setOpen] = useState(false);
@@ -19,7 +20,6 @@ export default function Collapse({ title, size, events }) {
                   <th>Type séance</th>
                   <th>Description</th>
                   <th>Durée</th> 
-                  {/* ({totalDuration}h) */}
                   <th>Echéance</th>
                   <th>Pièces jointes</th>
                   {/* <th>Edition</th> */}
@@ -42,6 +42,8 @@ export default function Collapse({ title, size, events }) {
             </td>
             <td>{event.session.type}</td>
             <td><ModalViewDetails text={event.name}/></td>
+            <td>{event.duration && moment(event.duration).format("HH:MM")}</td>
+            <td>{event.dueAt && moment(event.dueAt).format("DD/MM/YYYY")}</td>
 
             <td>
                 {event.attachmentEvents.length !== 0 ?(
@@ -62,11 +64,11 @@ export default function Collapse({ title, size, events }) {
 
   return (
     <>
-        <tr>
-          <td onClick={() => setOpen(!open)} className={style.ViewCollapse}>
-            {open ? <FaAngleDown /> : <FaAngleRight />} {title}
-          </td>
-        </tr>
+       
+        <div onClick={() => setOpen(!open)} className={style.ViewCollapse}>
+        {open ? <FaAngleDown /> : <FaAngleRight />} {title}
+      </div>
+        
         <ShardCollaps open={open}>{tab()}</ShardCollaps>
     </>
   );
