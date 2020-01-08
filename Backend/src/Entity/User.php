@@ -38,7 +38,7 @@ class User implements UserInterface
     /**
      * Role in website ["ROLE_TEACHER", "ROLE_TUTOR", "ROLE_ADMIN"]
      * @ORM\Column(type="json")
-     * @Groups({"user"})
+     * @Groups({"user", "group_info", "events", "session_detail", "comment"})
      */
     private $roles = [];
 

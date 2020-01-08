@@ -324,7 +324,7 @@ class UserController extends AbstractController
     /**
      * Delete user by id
      * @Rest\Delete("/api/users/{id}", name="delete_user_action")
-     * @Rest\View(statusCode=Response::HTTP_NO_CONTENT, serializerGroups={"user"})
+     * @Rest\View(serializerGroups={"user"})
      * @Operation(
      *     path="/api/users/{id}",
      *     operationId="DeleteUser",

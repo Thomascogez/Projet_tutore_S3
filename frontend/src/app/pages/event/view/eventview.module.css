@@ -21,13 +21,15 @@
     width: 100% !important;
 }
 
-
-
 .AddComment textarea {
     display:inline-block;
     position: relative;
     width: 80%;
    
+}
+
+.ButtonModify{
+    float: right;
 }
 
 @media (max-width: 800px) {

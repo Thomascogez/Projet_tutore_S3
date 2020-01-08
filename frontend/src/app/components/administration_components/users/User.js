@@ -16,6 +16,8 @@ import {Multiselect} from "react-widgets";
 import {APIEditUser} from "../../../api/userFetch";
 import {toast} from 'react-toastify';
 import DeleteUser from "./DeleteUser";
+import {useDispatch, useSelector} from "react-redux";
+import {getUserProfile} from "../../../providers/actions/userActions";
 
 toast.configure();
 
@@ -41,6 +43,10 @@ export default function User(props) {
 
     const [admin, setAdmin] = useState(props.roles.includes("ROLE_ADMIN"));
 
+    const dispatch = useDispatch();
+
+    const userState = useSelector(state => state.user);
+
     const handleValidate = () => {
 
         let tmpGroups = [];
@@ -63,6 +69,7 @@ export default function User(props) {
         APIEditUser(props.id, req)
             .then(data => {
                 toast.success("Modification effectué !")
+                dispatch(getUserProfile())
             })
             .catch(err => {
                 console.log(req)

@@ -3,7 +3,7 @@ import {Modal, ModalHeader, ModalBody, ModalFooter, Button, Badge} from "shards-
 import style from "./deleteUser.module.css";
 import {useDispatch} from "react-redux";
 import {toast} from "react-toastify";
-import {removeUser} from "../../../providers/actions/userActions";
+import {getUsers, removeUser} from "../../../providers/actions/userActions";
 
 
 toast.configure();

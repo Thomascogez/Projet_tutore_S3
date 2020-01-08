@@ -17,7 +17,7 @@ import Loader from "react-loader-spinner";
 import { FaAngleDown, FaAngleRight } from "react-icons/fa";
 import ProfileRound from "../../../components/profileRound_component/ProfileRound";
 import style from "./eventview.module.css";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import Comment from "../../../components/view_event_components/Comment";
 import Event from "../../../components/view_event_components/Event";
@@ -30,6 +30,8 @@ import TextLoader from "../../../components/loader/TextLoader";
 import TableLoader from "../../../components/loader/TableLoader";
 import TitleLoader from "../../../components/loader/TitleLoader";
 import { navigate } from "hookrouter";
+import {getUserProfile} from "../../../providers/actions/userActions";
+import {APIgetMyAccount} from "../../../api/userFetch";
 
 //loader
 
@@ -49,13 +51,22 @@ export default function ViewsEvent({ seanceId }) {
 
   const [unauthorized, setUnauthorized] = useState(false);
 
+  const [myProperty, setMyProperty] = useState(false);
+
   const user = useSelector(state => state.user);
+
+  const dispatch = useDispatch();
+  const userState = useSelector(state => state.user);
 
   useEffect(() => {
     //fetch the api to get information about the session
     APIgetSession(seanceId.seanceId)
       .then(data => {
         setInfo(data.data);
+        APIgetMyAccount().then(myUser => {
+          if(data.data.user.username === myUser.data.username)
+            setMyProperty(true);
+        })
         APIEditSemaphore(Object.entries(data.data.semaphores)[0][1].id, {"status": 1})
       })
       .catch(err => {
@@ -145,8 +156,8 @@ export default function ViewsEvent({ seanceId }) {
                   {info.user ? (
                     <Badge theme="light">
                       {" "}
-                      <a href={`mailto:${info.user.username}@univ-lehavre.fr`}>
-                        {info.user.username}@univ-lehavre.fr
+                      <a href={`mailto:${info.user.username}@${(info.user.roles.includes('ROLE_TUTOR'))?"etu.":""}univ-lehavre.fr`}>
+                        {info.user.username}@{(info.user.roles.includes('ROLE_TUTOR'))?"etu.":""}univ-lehavre.fr
                       </a>
                     </Badge>
                   ) : (
@@ -175,6 +186,8 @@ export default function ViewsEvent({ seanceId }) {
                   : ""}
               </CardHeader>
               <CardBody>
+
+                {myProperty && (<Button className={style.ButtonModify} onClick={() => navigate(`/seances/modifier/${info.id}`)}>Modifier la séance</Button>)}
                 <h1>
                   {info.module ? (
                     <>
