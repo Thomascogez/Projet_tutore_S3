@@ -13,6 +13,7 @@ export default function EventType(props) {
     const [editing, setEditing] = useState((props === null));
     const [deleting, setDeleting] = useState(false);
     const [error, setError] = useState({});
+    const [invalidEdit, setInvalidEdit] = useState(false);
     props = props.sessionType;
 
     const sessionTypeState = useSelector(state => state.sessionType);
@@ -31,17 +32,22 @@ export default function EventType(props) {
         if (req.name === "") {
             toast.error("Le nom du type d'évènement ne peut être vide !");
             setName((props != null)?props.name:'');
+            setInvalidEdit(true);
         } else {
             if(props === null) {
                 APIAddEventType(req)
                     .then(res => {
                         toast.success("Nouveau type ajouté !");
+                        setInvalidEdit(false);
                         setEditing(false);
                         window.location.reload();
 
                     })
                     .catch(err => {
-                        toast.error(err.response.data.message);
+                        console.log(err.response);
+                        
+                        toast.error(err.response);
+                        setInvalidEdit(true);
                         if(err.response.data.errors) {
                             setError(err.response.data.errors.children);
                         }
@@ -73,12 +79,12 @@ export default function EventType(props) {
                 <td>
                     {(props === null)?(
                         editing ?
-                            <FormInput value={name} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
+                            <FormInput value={name} invalid={name==''} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
                             :
                             <a onClick={() => setEditing(true)} href="javascript:void(0);"><span style={{fontWeight: "bold"}}>Ajouter un type d'évènement ...</span></a>
                     ):(
                         editing ?
-                            <FormInput value={name} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
+                            <FormInput value={name} invalid={name==''} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
                             :<span style={{fontWeight: "bold"}}>{name}</span>
                     )}
                 </td>
