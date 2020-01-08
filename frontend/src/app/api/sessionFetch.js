@@ -1,5 +1,14 @@
 import axios from 'axios'
-import { GET_GROUP_BY_ID, GET_ALL_SESSION_TYPES,GET_ALL_SESSIONS, POST_NEW_SESSION, GET_MY_SESSION, DEL_SESSION_ID, PATCH_SESSION } from '../types/apiConst'
+import {
+    GET_GROUP_BY_ID,
+    GET_ALL_SESSION_TYPES,
+    GET_ALL_SESSIONS,
+    POST_NEW_SESSION,
+    GET_MY_SESSION,
+    DEL_SESSION_ID,
+    PATCH_SESSION,
+    EDIT_SEMAPHORE
+} from '../types/apiConst'
 
 const CancelToken = axios.CancelToken;
 const source = CancelToken.source();
@@ -59,9 +68,15 @@ const APIgetMySession = () => {
 }
 
 const APIdelSessionID = (id) => {
-    return axios.delete(DEL_SESSION_ID + '/' + id,
+    return axios.delete(DEL_SESSION_ID + `/${id}`,
         {headers: {Authorization: "Bearer " + localStorage.getItem("token") }}
     )
 }
 
-export { APIgetAllSession, APIgetSession, APIgetSessionTypes, APIpostNewSession, APIgetMySession, APIdelSessionID, APIpatchSession}
+const APIEditSemaphore = (id, req) => {
+    return axios.patch(EDIT_SEMAPHORE + `/${id}`, req,
+        {headers: { Authorization: "Bearer " + localStorage.getItem("token") }}
+    )
+}
+
+export { APIgetAllSession, APIEditSemaphore, APIgetSession, APIgetSessionTypes, APIpostNewSession, APIgetMySession, APIdelSessionID, APIpatchSession}

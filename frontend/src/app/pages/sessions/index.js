@@ -168,7 +168,7 @@ export default function Seances() {
 																					{(events2[1].duration) ? addDuration(events2[1].duration) : ""}
 																				</>
 																			))}
-																			<ViewSession  session={session[1]} duration={duration} finished={session[1].semaphores[0] && session[1].semaphores[0].status} />
+																			<ViewSession  session={session[1]} duration={duration} finished={Object.entries(session[1].semaphores)[0][1]} />
 																			{reinitDuration()}
 																		</>
 																	))}

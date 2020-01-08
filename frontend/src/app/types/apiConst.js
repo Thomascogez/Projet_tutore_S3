@@ -27,12 +27,14 @@ const EDIT_MODULES   = PATH_API + "/api/modules";
 const DELETE_MODULES = PATH_API + "/api/modules";
 const GET_MODULE     = PATH_API + "/api/modules";
 // --------------------   Session  ---------------------- //
-const GET_ALL_SESSION_TYPES = PATH_API+"/api/session_types"
+const GET_ALL_SESSION_TYPES = PATH_API+"/api/session_types";
 const POST_NEW_SESSION      = PATH_API+"/api/sessions"
 const PATCH_SESSION         = PATH_API+"/api/sessions"
 
+const EDIT_SEMAPHORE        = PATH_API + "/api/semaphore";
 
-const GET_ALL_EVENT_TYPES   = PATH_API+"/api/event_types"
+
+const GET_ALL_EVENT_TYPES   = PATH_API+"/api/event_types";
 
 const ALL_EVENT_TYPES   = PATH_API + "/api/event_types";
 const EDIT_EVENT_TYPE   = PATH_API + "/api/event_types";
@@ -101,5 +103,6 @@ export {
     DEL_SESSION_ID,
     PATCH_SESSION,
     GET_ALL_SETTING,
-    EDIT_SETTINGS
+    EDIT_SETTINGS,
+    EDIT_SEMAPHORE
 };

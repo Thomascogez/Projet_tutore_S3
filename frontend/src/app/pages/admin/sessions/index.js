@@ -92,8 +92,7 @@ export default function Sessions()
                                                 {
                                                     Object.entries(weekSessions[1]).map(daySessions => (
                                                         <>
-                                                            {console.log(moment( date.year()+"-"+date.month() + daySessions[1][0] ).format("dddd"))}
-                                                            <Collapse title={<>{moment( date.year()+"-"+date.month() + daySessions[1][0] ).format("dddd DD") }</>}>
+                                                            <Collapse title={<>{moment( date.year() + "-" + date.format("MM") + "-" + daySessions[1][0]).format("dddd DD") }</>}>
                                                                 <table  className={`table table-striped table-hover table-bordered ${adminStyle.Scroll}`}>
                                                                     <thead>
                                                                     <tr>
