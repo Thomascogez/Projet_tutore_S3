@@ -1,21 +1,17 @@
 import React, { useState } from "react";
-import Modal, { Button, FormInput, ButtonGroup } from "shards-react";
+import { Button, FormInput, ButtonGroup } from "shards-react";
 import { FaCheck, FaTimes, FaBold } from "react-icons/fa";
 import DeleteModal from "./DeleteModal";
-import {useSelector} from "react-redux";
 import InputColor from "react-input-color";
-import DeleteGroup from "../groupe/DeleteGroup";
 import {toast} from "react-toastify";
-import {APIAddGroup, APIEditGroup} from "../../../api/groups";
 import {APIAddModule, APIEditModule} from "../../../api/modules";
 
 export default function Module(props) {
     const [editing, setEditing] = useState(false);
     const [deleting,  setDeleting] = useState(false);
     const [error, setError] = useState({});
+    const [invalidEdit, setInvalidEdit] = useState(false);
     props = props.module;
-
-    const moduleState = useSelector(state => state.module);
 
     const [code,  setCode]  = useState((props != null)?props.code:"");
     const [name,  setName]  = useState((props != null)?props.name:"");
@@ -32,20 +28,24 @@ export default function Module(props) {
         if (req.name === "") {
             toast.error("Le nom du module ne peut être vide !");
             setName((props != null) ? props.name : '');
+            setInvalidEdit(true)
         }
         else if (req.code === "") {
             toast.error("Le code du module ne peut être vide !");
             setName((props != null) ? props.name : '');
+            setInvalidEdit(true);
         } else {
             if (props === null) {
                 APIAddModule(req)
                     .then(res => {
                         toast.success("Nouveau module ajouté !");
                         setEditing(false);
+                        setInvalidEdit(false);
                         window.location.reload();
                     })
                     .catch(err => {
-                        toast.error(err.response.data.message);
+                        setInvalidEdit(true)
+                        toast.error(err.response.data.errors.children.code.errors[0]);
                         if (err.response.data.errors) {
                             setError(err.response.data.errors.children);
                         }
@@ -58,10 +58,11 @@ export default function Module(props) {
                         setColor(req.color);
                         setCode(req.code);
                         setEditing(false);
+                        setInvalidEdit(false);
                     })
                     .catch(err => {
-                        console.log(err.response)
-                        toast.error(err.response.data.message);
+                        setInvalidEdit(true);
+                        toast.error(err.response.data.errors.children.code.errors[0]);
                         if (err.response.data.errors) {
                             setError(err.response.data.errors.children);
                         }
@@ -83,16 +84,16 @@ export default function Module(props) {
             <td>
                 {(props === null)?(
                 editing ?
-                    <FormInput value={code} onChange={e => setCode(e.target.value)} placeholder="Code ..."/>
+                    <FormInput value={code} invalid={invalidEdit} onChange={e => setCode(e.target.value)} placeholder="Code ..."/>
                 :
                     <a onClick={() => setEditing(true)} href="javascript:void(0);"><span style={{fontWeight: "bold"}}>Ajouter un module ...</span></a>
                 ):(
-                    editing ? <FormInput value={code} onChange={e => setCode(e.target.value)} placeholder="Code ..." /> : code
+                    editing ? <FormInput value={code} invalid={invalidEdit} onChange={e => setCode(e.target.value)} placeholder="Code ..." /> : code
                 )}
             </td>
             <td>
                 {editing ?
-                    <FormInput value={name} onChange={e => setName(e.target.value)} placeholder="Nom ..." />
+                    <FormInput value={name} invalid={invalidEdit} onChange={e => setName(e.target.value)} placeholder="Nom ..." />
                     : name
                 }
             </td>
