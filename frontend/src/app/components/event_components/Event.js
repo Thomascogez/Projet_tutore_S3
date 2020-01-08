@@ -5,23 +5,23 @@ import {FaCheck, FaFileAlt, FaTimes} from 'react-icons/fa';
 import moment from 'moment';
 import ModalViewDetails from "../view_event_components/ModalViewDetails"
 
-export default function Event(props) {
+export default function Event({event, size}) {
 
-    const [editing, setEditing] = useState((props === null));
-    props = props.event;
+    const [editing, setEditing] = useState(false);
+    
 
-    const [name, setName] = useState(props.name)
-    const [session, setSession] = useState(props.session)
-    const duree = (props.duration) ? ('0' + Math.floor(props.duration) % 24).slice(-2) + 'h' + ((props.duration % 1) * 60 + '0').slice(0, 2) : "00h00";
+    const [name, setName] = useState(event.name)
+    const [session, setSession] = useState(event.session)
+    const duree = (event.duration) ? ('0' + Math.floor(event.duration) % 24).slice(-2) + 'h' + ((event.duration % 1) * 60 + '0').slice(0, 2) : "00h00";
 
     return (
         <React.Fragment>
             <tr>
                 <td>
-                    {props.type === "fait" ? 
-                    <Badge theme="info" style={{width: "50px"}}>{props.type}</Badge>
+                    {event.type === "fait" ? 
+                    <Badge theme="info" style={{width: "50px"}}>{event.type}</Badge>
                     :
-                    <Badge theme="warning" style={{width: "50px"}}>{props.type}</Badge>
+                    <Badge theme="warning" style={{width: "50px"}}>{event.type}</Badge>
                     }
                 </td>
                 <td>
@@ -30,11 +30,11 @@ export default function Event(props) {
                 <td>{session.type}</td>
                 <td><ModalViewDetails text={name}/></td>
                 <td>{duree !== "00h00" ? duree : "Pas définie"}</td>
-                <td>{(props.dueAt) ? moment(props.dueAt).format("DD/MM/YYYY") : "Pas définie"}</td>
+                <td>{(event.dueAt) ? moment(event.dueAt).format("DD/MM/YYYY") : "Pas définie"}</td>
                 <td>
-                    {props.attachmentEvents.length !== 0 ?(
+                    {event.attachmentEvents.length !== 0 ?(
                         <ModalViewFiles
-                            files={props.attachmentEvents}
+                            files={event.attachmentEvents}
                         />
                     ) : (
                         <FaFileAlt style={{ color: "grey" }} />
@@ -52,12 +52,12 @@ export default function Event(props) {
                         </ButtonGroup>
                     ) : (
                         <ButtonGroup>
-                            {(props != null)? (
+                            {/* {(props != null)? (
                                 <React.Fragment>
                                     <Button onClick={() => setEditing(true)}>Edition</Button>
                                     <Button theme="danger">Supprimer</Button>
                                 </React.Fragment>
-                            ):(<React.Fragment />)}
+                            ):(<React.Fragment />)} */}
                         </ButtonGroup>
                     )}
                 </td>
