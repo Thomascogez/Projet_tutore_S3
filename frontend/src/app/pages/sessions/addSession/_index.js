@@ -69,6 +69,7 @@ export default function AddSession({ edit, id }) {
   const [collapseGroups, setcollapseGroups] = useState(false);
   const [requestPending, setRequestPending] = useState(false);
   const [modal, setModal] = useState(false);
+  const [newId, setNewId] = useState(0);
 
   /**
    * fetchSession
@@ -162,6 +163,7 @@ export default function AddSession({ edit, id }) {
     } else {
       APIpostNewSession(newSeance.module, newSeance.type, newSeance.groups)
         .then(data => {
+          setNewId(data.data.id);
           reset();
           dispatch(setSession(data.data));
           dispatch(setGroup(newSeance.groups));
@@ -311,7 +313,7 @@ export default function AddSession({ edit, id }) {
                 >
                   Oui
                 </Button>{" "}
-                <Button theme="danger">Non</Button>
+                <Button theme="danger" onClick={() => navigate(`/seance/${newId}`)}>Non</Button>
               </ModalFooter>
             </Modal>
           </>

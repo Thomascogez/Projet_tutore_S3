@@ -1,5 +1,5 @@
 import React from "react";
-import {Button} from 'shards-react';
+import {Badge, Button} from 'shards-react';
 import moment from 'moment';
 import {MdDelete} from 'react-icons/md';
 import {APIdelSessionID} from '../../api/sessionFetch';
@@ -12,7 +12,7 @@ export default function Session({session}) {
         setTimeout(function(){
             window.location.reload();
         }, 500);
-        
+
     }
 
     return (
@@ -20,10 +20,10 @@ export default function Session({session}) {
             {console.log(session)}
             <tr>
                 <td >{moment(session.createdAt).format("DD/MM/YYYY")}</td>
-                <td>{session.module.name}</td>
-                <td>{session.groups && session.groups.map(groupeName => (groupeName.name + " "))}</td>
+                <td><Badge style={{backgroundColor: session.module.color, width: "100px"}}>{session.module.name}</Badge></td>
+                <td>{session.groups && session.groups.map(group => (<Badge style={{backgroundColor: group.color, marginRight: "2px"}}>{group.name}</Badge>))}</td>
                 <td>
-                    <Button onClick={() => navigate('/seances/modifier')}>Edit</Button>
+                    <Button onClick={() => navigate(`/seances/modifier/${session.id}`)}>Éditer</Button>
                     <Button theme='danger' style={{height:'41px', marginLeft:'5px'}} onClick={() => delSession(session.id)}><MdDelete size={20}/></Button>                
                 </td>
             </tr>
