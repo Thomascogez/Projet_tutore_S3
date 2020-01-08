@@ -35,7 +35,12 @@ export default function Seances() {
     const [allTypes, setAllTypes] = useState([]);
     const [type, setType] = useState("");
 
+    const [view, setView] = useState(false);
+
+ 
+
     var duration = 0;
+    var finished = -1;
 
     function addDuration(dur) {
         duration += dur
@@ -139,7 +144,6 @@ export default function Seances() {
                     :
                     <>
 
-
                         {Object.entries(allSessions).length === 0 ? !loading && <h2>Aucune séance sur ce mois</h2> : ("")}
 
                         {Object.entries(allSessions).map(weekSessions => (
@@ -163,12 +167,13 @@ export default function Seances() {
                                                                 <WorkContainer>
                                                                     {Object.entries(daySessions[1][1]).map(session => (
                                                                         <>
+   
                                                                             {Object.entries(session[1].events).map(events2 => (
                                                                                 <>
                                                                                     {(events2[1].duration) ? addDuration(events2[1].duration) : ""}
                                                                                 </>
                                                                             ))}
-                                                                            <ViewSession session={session[1]} duration={duration} />
+                                                                            <ViewSession  session={session[1]} duration={duration} finished={session[1].semaphores[0].status } />
                                                                             {reinitDuration()}
                                                                         </>
                                                                     ))}
