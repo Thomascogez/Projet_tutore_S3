@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Card,
@@ -9,7 +9,7 @@ import {
   Button,
   FormRadio,
   Badge,
-  Modal,  
+  Modal,
   ModalHeader,
   ModalFooter
 } from "shards-react";
@@ -17,9 +17,8 @@ import { Multiselect } from "react-widgets";
 import Collapse from "../../../components/layouts/Collapse";
 import style from "./_addsession.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import axios from 'axios'
 import { toast } from 'react-toastify';
-import { APIgetSessionTypes, APIpostNewSession } from "../../../api/sessionFetch";
+import { APIgetSessionTypes, APIpostNewSession, APIgetSession, APIpatchSession } from "../../../api/sessionFetch";
 import Loader from 'react-loader-spinner'
 import { setGroup, setSession } from '../../../providers/actions/addSessionActions'
 import { navigate } from "hookrouter";
@@ -30,13 +29,9 @@ import { navigate } from "hookrouter";
  *
  * Page used to handle the add of sessions
  */
-export default function AddSession() {
+export default function AddSession({ edit, id }) {
 
-  const dispatch = useDispatch();
-
-  const user = useSelector(state => state.user);
-  
-  const INITIAL_STATE = {
+  const INITIAL_STATE = { //initial state for session add 
     module: "",
     name: "",
     color: "",
@@ -44,6 +39,22 @@ export default function AddSession() {
     groups: [],
   }
   const [newSeance, setnewSeance] = useState(INITIAL_STATE);
+
+  //session edition mod only
+
+  useEffect(() => {
+    if (edit) {
+      fetchSession()
+    }
+  }, [])
+
+
+
+  const dispatch = useDispatch();
+
+  const user = useSelector(state => state.user);
+
+
 
 
 
@@ -53,6 +64,25 @@ export default function AddSession() {
   const [collapseGroups, setcollapseGroups] = useState(false);
   const [requestPending, setRequestPending] = useState(false)
   const [modal, setModal] = useState(false)
+
+  /**
+   * fetchSession
+   * 
+   * Get information about a session (edit mod only)
+   */
+  const fetchSession = () => {
+    APIgetSession(id.sessionID)
+    .then(data => {
+      //using new seance to store modified data 
+      setnewSeance({  //setting by default data fetch from the session
+        module: data.data.module.code,
+        name: data.data.module.name,
+        color: data.data.module.color,
+        type: data.data.type,
+        groups: data.data.groups.map(group => group.name),
+      })
+    })
+  }
 
   /**
    * handleSelectModule
@@ -77,9 +107,7 @@ export default function AddSession() {
 
   const handleSetType = type => {
     setnewSeance({ ...newSeance, type });
-
     //update redux store for next step
-
     setcollapseTypeModule(false);
     setcollapseGroups(true);
   };
@@ -88,30 +116,50 @@ export default function AddSession() {
     return newSeance.module !== "" && newSeance.type !== "" && newSeance.groups.length > 0
   }
 
+  const reset = () => {
+    setnewSeance(INITIAL_STATE)
+    setcollapseGroups(false)
+    setcollapseTypeModule(false)
+    setcollapseSelectModule(true)
+  }
+
   /**
    * postSession
    * 
    * Handle the post of one or multiple sessions
    */
   const postSession = () => {
-
-
     setRequestPending(true);
 
-    APIpostNewSession(newSeance.module, newSeance.type, newSeance.groups)
-      .then(data => {
-        console.log(data.data);
-        dispatch(setSession(data.data))
-        dispatch(setGroup(newSeance.groups))
-        setRequestPending(false);
-        toast.success("Séance(s) ajoutée(s) avec succès")
-        setnewSeance(INITIAL_STATE)
-        setcollapseGroups(false)
-        setcollapseTypeModule(false)
-        setcollapseSelectModule(true)
-        setModal(true)
-        
-      })
+    if (edit) { //if in edit mod send patch request
+      APIpatchSession( id.sessionID, newSeance.module, newSeance.type, newSeance.groups )
+        .then(() => {
+          reset()
+          toast.success("Séance modifiée avec succès")
+          setRequestPending(false);
+          fetchSession();
+
+        })
+        .catch(err => {
+          console.log(err.response);
+          
+          setRequestPending(false)
+        })
+
+    } else {
+      APIpostNewSession(newSeance.module, newSeance.type, newSeance.groups)
+        .then(data => {
+          reset()
+          dispatch(setSession(data.data))
+          dispatch(setGroup(newSeance.groups))
+          setRequestPending(false);
+          toast.success("Séance(s) ajoutée(s) avec succès")
+          setModal(true)
+        })
+        .catch(() => setRequestPending(false))
+
+    }
+
 
   }
 
@@ -121,8 +169,8 @@ export default function AddSession() {
   return (
     <Container fluid className={style.AddSessionContainer}>
       <Row>
-        {newSeance.module !== "" && (
-          <Col  sm="12" lg="3">
+        {!edit && newSeance.module !== "" || edit && (
+          <Col sm="12" lg="3">
             <Card>
               <CardHeader>Résumé</CardHeader>
               <CardBody>
@@ -138,7 +186,9 @@ export default function AddSession() {
                 )}
                 <hr />
                 <h5>Groupes</h5>
+
                 {newSeance.groups && newSeance.groups.join(", ")}
+
                 <hr />
               </CardBody>
 
@@ -152,9 +202,9 @@ export default function AddSession() {
           </Col>
         )}
 
-        <Col className="order-first" sm="12" lg={newSeance.module !== "" ? 9 : 12}>
+        <Col className="order-first" sm="12" lg={newSeance.module !== "" || edit ? 9 : 12}>
           <Card>
-            <CardHeader>Ajout d'une nouvelle séances</CardHeader>
+            <CardHeader>{edit ? "Modification de la séance" : "Ajout d'une nouvelle séance"}</CardHeader>
             <CardBody>
               <Collapse
                 title="Choix du module"
@@ -187,6 +237,7 @@ export default function AddSession() {
                       key={type}
                       name="groupe"
                       onClick={() => handleSetType(type)}
+                      checked={type === newSeance.type}
                     >
                       {type}
                     </FormRadio>
@@ -205,6 +256,9 @@ export default function AddSession() {
                       setnewSeance({ ...newSeance, groups: value },
                       )
                     }
+
+                    valueField={edit && "name"}
+                    textField={edit && "name"}
                     data={user.user.groups.map(group => group.name)}
                   />
                 )}
@@ -216,10 +270,10 @@ export default function AddSession() {
         </Col>
       </Row>
       <Modal size="lg" open={modal} toggle={() => setModal(!modal)}>
-          <ModalHeader>Voulez-vous ajouter des événements maintenant ?</ModalHeader>
-          <ModalFooter> <Button onClick= {() => navigate('/seances/evenement/ajout')} theme="success">Oui</Button> <Button theme="danger">Non</Button></ModalFooter>
-        </Modal>
+        <ModalHeader>Voulez-vous ajouter des événements maintenant ?</ModalHeader>
+        <ModalFooter> <Button onClick={() => navigate('/seances/evenement/ajout')} theme="success">Oui</Button> <Button theme="danger">Non</Button></ModalFooter>
+      </Modal>
     </Container>
-    
+
   );
 }

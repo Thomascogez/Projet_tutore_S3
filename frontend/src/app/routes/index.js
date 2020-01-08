@@ -24,32 +24,29 @@ import ProtectedRouteAdmin from '../utils/protectedRouteAdmin';
 import Sessions from "../pages/admin/sessions";
 
 const routes = {
-    '/' : () => <Home />,
-    '/passwordForget' : () => <Password />,
-    '/passwordReset/:token' : (token) => <PasswordReset token={token} />,
-
-    '/profil' : () =>    <ProtectedRoute> <Userprofile/></ProtectedRoute>,
-    '/options' : () =>   <ProtectedRoute> <Options />   </ProtectedRoute>,
+    '/': () => <Home />,
+    '/passwordForget': () => <Password />,
+    '/passwordReset/:token': (token) => <PasswordReset token={token} />,
+    '/profil': () => <ProtectedRoute> <Userprofile /></ProtectedRoute>,
+    '/options': () => <ProtectedRoute> <Options />   </ProtectedRoute>,
     '/mesSeances': () => <ProtectedRoute> <MySession /> </ProtectedRoute>,
+    '/myEvents': () => <ProtectedRoute> <MyEvents /> </ProtectedRoute>,
+    '/seances': () => <ProtectedRoute> <Seances />                          </ProtectedRoute>,
+    '/seances/ajoutSeance': () => <ProtectedRoute> <AddSession />                       </ProtectedRoute>,
+    '/seance/:seanceId': (seanceId) => <ProtectedRoute> <ViewsSession seanceId={seanceId} /> </ProtectedRoute>,
+    '/seances/evenement/ajout': () => <ProtectedRoute> <AddEvent />                         </ProtectedRoute>,
+    '/seances/modifier/:sessionID': (sessionID) => <ProtectedRoute> <AddSession id={sessionID} edit />  </ProtectedRoute>,
 
-    '/myEvents' : () =>                  <ProtectedRoute> <MyEvents /> </ProtectedRoute>,
+    '/administration': () => <ProtectedRoute><ProtectedRouteAdmin> <Administration /> </ProtectedRouteAdmin></ProtectedRoute>,
+    '/administration/utilisateurs': () => <ProtectedRoute><ProtectedRouteAdmin> <GererUtilisateur /></ProtectedRouteAdmin></ProtectedRoute>,
+    '/administration/utilisateurs/ajout/etape1': () => <ProtectedRoute><ProtectedRouteAdmin> <AddUser />        </ProtectedRouteAdmin></ProtectedRoute>,
+    '/administration/utilisateurs/ajout/etape2': () => <ProtectedRoute><ProtectedRouteAdmin> <AddUserPage2 />   </ProtectedRouteAdmin></ProtectedRoute>,
+    '/administration/modules': () => <ProtectedRoute><ProtectedRouteAdmin> <EditModule />     </ProtectedRouteAdmin></ProtectedRoute>,
+    '/administration/groupe': () => <ProtectedRoute><ProtectedRouteAdmin> <EditGroup />      </ProtectedRouteAdmin></ProtectedRoute>,
+    '/administration/type': () => <ProtectedRoute><ProtectedRouteAdmin> <Types />          </ProtectedRouteAdmin></ProtectedRoute>,
+    '/administration/sessions': () => <ProtectedRoute><ProtectedRouteAdmin> <Sessions />       </ProtectedRouteAdmin></ProtectedRoute>,
 
-    '/seances' : () =>                   <ProtectedRoute> <Seances />                          </ProtectedRoute>,
-    '/seances/ajoutSeance': () =>        <ProtectedRoute> <AddSession />                       </ProtectedRoute>,
-    '/seance/:seanceId'  : (seanceId) => <ProtectedRoute> <ViewsSession seanceId={seanceId} /> </ProtectedRoute>,
-    '/seances/evenement/ajout' : () =>   <ProtectedRoute> <AddEvent />                         </ProtectedRoute>,
-    '/seances/modifier' : () =>          <ProtectedRoute> <AddSession />                       </ProtectedRoute>,
-
-    '/administration' : () =>                           <ProtectedRoute><ProtectedRouteAdmin> <Administration /> </ProtectedRouteAdmin></ProtectedRoute>,
-    '/administration/utilisateurs' : () =>              <ProtectedRoute><ProtectedRouteAdmin> <GererUtilisateur/></ProtectedRouteAdmin></ProtectedRoute>,
-    '/administration/utilisateurs/ajout/etape1' : () => <ProtectedRoute><ProtectedRouteAdmin> <AddUser />        </ProtectedRouteAdmin></ProtectedRoute>,
-    '/administration/utilisateurs/ajout/etape2' : () => <ProtectedRoute><ProtectedRouteAdmin> <AddUserPage2 />   </ProtectedRouteAdmin></ProtectedRoute>,
-    '/administration/modules' : () =>                   <ProtectedRoute><ProtectedRouteAdmin> <EditModule />     </ProtectedRouteAdmin></ProtectedRoute>,
-    '/administration/groupe' : () =>                    <ProtectedRoute><ProtectedRouteAdmin> <EditGroup />      </ProtectedRouteAdmin></ProtectedRoute>,
-    '/administration/type' : () =>                      <ProtectedRoute><ProtectedRouteAdmin> <Types />          </ProtectedRouteAdmin></ProtectedRoute>,
-    '/administration/sessions' : () =>                  <ProtectedRoute><ProtectedRouteAdmin> <Sessions />       </ProtectedRouteAdmin></ProtectedRoute>,
-
-    '/test' : () => <Test />,
+    '/test': () => <Test />,
 };
 
 export default routes;

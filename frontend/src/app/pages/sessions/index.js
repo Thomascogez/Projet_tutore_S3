@@ -18,7 +18,7 @@ import {
   ChildButton,
 } from 'react-floating-button-menu';
 import CollapseLoader from "../../components/loader/CollapseLoader";
-*
+
 export default function Seances() {
   moment.locale("fr");
   const [allSessions, setAllSessions] = useState({});

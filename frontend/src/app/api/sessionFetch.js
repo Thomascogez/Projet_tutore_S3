@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_GROUP_BY_ID, GET_ALL_SESSION_TYPES,GET_ALL_SESSIONS, POST_NEW_SESSION, GET_MY_SESSION, DEL_SESSION_ID } from '../types/apiConst'
+import { GET_GROUP_BY_ID, GET_ALL_SESSION_TYPES,GET_ALL_SESSIONS, POST_NEW_SESSION, GET_MY_SESSION, DEL_SESSION_ID, PATCH_SESSION } from '../types/apiConst'
 
 const CancelToken = axios.CancelToken;
 const source = CancelToken.source();
@@ -43,6 +43,14 @@ const APIpostNewSession = (code, type, groups ) => {
         {headers: { Authorization: "Bearer " + localStorage.getItem("token") }}
         )
 }
+const APIpatchSession = (id, code, type, groups ) => {
+    let module = code;
+    console.log(module ,type, groups);
+    return axios.patch(`${PATCH_SESSION}/${id}`,
+        { "module":module, "type":type, "groups":groups }, 
+        {headers: { Authorization: "Bearer " + localStorage.getItem("token") }}
+        )
+}
 
 const APIgetMySession = () => {
     return axios.get(GET_MY_SESSION,
@@ -56,4 +64,4 @@ const APIdelSessionID = (id) => {
     )
 }
 
-export { APIgetAllSession, APIgetSession, APIgetSessionTypes, APIpostNewSession, APIgetMySession, APIdelSessionID}
+export { APIgetAllSession, APIgetSession, APIgetSessionTypes, APIpostNewSession, APIgetMySession, APIdelSessionID, APIpatchSession}

@@ -29,6 +29,8 @@ const GET_MODULE     = PATH_API + "/api/modules";
 // --------------------   Session  ---------------------- //
 const GET_ALL_SESSION_TYPES = PATH_API+"/api/session_types"
 const POST_NEW_SESSION      = PATH_API+"/api/sessions"
+const PATCH_SESSION         = PATH_API+"/api/sessions"
+
 
 const GET_ALL_EVENT_TYPES   = PATH_API+"/api/event_types"
 
@@ -91,5 +93,6 @@ export {
     ALL_USER_EVENT,
     GET_MY_SESSION,
     GET_ALL_SESSIONS,
-    DEL_SESSION_ID
+    DEL_SESSION_ID,
+    PATCH_SESSION
 };
