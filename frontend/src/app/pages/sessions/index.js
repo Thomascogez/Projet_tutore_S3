@@ -197,7 +197,7 @@ export default function Seances() {
                     isOpen={openMenu}
                 >
                     <MainButton
-                        iconResting={<FaPlus style={{ fontSize: 20, color: "black" }} />}
+                        iconResting={<FaPlus style={{ fontSize: 20, color: "black"}} />}
                         iconActive={<FaMinus style={{ fontSize: 20, color: "black" }} />}
                         backgroundColor="black"
                         onClick={() => setOpenMenu(!openMenu)}

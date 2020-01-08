@@ -22,7 +22,7 @@ export default function Matiere({color, name, duration, done, finished, id, grou
                 </Row>
                 {duration?(
                     <span style={finished ?{textDecoration:"line-through", color:"rgb(211,211,211)"} : {} }> durée : {('0' + Math.floor(duration) % 24).slice(-2) + 'h' + ((duration % 1)*60 + '0').slice(0, 2)} </span>
-                ):("")}
+                ):("Durée : Aucune")}
 
                 <span style={finished ?{textDecoration:"line-through",color:"rgb(211,211,211)"} : {fontWeight:"490"} }> {done}</span>
             </div>
