@@ -26,9 +26,11 @@ const APIgetEventsByID = (eventID) => {
 };
 
 const APIpatchEvent = (sessionID, eventID, name, type, duration = "", dueAt = "") => {
-  console.log(sessionID, eventID, name, type, duration , dueAt);
+  let req = {};
+  if(name !== null || type !== null || type !== null || duration !== null || dueAt !== null)
+     req = {"name": name, "type":type, "duration":duration, "dueAt":dueAt}
   return axios.patch(`${PATH_API}/api/sessions/${sessionID}/events/${eventID}`,
-    {"name": name, "type":type, "duration":duration, "dueAt":dueAt},
+    req,
     { headers: { Authorization: "Bearer " + localStorage.getItem("token") } }
   )
 

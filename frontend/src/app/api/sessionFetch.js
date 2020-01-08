@@ -54,7 +54,6 @@ const APIpostNewSession = (code, type, groups ) => {
 }
 const APIpatchSession = (id, code, type, groups ) => {
     let module = code;
-    console.log(module ,type, groups);
     return axios.patch(`${PATCH_SESSION}/${id}`,
         { "module":module, "type":type, "groups":groups }, 
         {headers: { Authorization: "Bearer " + localStorage.getItem("token") }}
