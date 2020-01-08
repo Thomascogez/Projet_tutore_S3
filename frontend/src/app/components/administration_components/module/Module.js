@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, FormInput, ButtonGroup } from "shards-react";
-import { FaCheck, FaTimes, FaBold } from "react-icons/fa";
+import { FaCheck, FaTimes } from "react-icons/fa";
 import DeleteModal from "./DeleteModal";
 import InputColor from "react-input-color";
 import {toast} from "react-toastify";

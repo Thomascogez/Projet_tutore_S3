@@ -1,6 +1,5 @@
 import axios from "axios";
 import { GET_ALL_EVENT_TYPES, ALL_USER_EVENT, PATH_API } from "../types/apiConst";
-import { duration } from "moment";
 
 /**
  * APIgetEventTypes

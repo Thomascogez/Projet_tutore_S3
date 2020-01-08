@@ -6,6 +6,8 @@ namespace App\Controller\User;
 use App\Controller\AbstractController;
 use App\Entity\Groups;
 use App\Entity\Module;
+use App\Entity\Semaphore;
+use App\Entity\Session;
 use App\Entity\User;
 use App\Form\UserType;
 use Faker\Factory;
@@ -202,6 +204,15 @@ class UserController extends AbstractController
             $user->setColor("#" . sprintf('%06x', mt_rand(0, 1<<18 - 1)));
 
             $manager = $this->getDoctrine()->getManager();
+            $sessions = $this->getDoctrine()->getRepository(Session::class)->findAll();
+            foreach ($sessions as $session) {
+                $semaphore = new Semaphore();
+                $semaphore->setUser($user)
+                    ->setSession($session)
+                    ->setStatus(0);
+                $manager->persist($semaphore);
+            }
+
             $manager->persist($user);
             $manager->flush();
             return $user;
@@ -219,7 +230,7 @@ class UserController extends AbstractController
      * @Rest\RequestParam(name="firstname",      description="Firstname of user",  nullable=true)
      * @Rest\RequestParam(name="lastname",       description="Lastname of user",   nullable=true)
      * @Rest\RequestParam(name="plainPassword",  description="Password of user",   nullable=true)
-     * @Rest\RequestParam(name="module",         description="Array of modules",   nullable=true)
+     * @Rest\RequestParam(name="modules",         description="Array of modules",   nullable=true)
      * @Rest\RequestParam(name="groups",         description="Array of groups ",   nullable=true)
      * @Rest\RequestParam(name="color",          description="Color of user",   nullable=true)
      * @Rest\RequestParam(name="roles",          description="Role of user : ['USER_TEACHER', 'USER_TUTOR', 'USER_ADMIN'", nullable=true)
@@ -272,7 +283,7 @@ class UserController extends AbstractController
             }
         }
 
-        $modules = $request->get('module');
+        $modules = $request->get('modules');
         if($modules != null) {
             foreach ($request->get('modules') as $moduleReq) {
                 $module = $this->getDoctrine()->getRepository(Module::class)->findOneBy(array("code" => $moduleReq));
@@ -282,7 +293,12 @@ class UserController extends AbstractController
             }
         }
 
-        $form->submit($request->request->all(), false);
+        if($request->get('username')) $user->setUsername($request->get('username'));
+        if($request->get('firstname')) $user->setFirstname($request->get('firstname'));
+        if($request->get('lastname')) $user->setLastname($request->get('lastname'));
+        if($request->get('color')) $user->setLastname($request->get('color'));
+
+        $form->submit(null, false);
 
         if($request->get('plainPassword') != null){
             $re = '/^.*(?=.{8,})(?=.*[!-@#$%^&(),.?":{}|<>].*[!-@#$%^&(),.?":{}|<>].*)(?=.*[A-Z].*[A-Z].*)(?=.*[a-z].*[a-z].*).*$/m';

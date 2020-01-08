@@ -1,5 +1,5 @@
 import axios from "axios";
-import {EDIT_SETTINGS, GET_ALL_EVENT_TYPES, GET_ALL_SETTING} from "../types/apiConst";
+import {EDIT_SETTINGS, GET_ALL_SETTING} from "../types/apiConst";
 
 
 const APIGetSettings = () => {

@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React from "react";
 import {Modal, ModalHeader, ModalBody, ModalFooter, Button} from "shards-react";
 import style from "./deleteGroup.module.css";
 import {useDispatch} from "react-redux";
-import {getGroups, removeGroups} from "../../../providers/actions/groupActions";
+import {removeGroups} from "../../../providers/actions/groupActions";
 import {toast} from "react-toastify";
 
 

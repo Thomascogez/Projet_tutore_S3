@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {Button, ButtonGroup, FormCheckbox, FormInput, FormSelect} from "shards-react";
+import {Button, ButtonGroup, FormCheckbox, FormInput} from "shards-react";
 import {FaCheck, FaTimes} from "react-icons/fa";
 import {useSelector} from "react-redux";
 import {toast} from 'react-toastify';
-import {APIAddGroup, APIEditGroup} from "../../../api/groups";
 import DeleteType from "./Delete";
-import {APIAddsessionType, APIEditsessionType} from "../../../api/type/session";
 import {APIAddEventType, APIEditEventType} from "../../../api/type/event";
 import {errFetch} from "../../../utils/errorFetch";
 

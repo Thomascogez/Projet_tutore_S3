@@ -1,4 +1,3 @@
-import {GET_ALL_GROUPS} from "../../types/actionsTypes";
 import {APIDeleteEventType, APIgetAllEventTypes} from "../../api/type/event";
 import {ALL_EVENT_TYPES, ALL_SESSION_TYPES} from "../../types/apiConst";
 import {APIDeletesessionType, APIgetAllsessionTypes} from "../../api/type/session";

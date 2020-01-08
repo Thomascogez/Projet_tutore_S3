@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import adminStyle from '../../../components/administration_components/module/adminmodule.module.css';
 import BarreRecherche from '../../../components/administration_components/module/BarreRecherche'
 import PageLoader from "../../../components/layouts/loader";
@@ -6,13 +6,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {Col, Row} from "shards-react";
 import SessionType from "../../../components/administration_components/types/SessionType";
 import {getEventTypes, getSessionTypes} from "../../../providers/actions/typeActions";
-import Module from "../../../components/administration_components/module/Module";
 import EventType from "../../../components/administration_components/types/EventType";
 
 export default function Types()
 {
-    const [loader, setLoader] = useState(false);
-
     const dispatch = useDispatch();
 
     const sessionTypeState = useSelector(state => state.type);

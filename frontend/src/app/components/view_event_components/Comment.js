@@ -23,7 +23,7 @@ export default function Comment({data}) {
         {data.user.username}
       </td>
       <td>{data.comment}</td>
-      <td>{moment(data.createdAt).format("MM/DD/YYYY")}</td>
+      <td>{moment(data.createdAt).format("DD/MM/YYYY")}</td>
     </tr>
   );
 }

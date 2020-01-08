@@ -24,7 +24,7 @@ import ProfileRound from "../../components/profileRound_component/ProfileRound";
 import {CirclePicker} from "react-color";
 import ProfileLoader from "../../components/loader/ProfileLoader";
 import TextLoader from "../../components/loader/TextLoader";
-import {APIEditUser, APIGetUser} from "../../api/userFetch";
+import {APIEditUser} from "../../api/userFetch";
 //page loader
 
 export default function UserProfile() {

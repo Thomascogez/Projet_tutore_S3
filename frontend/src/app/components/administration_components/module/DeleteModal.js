@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {Modal, ModalHeader, ModalBody, ModalFooter, Button} from "shards-react";
 import style from "./deleteModal.module.css";
 import {useDispatch} from "react-redux";

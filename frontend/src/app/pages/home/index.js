@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../providers/actions/userActions";
-import PageLoader from "../../components/layouts/loader";
 import {
     Container,
     Form,
