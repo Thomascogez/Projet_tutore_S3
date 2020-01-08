@@ -763,6 +763,7 @@ class AppFixtures extends Fixture
         $role = new RoleTypeEvent();
         $role->setTutor(true)->setTeacher(false)
             ->setEventType($typeEvent);
+        $typeEvent->setRoleTypeEvent($role);
         $manager->persist($typeEvent);
         $manager->persist($role);
         $typeEvents[] = $typeEvent;
@@ -772,6 +773,7 @@ class AppFixtures extends Fixture
         $role = new RoleTypeEvent();
         $role->setTutor(false)->setTeacher(true)
             ->setEventType($typeEvent);
+        $typeEvent->setRoleTypeEvent($role);
         $manager->persist($typeEvent);
         $manager->persist($role);
         $typeEvents[] = $typeEvent;
@@ -781,6 +783,7 @@ class AppFixtures extends Fixture
         $role = new RoleTypeEvent();
         $role->setTutor(false)->setTeacher(true)
             ->setEventType($typeEvent);
+        $typeEvent->setRoleTypeEvent($role);
         $manager->persist($typeEvent);
         $manager->persist($role);
         $typeEvents[] = $typeEvent;
@@ -790,6 +793,7 @@ class AppFixtures extends Fixture
         $role = new RoleTypeEvent();
         $role->setTutor(false)->setTeacher(true)
             ->setEventType($typeEvent);
+        $typeEvent->setRoleTypeEvent($role);
         $manager->persist($typeEvent);
         $manager->persist($role);
         $typeEvents[] = $typeEvent;
@@ -975,14 +979,17 @@ class AppFixtures extends Fixture
         $sessions = array();
 
         for ($i = 12; $i < 27; $i++) {
-            for ($j = 0; $j < 10; $j++) {
+            for ($j = 0; $j < 25; $j++) {
+
+                $user = $users[random_int(0, 3)];
                 $session = new Session();
-                $session->setUser($users[random_int(0, 3)])
-                    ->setModule($modules[random_int(0, sizeof($modules)-2)])
+                $session->setUser($user)
+                    ->setModule($user->getModules()[random_int(0, sizeof($user->getModules())-1)])
                     ->setCreatedAt($faker->dateTimeBetween("2019-09-01", "2020-06-30"))
                     ->setType($typesSessions[random_int(0, sizeof($typeEvents)-2)]->getName());
-                for ($t = 0; $t < random_int(1, 5); $t++) $session->addGroup($groups[random_int(12, 27)]);
+                for ($t = 0; $t < random_int(1, 5); $t++) $session->addGroup($user->getGroups()[random_int(0, sizeof($user->getGroups())-1)]);
                 $manager->persist($session);
+
                 foreach ($users as $user) {
                     $sem = new Semaphore();
                     $sem->setUser($user)
@@ -996,13 +1003,43 @@ class AppFixtures extends Fixture
 
         foreach ($sessions as $session) {
             for($i = 0; $i < random_int(0, 3); $i++) {
+                $test = false;
+
+                $user = $users[random_int(0, sizeof($users) - 2)];
+                while (!$test) {
+                    $user = $users[random_int(0, sizeof($users) - 2)];
+                    $test1 = false;
+                    foreach ($session->getGroups() as $groupSession) {
+                        foreach ($user->getGroups() as $groupUser) {
+                            if($groupSession == $groupUser) $test1 = true;
+                        }
+                    }
+                    $test2 = false;
+                    foreach ($user->getModules() as $moduleUser) {
+                        if($moduleUser == $session->getModule()) $test2 = true;
+                    }
+                    if($test1 && $test2) $test = true;
+                }
+                $typeEvent = null;
+                $test = false;
+
+                while(!$test){
+                    $typeEvent = $typeEvents[random_int(0, sizeof($typeEvents)-1)];
+                    foreach ($user->getRoles() as $role) {
+                        if($typeEvent->getRoleTypeEvent()->getTutor() && $role === "ROLE_TUTOR")
+                            $test = true;
+                        if($typeEvent->getRoleTypeEvent()->getTeacher() && $role === "ROLE_TEACHER")
+                            $test = true;
+                    }
+                }
+
                 $event = new Event();
                 $event->setName($faker->text(60))
                     ->setDueAt($faker->dateTimeBetween("2019-09-01", "2020-06-30"))
                     ->setDuration($faker->numberBetween(0, 5))
                     ->setSession($session)
-                    ->setUser($users[random_int(0, sizeof($users) - 2)])
-                    ->setType($typeEvents[random_int(0, sizeof($typeEvents)-2)]->getName());
+                    ->setUser($user)
+                    ->setType($typeEvent->getName());
                 for($j = 0; $j < random_int(0, 3); $j++) {
                     $attach = new AttachmentEvent();
                     $attach->setEvent($event)
@@ -1016,10 +1053,27 @@ class AppFixtures extends Fixture
             }
 
             for($i = 0; $i < random_int(0, 5); $i++) {
+
+                $user = $users[random_int(0, sizeof($users) - 2)];
+                while (!$test) {
+                    $user = $users[random_int(0, sizeof($users) - 2)];
+                    $test1 = false;
+                    foreach ($session->getGroups() as $groupSession) {
+                        foreach ($user->getGroups() as $groupUser) {
+                            if($groupSession == $groupUser) $test1 = true;
+                        }
+                    }
+                    $test2 = false;
+                    foreach ($user->getModules() as $moduleUser) {
+                        if($moduleUser == $session->getModule()) $test2 = true;
+                    }
+                    if($test1 && $test2) $test = true;
+                }
+
                 $comment = new Comment();
                 $comment->setCreatedAt($faker->dateTimeBetween("2019-09-01", "2020-06-30"))
                     ->setUpdateAt($faker->dateTimeBetween("2019-09-01", "2020-06-30"))
-                    ->setUser($users[random_int(0, sizeof($users) - 2)])
+                    ->setUser($user)
                     ->setSession($session)
                     ->setComment($faker->realText(300));
                 $manager->persist($comment);
