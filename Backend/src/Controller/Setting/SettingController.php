@@ -35,7 +35,6 @@ class SettingController extends AbstractController
     public function getSettingsAction(Request $request)
     {
         $setting = $this->getDoctrine()->getRepository(Setting::class)->findAll();
-        var_dump($setting);
         return $setting[0];
     }
 

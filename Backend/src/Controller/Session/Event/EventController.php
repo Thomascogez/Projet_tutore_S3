@@ -55,6 +55,32 @@ class EventController extends AbstractController
     }
 
     /**
+     * Get event by id without session id
+     * @Rest\Get("/api/events/{id_event}", name="get_event_action_without_session", requirements={"id_event": "\d+"})
+     * @Rest\View(serializerGroups={"events"})
+     * @Operation(
+     *     path="/api/events/{id_event}",
+     *     operationId="getEventActionWithoutSession",
+     *     tags={"Event"},
+     *     summary="Get event by id without session id",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
+     */
+    public function getEventActionWithoutSession(Request $request)
+    {
+        $event = $this->getDoctrine()->getRepository(Event::class)->find($request->get('id_event'));
+        if (!$event) return $this->isNotFound(EVENT_NOT_FOUND);
+
+        return $event;
+    }
+
+    /**
      * Get all events
      * @Rest\Get("/api/sessions/{id_session}/events", name="get_events_action", requirements={"id_session": "\d+"})
      * @Rest\View(serializerGroups={"events"})
