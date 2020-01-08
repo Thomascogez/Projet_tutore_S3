@@ -1,6 +1,7 @@
 import React from 'react'
 import Home from '../pages/home'
-import Userprofile from '../pages/userProfil/_index'
+import UserprofileEdit from '../pages/userProfil/_index'
+import Userprofile from '../pages/userProfil/otherProfil'
 import Password from '../pages/home/passwordForget'
 import Seances from '../pages/sessions'
 import AddEvent from '../pages/event/addEvent/_index'
@@ -28,7 +29,8 @@ const routes = {
     '/passwordForget' : () => <Password />,
     '/passwordReset/:token' : (token) => <PasswordReset token={token} />,
 
-    '/profil' : () =>    <ProtectedRoute> <Userprofile/></ProtectedRoute>,
+    '/profil/:idUser' : (idUser) =>    <ProtectedRoute> <Userprofile idUser={idUser} /></ProtectedRoute>,
+    '/profil' : () =>    <ProtectedRoute> <UserprofileEdit /></ProtectedRoute>,
     '/options' : () =>   <ProtectedRoute> <Options />   </ProtectedRoute>,
     '/mesSeances': () => <ProtectedRoute> <MySession /> </ProtectedRoute>,
 

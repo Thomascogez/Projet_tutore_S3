@@ -61,6 +61,12 @@ const APIGetAllUsers = () => {
   });
 }
 
+const APIGetUser = (idUser) => {
+  return axios.get(ALL_USERS + "/" + idUser, {
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+  });
+}
+
 const APIEditUser = (idUser, user) => {
   return axios.patch(EDIT_USERS + "/" + idUser, user, {
     headers: { Authorization: "Bearer " + localStorage.getItem("token") }
@@ -76,4 +82,4 @@ const APIDeleteUser = (idUser) => {
 
 
 
-export { APIlogin, APIcheckStillValid, ApiIsAdmin, APIgetMyAccount, APIDeleteUser, APIEditUser, APIGetAllUsers };
+export { APIlogin, APIcheckStillValid, ApiIsAdmin, APIgetMyAccount, APIDeleteUser, APIEditUser, APIGetAllUsers, APIGetUser };

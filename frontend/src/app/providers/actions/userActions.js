@@ -1,6 +1,13 @@
 import {GET_ALL_USERS, SET_ISLOGGEDIN, SET_USER, SET_PROFILE_COLOR,SET_USER_PROFILE} from "../../types/actionsTypes";
 import { navigate } from 'hookrouter';
-import {APIlogin, APIgetMyAccount, APIcheckStillValid, APIGetAllUsers, APIDeleteUser} from '../../api/userFetch'
+import {
+    APIlogin,
+    APIgetMyAccount,
+    APIcheckStillValid,
+    APIGetAllUsers,
+    APIDeleteUser,
+    APIGetUser
+} from '../../api/userFetch'
 
 
 /**
@@ -77,7 +84,7 @@ const checkLogin = () => {
         });
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.response);
 
         dispatch({
           type: SET_ISLOGGEDIN,
@@ -92,7 +99,6 @@ const getUserProfile = () => {
   return dispatch => {
     return APIgetMyAccount()
       .then(data => {
-        console.log(data.data);
         dispatch({
           type: SET_USER,
           value: data.data
@@ -110,7 +116,6 @@ const getUserProfile = () => {
 
 //Event types actions
 const getUsers = () => {
-    console.log("ok1")
     return dispatch => {
         return APIGetAllUsers()
             .then(data => {
