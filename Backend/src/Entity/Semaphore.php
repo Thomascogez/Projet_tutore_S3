@@ -16,7 +16,7 @@ class Semaphore
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"user", "session_detail"})
+     * @Groups({"user", "session_detail", "semaphore"})
      */
     private $id;
 
@@ -31,7 +31,7 @@ class Semaphore
     /**
      * Status of semaphore
      * @ORM\Column(type="integer")
-     * @Groups({"user", "session_detail"})
+     * @Groups({"user", "session_detail", "semaphore"})
      */
     private $status;
 
