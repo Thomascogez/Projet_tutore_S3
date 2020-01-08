@@ -20,32 +20,32 @@ import Loader from "react-loader-spinner";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { navigate } from 'hookrouter';
-
+import { navigate } from "hookrouter";
+import File from "../../../components/view_event_components/File";
 import { FilePond } from "react-filepond";
 import Collapse from "../../../components/layouts/Collapse";
-import PageLoader from "../../../components/layouts/loader"
+import PageLoader from "../../../components/layouts/loader";
 import style from "./_addEvent.module.css";
 import { APIgetAllEventTypes } from "../../../api/type/event";
-import { APIpostFile } from "../../../api/file";
-import { APIpostNewEvent } from "../../../api/event";
+import { APIpostFile, APIdeleteFile } from "../../../api/file";
+import {
+  APIpostNewEvent,
+  APIgetEventsByID,
+  APIpatchEvent
+} from "../../../api/event";
+import { APIgetsettings } from "../../../api/settings";
+import { FaTrash } from "react-icons/fa";
+import FileTableLoader from "../../../components/loader/FileTableLoader";
+import RadioLoader from "../../../components/loader/RadioLoader";
 
-
-
-export default function AddEvent() {
+export default function AddEvent({ edit, eventID }) {
+  //configure date to local for the datePicker
   Moment.locale("fr");
   momentLocalizer();
+
+  //redux stuff
   const addSession = useSelector(state => state.addSession);
-
-
-  //TODO: reset AFTER SEND
-  //TODO: config file 
-  useEffect(() => {
-    if( addSession.groups.length === 0) navigate('/seances')
-    APIgetAllEventTypes().then(data => {
-      setTypes(data.data);
-    });
-  }, []);
+  const user = useSelector(state => state.user);
 
   const INITIAL_STATE = {
     sessionID: addSession.sessions.id,
@@ -59,39 +59,151 @@ export default function AddEvent() {
   const [newEvent, setNewEvent] = useState(INITIAL_STATE);
   const [files, setFiles] = useState([]);
 
+  const [fetchedFile, setFetchedFile] = useState([]); //edit mode only
+
   //collapse hooks
   const [collapseType, setCollapseType] = useState(true);
   const [collapseDesc, setCollapseDesc] = useState(false);
   const [collapseDuration, setCollapseDuration] = useState(false);
 
+  const [isTeacher, setIsTeacher] = useState(false);
+
   const [types, setTypes] = useState([]); //hook that all fetched types
+  const [settings, setSettings] = useState({
+    maxEventSession: "",
+    maxAttachmentEvent: ""
+  });
 
   //loader state
   const [requestPending, setRequestPending] = useState(false);
   const [fileUploadPending, setFileUploadPending] = useState(false);
 
+  useEffect(() => {
+    APIgetsettings().then(data => {
+      setSettings(data.data);
+    });
+    APIgetAllEventTypes().then(data => {
+      setTypes(data.data);
+    });
+    if (!edit) {
+      // called only if not in edit mod
+      if (addSession.groups.length === 0) navigate("/seances");
+    } else {
+      fetchSession();
+    }
+  }, []);
+
+  useEffect(() => {
+    setIsTeacher(user.user.roles.includes("ROLE_TEACHER"));
+  }, [user]);
+
+  /**
+   * fetchSession
+   *
+   * Fetch the session with the id take from query param (edit only)
+   */
+  const fetchSession = () => {
+    APIgetEventsByID(eventID.eventID).then(data => {
+      console.log(data.data);
+
+      setNewEvent({
+        eventID: data.data.id,
+        sessionID: data.data.session.id,
+        type: data.data.type,
+        name: data.data.name,
+        duration: [data.data.duration],
+        dueAt: data.data.dueAt
+      });
+      setFetchedFile(data.data.attachmentEvents);
+    });
+  };
+
+  /**
+   * resetInformations
+   *
+   * Reset page informations
+   */
+  const resetInformations = () => {
+    setNewEvent(INITIAL_STATE);
+    setFiles([]);
+    setCollapseType(true);
+    setCollapseDuration(false);
+    setCollapseDesc(false);
+  };
+
   /**
    * isValid
    *
-   * Check validity of information
+   * Check validity of informations
    */
   const isValid = () => {
-    return (
-      newEvent.type !== "" &&
-      newEvent.name.trim() !== "" &&
-      newEvent.groups.length > 0
-    );
+    if (!edit) {
+      return (
+        newEvent.type !== "" &&
+        newEvent.name.trim() !== "" &&
+        newEvent.groups.length > 0
+      );
+    }
+    return newEvent.type !== "" && newEvent.name.trim() !== "";
   };
 
-  useEffect(() => {
-    console.log(newEvent);
-    console.log(Moment(newEvent.duration));
-  }, [newEvent])
-  const handleSelectType = (type) => {
+  /**
+   * handleSelectType
+   *
+   * Update hook and page when type is updated
+   * @param {*} type
+   */
+  const handleSelectType = type => {
     setNewEvent({ ...newEvent, type: type });
     setCollapseType(false);
-    setCollapseDuration(true);
-  }
+    setCollapseDesc(true);
+  };
+
+  /**
+   *
+   * @param {*} idSession
+   * @param {*} idEvent
+   */
+  const handlePostFiles = (idSession, idEvent) => {
+    let request = [];
+    if (files.length > 0) {
+      setFileUploadPending(true);
+      files.forEach(file => {
+        request.push(APIpostFile(idSession, idEvent, file));
+      });
+      axios
+        .all(request)
+        .then(() => {
+          resetInformations();
+          fetchSession();
+          toast.success("Fichier(s) ajouté");
+          setFileUploadPending(false);
+        })
+        .catch(err => {
+          resetInformations();
+          console.log(err.response);
+          toast.error("Erreur lors de l'ajout de Fichier(s)");
+          setFileUploadPending(false);
+        });
+    }
+  };
+
+  /**
+
+   * @param {*} fileID  id of the file to delete
+   */
+  const handleFileDelete = fileID => {
+    //edit mode only
+    if (edit) {
+      let { sessionID, eventID } = newEvent;
+      APIdeleteFile(sessionID, eventID, fileID)
+        .then(data => {
+          toast.success("Fichier supprimé");
+          fetchSession();
+        })
+        .catch(err => console.log(err));
+    }
+  };
 
   /**
    * handleAddEvent
@@ -102,39 +214,41 @@ export default function AddEvent() {
     if (isValid) {
       let { sessionID, type, name, duration, dueAt } = newEvent;
       setRequestPending(true);
-      APIpostNewEvent(sessionID, name, type, duration[0], dueAt)
-        .then(data => {
-          setRequestPending(false);
-          toast.success("Evénement ajouté");
 
-          let request = [];
-          if (files.length > 0) {
-            console.log("salut");
-            
-            setFileUploadPending(true);
-            files.forEach(file => {
-              request.push(APIpostFile(sessionID, data.data.id, file));
-            });
-            axios
-              .all(request)
-              .then(data => {
-                toast.success("Fichier(s) ajouté");
-                setFileUploadPending(false);
-              })
-              .catch(err => {
-                console.log(err.response);
-                
-                toast.error("Erreur lors de l'ajout de Fichier(s)");
-                setFileUploadPending(false);
-              });
-          }
-        })
-        .catch(err => {
-          toast.error("Erreur lors de l'ajout de l'événement");
-          console.log(err.response);
-          
-          setRequestPending(false);
-        });
+      if (!edit) {
+        APIpostNewEvent(sessionID, name, type, duration[0], dueAt)
+          .then(data => {
+            setRequestPending(false);
+            toast.success("Evénement ajouté");
+
+            handlePostFiles(sessionID, data.data.id);
+          })
+          .catch(err => {
+            toast.error("Erreur lors de l'ajout de l'événement");
+            console.log(err.response);
+            setRequestPending(false);
+          });
+      } else {
+        handlePostFiles(sessionID, newEvent.eventID);
+        APIpatchEvent(
+          sessionID,
+          newEvent.eventID,
+          name,
+          type,
+          duration[0],
+          dueAt
+        )
+          .then(data => {
+            setRequestPending(false);
+            console.log(data);
+          })
+          .catch(err => {
+            setRequestPending(false);
+            console.log(err.response);
+          });
+      }
+    } else {
+      toast.error("Informations de l'événement non valides");
     }
   };
 
@@ -142,33 +256,44 @@ export default function AddEvent() {
     <>
       <Container fluid className={style.AddEventContainer}>
         <Row>
-          <Col  lg="3" sm="12">
+          <Col lg="3" sm="12">
             <Card>
               <CardHeader>Résumé de l'événement</CardHeader>
               <CardBody>
-                <h5>Module</h5>
-                <Badge
-                  className={style.Module}
-                  style={{
-                    backgroundColor:
-                      addSession.sessions.module &&
-                      addSession.sessions.module.color
-                  }}
-                >
-                  {addSession.sessions.module &&
-                    addSession.sessions.module.name}
-                </Badge>
+                {!edit && (
+                  <>
+                    {" "}
+                    <h5>Module</h5>
+                    <Badge
+                      className={style.Module}
+                      style={{
+                        backgroundColor:
+                          addSession.sessions.module &&
+                          addSession.sessions.module.color
+                      }}
+                    >
+                      {addSession.sessions.module &&
+                        addSession.sessions.module.name}
+                    </Badge>
+                    <hr />
+                  </>
+                )}
 
-                <hr />
-                {newEvent.type &&<>
-                  <h5>Type</h5>
-                  <Badge theme="success">{newEvent.type}</Badge>
-                  <hr />
-                </>}
+                {newEvent.type && (
+                  <>
+                    <h5>Type</h5>
+                    <Badge theme="success">{newEvent.type}</Badge>
+                    <hr />
+                  </>
+                )}
 
-                <h5>Groupes</h5>
-                {addSession.groups.join(", ")}
-                <hr />
+                {!edit && (
+                  <>
+                    <h5>Groupes</h5>
+                    <>{addSession.groups.join(", ")})</>
+                    <hr />
+                  </>
+                )}
               </CardBody>
               <Button
                 onClick={() => handleAddEvent()}
@@ -183,46 +308,77 @@ export default function AddEvent() {
                     height={30}
                     width={100}
                   />
+                ) : edit ? (
+                  "Modifier l'événement"
                 ) : (
-                  "Ajouter événement"
+                  "Ajout d'un événement"
                 )}
               </Button>
             </Card>
           </Col>
 
-          <Col className="order-first"  lg="9" sm="12">
+          <Col className="order-first" lg="9" sm="12">
             <Card>
-              <CardHeader>Ajout d'un événement</CardHeader>
+              <CardHeader>
+                {edit ? "Modification d'un événement" : "Ajout d'un événement"}
+              </CardHeader>
               <CardBody>
                 <Collapse
                   open={collapseType}
-                  title="Choix du type"
+                  title={"Choix du type"}
                   toggler={setCollapseType}
                 >
-                  {types.length > 0 &&
-                    types.map(type => (
-                      <FormRadio
-                        key={type.name}
-                        name={type.name}
-                        checked={newEvent.type === type.name}
-                        onChange={() =>
-                          handleSelectType(type.name)
-                          
-                        }
-                      >
-                        {type.name}
-                      </FormRadio>
-                    ))}
+                  {types.length > 0 ? (
+                    <>
+                      {types.map(type => (
+                        <>
+                          {isTeacher ? (
+                            <>
+                              {type.roleTypeEvent.teacher&&
+                                <FormRadio
+                                  key={type.name}
+                                  name={type.name}
+                                  checked={newEvent.type === type.name}
+                                  onChange={() => handleSelectType(type.name)}
+                                >
+                                  {type.name}
+                                </FormRadio>
+                              }{" "}
+                            </>
+                          ) : (
+                            <>
+                            {type.roleTypeEvent.tutor&&<FormRadio
+                              key={type.name}
+                              name={type.name}
+                              checked={newEvent.type === type.name}
+                              onChange={() => handleSelectType(type.name)}
+                            >{type.name}</FormRadio>}
+                            </>
+                          )}
+                        </>
+                      ))}
+                    </>
+                  ) : (
+                    <>
+                      <RadioLoader />
+                      <RadioLoader />
+                      <RadioLoader />
+                      <RadioLoader />
+                    </>
+                  )}
                 </Collapse>
 
                 <Collapse
                   open={collapseDuration}
-                  title="Echéance et durée"
+                  title="Echéance et durée (optionnels)"
                   toggler={setCollapseDuration}
                 >
                   <span className={style.PickTime} style={{ display: "block" }}>
                     <span style={{ fontSize: "20px" }}>
-                      Choix de la date d'échéance:({newEvent.dueAt&& Moment(newEvent.dueAt).format("DD/MM/YYYY")})
+                      Choix de la date d'échéance:(
+                      {newEvent.dueAt &&
+                        Moment(newEvent.dueAt).format("DD/MM/YYYY")}
+                      )
                     </span>{" "}
                     <DateTimePicker
                       onChange={value =>
@@ -234,11 +390,19 @@ export default function AddEvent() {
                     />
                   </span>
                   <span className={style.PickTime} style={{ display: "block" }}>
-                    <span style={{ fontSize: "20px", marginTop:"10px" }}>
-                      Durée de l'événement:({('0' + Math.floor(newEvent.duration[0]) % 24).slice(-2) + 'h' + ((newEvent.duration[0] % 1) * 60 + '0').slice(0, 2)})
+                    <span style={{ fontSize: "20px", marginTop: "10px" }}>
+                      Durée de l'événement:(
+                      {("0" + (Math.floor(newEvent.duration[0]) % 24)).slice(
+                        -2
+                      ) +
+                        "h" +
+                        ((newEvent.duration[0] % 1) * 60 + "0").slice(0, 2)}
+                      )
                     </span>
                     <Slider
-                      onSlide={val =>setNewEvent({...newEvent,duration:val} )}
+                      onSlide={val =>
+                        setNewEvent({ ...newEvent, duration: val })
+                      }
                       connect={[true, false]}
                       start={newEvent.duration}
                       range={{ min: 0, max: 24 }}
@@ -257,13 +421,57 @@ export default function AddEvent() {
                       setNewEvent({ ...newEvent, name: e.target.value })
                     }
                     maxLength="90"
-                    placeHolder="Description de l'événement (90 charactéres max.)..."
+                    placeholder="Description de l'événement (90 charactéres max.)..."
                   />
                 </Collapse>
+                {edit && (
+                  <>
+                    <span style={{ fontSize: "25px", marginTop: "30px" }}>
+                      Fichier(s) disponible
+                    </span>
+                    <table
+                      style={{ width: "100%", minWidth: "100%" }}
+                      className="table"
+                    >
+                      <thead>
+                        <tr>
+                          <th>Nom</th>
+                          <th>Type</th>
+                          <th>Taille</th>
+                          <th>Téléchargements</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {fetchedFile.length !== 0 ? (
+                          fetchedFile.map(file => (
+                            <File key={file.id} file={file}>
+                              <td>
+                                <FaTrash
+                                  onClick={() => handleFileDelete(file.id)}
+                                  style={{ color: "red", cursor: "pointer" }}
+                                />
+                              </td>
+                            </File>
+                          ))
+                        ) : (
+                          <>
+                            <FileTableLoader />
+                          </>
+                        )}
+                      </tbody>
+                    </table>
+                  </>
+                )}
                 <span style={{ fontSize: "25px", marginTop: "30px" }}>
                   Ajout de fichier(s)
+                  <span style={{ fontSize: "15px" }}>
+                    (maximum :{" "}
+                    {settings.maxAttachmentEvent - fetchedFile.length})
+                  </span>
                 </span>
                 <FilePond
+                  files={files}
+                  maxFiles={settings.maxAttachmentEvent - fetchedFile.length}
                   style={{ height: "200px" }}
                   allowMultiple={true}
                   onupdatefiles={fileItems => {
@@ -275,7 +483,7 @@ export default function AddEvent() {
           </Col>
         </Row>
       </Container>
-      {fileUploadPending && <PageLoader message="Ajout des fichier ..." />}
+      {fileUploadPending && <PageLoader message="Ajout des fichiers ..." />}
     </>
   );
 }

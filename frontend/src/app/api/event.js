@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ALL_EVENT_TYPES, ALL_USER_EVENT } from "../types/apiConst";
+import { GET_ALL_EVENT_TYPES, ALL_USER_EVENT, PATH_API } from "../types/apiConst";
 import { duration } from "moment";
 
 /**
@@ -19,14 +19,29 @@ const APIgetMyEvents = () => {
   });
 };
 
+const APIgetEventsByID = (eventID) => {
+  return axios.get(`${PATH_API}/api/events/${eventID}`, {
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+  });
+};
+
+const APIpatchEvent = (sessionID, eventID, name, type, duration = "", dueAt = "") => {
+  console.log(sessionID, eventID, name, type, duration , dueAt);
+  return axios.patch(`${PATH_API}/api/sessions/${sessionID}/events/${eventID}`,
+    {"name": name, "type":type, "duration":duration, "dueAt":dueAt},
+    { headers: { Authorization: "Bearer " + localStorage.getItem("token") } }
+  )
+
+  
+}
+
 const APIpostNewEvent = (sessionID, name, type, duration = "", dueAt = "") => {
     console.log(sessionID, name, type, duration, dueAt );
-    
   return axios.post(
-    `https://schoolshare.tools/api/sessions/${sessionID}/events`,
+    `${PATH_API}/api/sessions/${sessionID}/events`,
     { "name": name, "type":type, "duration":duration, "dueAt":dueAt },
     { headers: { Authorization: "Bearer " + localStorage.getItem("token") } }
   );
 };
 
-export { APIgetEventTypes, APIgetMyEvents, APIpostNewEvent };
+export { APIgetEventTypes, APIgetMyEvents, APIpostNewEvent, APIgetEventsByID, APIpatchEvent };

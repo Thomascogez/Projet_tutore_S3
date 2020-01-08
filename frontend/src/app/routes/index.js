@@ -38,6 +38,8 @@ const routes = {
     '/seances/ajoutSeance': () => <ProtectedRoute> <AddSession />                       </ProtectedRoute>,
     '/seance/:seanceId': (seanceId) => <ProtectedRoute> <ViewsSession seanceId={seanceId} /> </ProtectedRoute>,
     '/seances/evenement/ajout': () => <ProtectedRoute> <AddEvent />                         </ProtectedRoute>,
+    '/evenement/modifier/:eventID': (eventID) => <ProtectedRoute> <AddEvent edit eventID={eventID} /> </ProtectedRoute>,
+
     '/seances/modifier/:sessionID': (sessionID) => <ProtectedRoute> <AddSession id={sessionID} edit />  </ProtectedRoute>,
 
     '/administration': () => <ProtectedRoute><ProtectedRouteAdmin> <Administration /> </ProtectedRouteAdmin></ProtectedRoute>,

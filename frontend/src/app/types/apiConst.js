@@ -62,8 +62,13 @@ const CHECK_IS_ADMIN = PATH_API + "/api/users/isAdmin";
 
 const GET_GROUP_BY_ID = PATH_API + "/api/sessions";
 
+// --------------------   SETTINGS  ---------------------- //
+
+const GET_SETTINGS    = PATH_API + "/api/settings"
+
 
 export {
+    PATH_API,
     ALL_USERS,
     EDIT_USERS,
     DELETE_USERS,
@@ -94,5 +99,6 @@ export {
     GET_MY_SESSION,
     GET_ALL_SESSIONS,
     DEL_SESSION_ID,
-    PATCH_SESSION
+    PATCH_SESSION,
+    GET_SETTINGS
 };
