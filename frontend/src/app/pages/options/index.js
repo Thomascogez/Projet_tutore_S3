@@ -14,7 +14,7 @@ export default function Options() {
   const [coul, setCoul] = useState("white");
 
   return (
-    <Container className={style.Box} style={{backgroundColor:(coul =="white"? "gray":"white"), color:(coul =="white"? "white":"gray")}}>
+    <Container fluid className={style.Box} style={{backgroundColor:(coul =="white"? "gray":"white"), color:(coul =="white"? "white":"gray")}}>
         <div className={style.Titre}><label htmlFor="#modules" className={style.LabelText}>Options</label></div>
         <div className={style.Form}>
             <Toggle text="Thème sombre"/>
