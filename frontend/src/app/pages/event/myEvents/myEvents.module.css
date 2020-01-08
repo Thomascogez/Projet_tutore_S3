@@ -9,3 +9,14 @@
 .EventTable{
     width: 100% !important;
 }
+
+@media (max-width:991px)
+{
+    .EventsContainer
+    {
+        width:100% !important;
+        height: 100% !important;
+        padding: 0%;
+        margin: 0%;
+    }
+}
