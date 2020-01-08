@@ -4,7 +4,7 @@ import {
   CHECK_IS_ADMIN,
   GET_USER_PROFILE,
   ALL_USERS,
-  EDIT_USERS, DELETE_MODULES, DELETE_USERS, ADD_USERS
+  EDIT_USERS, DELETE_USERS, ADD_USERS
 } from "../types/apiConst";
 import axios from "axios";
 

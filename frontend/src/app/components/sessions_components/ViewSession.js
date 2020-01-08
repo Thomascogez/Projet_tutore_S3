@@ -1,10 +1,6 @@
 import React, {useState} from "react";
-import style from '../../pages/sessions/sessions.module.css'
 
-import { navigate } from "hookrouter"
-
-import { FaCheckCircle } from 'react-icons/fa'
-import {Badge, Row} from "shards-react";
+import {Badge} from "shards-react";
 import Work from "./Work";
 import {Tooltip} from "shards-react";
 

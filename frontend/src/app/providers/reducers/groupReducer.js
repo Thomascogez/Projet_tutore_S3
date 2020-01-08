@@ -1,4 +1,3 @@
-import userReducer from "./UserReducer";
 import {GET_ALL_GROUPS} from "../../types/actionsTypes";
 
 /**

@@ -1,14 +1,5 @@
-import React, {useState, useEffect, ReactFragment} from "react";
-import {
-    Container,
-    Form,
-    FormGroup,
-    FormInput,
-    Button,
-    InputGroup,
-    InputGroupAddon,
-    InputGroupText
-} from "shards-react";
+import React, {useState, useEffect} from "react";
+import {Container,Button} from "shards-react";
 import logo from "../../../assets/images/scShare_logo.png";
 import style from "./../home.module.css";
 import { navigate } from "hookrouter";

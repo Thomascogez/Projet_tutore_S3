@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {Card, CardBody, Col, Container, FormSelect, Row, Tooltip} from "shards-react";
+import {Card, CardBody, Col, Container, FormSelect, Row} from "shards-react";
 import style from "./sessions.module.css";
 import {FaBookOpen, FaMinus, FaPlus} from "react-icons/fa";
 import moment from "moment";

@@ -1,12 +1,6 @@
 import React, {useState, useEffect} from "react";
-import {
-    Container,
-    InputGroup,
-    InputGroupAddon,
-    InputGroupText,
-    FormInput, Row, Card, CardBody, CardHeader
-} from "shards-react";
-import {FaBookOpen, FaMinus, FaPlus} from "react-icons/fa";
+import {Container,Card, CardBody, CardHeader} from "shards-react";
+import { FaMinus, FaPlus} from "react-icons/fa";
 import {IoMdPersonAdd} from "react-icons/io"
 import {useDispatch, useSelector} from "react-redux";
 import { navigate } from "hookrouter"
@@ -21,7 +15,6 @@ import {ChildButton, FloatingMenu, MainButton} from "react-floating-button-menu"
 
 export default function UserPage() {
 
-    const [loader, setLoader]   = useState(false);
     const [groups, setGroups]   = useState([]);
     const [modules, setModules] = useState([]);
     const [openMenu, setOpenMenu] = useState(false);

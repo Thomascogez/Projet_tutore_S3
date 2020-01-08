@@ -1,5 +1,4 @@
 import React from 'react'
-import { FaFileAlt } from 'react-icons/fa'
 import FileIcon, {defaultStyles} from 'react-file-icon';
 
 /**

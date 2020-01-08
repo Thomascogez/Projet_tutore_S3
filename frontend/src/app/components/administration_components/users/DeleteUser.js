@@ -1,9 +1,8 @@
-import React, {useState} from "react";
+import React from "react";
 import {Modal, ModalHeader, ModalBody, ModalFooter, Button, Badge} from "shards-react";
 import style from "./deleteUser.module.css";
 import {useDispatch} from "react-redux";
 import {toast} from "react-toastify";
-import {removeEventType, removeSessionType} from "../../../providers/actions/typeActions";
 import {removeUser} from "../../../providers/actions/userActions";
 
 

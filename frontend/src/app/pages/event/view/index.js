@@ -189,8 +189,8 @@ export default function ViewsEvent({ seanceId }) {
                   onClick={() => setEventCollapse(!eventCollapse)}
                   className={style.ViewCollapse}
                 >
-                  {eventCollapse ? <FaAngleDown /> : <FaAngleRight />}Voir Les
-                  événements de la séances
+                  {eventCollapse ? <FaAngleDown /> : <FaAngleRight />}Voir les
+                  évènements de la séance
                 </div>
                 <Collapse open={eventCollapse}>
                   <div className="table-responsive">
@@ -202,7 +202,7 @@ export default function ViewsEvent({ seanceId }) {
                           <th>Description</th>
                           <th>Durée</th>
                           <th>Echéance</th>
-                          <th>Piéces jointes</th>
+                          <th>Pièces jointes</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -226,7 +226,7 @@ export default function ViewsEvent({ seanceId }) {
                   className={style.ViewCollapse}
                 >
                   {commentCollapse ? <FaAngleDown /> : <FaAngleRight />}Voir /
-                  Ajouter un commentaire
+                  ajouter un commentaire
                 </div>
                 <Collapse open={commentCollapse}>
                   <table
@@ -259,7 +259,7 @@ export default function ViewsEvent({ seanceId }) {
                       fcolor="#fff"
                     />
                     <FormTextarea
-                      placeholder="Votre commentaire ... (120 charactères max.)"
+                      placeholder="Votre commentaire ... (120 caractères max)"
                       maxLength="120"
                       value={newComment}
                       onChange={e => setNewComment(e.target.value)}

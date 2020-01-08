@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import adminStyle from '../../../components/administration_components/module/adminmodule.module.css';
-import BarreRecherche from '../../../components/administration_components/module/BarreRecherche'
 import PageLoader from "../../../components/layouts/loader";
 import {APIgetAllSession} from "../../../api/sessionFetch";
 import Session from "../../../components/administration_components/session/Session";
@@ -65,7 +64,6 @@ export default function Sessions()
     return (
         <div >
             <h1 style={{padding:20}}>Gestion des séances</h1>
-            {<BarreRecherche />}
 
             <div style={{margin:50, marginTop:100, padding:10}}>
                 <Row style={{marginBottom: "7px"}}>

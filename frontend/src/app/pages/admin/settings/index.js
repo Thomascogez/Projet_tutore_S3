@@ -1,10 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import PageLoader from "../../../components/layouts/loader";
-import {useDispatch, useSelector} from "react-redux";
 import {Button, Card, CardBody, CardHeader, Slider} from "shards-react";
 import {APIEditSettings, APIGetSettings} from "../../../api/settingFetch";
-import img from "../../../assets/images/error_401.jpg";
-import {navigate} from "hookrouter";
 import {toast} from "react-toastify";
 
 export default function Settings()

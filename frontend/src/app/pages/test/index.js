@@ -10,8 +10,6 @@ import { FormSelect, Button } from 'shards-react'
 import { toast } from 'react-toastify';
 import style from "./style.module.css";
 
-import PageLoader from '../../components/layouts/loader'
-
 toast.configure();
 
 export default function Ajout() {

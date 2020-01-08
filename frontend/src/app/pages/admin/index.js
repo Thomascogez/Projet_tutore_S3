@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Row, Col, Card, CardHeader, CardImg, CardBody, CardTitle, Button, CardFooter } from 'shards-react'
+import { Container, Row, Col, Card, CardHeader, CardBody, CardTitle, Button, } from 'shards-react'
 import { FaUserFriends, FaBookOpen } from 'react-icons/fa'
 import { TiGroup } from 'react-icons/ti'
 import { navigate } from 'hookrouter'

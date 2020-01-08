@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Card, CardHeader, Container} from 'shards-react'
 import style from './myEvents.module.css';
-import Event from '../../../components/event_components/Event';
 import {APIgetMyEvents} from '../../../api/event';
 import Collapse from "../../../components/layouts/Collapse/CollapseEvents";
 

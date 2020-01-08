@@ -5,8 +5,7 @@ import {
     APIgetMyAccount,
     APIcheckStillValid,
     APIGetAllUsers,
-    APIDeleteUser,
-    APIGetUser
+    APIDeleteUser
 } from '../../api/userFetch'
 
 
