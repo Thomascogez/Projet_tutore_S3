@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {Card, CardBody, Col, Container, FormSelect, Row} from "shards-react";
+import {Card, CardBody, Col, Container, FormSelect, Row, Tooltip} from "shards-react";
 import style from "./sessions.module.css";
 import {FaBookOpen, FaMinus, FaPlus} from "react-icons/fa";
 import moment from "moment";
@@ -20,6 +20,7 @@ import {
 import CollapseLoader from "../../components/loader/CollapseLoader";
 import {APIgetAllGroups} from "../../api/groups";
 import {APIgetAllsessionTypes} from "../../api/type/session";
+import ViewSession from "../../components/sessions_components/ViewSession";
 
 export default function Seances() {
     moment.locale("fr");
@@ -167,8 +168,7 @@ export default function Seances() {
                                                                                     {(events2[1].duration) ? addDuration(events2[1].duration) : ""}
                                                                                 </>
                                                                             ))}
-
-                                                                            <Work key={session[1].id} id={session[1].id} groups={session[1].groups} type={session[1].type} color={session[1].module.color === "" ? "#000000" : session[1].module.color} name={session[1].module.name} duration={duration} />
+                                                                            <ViewSession session={session[1]} duration={duration} />
                                                                             {reinitDuration()}
                                                                         </>
                                                                     ))}
