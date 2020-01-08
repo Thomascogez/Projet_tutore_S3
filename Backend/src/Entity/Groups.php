@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Group of school
  * @ORM\Entity(repositoryClass="App\Repository\GroupRepository")
- * @UniqueEntity({"name"})
+ * @UniqueEntity(fields={"name"}, message="Nom de groupe déjà utilisé")
  */
 class Groups
 {

@@ -30,7 +30,6 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-
         $faker = Factory::create('fr_FR'); // create a French faker
 
         $setting = new Setting();

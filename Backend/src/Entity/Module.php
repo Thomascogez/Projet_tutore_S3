@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Module table
  * @ORM\Entity(repositoryClass="App\Repository\ModuleRepository")
- * @UniqueEntity({"code"})
+ * @UniqueEntity(fields={"code"}, message="Code de module déjà utilisé")
  */
 class Module
 {
