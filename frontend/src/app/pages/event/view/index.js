@@ -216,12 +216,17 @@ export default function ViewsEvent({ seanceId }) {
                           <th>Durée</th>
                           <th>Echéance</th>
                           <th>Pièces jointes</th>
+                          <th></th>
+
                         </tr>
                       </thead>
                       <tbody>
                         {info.events ? (
                           info.events.map(event => (
-                            <Event key={event.key} data={event} />
+                            <>
+                            
+                            <Event key={event.key} data={event} editable={user.user.username === event.user.username}  />
+                            </>
                           ))
                         ) : (
                           <>
@@ -251,6 +256,7 @@ export default function ViewsEvent({ seanceId }) {
                         <th scope="col"></th>
                         <th scope="col"></th>
                         <th scope="col"></th>
+                        
                       </tr>
                     </thead>
                     <tbody>

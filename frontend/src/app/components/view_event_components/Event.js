@@ -2,10 +2,12 @@ import React from 'react'
 import ModalViewDetail from './ModalViewDetails'
 import ModalViewFiles from './ModalViewsFiles'
 import moment from 'moment';
-import {FaFileAlt} from 'react-icons/fa';
+import {FaFileAlt, FaPen} from 'react-icons/fa';
 import {Badge} from 'shards-react'
+import { navigate } from 'hookrouter';
 
-export default function data({data}) {
+
+export default function Event({data, editable}) {
 
     return (
         <tr key={data.id}>
@@ -37,6 +39,7 @@ export default function data({data}) {
             <FaFileAlt style={{ color: "grey" }} />
           )}
         </td>
+        {editable&& <td><FaPen style={{cursor:"pointer"}} onClick={() => navigate(`/evenement/modifier/${data.id}`)} /></td>}
       </tr>
     )
 }

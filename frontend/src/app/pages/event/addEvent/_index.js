@@ -10,7 +10,8 @@ import {
   FormRadio,
   FormTextarea,
   Button,
-  Slider
+  Slider,
+  ButtonGroup
 } from "shards-react";
 import Moment from "moment";
 import "moment/locale/fr";
@@ -108,7 +109,7 @@ export default function AddEvent({ edit, eventID }) {
     APIgetEventsByID(eventID.eventID).then(data => {
       console.log(data.data);
       APIpatchEvent(data.data.session.id, data.data.id, null, null, null, null)
-          .catch(err => {setUnauthorized(true); console.log(err.response )})
+        .catch(err => { setUnauthorized(true); console.log(err.response) })
 
       setNewEvent({
         eventID: data.data.id,
@@ -179,7 +180,7 @@ export default function AddEvent({ edit, eventID }) {
         .all(request)
         .then(() => {
           resetInformations();
-          if(edit)fetchSession()
+          if (edit) fetchSession()
           toast.success("Fichier(s) ajouté");
           setFileUploadPending(false);
         })
@@ -260,7 +261,7 @@ export default function AddEvent({ edit, eventID }) {
     <>
       <Container fluid className={style.AddEventContainer}>
         {unauthorized ? (
-            <Unauthorized />
+          <Unauthorized />
         ) : (
             <>
               <Row>
@@ -269,66 +270,68 @@ export default function AddEvent({ edit, eventID }) {
                     <CardHeader>Résumé de l'événement</CardHeader>
                     <CardBody>
                       {!edit && (
-                          <>
-                            {" "}
-                            <h5>Module</h5>
-                            <Badge
-                                className={style.Module}
-                                style={{
-                                  backgroundColor:
-                                      addSession.sessions.module &&
-                                      addSession.sessions.module.color
-                                }}
-                            >
-                              {addSession.sessions.module &&
+                        <>
+                          {" "}
+                          <h5>Module</h5>
+                          <Badge
+                            className={style.Module}
+                            style={{
+                              backgroundColor:
+                                addSession.sessions.module &&
+                                addSession.sessions.module.color
+                            }}
+                          >
+                            {addSession.sessions.module &&
                               addSession.sessions.module.name}
-                            </Badge>
-                            <hr />
-                          </>
+                          </Badge>
+                          <hr />
+                        </>
                       )}
 
                       {newEvent.type && (
-                          <>
-                            <h5>Type</h5>
-                            <Badge theme="success">{newEvent.type}</Badge>
-                            <hr />
-                          </>
+                        <>
+                          <h5>Type</h5>
+                          <Badge theme="success">{newEvent.type}</Badge>
+                          <hr />
+                        </>
                       )}
 
                       {!edit && (
-                          <>
-                            <h5>Groupes</h5>
-                            <>{addSession.groups.join(", ")})</>
-                            <hr />
-                          </>
+                        <>
+                          <h5>Groupes</h5>
+                          <>{addSession.groups.join(", ")})</>
+                          <hr />
+                        </>
                       )}
                     </CardBody>
+                    <ButtonGroup >
                     <Button
-                        onClick={() => handleAddEvent()}
-                        disabled={!isValid() || requestPending}
-                        style={{ width: "100%" }}
-                        theme="success"
+                      onClick={() => handleAddEvent()}
+                      disabled={!isValid() || requestPending}
+                      style={{ width: "100%" }}
+                      theme="success"
                     >
                       {requestPending ? (
-                          <Loader
-                              type="ThreeDots"
-                              color="#FFF"
-                              height={30}
-                              width={100}
-                          />
+                        <Loader
+                          type="ThreeDots"
+                          color="#FFF"
+                          height={30}
+                          width={100}
+                        />
                       ) : edit ? (
-                          "Modifier l'événement"
+                        "Modifier l'événement"
                       ) : (
-                          "Ajout d'un événement"
-                      )}
+                            "Ajout d'un événement"
+                          )}
                     </Button>
                     <Button
                       onClick={() => navigate(`/seance/${addSession.sessions.id}`)}
                       style={{ width: "100%" }}
-                      theme="success"
+                      theme="info"
                     >
                       Voir la séance
                     </Button>
+                    </ButtonGroup>
                   </Card>
                 </Col>
 
@@ -339,40 +342,40 @@ export default function AddEvent({ edit, eventID }) {
                     </CardHeader>
                     <CardBody>
                       <Collapse
-                          open={collapseType}
-                          title={"Choix du type"}
-                          toggler={setCollapseType}
+                        open={collapseType}
+                        title={"Choix du type"}
+                        toggler={setCollapseType}
                       >
                         {types.length > 0 ? (
-                            <>
-                              {types.map(type => (
+                          <>
+                            {types.map(type => (
+                              <>
+                                {isTeacher ? (
                                   <>
-                                    {isTeacher ? (
-                                        <>
-                                          {type.roleTypeEvent.teacher&&
-                                          <FormRadio
-                                              key={type.name}
-                                              name={type.name}
-                                              checked={newEvent.type === type.name}
-                                              onChange={() => handleSelectType(type.name)}
-                                          >
-                                            {type.name}
-                                          </FormRadio>
-                                          }{" "}
-                                        </>
-                                    ) : (
-                                        <>
-                                          {type.roleTypeEvent.tutor&&<FormRadio
-                                              key={type.name}
-                                              name={type.name}
-                                              checked={newEvent.type === type.name}
-                                              onChange={() => handleSelectType(type.name)}
-                                          >{type.name}</FormRadio>}
-                                        </>
-                                    )}
+                                    {type.roleTypeEvent.teacher &&
+                                      <FormRadio
+                                        key={type.name}
+                                        name={type.name}
+                                        checked={newEvent.type === type.name}
+                                        onChange={() => handleSelectType(type.name)}
+                                      >
+                                        {type.name}
+                                      </FormRadio>
+                                    }{" "}
                                   </>
-                              ))}
-                            </>
+                                ) : (
+                                    <>
+                                      {type.roleTypeEvent.tutor && <FormRadio
+                                        key={type.name}
+                                        name={type.name}
+                                        checked={newEvent.type === type.name}
+                                        onChange={() => handleSelectType(type.name)}
+                                      >{type.name}</FormRadio>}
+                                    </>
+                                  )}
+                              </>
+                            ))}
+                          </>
                         ) : (
                             <>
                               <RadioLoader />
@@ -380,125 +383,123 @@ export default function AddEvent({ edit, eventID }) {
                               <RadioLoader />
                               <RadioLoader />
                             </>
-                        )}
+                          )}
                       </Collapse>
 
                       <Collapse
-                          open={collapseDuration}
-                          title="Echéance et durée (optionnels)"
-                          toggler={setCollapseDuration}
+                        open={collapseDuration}
+                        title="Echéance et durée (optionnels)"
+                        toggler={setCollapseDuration}
                       >
-                  <span className={style.PickTime} style={{ display: "block" }}>
-                    <span style={{ fontSize: "20px" }}>
-                      Choix de la date d'échéance:(
-                      {newEvent.dueAt &&
-                      Moment(newEvent.dueAt).format("DD/MM/YYYY")}
-                      )
-                    </span>{" "}
-                    <DateTimePicker
-                        onChange={value =>
-                            setNewEvent({ ...newEvent, dueAt: value })
-                        }
-                        format="DD/MM/YYYY"
-                        culture="fr"
-                        time={false}
-                    />
-                  </span>
                         <span className={style.PickTime} style={{ display: "block" }}>
-                    <span style={{ fontSize: "20px", marginTop: "10px" }}>
-                      Durée de l'événement:(
+                          <span style={{ fontSize: "20px" }}>
+                            Choix de la date d'échéance:(
+                      {newEvent.dueAt &&
+                              Moment(newEvent.dueAt).format("DD/MM/YYYY")}
+                            )
+                    </span>{" "}
+                          <DateTimePicker
+                            onChange={value =>
+                              setNewEvent({ ...newEvent, dueAt: value })
+                            }
+                            format="DD/MM/YYYY"
+                            culture="fr"
+                            time={false}
+                          />
+                        </span>
+                        <span className={style.PickTime} style={{ display: "block" }}>
+                          <span style={{ fontSize: "20px", marginTop: "10px" }}>
+                            Durée de l'événement:(
                       {("0" + (Math.floor(newEvent.duration[0]) % 24)).slice(
-                          -2
-                      ) +
-                      "h" +
-                      ((newEvent.duration[0] % 1) * 60 + "0").slice(0, 2)}
-                      )
+                              -2
+                            ) +
+                              "h" +
+                              ((newEvent.duration[0] % 1) * 60 + "0").slice(0, 2)}
+                            )
                     </span>
-                    <Slider
-                        onSlide={val =>
-                            setNewEvent({ ...newEvent, duration: val })
-                        }
-                        connect={[true, false]}
-                        start={newEvent.duration}
-                        range={{ min: 0, max: 24 }}
-                    />
-                  </span>
+                          <Slider
+                            onSlide={val =>
+                              setNewEvent({ ...newEvent, duration: val })
+                            }
+                            connect={[true, false]}
+                            start={newEvent.duration}
+                            range={{ min: 0, max: 24 }}
+                          />
+                        </span>
                       </Collapse>
 
                       <Collapse
-                          open={collapseDesc}
-                          title="Description de l'événement"
-                          toggler={setCollapseDesc}
+                        open={collapseDesc}
+                        title="Description de l'événement"
+                        toggler={setCollapseDesc}
                       >
                         <FormTextarea
-                            value={newEvent.name}
-                            onChange={e =>
-                                setNewEvent({ ...newEvent, name: e.target.value })
-                            }
-                            maxLength="90"
-                            placeholder="Description de l'événement (90 charactéres max.)..."
+                          value={newEvent.name}
+                          onChange={e =>
+                            setNewEvent({ ...newEvent, name: e.target.value })
+                          }
+                          maxLength="90"
+                          placeholder="Description de l'événement (90 charactéres max.)..."
                         />
                       </Collapse>
                       {edit && (
-                          <>
-                    <span style={{ fontSize: "25px", marginTop: "30px" }}>
-                      Fichier(s) disponible
-                    </span>
-                            <table
-                                style={{ width: "100%", minWidth: "100%" }}
-                                className="table"
-                            >
-                              <thead>
+                        <>
+                          <span style={{ fontSize: "25px", marginTop: "30px" }}>Fichier(s) disponible</span>
+                          <table
+                            style={{ width: "100%", minWidth: "100%" }}
+                            className="table"
+                          >
+                            <thead>
                               <tr>
                                 <th>Nom</th>
                                 <th>Type</th>
                                 <th>Taille</th>
                                 <th>Téléchargements</th>
                               </tr>
-                              </thead>
-                              <tbody>
+                            </thead>
+                            <tbody>
                               {fetchedFile.length !== 0 ? (
-                                  fetchedFile.map(file => (
-                                      <File key={file.id} file={file}>
-                                        <td>
-                                          <FaTrash
-                                              onClick={() => handleFileDelete(file.id)}
-                                              style={{ color: "red", cursor: "pointer" }}
-                                          />
-                                        </td>
-                                      </File>
-                                  ))
+                                fetchedFile.map(file => (
+                                  <File key={file.id} file={file}>
+                                    <td>
+                                      <FaTrash
+                                        onClick={() => handleFileDelete(file.id)}
+                                        style={{ color: "red", cursor: "pointer" }}
+                                      />
+                                    </td>
+                                  </File>
+                                ))
                               ) : (
                                   <>
                                     <FileTableLoader />
                                   </>
-                              )}
-                              </tbody>
-                            </table>
-                          </>
+                                )}
+                            </tbody>
+                          </table>
+                        </>
                       )}
                       <span style={{ fontSize: "25px", marginTop: "30px" }}>
-                  Ajout de fichier(s)
+                        Ajout de fichier(s)
                   <span style={{ fontSize: "15px" }}>
-                    (maximum :{" "}
-                    {settings.maxAttachmentEvent - fetchedFile.length})
+                          (maximum :{" "}
+                          {settings.maxAttachmentEvent - fetchedFile.length})
                   </span>
-                </span>
+                      </span>
                       <FilePond
-                          files={files}
-                          maxFiles={settings.maxAttachmentEvent - fetchedFile.length}
-                          style={{ height: "200px" }}
-                          allowMultiple={true}
-                          onupdatefiles={fileItems => {
-                            setFiles(fileItems.map(fileItem => fileItem.file));
-                          }}
+                        files={files}
+                        maxFiles={settings.maxAttachmentEvent - fetchedFile.length}
+                        style={{ height: "200px" }}
+                        allowMultiple={true}
+                        onupdatefiles={fileItems => {
+                          setFiles(fileItems.map(fileItem => fileItem.file));
+                        }}
                       />
                     </CardBody>
                   </Card>
                 </Col>
               </Row>
             </>
-        )}
+          )}
       </Container>
       {fileUploadPending && <PageLoader message="Ajout des fichiers ..." />}
     </>

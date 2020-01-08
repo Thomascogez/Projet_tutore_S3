@@ -11,7 +11,8 @@ import {
   Badge,
   Modal,
   ModalHeader,
-  ModalFooter
+  ModalFooter,
+  ButtonGroup
 } from "shards-react";
 import { Multiselect } from "react-widgets";
 import Collapse from "../../../components/layouts/Collapse";
@@ -204,7 +205,7 @@ export default function AddSession({ edit, id }) {
 
                         <hr />
                       </CardBody>
-
+                            
                       <Button
                           disabled={!isValid() || requestPending}
                           onClick={() => postSession()}
@@ -307,6 +308,7 @@ export default function AddSession({ edit, id }) {
               </ModalHeader>
               <ModalFooter>
                 {" "}
+                
                 <Button
                     onClick={() => navigate("/seances/evenement/ajout")}
                     theme="success"
@@ -314,6 +316,7 @@ export default function AddSession({ edit, id }) {
                   Oui
                 </Button>{" "}
                 <Button theme="danger" onClick={() => navigate(`/seance/${newId}`)}>Non</Button>
+           
               </ModalFooter>
             </Modal>
           </>
