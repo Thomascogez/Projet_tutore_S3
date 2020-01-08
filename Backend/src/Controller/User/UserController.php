@@ -293,10 +293,10 @@ class UserController extends AbstractController
             }
         }
 
-        if($request->get('username')) $user->setUsername($request->get('username'));
+        if($request->get('username'))  $user->setUsername($request->get('username'));
         if($request->get('firstname')) $user->setFirstname($request->get('firstname'));
-        if($request->get('lastname')) $user->setLastname($request->get('lastname'));
-        if($request->get('color')) $user->setLastname($request->get('color'));
+        if($request->get('lastname'))  $user->setLastname($request->get('lastname'));
+        if($request->get('color'))     $user->setColor($request->get('color'));
 
         $form->submit(null, false);
 

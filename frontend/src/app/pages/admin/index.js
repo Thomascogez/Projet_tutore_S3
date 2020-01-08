@@ -45,15 +45,14 @@ export default function index() {
                             <Button className={style.AdminCardBtn} onClick = {() => navigate('/administration/modules')}>Continuer</Button>
                         </CardBody>
                     </Card>
-
                 </Col>
             </Row>
-            <Row style={{paddingTop: "20px"}}>
+            <Row>
                 <Col sm="12" lg="4">
                     <Card className={style.AdminCard} >
                         <CardHeader></CardHeader>
                         <FaBookOpen className={style.AdminCardIcon} />
-                        <CardBody>
+                        <CardBody className={style.AdminCardType}>
                             <CardTitle>Gérer les types<br/>(séances et évènements)</CardTitle>
                             <p>Ajouter, modifier, supprimer.</p>
                             <Button className={style.AdminCardBtn} onClick = {() => navigate('/administration/type')}>Continuer</Button>

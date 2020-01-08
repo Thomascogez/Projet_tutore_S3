@@ -153,6 +153,7 @@ export default function AddSession({ edit, id }) {
         .then(() => {
           reset();
           toast.success("Séance modifiée avec succès");
+          navigate(`/seance/${id.sessionID}`)
           setRequestPending(false);
           fetchSession();
         })
