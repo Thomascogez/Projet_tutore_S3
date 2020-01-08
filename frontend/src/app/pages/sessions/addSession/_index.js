@@ -17,12 +17,19 @@ import { Multiselect } from "react-widgets";
 import Collapse from "../../../components/layouts/Collapse";
 import style from "./_addsession.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { toast } from 'react-toastify';
-import { APIgetSessionTypes, APIpostNewSession, APIgetSession, APIpatchSession } from "../../../api/sessionFetch";
-import Loader from 'react-loader-spinner'
-import { setGroup, setSession } from '../../../providers/actions/addSessionActions'
+import { toast } from "react-toastify";
+import {
+  APIgetSessionTypes,
+  APIpostNewSession,
+  APIgetSession,
+  APIpatchSession
+} from "../../../api/sessionFetch";
+import Loader from "react-loader-spinner";
+import {
+  setGroup,
+  setSession
+} from "../../../providers/actions/addSessionActions";
 import { navigate } from "hookrouter";
-
 
 /**
  * AddSession
@@ -30,59 +37,53 @@ import { navigate } from "hookrouter";
  * Page used to handle the add of sessions
  */
 export default function AddSession({ edit, id }) {
-
-  const INITIAL_STATE = { //initial state for session add 
+  const INITIAL_STATE = {
+    //initial state for session add
     module: "",
     name: "",
     color: "",
     type: "",
-    groups: [],
-  }
+    groups: []
+  };
   const [newSeance, setnewSeance] = useState(INITIAL_STATE);
 
   //session edition mod only
 
   useEffect(() => {
     if (edit) {
-      fetchSession()
+      fetchSession();
     }
-  }, [])
-
-
+  }, []);
 
   const dispatch = useDispatch();
 
   const user = useSelector(state => state.user);
 
-
-
-
-
   const [types, setTypes] = useState([]);
   const [collapseSelectModule, setcollapseSelectModule] = useState(true);
   const [collapseTypeModule, setcollapseTypeModule] = useState(false);
   const [collapseGroups, setcollapseGroups] = useState(false);
-  const [requestPending, setRequestPending] = useState(false)
-  const [modal, setModal] = useState(false)
+  const [requestPending, setRequestPending] = useState(false);
+  const [modal, setModal] = useState(false);
 
   /**
    * fetchSession
-   * 
+   *
    * Get information about a session (edit mod only)
    */
   const fetchSession = () => {
-    APIgetSession(id.sessionID)
-    .then(data => {
-      //using new seance to store modified data 
-      setnewSeance({  //setting by default data fetch from the session
+    APIgetSession(id.sessionID).then(data => {
+      //using new seance to store modified data
+      setnewSeance({
+        //setting by default data fetch from the session
         module: data.data.module.code,
         name: data.data.module.name,
         color: data.data.module.color,
         type: data.data.type,
-        groups: data.data.groups.map(group => group.name),
-      })
-    })
-  }
+        groups: data.data.groups.map(group => group.name)
+      });
+    });
+  };
 
   /**
    * handleSelectModule
@@ -113,98 +114,119 @@ export default function AddSession({ edit, id }) {
   };
 
   const isValid = () => {
-    return newSeance.module !== "" && newSeance.type !== "" && newSeance.groups.length > 0
-  }
+    return (
+      newSeance.module !== "" &&
+      newSeance.type !== "" &&
+      newSeance.groups.length > 0
+    );
+  };
 
   const reset = () => {
-    setnewSeance(INITIAL_STATE)
-    setcollapseGroups(false)
-    setcollapseTypeModule(false)
-    setcollapseSelectModule(true)
-  }
+    setnewSeance(INITIAL_STATE);
+    setcollapseGroups(false);
+    setcollapseTypeModule(false);
+    setcollapseSelectModule(true);
+  };
 
   /**
    * postSession
-   * 
+   *
    * Handle the post of one or multiple sessions
    */
   const postSession = () => {
     setRequestPending(true);
 
-    if (edit) { //if in edit mod send patch request
-      APIpatchSession( id.sessionID, newSeance.module, newSeance.type, newSeance.groups )
+    if (edit) {
+      //if in edit mod send patch request
+      APIpatchSession(
+        id.sessionID,
+        newSeance.module,
+        newSeance.type,
+        newSeance.groups
+      )
         .then(() => {
-          reset()
-          toast.success("Séance modifiée avec succès")
+          reset();
+          toast.success("Séance modifiée avec succès");
           setRequestPending(false);
           fetchSession();
-
         })
         .catch(err => {
           console.log(err.response);
-          
-          setRequestPending(false)
-        })
 
+          setRequestPending(false);
+        });
     } else {
       APIpostNewSession(newSeance.module, newSeance.type, newSeance.groups)
         .then(data => {
-          reset()
-          dispatch(setSession(data.data))
-          dispatch(setGroup(newSeance.groups))
+          reset();
+          dispatch(setSession(data.data));
+          dispatch(setGroup(newSeance.groups));
           setRequestPending(false);
-          toast.success("Séance(s) ajoutée(s) avec succès")
-          setModal(true)
+          toast.success("Séance(s) ajoutée(s) avec succès");
+          setModal(true);
         })
-        .catch(() => setRequestPending(false))
-
+        .catch(() => setRequestPending(false));
     }
-
-
-  }
-
-
-
+  };
 
   return (
     <Container fluid className={style.AddSessionContainer}>
       <Row>
-        {!edit && newSeance.module !== "" || edit && (
-          <Col sm="12" lg="3">
-            <Card>
-              <CardHeader>Résumé</CardHeader>
-              <CardBody>
-                <h5>Module</h5>
-                <Badge
-                  className={style.Module}
-                  style={{ backgroundColor: newSeance.color }}
+        {( newSeance.module !== "") || !edit ? 
+            <Col sm="12" lg="3">
+              <Card>
+                <CardHeader>Résumé</CardHeader>
+                <CardBody>
+                  <h5>Module</h5>
+                  <Badge
+                    className={style.Module}
+                    style={{ backgroundColor: newSeance.color }}
+                  >
+                    {newSeance.name}
+                  </Badge>
+                  {newSeance.type && (
+                    <Badge theme="success">{newSeance.type}</Badge>
+                  )}
+                  <hr />
+                  <h5>Groupes</h5>
+
+                  {newSeance.groups && newSeance.groups.join(", ")}
+
+                  <hr />
+                </CardBody>
+
+                <Button
+                  disabled={!isValid() || requestPending}
+                  onClick={() => postSession()}
                 >
-                  {newSeance.name}
-                </Badge>
-                {newSeance.type && (
-                  <Badge theme="success">{newSeance.type}</Badge>
-                )}
-                <hr />
-                <h5>Groupes</h5>
+                  {requestPending ? (
+                    <Loader
+                      type="ThreeDots"
+                      color="#FFF"
+                      height={30}
+                      width={100}
+                    />
+                  ) : edit ? (
+                    "Modifier la séances"
+                  ) : (
+                    "Ajouter la séances"
+                  )}
+                </Button>
+              </Card>
+            </Col>
+          :<></>}
 
-                {newSeance.groups && newSeance.groups.join(", ")}
-
-                <hr />
-              </CardBody>
-
-              <Button disabled={!isValid() || requestPending} onClick={() => postSession()}>{requestPending ? <Loader
-                type="ThreeDots"
-                color="#FFF"
-                height={30}
-                width={100}
-              /> : "Ajouter la séances"}</Button>
-            </Card>
-          </Col>
-        )}
-
-        <Col className="order-first" sm="12" lg={newSeance.module !== "" || edit ? 9 : 12}>
+        <Col
+          className="order-first"
+          sm="12"
+          lg={newSeance.module !== "" || !edit ? 9 : 12}
+        >
           <Card>
-            <CardHeader>{edit ? "Modification de la séance" : "Ajout d'une nouvelle séance"}</CardHeader>
+            <CardHeader>
+              {edit
+                ? "Modification de la séance"
+                : "Ajout d'une nouvelle séance"}
+            </CardHeader>
             <CardBody>
               <Collapse
                 title="Choix du module"
@@ -216,7 +238,11 @@ export default function AddSession({ edit, id }) {
                     <Badge
                       key={module.module}
                       onClick={() =>
-                        handleSelectModule(module.code, module.name, module.color)
+                        handleSelectModule(
+                          module.code,
+                          module.name,
+                          module.color
+                        )
                       }
                       className={style.Module}
                       style={{ backgroundColor: module.color }}
@@ -253,27 +279,33 @@ export default function AddSession({ edit, id }) {
                   <Multiselect
                     value={newSeance.groups}
                     onChange={value =>
-                      setnewSeance({ ...newSeance, groups: value },
-                      )
+                      setnewSeance({ ...newSeance, groups: value })
                     }
-
                     valueField={edit && "name"}
                     textField={edit && "name"}
                     data={user.user.groups.map(group => group.name)}
                   />
                 )}
               </Collapse>
-
-
             </CardBody>
           </Card>
         </Col>
       </Row>
       <Modal size="lg" open={modal} toggle={() => setModal(!modal)}>
-        <ModalHeader>Voulez-vous ajouter des événements maintenant ?</ModalHeader>
-        <ModalFooter> <Button onClick={() => navigate('/seances/evenement/ajout')} theme="success">Oui</Button> <Button theme="danger">Non</Button></ModalFooter>
+        <ModalHeader>
+          Voulez-vous ajouter des événements maintenant ?
+        </ModalHeader>
+        <ModalFooter>
+          {" "}
+          <Button
+            onClick={() => navigate("/seances/evenement/ajout")}
+            theme="success"
+          >
+            Oui
+          </Button>{" "}
+          <Button theme="danger">Non</Button>
+        </ModalFooter>
       </Modal>
     </Container>
-
   );
 }
