@@ -84,7 +84,8 @@ const checkLogin = () => {
       })
       .catch(err => {
         console.log(err.response);
-
+          localStorage.removeItem('token');
+          navigate("/");
         dispatch({
           type: SET_ISLOGGEDIN,
           value: false,
@@ -104,7 +105,8 @@ const getUserProfile = () => {
         });
       })
       .catch(err => {
-        navigate("/");
+          localStorage.removeItem('token');
+          navigate("/");
         dispatch({
           type: SET_USER,
           value: {}

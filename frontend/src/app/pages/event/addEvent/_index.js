@@ -322,6 +322,13 @@ export default function AddEvent({ edit, eventID }) {
                           "Ajout d'un événement"
                       )}
                     </Button>
+                    <Button
+                      onClick={() => navigate(`/seance/${addSession.sessions.id}`)}
+                      style={{ width: "100%" }}
+                      theme="success"
+                    >
+                      Voir la séance
+                    </Button>
                   </Card>
                 </Col>
 

@@ -27,8 +27,8 @@ export default function NavBar() {
               bgcolor={user.user.color && user.user.color}
               fcolor="#fff"
               letter={
-                user.user.username &&
-                user.user.username.charAt(user.user.username.length - 1)
+                user.user.firstname &&
+                user.user.firstname.charAt(0)
               }
             />
           ) : (

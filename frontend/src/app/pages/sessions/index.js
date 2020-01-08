@@ -19,6 +19,7 @@ import CollapseLoader from "../../components/loader/CollapseLoader";
 import {APIgetAllGroups} from "../../api/groups";
 import {APIgetAllsessionTypes} from "../../api/type/session";
 import ViewSession from "../../components/sessions_components/ViewSession";
+import {navigate} from "hookrouter";
 
 export default function Seances() {
 	moment.locale("fr");
@@ -148,9 +149,8 @@ export default function Seances() {
 									<Card style={{ width: "100%" }}>
 										<CardBody>
 											<Collapse
-												title={"Semaine " + weekSessions[0] + " ( du " + moment().day("Lundi").year((date.split(" "))[0]).week(weekSessions[0]).format("DD/MM/Y") + " au " + moment().day("Lundi").year((date.split(" "))[0]).week(weekSessions[0]).add(6, 'days').format("DD/MM/Y") + " )"}
+												title={<><span style={{fontWeight: "bold"}}>Semaine n°{weekSessions[0]}</span><span style={{fontSize: "20px"}}> (du {moment().day("Lundi").year((date.split(" "))[0]).week(weekSessions[0]).format("DD/MM/Y")} au {moment().day("Lundi").year((date.split(" "))[0]).week(weekSessions[0]).add(6, 'days').format("DD/MM/Y")})</span></>}
 											>
-
 												<Row className={style.DailyWorkRow}>
 													{Object.entries(weekSessions[1]).map(daySessions => (
 														<>
@@ -168,7 +168,7 @@ export default function Seances() {
 																					{(events2[1].duration) ? addDuration(events2[1].duration) : ""}
 																				</>
 																			))}
-																			<ViewSession  session={session[1]} duration={duration} finished={Object.entries(session[1].semaphores)[0][1]} />
+																			<ViewSession  session={session[1]} duration={duration} finished={session[1].semaphores && Object.entries(session[1].semaphores)[0][1]} />
 																			{reinitDuration()}
 																		</>
 																	))}
@@ -194,31 +194,23 @@ export default function Seances() {
 					slideSpeed={500}
 					direction="up"
 					spacing={8}
+					spacing={8}
 					isOpen={openMenu}
 				>
 					<MainButton
-						iconResting={<FaPlus style={{ fontSize: 20, color: "black"}} />}
-						iconActive={<FaMinus style={{ fontSize: 20, color: "black" }} />}
+						iconResting={<FaPlus style={{ fontSize: 20, color: "white"}} />}
+						iconActive={<FaMinus style={{ fontSize: 20, color: "white" }} />}
 						backgroundColor="black"
 						onClick={() => setOpenMenu(!openMenu)}
 						size={56}
+						style={{backgroundColor: "green"}}
 					/>
 					<ChildButton
-						icon={<FaBookOpen style={{ fontSize: 20, color: "black" }} />}
+						icon={<FaBookOpen  style={{ fontSize: 20, color: "black" }} />}
 						backgroundColor="white"
-						size={40}
-						onClick={() => console.log('First button clicked')}
+						size={70}
+						onClick={() => navigate("/seances/ajoutSeance")}
 					/>
-					{/* <ChildButton
-		icon={<MdFavorite style={{ fontSize: 20 }} nativeColor="black" />}
-		backgroundColor="white"
-		size={40}
-	  />
-	  <ChildButton
-		icon={<MdFavorite style={{ fontSize: 20 }} nativeColor="black" />}
-		backgroundColor="white"
-		size={40}
-	  /> */}
 				</FloatingMenu>
 			</Container>
 
