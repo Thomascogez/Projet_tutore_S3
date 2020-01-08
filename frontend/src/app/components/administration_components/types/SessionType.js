@@ -68,12 +68,12 @@ export default function SessionType(props) {
                 <td>
                     {(props === null)?(
                         editing ?
-                            <FormInput value={name} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
+                            <FormInput value={name} invalid={name==''} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
                             :
                             <a onClick={() => setEditing(true)} href="javascript:void(0);"><span style={{fontWeight: "bold"}}>Ajouter un type de séance ...</span></a>
                     ):(
                         editing ?
-                            <FormInput value={name} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
+                            <FormInput value={name} invalid={name==''} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
                             :<span style={{fontWeight: "bold"}}>{name}</span>
                     )}
                 </td>
