@@ -104,7 +104,7 @@ class UserController extends AbstractController
      * @Rest\RequestParam(name="username",  description="Username of school", nullable=false)
      * @Rest\RequestParam(name="firstname", description="Firstname of user",  nullable=false)
      * @Rest\RequestParam(name="lastname",  description="Lastname of user",   nullable=false)
-     * @Rest\RequestParam(name="module",    description="Array of modules",   nullable=true)
+     * @Rest\RequestParam(name="modules",    description="Array of modules",   nullable=true)
      * @Rest\RequestParam(name="groups",    description="Array of groups ",   nullable=true)
      * @Rest\RequestParam(name="roles",     description="Role of user : ['USER_TEACHER', 'USER_TUTOR', 'USER_ADMIN'", nullable=false)
      * @Operation(
@@ -132,6 +132,7 @@ class UserController extends AbstractController
 
         $form = $this->createForm(UserType::class, $user, ['validation_groups'=>['Default', 'FullUpdate']]);
 
+
         $tmp = $request->get('roles');
         $test = false;
         if(isset($tmp) && $tmp != NULL) {
@@ -146,41 +147,27 @@ class UserController extends AbstractController
         }
         if(!$test) {
             $form->add('roles');
-        }
-
-        $groups = $request->get('groupes');
-        if($groups != null) {
-            $form->add('groups');
-            foreach ($groups as $group) {
-                $tmp = $this->getDoctrine()->getRepository(Groups::class)->findOneBy(array("name" => $group));
-                if($tmp != null) {
-                    $user->addGroup($tmp);
-                } else {
-                    $form->get('groups')->addError(new FormError("Group " . $group . " don't exist"));
-                    break;
-                }
-            }
-        }
-
-        $modules = $request->get('module');
-        if($modules != null) {
-            $form->add('modules');
-            foreach ($modules as $module) {
-                $tmp = $this->getDoctrine()->getRepository(Module::class)->findOneBy(array("code" => $module));
-                if($tmp != null) {
-                    $user->addModule($tmp);
-                } else {
-                    $form->get('modules')->addError(new FormError("Module " . $module . " don't exist"));
-                    break;
-                }
-            }
-        }
-
-        $form->submit($request->request->all(), false);
-        if(!$test) {
             $form->get('roles')->addError(new FormError("The choice is : ROLE_TEACHER, ROLE_ADMIN, ROLE_TUTOR"));
         }
+        foreach ($request->get('groups') as $groupReq) {
+            $group = $this->getDoctrine()->getRepository(Groups::class)->findOneBy(array("name" => $groupReq));
 
+            if(!$group) $form->get('groups')->addError(new FormError("Group " . $groupReq . " don't exist  "));
+            else $user->addGroup($group);
+        }
+
+        foreach ($request->get('modules') as $moduleReq) {
+            $module = $this->getDoctrine()->getRepository(Module::class)->findOneBy(array("code" => $moduleReq));
+
+            if(!$module) $form->get('modules')->addError(new FormError("Module " . $moduleReq . " don't exist  "));
+            else $user->addModule($module);
+        }
+
+        $user->setUsername($request->get('username'));
+        $user->setFirstname($request->get('firstname'));
+        $user->setLastname($request->get('lastname'));
+
+        $form->submit(null, false);
         if($form->isValid()) {
             $user->setPlainPassword($this->randomPassword(12));
 
@@ -192,7 +179,7 @@ class UserController extends AbstractController
 
             $message = (new \Swift_Message('Création du compte SchoolShare'))
                 ->setFrom(['contact@schoolshare.com' => "SchoolShare"])
-                ->setTo(/*$mailAddress*/)
+                ->setTo(/*$mailAddress*/"aerosmith129@gmail.com")
                 ->setBody("Nouveau compte sur SchoolShare ...")
                 ->addPart($this->renderView(
                     'mail/newPassword.html.twig',
@@ -212,7 +199,7 @@ class UserController extends AbstractController
 
             $user->setPassword($encoder->encodePassword($user, $user->getPlainPassword()));
             $user->setPlainPassword("");
-            $user->setColor($faker->rgbColor);
+            $user->setColor("#" . sprintf('%06x', mt_rand(0, 1<<18 - 1)));
 
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($user);
@@ -275,37 +262,23 @@ class UserController extends AbstractController
             $form->get('roles')->addError(new FormError("Erreur"));
         }
 
-        $groups = $request->get('groupes');
+        $groups = $request->get('groups');
         if($groups != null) {
-            $form->add('groups');
-            foreach ($user->getGroups() as $group) {
-                $user->removeGroup($group);
-            }
-            foreach ($groups as $group) {
-                $tmp = $this->getDoctrine()->getRepository(Groups::class)->findOneBy(array("name" => $group));
-                if($tmp != null) {
-                    $user->addGroup($tmp);
-                } else {
-                    $form->get('groups')->addError(new FormError("Group " . $group . " don't exist"));
-                    break;
-                }
+            foreach ($request->get('groups') as $groupReq) {
+                $group = $this->getDoctrine()->getRepository(Groups::class)->findOneBy(array("name" => $groupReq));
+
+                if(!$group) $form->get('groups')->addError(new FormError("Group " . $groupReq . " don't exist  "));
+                else $user->addGroup($group);
             }
         }
 
         $modules = $request->get('module');
         if($modules != null) {
-            $form->add('modules');
-            foreach ($user->getModules() as $module) {
-                $user->removeModule($module);
-            }
-            foreach ($modules as $module) {
-                $tmp = $this->getDoctrine()->getRepository(Module::class)->findOneBy(array("code" => $module));
-                if($tmp != null) {
-                    $user->addModule($tmp);
-                } else {
-                    $form->get('modules')->addError(new FormError("Module " . $module . " don't exist"));
-                    break;
-                }
+            foreach ($request->get('modules') as $moduleReq) {
+                $module = $this->getDoctrine()->getRepository(Module::class)->findOneBy(array("code" => $moduleReq));
+
+                if(!$module) $form->get('modules')->addError(new FormError("Module " . $moduleReq . " don't exist  "));
+                else $user->addModule($module);
             }
         }
 
