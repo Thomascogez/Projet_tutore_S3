@@ -6,7 +6,6 @@ export default function PageLoader({ message }) {
     <>
       <div className={style.LoaderContainer}></div>
       <div className={style.LoaderContent}>
-        {message && <h3>{message}</h3>}
         <Loader
           type="TailSpin"
           color="rgba(11, 191, 140, 0.93)"

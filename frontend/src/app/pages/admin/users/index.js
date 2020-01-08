@@ -29,6 +29,7 @@ export default function UserPage() {
     }, []);
 
     return (
+        <>
         <Container fluid className={style.AdmnUtilisateurContainer}>
 
             <Card style={{marginTop: "20px"}}>
@@ -66,8 +67,12 @@ export default function UserPage() {
                     </div>
                 </CardBody>
             </Card>
-
-            <FloatingMenu
+                                
+            {userState.allUsers.length < 0&&<PageLoader />}
+            </Container>
+            
+        
+        <FloatingMenu
                 className="floating-button"
                 slideSpeed={500}
                 direction="up"
@@ -90,11 +95,6 @@ export default function UserPage() {
                     onClick={() => navigate("/administration/utilisateurs/ajout")}
                 />
             </FloatingMenu>
-            { (userState.allUsers.length > 0) ? (
-                <React.Fragment />
-            ):(
-                <PageLoader />
-            )}
-        </Container>
+        </>
     );
 }

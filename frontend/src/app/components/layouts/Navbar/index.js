@@ -20,8 +20,8 @@ export default function NavBar() {
         <img src={logo} alt="SchoolShare Logo" />
         schoolShare
       </NavbarBrand>
-      <Nav navbar className="ml-auto">
-        <NavItem>
+      <Nav  className="ml-auto">
+        <>
           {user.isLoggedIn ? (
             <ProfilRound
               bgcolor={user.user.color && user.user.color}
@@ -34,7 +34,7 @@ export default function NavBar() {
           ) : (
             <>{window.location.pathname !== "/"&&<Loader type="Puff" color="#FFFF" height={50} width={50} />}</>
           )}
-        </NavItem>
+        </>
       </Nav>
     </Navbar>
   );

@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {Card, CardBody, Col, Container, FormSelect, Row} from "shards-react";
 import style from "./sessions.module.css";
-import {FaBookOpen, FaMinus, FaPlus} from "react-icons/fa";
+import { FaBookOpen, FaMinus, FaPlus } from "react-icons/fa";
 import moment from "moment";
 import "moment/locale/fr";
 //seances components
@@ -16,8 +16,8 @@ import {
 	ChildButton,
 } from 'react-floating-button-menu';
 import CollapseLoader from "../../components/loader/CollapseLoader";
-import {APIgetAllGroups} from "../../api/groups";
-import {APIgetAllsessionTypes} from "../../api/type/session";
+import { APIgetAllGroups } from "../../api/groups";
+import { APIgetAllsessionTypes } from "../../api/type/session";
 import ViewSession from "../../components/sessions_components/ViewSession";
 import {navigate} from "hookrouter";
 
@@ -33,7 +33,7 @@ export default function Seances() {
 	const [group, setGroup] = useState("");
 	const [allTypes, setAllTypes] = useState([]);
 	const [type, setType] = useState("");
- 
+
 
 	var duration = 0;
 	var finished = -1;
@@ -91,12 +91,12 @@ export default function Seances() {
 			<Container fluid className={style.SeancesContainer}>
 				<MounthSelector getSetDate={getSetDate} date={date} />
 				<Row>
-					<h4 style={{marginLeft:"30px"}}>Filtre</h4>
+					<h4 style={{ marginLeft: "30px" }}>Filtre</h4>
 					<Col lg={2}>
 						<FormSelect value={group} onChange={e => setGroup(e.target.value)}>
 							<option value={""}>Groupe</option>
 							{allGroup.map(groupData => (
-								<option style={{color: groupData.color, fontWeight: "bold"}} value={groupData.name}>{groupData.name}</option>
+								<option style={{ color: groupData.color, fontWeight: "bold" }} value={groupData.name}>{groupData.name}</option>
 							))}
 						</FormSelect>
 					</Col>
@@ -104,7 +104,7 @@ export default function Seances() {
 						<FormSelect value={type} onChange={e => setType(e.target.value)}>
 							<option value={""}>Type de séance</option>
 							{allTypes.map(typeData => (
-								<option style={{fontWeight: "bold"}} value={typeData.name}>{typeData.name}</option>
+								<option style={{ fontWeight: "bold" }} value={typeData.name}>{typeData.name}</option>
 							))}
 						</FormSelect>
 					</Col>
@@ -155,14 +155,17 @@ export default function Seances() {
 													{Object.entries(weekSessions[1]).map(daySessions => (
 														<>
 															<Col lg="2" md="12">
-																{<DayContainer day={moment(date.replace(/ /g, "") + daySessions[1][0]).format("dddd") + " " + daySessions[1][0]} />}
+																{
+																	<DayContainer day={moment(date.replace(/ /g, "") +
+																	daySessions[1][0]).format("dddd") + " " + daySessions[1][0]} />
+																}
 															</Col>
 
 															<Col lg="10" sm="12">
 																<WorkContainer>
 																	{Object.entries(daySessions[1][1]).map(session => (
 																		<>
-   
+
 																			{Object.entries(session[1].events).map(events2 => (
 																				<>
 																					{(events2[1].duration) ? addDuration(events2[1].duration) : ""}
