@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, ButtonGroup, FormCheckbox, FormInput, FormSelect} from "shards-react";
 import {FaCheck, FaTimes} from "react-icons/fa";
 import {useSelector} from "react-redux";
@@ -7,6 +7,7 @@ import {APIAddGroup, APIEditGroup} from "../../../api/groups";
 import DeleteType from "./Delete";
 import {APIAddsessionType, APIEditsessionType} from "../../../api/type/session";
 import {APIAddEventType, APIEditEventType} from "../../../api/type/event";
+import {errFetch} from "../../../utils/errorFetch";
 
 toast.configure();
 export default function EventType(props) {
@@ -40,35 +41,31 @@ export default function EventType(props) {
                         toast.success("Nouveau type ajouté !");
                         setInvalidEdit(false);
                         setEditing(false);
-                        window.location.reload();
 
                     })
                     .catch(err => {
-                        console.log(err.response);
-                        
-                        toast.error(err.response);
-                        setInvalidEdit(true);
-                        if(err.response.data.errors) {
-                            setError(err.response.data.errors.children);
-                        }
+                        setError(errFetch(err));
                     })
             } else {
                 APIEditEventType(req)
                     .then(res => {
+                        setError({});
                         toast.success("Modification effectué !");
                         setName(req.name);
                         setEditing(false);
                     })
                     .catch(err => {
-                        toast.error(err.response.data.message);
-                        if(err.response.data.errors) {
-                            setError(err.response.data.errors.children);
-                        }
-                        setName(props.name);
+                        setError(errFetch(err));
                     })
             }
         }
     };
+
+    useEffect(() => {
+        Object.entries(error).map(m => {
+            toast.error(m[1][0]);
+        })
+    }, [error])
 
     const handleCancel = () => {
         setEditing(false);
@@ -79,12 +76,12 @@ export default function EventType(props) {
                 <td>
                     {(props === null)?(
                         editing ?
-                            <FormInput value={name} invalid={name==''} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
+                            <FormInput value={name} invalid={error.name && true} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
                             :
                             <a onClick={() => setEditing(true)} href="javascript:void(0);"><span style={{fontWeight: "bold"}}>Ajouter un type d'évènement ...</span></a>
                     ):(
                         editing ?
-                            <FormInput value={name} invalid={name==''} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
+                            <FormInput value={name} invalid={error.name && true} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
                             :<span style={{fontWeight: "bold"}}>{name}</span>
                     )}
                 </td>

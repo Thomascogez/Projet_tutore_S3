@@ -45,6 +45,10 @@ const DELETE_SESSION_TYPE = PATH_API + "/api/session_types";
 const ALL_USERS    = PATH_API + "/api/users";
 const EDIT_USERS   = PATH_API + "/api/users";
 const DELETE_USERS = PATH_API + "/api/users";
+const ADD_USERS    = PATH_API + "/api/users";
+
+const GET_ALL_SETTING = PATH_API + "/api/settings";
+const EDIT_SETTINGS   = PATH_API + "/api/settings";
 
 
 //file upload 
@@ -67,6 +71,7 @@ export {
     ALL_USERS,
     EDIT_USERS,
     DELETE_USERS,
+    ADD_USERS,
     PASSWORD_FORGET_GET,
     PASSWORD_FORGET_VERIFY,
     CHECK_STILL_VALID,
@@ -94,5 +99,7 @@ export {
     GET_MY_SESSION,
     GET_ALL_SESSIONS,
     DEL_SESSION_ID,
-    PATCH_SESSION
+    PATCH_SESSION,
+    GET_ALL_SETTING,
+    EDIT_SETTINGS
 };

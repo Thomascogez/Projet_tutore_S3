@@ -1,11 +1,13 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, ButtonGroup, FormInput, FormSelect, Badge} from "shards-react";
 import {FaCheck, FaTimes} from "react-icons/fa";
 import DeleteGroup from "./DeleteGroup";
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import {toast} from 'react-toastify';
 import {APIAddGroup, APIEditGroup} from "../../../api/groups";
 import InputColor from "react-input-color";
+import {getGroups} from "../../../providers/actions/groupActions";
+import {errFetch} from "../../../utils/errorFetch";
 
 toast.configure();
 export default function Groupe(props) {
@@ -14,6 +16,8 @@ export default function Groupe(props) {
     const [error, setError] = useState({});
     const [invalidEdit, setInvalidEdit] = useState(false);
     props = props.group;
+
+    const dispatch   = useDispatch();
 
     const groupState = useSelector(state => state.group);
 
@@ -39,16 +43,10 @@ export default function Groupe(props) {
                         toast.success("Nouveau groupe ajouté !");
                         setInvalidEdit(false);
                         setEditing(false);
-                        window.location.reload();
-
+                        dispatch(getGroups());
                     })
                     .catch(err => {
-                        console.log(err.response);
-                        setInvalidEdit(true);
-                        toast.error(err.response.data.errors.children.name.errors[0]);
-                        if(err.response.data.errors) {
-                            setError(err.response.data.errors.children);
-                        }
+                        setError(errFetch(err));
                     })
             } else {
                 APIEditGroup(req)
@@ -59,13 +57,11 @@ export default function Groupe(props) {
                         setParent(req.parent);
                         setEditing(false);
                         setInvalidEdit(false);
+                        dispatch(getGroups());
                     })
                     .catch(err => {
-                        setInvalidEdit(true);
-                        toast.error(err.response.data.errors.children.name.errors[0]);
-                        if(err.response.data.errors) {
-                            setError(err.response.data.errors.children);
-                        }
+                        setError(errFetch(err));
+
                         setName(props.name);
                         setColor(props.color);
                         setParent((props.parent)?props.parent.name:'');
@@ -73,6 +69,12 @@ export default function Groupe(props) {
             }
         }
     };
+
+    useEffect(() => {
+        Object.entries(error).map(m => {
+            if(m[1]) toast.error(m[1][0]);
+        })
+    }, [error])
 
     const handleCancel = () => {
         setEditing(false);
@@ -83,12 +85,12 @@ export default function Groupe(props) {
                 <td>
                     {(props === null)?(
                         editing ?
-                            <FormInput value={name} invalid={invalidEdit} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
+                            <FormInput value={name} invalid={error.name && true} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
                             :
                             <a onClick={() => setEditing(true)} href="javascript:void(0);"><span style={{fontWeight: "bold"}}>Ajouter un groupe ...</span></a>
                     ):(
                         editing ?
-                            <FormInput value={name} invalid={invalidEdit} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
+                            <FormInput value={name} invalid={error.name && true} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
                             :<Badge style={{backgroundColor: color, width: "100px"}}>{name}</Badge>
                     )}
                 </td>

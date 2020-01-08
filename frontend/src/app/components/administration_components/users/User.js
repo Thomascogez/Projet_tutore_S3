@@ -55,8 +55,8 @@ export default function User(props) {
         const req = {
             "firstname": firstname,
             "lastname": lastname,
-            "module": tmpModules,
-            "groupes": tmpGroups,
+            "modules": tmpModules,
+            "groups": tmpGroups,
             "roles": (admin)?[roles, "ROLE_ADMIN"]:[roles]
         }
 
@@ -65,7 +65,8 @@ export default function User(props) {
                 toast.success("Modification effectué !")
             })
             .catch(err => {
-                toast.error("Le nom et le prénom doivent être remplis !")
+                console.log(req)
+                console.log(err.response)
                 setUsername(props.username)
                 setLastname(props.lastname)
                 setFirstname(props.firstname)

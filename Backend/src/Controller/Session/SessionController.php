@@ -115,11 +115,11 @@ class SessionController extends AbstractController
         $groups = null;
         $type   = null;
 
-        if($paramFetcher->get('group') !== "") {
+        if($paramFetcher->get('group')) {
             $groups = $this->getDoctrine()->getRepository(Groups::class)->findOneBy(array("name" => $paramFetcher->get('group')));
             if(!$groups) return $this->isNotFound("Group not found");
         }
-        if($paramFetcher->get('type') !== ""){
+        if($paramFetcher->get('type')){
             $type = $this->getDoctrine()->getRepository(\App\Entity\SessionType::class)->findOneBy(array("name" => $paramFetcher->get('type')));
             if(!$type) return $this->isNotFound("Type not found");
         }
