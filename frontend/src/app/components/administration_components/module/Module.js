@@ -28,10 +28,12 @@ export default function Module(props) {
         if (req.name === "") {
             toast.error("Le nom du module ne peut être vide !");
             setName((props != null) ? props.name : '');
+            setInvalidEdit(true)
         }
         else if (req.code === "") {
             toast.error("Le code du module ne peut être vide !");
             setName((props != null) ? props.name : '');
+            setInvalidEdit(true);
         } else {
             if (props === null) {
                 APIAddModule(req)
@@ -91,7 +93,7 @@ export default function Module(props) {
             </td>
             <td>
                 {editing ?
-                    <FormInput value={name} onChange={e => setName(e.target.value)} placeholder="Nom ..." />
+                    <FormInput value={name} invalid={invalidEdit} onChange={e => setName(e.target.value)} placeholder="Nom ..." />
                     : name
                 }
             </td>

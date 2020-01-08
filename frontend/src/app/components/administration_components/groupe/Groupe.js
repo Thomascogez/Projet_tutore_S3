@@ -12,6 +12,7 @@ export default function Groupe(props) {
     const [editing, setEditing] = useState((props === null));
     const [deleting, setDeleting] = useState(false);
     const [error, setError] = useState({});
+    const [invalidEdit, setInvalidEdit] = useState(false);
     props = props.group;
 
     const groupState = useSelector(state => state.group);
@@ -29,18 +30,22 @@ export default function Groupe(props) {
         if(props != null) req = {...req, id: props.id};
         if (req.name === "") {
             toast.error("Le nom du groupe ne peut être vide !");
+            setInvalidEdit(true);
             setName((props != null)?props.name:'');
         } else {
             if(props === null) {
                 APIAddGroup(req)
                     .then(res => {
                         toast.success("Nouveau groupe ajouté !");
+                        setInvalidEdit(false);
                         setEditing(false);
                         window.location.reload();
 
                     })
                     .catch(err => {
-                        toast.error(err.response.data.message);
+                        console.log(err.response);
+                        setInvalidEdit(true);
+                        toast.error(err.response.data.errors.children.name.errors[0]);
                         if(err.response.data.errors) {
                             setError(err.response.data.errors.children);
                         }
@@ -53,9 +58,11 @@ export default function Groupe(props) {
                         setColor(req.color);
                         setParent(req.parent);
                         setEditing(false);
+                        setInvalidEdit(false);
                     })
                     .catch(err => {
-                        toast.error(err.response.data.message);
+                        setInvalidEdit(true);
+                        toast.error(err.response.data.errors.children.name.errors[0]);
                         if(err.response.data.errors) {
                             setError(err.response.data.errors.children);
                         }
@@ -76,12 +83,12 @@ export default function Groupe(props) {
                 <td>
                     {(props === null)?(
                         editing ?
-                            <FormInput value={name} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
+                            <FormInput value={name} invalid={invalidEdit} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
                             :
                             <a onClick={() => setEditing(true)} href="javascript:void(0);"><span style={{fontWeight: "bold"}}>Ajouter un groupe ...</span></a>
                     ):(
                         editing ?
-                            <FormInput value={name} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
+                            <FormInput value={name} invalid={invalidEdit} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
                             :<Badge style={{backgroundColor: color, width: "100px"}}>{name}</Badge>
                     )}
                 </td>
