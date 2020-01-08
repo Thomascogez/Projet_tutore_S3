@@ -197,7 +197,6 @@ export default function Seances() {
 					slideSpeed={500}
 					direction="up"
 					spacing={8}
-					spacing={8}
 					isOpen={openMenu}
 				>
 					<MainButton
