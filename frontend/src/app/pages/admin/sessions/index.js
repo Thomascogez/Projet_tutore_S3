@@ -39,7 +39,7 @@ export default function Sessions()
             year.push(i);
         setArrayYears(year);
 
-        APIgetAllSession(date.format("MM"), date.format("YYYY")) //fetching session types
+        APIgetAllSession(date.format("MM"), date.format("YYYY"), '', '') //fetching session types
             .then(data => {
                 let tmp = {};
 
