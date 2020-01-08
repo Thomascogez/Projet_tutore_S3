@@ -3,7 +3,7 @@ import {Card, CardHeader, Container} from 'shards-react'
 import style from './myEvents.module.css';
 import Event from '../../../components/event_components/Event';
 import {APIgetMyEvents} from '../../../api/event';
-import moment from "moment";
+import Collapse from "../../../components/layouts/Collapse/CollapseEvents";
 
 export default function MyEvents() {
 
@@ -23,11 +23,14 @@ export default function MyEvents() {
                 event[1].forEach(m => {
                     
                     if(tmp[m.session.id]) {
-                        tmp[m.session.id].push(m)
+                        tmp[m.session.id][1].push(m)
                     } else {
                         tmp[m.session.id] = [];
-                        tmp[m.session.id][0] = m
+                        tmp[m.session.id][1] = [];
+                        tmp[m.session.id][0] = m.session
+                        tmp[m.session.id][1].push(m)
                     }
+                    
 
                     if (m.duration) setTotalDuration(totalDuration => m.duration + totalDuration)
 
@@ -41,6 +44,7 @@ export default function MyEvents() {
                         }),m])*/
                 })
             });
+            
             setEvents(tmp)
             
         })
@@ -50,31 +54,17 @@ export default function MyEvents() {
         <Container fluid className={style.EventsContainer}>        
             <Card>
                 <CardHeader><h5>Mes évènements </h5></CardHeader>
-                <div className="table-responsive">
-                    <table className={`table  ${style.EventTable}`}>
-                        <thead>
-                        <tr>
-                            <th>Type</th>
-                            <th>Nom séance</th>
-                            <th>Type séance</th>
-                            <th>Description</th>
-                            <th>Durée ({totalDuration}h)</th>
-                            <th>Echéance</th>
-                            <th>Pièces jointes</th>
-                            {/* <th>Edition</th> */}
-                        </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                Object.entries(events).map(event => 
-                                    event[1].map(m => (
-                                        <Event key={m.id} event={m} size={event[1].length}/>
-                                    ))
-                                )
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                    {
+                        events.length > 0 &&
+                        events.map(session =>(
+                            <Collapse
+                                    title={session[0].module.name}
+                                    size={session[1].length}
+                                    events={session[1]}
+                                >
+                                </Collapse>
+                        ))}
+                
             </Card>
         </Container>
     )
