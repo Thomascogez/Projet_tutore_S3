@@ -32,6 +32,7 @@ import TitleLoader from "../../../components/loader/TitleLoader";
 import { navigate } from "hookrouter";
 import {getUserProfile} from "../../../providers/actions/userActions";
 import {APIgetMyAccount} from "../../../api/userFetch";
+import { setSession, setGroup } from "../../../providers/actions/addSessionActions";
 
 //loader
 
@@ -56,8 +57,6 @@ export default function ViewsEvent({ seanceId }) {
   const user = useSelector(state => state.user);
 
   const dispatch = useDispatch();
-  const userState = useSelector(state => state.user);
-
   useEffect(() => {
     //fetch the api to get information about the session
     APIgetSession(seanceId.seanceId)
@@ -114,6 +113,13 @@ export default function ViewsEvent({ seanceId }) {
       //toast err ....
     }
   };
+
+  const handleAddEvent = () => {
+    dispatch(setGroup(info.groups.map(group=> group.name)));
+    dispatch(setSession(info))
+    navigate('/seances/evenement/ajout')
+    
+  }
 
   //hooks for collapse view
   const [eventCollapse, setEventCollapse] = useState(true);
@@ -221,6 +227,17 @@ export default function ViewsEvent({ seanceId }) {
                         </tr>
                       </thead>
                       <tbody>
+                        {myProperty&& 
+                        <tr>
+                          <td><a href="#" onClick={() => handleAddEvent()}>Ajouter un événement</a></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        }
                         {info.events ? (
                           info.events.map(event => (
                             <>

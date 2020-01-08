@@ -299,7 +299,7 @@ export default function AddEvent({ edit, eventID }) {
                       {!edit && (
                         <>
                           <h5>Groupes</h5>
-                          <>{addSession.groups.join(", ")})</>
+                          <>{addSession.groups.join(", ")}</>
                           <hr />
                         </>
                       )}
