@@ -229,8 +229,11 @@ export default function AddEvent({ edit, eventID }) {
             handlePostFiles(sessionID, data.data.id);
           })
           .catch(err => {
-            toast.error("Erreur lors de l'ajout de l'événement");
-            console.log(err.response);
+            if(err.response.status === 406) {
+              toast.error("Nombre d'évènement maximum atteint !")
+            } else {
+              toast.error("Erreur lors de l'ajout de l'événement");
+            }
             setRequestPending(false);
           });
       } else {

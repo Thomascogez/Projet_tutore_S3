@@ -5,6 +5,7 @@
 
 .AdminCard {
     text-align: center;
+    margin-top: 20px;
 }
 
 .AdminCardIcon {
@@ -18,10 +19,19 @@
     border-color:rgba(11, 191, 140, 0.93) !important;
 }
 
+.AdminCardType{
+    margin-top: -23px;
+}
+
 @media (max-width: 991px) {
     .AdminCardContainer{
         width: 100% !important;
         height: 100% !important;
         margin:0%;
+    }
+}
+@media (max-width: 1317px) {
+    .AdminCardType{
+        margin-top: -45px;
     }
 }
