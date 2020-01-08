@@ -16,7 +16,7 @@ export default function data({data}) {
             <Badge theme="warning">{data.type}</Badge>
           )}
         </td>
-        <th scope="row">{`${data.user.firstname} ${data.user.lastname}`}</th>
+        <td scope="row">{`${data.user.firstname} ${data.user.lastname}`}</td>
         <td>
           <ModalViewDetail text={data.name} />
         </td>

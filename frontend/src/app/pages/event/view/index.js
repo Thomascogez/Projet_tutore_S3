@@ -28,6 +28,7 @@ import ProfileLoader from "../../../components/loader/ProfileLoader";
 import TextLoader from "../../../components/loader/TextLoader";
 import TableLoader from "../../../components/loader/TableLoader";
 import TitleLoader from "../../../components/loader/TitleLoader";
+import {navigate} from "hookrouter";
 
 
 //loader
@@ -107,12 +108,15 @@ export default function ViewsEvent(props) {
                             </CardHeader>
                             <>
                                 {info.user ? (
-                                    <ProfileRound
-                                        size="Big"
-                                        bgcolor={info.user.color}
-                                        letter={info.user.firstname.charAt(0)}
-                                        fcolor="#fff"
-                                    />
+
+                                    <a onClick={() => navigate("/profil/"+info.user.id)}>
+                                        <ProfileRound
+                                            size="Big"
+                                            bgcolor={info.user.color}
+                                            letter={info.user.firstname.charAt(0)}
+                                            fcolor="#fff"
+                                        />
+                                    </a>
                                 ) : (
                                     <ProfileLoader/>
                                 )}

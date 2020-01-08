@@ -29,8 +29,8 @@ const APIgetSessionTypes = () => {
     })
 }
 
-const APIgetAllSession = (month, year) => {
-    return axios.get( GET_ALL_SESSIONS + "?month=" + month + "&year=" + year,
+const APIgetAllSession = (month, year, group, type) => {
+    return axios.get( GET_ALL_SESSIONS + "?month=" + month + "&year=" + year + "&group=" + group + "&type=" + type,
         {headers: { Authorization: "Bearer " + localStorage.getItem("token") }}
     );
 }
