@@ -6,7 +6,6 @@ import Password from '../pages/home/passwordForget'
 import Seances from '../pages/sessions'
 import AddEvent from '../pages/event/addEvent/_index'
 import AddUser from '../pages/admin/users/addUser'
-import AddUserPage2 from '../pages/admin/users/addUser/step2'
 import Administration from '../pages/admin'
 import EditGroup from '../pages/admin/group'
 import GererUtilisateur from '../pages/admin/users'
@@ -23,6 +22,7 @@ import MySession from "../pages/mySession/index";
 import ProtectedRoute from '../utils/protectedRoute'
 import ProtectedRouteAdmin from '../utils/protectedRouteAdmin';
 import Sessions from "../pages/admin/sessions";
+import Settings from "../pages/admin/settings";
 
 const routes = {
     '/' : () => <Home />,
@@ -42,12 +42,12 @@ const routes = {
 
     '/administration': () => <ProtectedRoute><ProtectedRouteAdmin> <Administration /> </ProtectedRouteAdmin></ProtectedRoute>,
     '/administration/utilisateurs': () => <ProtectedRoute><ProtectedRouteAdmin> <GererUtilisateur /></ProtectedRouteAdmin></ProtectedRoute>,
-    '/administration/utilisateurs/ajout/etape1': () => <ProtectedRoute><ProtectedRouteAdmin> <AddUser />        </ProtectedRouteAdmin></ProtectedRoute>,
-    '/administration/utilisateurs/ajout/etape2': () => <ProtectedRoute><ProtectedRouteAdmin> <AddUserPage2 />   </ProtectedRouteAdmin></ProtectedRoute>,
+    '/administration/utilisateurs/ajout': () => <ProtectedRoute><ProtectedRouteAdmin> <AddUser />        </ProtectedRouteAdmin></ProtectedRoute>,
     '/administration/modules': () => <ProtectedRoute><ProtectedRouteAdmin> <EditModule />     </ProtectedRouteAdmin></ProtectedRoute>,
     '/administration/groupe': () => <ProtectedRoute><ProtectedRouteAdmin> <EditGroup />      </ProtectedRouteAdmin></ProtectedRoute>,
     '/administration/type': () => <ProtectedRoute><ProtectedRouteAdmin> <Types />          </ProtectedRouteAdmin></ProtectedRoute>,
     '/administration/sessions': () => <ProtectedRoute><ProtectedRouteAdmin> <Sessions />       </ProtectedRouteAdmin></ProtectedRoute>,
+    '/administration/parametres': () => <ProtectedRoute><ProtectedRouteAdmin> <Settings />       </ProtectedRouteAdmin></ProtectedRoute>,
 
     '/test': () => <Test />,
 };

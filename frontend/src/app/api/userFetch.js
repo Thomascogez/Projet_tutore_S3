@@ -4,7 +4,7 @@ import {
   CHECK_IS_ADMIN,
   GET_USER_PROFILE,
   ALL_USERS,
-  EDIT_USERS, DELETE_MODULES, DELETE_USERS
+  EDIT_USERS, DELETE_MODULES, DELETE_USERS, ADD_USERS
 } from "../types/apiConst";
 import axios from "axios";
 
@@ -61,6 +61,12 @@ const APIGetAllUsers = () => {
   });
 }
 
+const APIAddUser = (user) => {
+  return axios.post(ADD_USERS, user, {
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+  });
+}
+
 const APIGetUser = (idUser) => {
   return axios.get(ALL_USERS + "/" + idUser, {
     headers: { Authorization: "Bearer " + localStorage.getItem("token") }
@@ -82,4 +88,4 @@ const APIDeleteUser = (idUser) => {
 
 
 
-export { APIlogin, APIcheckStillValid, ApiIsAdmin, APIgetMyAccount, APIDeleteUser, APIEditUser, APIGetAllUsers, APIGetUser };
+export { APIlogin, APIcheckStillValid, ApiIsAdmin, APIgetMyAccount, APIDeleteUser, APIEditUser, APIGetAllUsers, APIGetUser, APIAddUser};

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, ButtonGroup, FormInput, FormSelect} from "shards-react";
 import {FaCheck, FaTimes} from "react-icons/fa";
 import {useSelector} from "react-redux";
@@ -6,6 +6,7 @@ import {toast} from 'react-toastify';
 import {APIAddGroup, APIEditGroup} from "../../../api/groups";
 import DeleteType from "./Delete";
 import {APIAddsessionType, APIEditsessionType} from "../../../api/type/session";
+import {errFetch} from "../../../utils/errorFetch";
 
 toast.configure();
 export default function SessionType(props) {
@@ -36,10 +37,7 @@ export default function SessionType(props) {
 
                     })
                     .catch(err => {
-                        toast.error(err.response.data.message);
-                        if(err.response.data.errors) {
-                            setError(err.response.data.errors.children);
-                        }
+                        setError(errFetch(err));
                     })
             } else {
                 APIEditsessionType(req)
@@ -49,15 +47,16 @@ export default function SessionType(props) {
                         setEditing(false);
                     })
                     .catch(err => {
-                        toast.error(err.response.data.message);
-                        if(err.response.data.errors) {
-                            setError(err.response.data.errors.children);
-                        }
-                        setName(props.name);
+                        setError(errFetch(err));
                     })
             }
         }
     };
+    useEffect(() => {
+        Object.entries(error).map(m => {
+            toast.error(m[1][0]);
+        })
+    }, [error])
 
     const handleCancel = () => {
         setEditing(false);
@@ -68,12 +67,12 @@ export default function SessionType(props) {
                 <td>
                     {(props === null)?(
                         editing ?
-                            <FormInput value={name} invalid={name==''} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
+                            <FormInput value={name} invalid={error.name && true} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
                             :
                             <a onClick={() => setEditing(true)} href="javascript:void(0);"><span style={{fontWeight: "bold"}}>Ajouter un type de séance ...</span></a>
                     ):(
                         editing ?
-                            <FormInput value={name} invalid={name==''} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
+                            <FormInput value={name} invalid={error.name && true} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
                             :<span style={{fontWeight: "bold"}}>{name}</span>
                     )}
                 </td>

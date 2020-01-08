@@ -57,7 +57,7 @@ opacity: 0;
   bottom: 100px;
   right: 50px;
 }
-@media (max-width: 992px) {
+@media (max-width: 1920px) {
   
 .floating-button {
   position: fixed;
