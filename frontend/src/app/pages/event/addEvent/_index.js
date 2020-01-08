@@ -9,7 +9,8 @@ import {
   Badge,
   FormRadio,
   FormTextarea,
-  Button
+  Button,
+  Slider
 } from "shards-react";
 import Moment from "moment";
 import "moment/locale/fr";
@@ -51,7 +52,7 @@ export default function AddEvent() {
     groups: addSession.groups,
     type: "",
     name: "",
-    duration: "",
+    duration: [0.0],
     dueAt: ""
   };
 
@@ -82,6 +83,10 @@ export default function AddEvent() {
     );
   };
 
+  useEffect(() => {
+    console.log(newEvent);
+    console.log(Moment(newEvent.duration));
+  }, [newEvent])
   const handleSelectType = (type) => {
     setNewEvent({ ...newEvent, type: type });
     setCollapseType(false);
@@ -97,7 +102,7 @@ export default function AddEvent() {
     if (isValid) {
       let { sessionID, type, name, duration, dueAt } = newEvent;
       setRequestPending(true);
-      APIpostNewEvent(sessionID, name, type, duration, dueAt)
+      APIpostNewEvent(sessionID, name, type, duration[0], dueAt)
         .then(data => {
           setRequestPending(false);
           toast.success("Evénement ajouté");
@@ -126,6 +131,8 @@ export default function AddEvent() {
         })
         .catch(err => {
           toast.error("Erreur lors de l'ajout de l'événement");
+          console.log(err.response);
+          
           setRequestPending(false);
         });
     }
@@ -215,7 +222,7 @@ export default function AddEvent() {
                 >
                   <span className={style.PickTime} style={{ display: "block" }}>
                     <span style={{ fontSize: "20px" }}>
-                      Choix de la date d'échéance:{" "}
+                      Choix de la date d'échéance:({newEvent.dueAt&& Moment(newEvent.dueAt).format("DD/MM/YYYY")})
                     </span>{" "}
                     <DateTimePicker
                       onChange={value =>
@@ -227,20 +234,14 @@ export default function AddEvent() {
                     />
                   </span>
                   <span className={style.PickTime} style={{ display: "block" }}>
-                    <span style={{ fontSize: "20px" }}>
-                      Durée de l'événement:
+                    <span style={{ fontSize: "20px", marginTop:"10px" }}>
+                      Durée de l'événement:({('0' + Math.floor(newEvent.duration[0]) % 24).slice(-2) + 'h' + ((newEvent.duration[0] % 1) * 60 + '0').slice(0, 2)})
                     </span>
-                    <DateTimePicker
-                      onChange={value =>
-                        setNewEvent({
-                          ...newEvent,
-                          duration: Moment.duration(
-                            Moment(value).format("hh:mm")
-                          ).asHours()
-                        })
-                      }
-                      culture="fr"
-                      date={false}
+                    <Slider
+                      onSlide={val =>setNewEvent({...newEvent,duration:val} )}
+                      connect={[true, false]}
+                      start={newEvent.duration}
+                      range={{ min: 0, max: 24 }}
                     />
                   </span>
                 </Collapse>
