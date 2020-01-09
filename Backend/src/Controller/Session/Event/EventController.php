@@ -143,9 +143,16 @@ class EventController extends AbstractController
         if (!$session) return $this->isNotFound(SESSIONS_NOT_FOUND);
 
         $test = false;
-        foreach ($this->getUser()->getGroups() as $groups) {
-            foreach ($session->getGroups() as $group) {
-                if($groups === $group) $test = true;
+        if($session->getUser() === $this->getUser()) {
+            $test = true;
+        }
+        else {
+            if ($this->userHasRole($this->getUser(), "ROLE_TUTOR")) {
+                foreach ($this->getUser()->getGroups() as $groups) {
+                    foreach ($session->getGroups() as $group) {
+                        if($groups === $group) $test = true;
+                    }
+                }
             }
         }
 
@@ -221,7 +228,7 @@ class EventController extends AbstractController
         if (!$session->getEvents()->contains($event))
             return $this->isNotFound(EVENT_NOT_FOUND);
 
-        if ($this->getUser() == $event->getUser()) {
+        if ($this->getUser() == $event->getUser() || $this->userHasRole($this->getUser(), "ROLE_ADMIN")) {
 
             $form = $this->createForm(\App\Form\EventType::class, $event);
             $form->submit($request->request->all(), false);

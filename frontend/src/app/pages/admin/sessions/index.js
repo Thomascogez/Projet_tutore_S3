@@ -13,6 +13,7 @@ export default function Sessions()
     const [date, setDate] = useState(moment());
     const [arrayYears, setArrayYears] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [reload, setReload] = useState(0);
 
     const jsUcfirst = (string) => {
         return string.charAt(0).toUpperCase() + string.slice(1);
@@ -54,17 +55,20 @@ export default function Sessions()
                 setLoading(false)
             })
             .catch(err => console.log(err.response));
-    }, [date]);
+    }, [date, reload]);
 
     useEffect(() => {
         console.log(sessions)
     }, [sessions])
 
+    const setteReload = () => {
+        console.log("ok")
+        setReload(reload+1);
+    }
 
     return (
         <div >
             <h1 style={{padding:20}}>Gestion des séances</h1>
-
             <div style={{margin:50, marginTop:100, padding:10}}>
                 <Row style={{marginBottom: "7px"}}>
                     <Col md="6">
@@ -99,13 +103,14 @@ export default function Sessions()
                                                                         <th>Module</th>
                                                                         <th>Groupes</th>
                                                                         <th>Type</th>
+                                                                        <th>Evènements</th>
                                                                         <th style={{width: 20 + '%'}}>Edition</th>
                                                                     </tr>
                                                                     </thead>
                                                                     <tbody >
                                                                     {
                                                                         daySessions[1][1].map(session => (
-                                                                            <Session key={session.id} session={session}/>
+                                                                            <Session key={session.id} session={session} setReload={setteReload}/>
                                                                         ))
                                                                     }
                                                                     </tbody>

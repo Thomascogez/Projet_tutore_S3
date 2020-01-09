@@ -203,7 +203,7 @@ class AttachmentEventController extends EventController
         if (!$attach) return $this->isNotFound(ATTACHMENT_NOT_FOUND);
 
 
-        if ($event->getUser() == $this->getUser() && $event->getAttachmentEvents()->contains($attach)) {
+        if ( ($event->getUser() == $this->getUser() && $event->getAttachmentEvents()->contains($attach)) || ($this->userHasRole($this->getUser(), "ROLE_ADMIN") && $event->getAttachmentEvents()->contains($attach)) ) {
 
             $manager = $this->getDoctrine()->getManager();
             $manager->remove($attach);
