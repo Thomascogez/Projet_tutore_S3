@@ -16,8 +16,8 @@ export default function PasswordReset(props) {
 
     useEffect(() => {
         ApiPasswordForgetCheck({'token': props.token})
-            .then( () =>  setLoading(!loading))
-            .catch(() =>  navigate("/")       );
+            .then( data =>  {setLoading(!loading); console.log(data.data)})
+            .catch(err =>  /**navigate("/")**/console.log(err.response)       );
     }, []);
 
     const acceptRestore = () => {

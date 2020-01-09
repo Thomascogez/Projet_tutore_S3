@@ -23,9 +23,11 @@ import ProtectedRoute from '../utils/protectedRoute'
 import ProtectedRouteAdmin from '../utils/protectedRouteAdmin';
 import Sessions from "../pages/admin/sessions";
 import Settings from "../pages/admin/settings";
+import LegalNotice from "../pages/legalNotice";
 
 const routes = {
     '/' : () => <Home />,
+    '/mentionLegales' : () => <LegalNotice />,
     '/passwordForget' : () => <Password />,
     '/passwordReset/:token' : (token) => <PasswordReset token={token} />,
 

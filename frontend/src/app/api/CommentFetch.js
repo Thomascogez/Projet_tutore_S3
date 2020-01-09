@@ -11,10 +11,26 @@ import { PATH_API } from "../types/apiConst";
  */
 const APIgetComment = sessionid => {
   return axios.get(
-    `${PATH_API}/api/sessions/${sessionid}/comments`,
-    {
-      headers: { Authorization: "Bearer " + localStorage.getItem("token") }
-    }
+      `${PATH_API}/api/sessions/${sessionid}/comments`,
+      {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+      }
+  );
+};
+
+/**
+ * APIDeleteComment
+ *
+ * Delete comment
+ * @param {*} idComment id of comment
+ *
+ */
+const APIDeleteComment = (sessionid, idComment) => {
+  return axios.get(
+      `${PATH_API}/api/sessions/${sessionid}/comments/${idComment}`,
+      {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+      }
   );
 };
 
@@ -34,4 +50,4 @@ const APIpostComment = (sessionid, comment) => {
   );
 };
 
-export { APIgetComment, APIpostComment };
+export { APIgetComment, APIpostComment, APIDeleteComment };
