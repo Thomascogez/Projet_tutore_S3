@@ -6,12 +6,13 @@ import FileIcon, { defaultStyles } from 'react-file-icon';
  * @param {*} param0 { file, children } => file : file info , children : use to add a button for edit mode
  */
 export default function File({ file, children }) {
-    function bytesToSize(bytes) {
+    const bytesToSize = (bytes) => {
         var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
         if (bytes === 0) return '0 Byte';
         let i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
         return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
     }
+
     return (
         <>
             <tr>
