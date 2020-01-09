@@ -112,6 +112,7 @@ class SessionController extends AbstractController
         $from = new \DateTime($year . "-" . $month . "-01");
         $to = new \DateTime($year . "-" . $month . "-31");
 
+
         $groups = null;
         $type   = null;
 
@@ -161,15 +162,16 @@ class SessionController extends AbstractController
                 if($semaphore->getUser() != $this->getUser()) $index->removeSemaphore($semaphore);
 
             if($test) {
+                $weekNumber = date('W', $index->getCreatedAt()->getTimestamp());
 
-                if(!isset($sessions[date('W', $index->getCreatedAt()->getTimestamp())])){
-                    $sessions[date('W', $index->getCreatedAt()->getTimestamp())] = array();
+                if(!isset($sessions[$weekNumber])){
+                    $sessions[$weekNumber] = array();
                 }
-                if(!isset($sessions[date('W', $index->getCreatedAt()->getTimestamp())][date('d', $index->getCreatedAt()->getTimestamp())])){
-                    $sessions[date('W', $index->getCreatedAt()->getTimestamp())][date('d', $index->getCreatedAt()->getTimestamp())] = array();
+                if(!isset($sessions[$weekNumber][date('d', $index->getCreatedAt()->getTimestamp())])){
+                    $sessions[$weekNumber][date('d', $index->getCreatedAt()->getTimestamp())] = array();
                 }
 
-                $sessions[date('W', $index->getCreatedAt()->getTimestamp())][date('d', $index->getCreatedAt()->getTimestamp())][] = $index;
+                $sessions[$weekNumber][date('d', $index->getCreatedAt()->getTimestamp())][] = $index;
             }
 
         }

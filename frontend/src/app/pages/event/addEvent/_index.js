@@ -32,7 +32,7 @@ import { APIpostFile, APIdeleteFile } from "../../../api/file";
 import {
   APIpostNewEvent,
   APIgetEventsByID,
-  APIpatchEvent
+  APIpatchEvent, APIDeleteEventsByID
 } from "../../../api/event";
 import { APIGetSettings } from "../../../api/settingFetch";
 import { FaTrash } from "react-icons/fa";
@@ -48,6 +48,7 @@ export default function AddEvent({ edit, eventID }) {
   //redux stuff
   const addSession = useSelector(state => state.addSession);
   const [unauthorized, setUnauthorized] = useState(false);
+  const [notFound, setNotFound] = useState(false);
   const user = useSelector(state => state.user);
 
   const INITIAL_STATE = {
@@ -70,6 +71,7 @@ export default function AddEvent({ edit, eventID }) {
   const [collapseDuration, setCollapseDuration] = useState(false);
 
   const [isTeacher, setIsTeacher] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [types, setTypes] = useState([]); //hook that all fetched types
   const [settings, setSettings] = useState({
@@ -107,7 +109,6 @@ export default function AddEvent({ edit, eventID }) {
    */
   const fetchSession = () => {
     APIgetEventsByID(eventID.eventID).then(data => {
-      console.log(data.data);
       APIpatchEvent(data.data.session.id, data.data.id, null, null, null, null)
         .catch(err => { setUnauthorized(true); console.log(err.response) })
 
@@ -210,6 +211,23 @@ export default function AddEvent({ edit, eventID }) {
     }
   };
 
+  const deleteEvent = () => {
+    setLoading(true)
+    APIgetEventsByID(eventID.eventID).then(data => {
+      let id = data.data.session.id;
+      APIDeleteEventsByID(data.data.session.id, data.data.id)
+          .then(data => {
+            setLoading(false)
+            toast.success("Evenement supprimé !")
+            navigate(`/seance/${id}`);
+          })
+          .catch(err => {
+            setLoading(false)
+            toast.error("Erreur lors de la suppression !")
+          })
+    })
+  }
+
   /**
    * handleAddEvent
    *
@@ -248,11 +266,9 @@ export default function AddEvent({ edit, eventID }) {
         )
           .then(data => {
             setRequestPending(false);
-            console.log(data);
           })
           .catch(err => {
             setRequestPending(false);
-            console.log(err.response);
           });
       }
     } else {
@@ -335,6 +351,11 @@ export default function AddEvent({ edit, eventID }) {
                       Voir la séance
                     </Button>
                     </ButtonGroup>
+                    {edit &&(
+                        <Button theme="danger" onClick={() => deleteEvent()}>
+                          Supprimer
+                        </Button>
+                    )}
                   </Card>
                 </Col>
 
@@ -505,6 +526,8 @@ export default function AddEvent({ edit, eventID }) {
           )}
       </Container>
       {fileUploadPending && <PageLoader message="Ajout des fichiers ..." />}
+
+      {loading && <PageLoader /> }
     </>
   );
 }

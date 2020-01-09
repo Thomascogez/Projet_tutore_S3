@@ -4,7 +4,6 @@ import style from "./sessions.module.css";
 import { FaBookOpen, FaMinus, FaPlus } from "react-icons/fa";
 import moment from "moment";
 import "moment/locale/fr";
-//seances components
 import WorkContainer from "../../components/sessions_components/WorkContainers";
 import DayContainer from "../../components/sessions_components/DayContainer";
 import MounthSelector from "../../components/sessions_components/MounthSelector";
@@ -62,10 +61,10 @@ export default function Seances() {
 				let tmp = {};
 
 				Object.entries(data.data).map(weekSessions => {
-					tmp[parseInt(weekSessions[0])] = [];
+					tmp[parseInt(((weekSessions[0] == 1 && date.split(" "))[0] > 1)?53:weekSessions[0])] = [];
 					let test = Object.entries(weekSessions[1]).sort(sortFunction);
 					test.map(daySessions => {
-						tmp[parseInt(weekSessions[0])].push(daySessions)
+						tmp[parseInt(((weekSessions[0] == 1 && date.split(" "))[0] > 1)?53:weekSessions[0])].push(daySessions)
 					})
 				})
 				setAllSessions(tmp);
@@ -149,8 +148,9 @@ export default function Seances() {
 									<Card style={{ width: "100%" }}>
 										<CardBody>
 											<Collapse
-												title={<><span style={{fontWeight: "bold"}}>Semaine n°{weekSessions[0]}</span><span style={{fontSize: "20px"}}> (du {moment().day("Lundi").year((date.split(" "))[0]).week(weekSessions[0]).format("DD/MM/Y")} au {moment().day("Lundi").year((date.split(" "))[0]).week(weekSessions[0]).add(6, 'days').format("DD/MM/Y")})</span></>}
+												title={<><span style={{fontWeight: "bold"}}>Semaine n°{weekSessions[0]}</span></>}
 											>
+												{console.log()}
 												<Row className={style.DailyWorkRow}>
 													{Object.entries(weekSessions[1]).map(daySessions => (
 														<>

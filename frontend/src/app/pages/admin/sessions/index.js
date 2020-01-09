@@ -57,12 +57,7 @@ export default function Sessions()
             .catch(err => console.log(err.response));
     }, [date, reload]);
 
-    useEffect(() => {
-        console.log(sessions)
-    }, [sessions])
-
     const setteReload = () => {
-        console.log("ok")
         setReload(reload+1);
     }
 
@@ -84,41 +79,39 @@ export default function Sessions()
                 </Row>
                 <Card>
                     <CardBody>
-
                         { (Object.entries(sessions).length > 0) ? (
                             <React.Fragment>
                                 {Object.entries(sessions).map(weekSessions =>
                                     <>
                                         <Collapse title={<><span style={{fontWeight: "bold"}}>Semaine n°{weekSessions[0]}</span><span style={{fontSize: "20px"}}> (du {moment().day("Lundi").year(date.year()).week(weekSessions[0]).format("DD/MM/Y")} au {moment().day("Dimanche").year(date.year()).week(weekSessions[0]).format("DD/MM/Y")})</span></>}>
-
-                                                {
-                                                    Object.entries(weekSessions[1]).map(daySessions => (
-                                                        <>
-                                                            <Collapse title={<>{moment( date.year() + "-" + date.format("MM") + "-" + daySessions[1][0]).format("dddd DD") }</>}>
-                                                                <table  className={`table table-striped table-hover table-bordered ${adminStyle.Scroll}`}>
-                                                                    <thead>
-                                                                    <tr>
-                                                                        <th>Date</th>
-                                                                        <th>Utilisateur</th>
-                                                                        <th>Module</th>
-                                                                        <th>Groupes</th>
-                                                                        <th>Type</th>
-                                                                        <th>Evènements</th>
-                                                                        <th style={{width: 20 + '%'}}>Edition</th>
-                                                                    </tr>
-                                                                    </thead>
-                                                                    <tbody >
-                                                                    {
-                                                                        daySessions[1][1].map(session => (
-                                                                            <Session key={session.id} session={session} setReload={setteReload}/>
-                                                                        ))
-                                                                    }
-                                                                    </tbody>
-                                                                </table>
-                                                            </Collapse>
-                                                        </>
-                                                    ))
-                                                }
+                                            {
+                                                Object.entries(weekSessions[1]).map(daySessions => (
+                                                    <>
+                                                        <Collapse title={<>{moment( date.year() + "-" + date.format("MM") + "-" + daySessions[1][0]).format("dddd DD") }</>}>
+                                                            <table  className={`table table-striped table-hover table-bordered ${adminStyle.Scroll}`}>
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Date</th>
+                                                                    <th>Utilisateur</th>
+                                                                    <th>Module</th>
+                                                                    <th>Groupes</th>
+                                                                    <th>Type</th>
+                                                                    <th>Evènements</th>
+                                                                    <th style={{width: 20 + '%'}}>Edition</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody >
+                                                                {
+                                                                    daySessions[1][1].map(session => (
+                                                                        <Session key={session.id} session={session} setReload={setteReload}/>
+                                                                    ))
+                                                                }
+                                                                </tbody>
+                                                            </table>
+                                                        </Collapse>
+                                                    </>
+                                                ))
+                                            }
                                         </Collapse>
                                     </>
                                 ) }
@@ -135,5 +128,4 @@ export default function Sessions()
             )}
         </div>
     )
-
 }

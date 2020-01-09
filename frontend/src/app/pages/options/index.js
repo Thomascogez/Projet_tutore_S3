@@ -8,19 +8,26 @@ import React, { useState } from "react";
 
 import {Container} from "shards-react";
 import style from "./addUser.module.css";
-import Toggle from '../../components/options_components/Toggle'
+import { FormCheckbox } from "shards-react";
 
 export default function Options() {
-  const [coul, setCoul] = useState("white");
+	const [coul, setCoul] = useState("white");
+	const [btnAct, setBtnAct] = useState(false);
 
-  return (
-    <Container fluid className={style.Box} style={{backgroundColor:(coul =="white"? "gray":"white"), color:(coul =="white"? "white":"gray")}}>
-        <div className={style.Titre}><label htmlFor="#modules" className={style.LabelText}>Options</label></div>
-        <div className={style.Form}>
-            <Toggle text="Thème sombre"/>
-        </div>
+	const handleChange = (coul) => {
+		setCoul(coul =="white"? "gray":"white");
+		setBtnAct(!btnAct);
 
-        <div style={{width:"20px", height:"20px", backgroundColor:(coul =="white"? "white":"gray")}} onClick={() => setCoul(coul =="white"? "gray":"white")}/>
-    </Container>
-  );
+	}
+
+	return (
+		<Container fluid className={style.Box} style={{backgroundColor:(coul =="white"? "gray":"white"), color:(coul =="white"? "white":"gray")}}>
+				<div className={style.Titre}><label htmlFor="#modules" className={style.LabelText}>Options</label></div>
+				<div className={style.Form}>
+						<FormCheckbox toggle style={{width:"20px", height:"20px"}} checked={btnAct} onChange={() => handleChange(coul=='white'?'white':'gray')}>
+							Thème sombre
+						</FormCheckbox>
+				</div>
+		</Container>
+	);
 }
