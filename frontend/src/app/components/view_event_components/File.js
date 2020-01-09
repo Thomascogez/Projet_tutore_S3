@@ -1,5 +1,8 @@
 import React from 'react'
 import FileIcon, {defaultStyles} from 'react-file-icon';
+import axios from 'axios';
+import {APIDownloadFile} from "../../api/file";
+
 
 /**
  * 
@@ -12,13 +15,19 @@ export default function File({ file, children }) {
         var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
         return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
     }
+
+    function downloadFile() {
+        axios.get(APIDownloadFile(file.id));
+    }
+
+
     return (
         <>
             <tr>
                 <td>{file.name}</td>
                 <td>{file.extension}</td>
                 <td>{bytesToSize(file.size)}</td>
-                <td><a href={file.source} download><FileIcon color={"#BE4F23"} size={50} extension={file.extension} {...defaultStyles[file.extension]} /></a></td>
+                <td><a href="#" onClick={() => downloadFile()}><FileIcon color={"#BE4F23"} size={50} extension={file.extension} {...defaultStyles[file.extension]} /></a></td>
                 {children}
             </tr>
         

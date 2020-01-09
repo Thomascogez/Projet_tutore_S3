@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\AttachmentEvent;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use App\Controller\AbstractController;
 use Nelmio\ApiDocBundle\Annotation\Model;
@@ -52,5 +53,6 @@ class SecurityController extends AbstractController
             'roles' => $user->getRoles(),
         ]);*/
     }
+
 
 }

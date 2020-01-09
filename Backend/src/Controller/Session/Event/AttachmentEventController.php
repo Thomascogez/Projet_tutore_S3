@@ -215,5 +215,28 @@ class AttachmentEventController extends EventController
         }
     }
 
-
+    /**
+     * Download attachment by attachment id
+     * @Rest\Get("/api/attachments/{idFile}", requirements={"idFile": "\d+"}, name="downloadFileAction")
+     * @Rest\View(serializerGroups={"attachment"})
+     * @Operation(
+     *     path="/api/attachments/{idFile}",
+     *     operationId="downloadFileAction",
+     *     tags={"Event Attachment"},
+     *     summary="Download attachment by attachment id",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Successful response",
+     *         @SWG\Schema(
+     *              type="json"
+     *          )
+     *     )
+     * )
+     */
+    public function downloadFileAction(Request $request)
+    {
+        $file = $this->getDoctrine()->getRepository(AttachmentEvent::class)->find($request->get('idFile'));
+        if(!$file) return $this->notAuthorized();
+        return $this->file(str_replace($request->getSchemeAndHttpHost(), getcwd(), $file->getSource()));
+    }
 }
