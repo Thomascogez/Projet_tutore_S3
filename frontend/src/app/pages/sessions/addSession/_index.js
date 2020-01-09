@@ -11,7 +11,7 @@ import {
   Badge,
   Modal,
   ModalHeader,
-  ModalFooter,
+  ModalFooter, ButtonGroup,
 } from "shards-react";
 import { Multiselect } from "react-widgets";
 import Collapse from "../../../components/layouts/Collapse";
@@ -22,7 +22,7 @@ import {
   APIgetSessionTypes,
   APIpostNewSession,
   APIgetSession,
-  APIpatchSession
+  APIpatchSession, APIdelSessionID
 } from "../../../api/sessionFetch";
 import Loader from "react-loader-spinner";
 import {
@@ -31,6 +31,7 @@ import {
 } from "../../../providers/actions/addSessionActions";
 import { navigate } from "hookrouter";
 import Unauthorized from "../../401";
+import PageLoader from "../../../components/layouts/loader";
 
 /**
  * AddSession
@@ -71,6 +72,8 @@ export default function AddSession({ edit, id }) {
   const [modal, setModal] = useState(false);
   const [newId, setNewId] = useState(0);
 
+  const [loading, setLoading] = useState(false);
+
   /**
    * fetchSession
    *
@@ -89,6 +92,16 @@ export default function AddSession({ edit, id }) {
       });
     });
   };
+
+  const deleteSession = () => {
+    setLoading(true)
+    APIdelSessionID(id.sessionID)
+        .then(data => {
+          setLoading(false);
+          toast.success("Séance supprimé !");
+          navigate('/seances');
+        })
+  }
 
   /**
    * handleSelectModule
@@ -177,150 +190,161 @@ export default function AddSession({ edit, id }) {
   };
 
   return (
-    <Container fluid className={style.AddSessionContainer}>
-      {unauthorized ? (
-          <Unauthorized />
-      ) : (
-          <>
-            <Row>
-              {( newSeance.module !== "") || !edit ?
-                  <Col sm="12" lg="3">
-                    <Card>
-                      <CardHeader>Résumé</CardHeader>
-                      <CardBody>
-                        <h5>Module</h5>
-                        <Badge
-                            className={style.Module}
-                            style={{ backgroundColor: newSeance.color }}
-                        >
-                          {newSeance.name}
-                        </Badge>
-                        {newSeance.type && (
-                            <Badge theme="success">{newSeance.type}</Badge>
-                        )}
-                        <hr />
-                        <h5>Groupes</h5>
-
-                        {newSeance.groups && newSeance.groups.join(", ")}
-
-                        <hr />
-                      </CardBody>
-                            
-                      <Button
-                          disabled={!isValid() || requestPending}
-                          onClick={() => postSession()}
-                      >
-                        {requestPending ? (
-                            <Loader
-                                type="ThreeDots"
-                                color="#FFF"
-                                height={30}
-                                width={100}
-                            />
-                        ) : edit ? (
-                            "Modifier la séances"
-                        ) : (
-                            "Ajouter la séances"
-                        )}
-                      </Button>
-                    </Card>
-                  </Col>
-                  :<></>}
-
-              <Col
-                  className="order-first"
-                  sm="12"
-                  lg={newSeance.module !== "" || !edit ? 9 : 12}
-              >
-                <Card>
-                  <CardHeader>
-                    {edit
-                        ? "Modification de la séance"
-                        : "Ajout d'une nouvelle séance"}
-                  </CardHeader>
-                  <CardBody>
-                    <Collapse
-                        title="Choix du module"
-                        open={collapseSelectModule}
-                        toggler={setcollapseSelectModule}
-                    >
-                      {user.user.modules &&
-                      user.user.modules.map(module => (
+      <>
+        <Container fluid className={style.AddSessionContainer}>
+        {unauthorized ? (
+            <Unauthorized />
+        ) : (
+            <>
+              <Row>
+                {( newSeance.module !== "") || !edit ?
+                    <Col sm="12" lg="3">
+                      <Card>
+                        <CardHeader>Résumé</CardHeader>
+                        <CardBody>
+                          <h5>Module</h5>
                           <Badge
-                              key={module.module}
-                              onClick={() =>
-                                  handleSelectModule(
-                                      module.code,
-                                      module.name,
-                                      module.color
-                                  )
-                              }
                               className={style.Module}
-                              style={{ backgroundColor: module.color }}
+                              style={{ backgroundColor: newSeance.color }}
                           >
-                            {module.name}
+                            {newSeance.name}
                           </Badge>
-                      ))}
-                    </Collapse>
+                          {newSeance.type && (
+                              <Badge theme="success">{newSeance.type}</Badge>
+                          )}
+                          <hr />
+                          <h5>Groupes</h5>
 
-                    <Collapse
-                        title="Choix du type du module"
-                        open={collapseTypeModule}
-                        toggler={setcollapseTypeModule}
-                    >
-                      {types &&
-                      types.map(type => (
-                          <FormRadio
-                              key={type}
-                              name="groupe"
-                              onClick={() => handleSetType(type)}
-                              checked={type === newSeance.type}
+                          {newSeance.groups && newSeance.groups.join(", ")}
+
+                          <hr />
+                        </CardBody>
+
+                        <ButtonGroup>
+                          <Button
+                              disabled={!isValid() || requestPending}
+                              onClick={() => postSession()}
                           >
-                            {type}
-                          </FormRadio>
-                      ))}
-                    </Collapse>
+                            {requestPending ? (
+                                <Loader
+                                    type="ThreeDots"
+                                    color="#FFF"
+                                    height={30}
+                                    width={100}
+                                />
+                            ) : edit ? (
+                                "Modifier la séances"
+                            ) : (
+                                "Ajouter la séances"
+                            )}
+                          </Button>
+                          {edit &&(
+                              <Button theme="danger" onClick={() => deleteSession()}>
+                                Supprimer
+                              </Button>
+                          )}
+                        </ButtonGroup>
 
-                    <Collapse
-                        title="Choix du / des groupe(s)"
-                        open={collapseGroups}
-                        toggler={setcollapseGroups}
-                    >
-                      {user.user.groups && (
-                          <Multiselect
-                              value={newSeance.groups}
-                              onChange={value =>
-                                  setnewSeance({ ...newSeance, groups: value })
-                              }
-                              valueField={edit && "name"}
-                              textField={edit && "name"}
-                              data={user.user.groups.map(group => group.name)}
-                          />
-                      )}
-                    </Collapse>
-                  </CardBody>
-                </Card>
-              </Col>
-            </Row>
-            <Modal size="lg" open={modal} toggle={() => setModal(!modal)}>
-              <ModalHeader>
-                Voulez-vous ajouter des événements maintenant ?
-              </ModalHeader>
-              <ModalFooter>
-                {" "}
-                
-                <Button
-                    onClick={() => navigate("/seances/evenement/ajout")}
-                    theme="success"
+                      </Card>
+                    </Col>
+                    :<></>}
+
+                <Col
+                    className="order-first"
+                    sm="12"
+                    lg={newSeance.module !== "" || !edit ? 9 : 12}
                 >
-                  Oui
-                </Button>{" "}
-                <Button theme="danger" onClick={() => navigate(`/seance/${newId}`)}>Non</Button>
-           
-              </ModalFooter>
-            </Modal>
-          </>
-      )}
-    </Container>
+                  <Card>
+                    <CardHeader>
+                      {edit
+                          ? "Modification de la séance"
+                          : "Ajout d'une nouvelle séance"}
+                    </CardHeader>
+                    <CardBody>
+                      <Collapse
+                          title="Choix du module"
+                          open={collapseSelectModule}
+                          toggler={setcollapseSelectModule}
+                      >
+                        {user.user.modules &&
+                        user.user.modules.map(module => (
+                            <Badge
+                                key={module.module}
+                                onClick={() =>
+                                    handleSelectModule(
+                                        module.code,
+                                        module.name,
+                                        module.color
+                                    )
+                                }
+                                className={style.Module}
+                                style={{ backgroundColor: module.color }}
+                            >
+                              {module.name}
+                            </Badge>
+                        ))}
+                      </Collapse>
+
+                      <Collapse
+                          title="Choix du type du module"
+                          open={collapseTypeModule}
+                          toggler={setcollapseTypeModule}
+                      >
+                        {types &&
+                        types.map(type => (
+                            <FormRadio
+                                key={type}
+                                name="groupe"
+                                onClick={() => handleSetType(type)}
+                                checked={type === newSeance.type}
+                            >
+                              {type}
+                            </FormRadio>
+                        ))}
+                      </Collapse>
+
+                      <Collapse
+                          title="Choix du / des groupe(s)"
+                          open={collapseGroups}
+                          toggler={setcollapseGroups}
+                      >
+                        {user.user.groups && (
+                            <Multiselect
+                                value={newSeance.groups}
+                                onChange={value =>
+                                    setnewSeance({ ...newSeance, groups: value })
+                                }
+                                valueField={edit && "name"}
+                                textField={edit && "name"}
+                                data={user.user.groups.map(group => group.name)}
+                            />
+                        )}
+                      </Collapse>
+                    </CardBody>
+                  </Card>
+                </Col>
+              </Row>
+              <Modal size="lg" open={modal} toggle={() => setModal(!modal)}>
+                <ModalHeader>
+                  Voulez-vous ajouter des événements maintenant ?
+                </ModalHeader>
+                <ModalFooter>
+                  {" "}
+
+                  <Button
+                      onClick={() => navigate("/seances/evenement/ajout")}
+                      theme="success"
+                  >
+                    Oui
+                  </Button>{" "}
+                  <Button theme="danger" onClick={() => navigate(`/seance/${newId}`)}>Non</Button>
+
+                </ModalFooter>
+              </Modal>
+            </>
+        )}
+      </Container>
+        {loading && <PageLoader /> }
+      </>
   );
 }

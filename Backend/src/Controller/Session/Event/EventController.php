@@ -290,7 +290,7 @@ class EventController extends AbstractController
         if (!$session->getEvents()->contains($event))
             return $this->isNotFound(EVENT_NOT_FOUND);
 
-        if ($event->getUser() === $this->getUser()) {
+        if ($event->getUser() === $this->getUser() || $this->userHasRole($this->getUser(), "ROLE_ADMIN")) {
 
             $manager = $this->getDoctrine()->getManager();
             $manager->remove($event);

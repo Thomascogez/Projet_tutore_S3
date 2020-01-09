@@ -24,6 +24,12 @@ const APIgetEventsByID = (eventID) => {
   });
 };
 
+const APIDeleteEventsByID = (eventSession, eventID) => {
+  return axios.delete(`${PATH_API}/api/sessions/${eventSession}/events/${eventID}`, {
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+  });
+};
+
 const APIpatchEvent = (sessionID, eventID, name, type, duration = "", dueAt = "") => {
   let req = {};
   if(name !== null || type !== null || type !== null || duration !== null || dueAt !== null)
@@ -32,8 +38,6 @@ const APIpatchEvent = (sessionID, eventID, name, type, duration = "", dueAt = ""
     req,
     { headers: { Authorization: "Bearer " + localStorage.getItem("token") } }
   )
-
-  
 }
 
 const APIpostNewEvent = (sessionID, name, type, duration = "", dueAt = "") => {
@@ -45,4 +49,4 @@ const APIpostNewEvent = (sessionID, name, type, duration = "", dueAt = "") => {
   );
 };
 
-export { APIgetEventTypes, APIgetMyEvents, APIpostNewEvent, APIgetEventsByID, APIpatchEvent };
+export { APIgetEventTypes, APIgetMyEvents, APIpostNewEvent, APIgetEventsByID, APIpatchEvent, APIDeleteEventsByID };
