@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Button, FormInput, ButtonGroup } from "shards-react";
 import { FaCheck, FaTimes } from "react-icons/fa";
-import DeleteModal from "./DeleteModal";
 import InputColor from "react-input-color";
-import {toast} from "react-toastify";
-import {APIAddModule, APIEditModule} from "../../../api/modules";
+import { toast } from "react-toastify";
+import { Button, ButtonGroup, FormInput } from "shards-react";
+import { APIAddModule, APIEditModule } from "../../../api/modules";
+import DeleteModal from "./DeleteModal";
 
 export default function Module(props) {
     const [editing, setEditing] = useState(false);

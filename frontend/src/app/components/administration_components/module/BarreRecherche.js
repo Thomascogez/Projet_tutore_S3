@@ -1,12 +1,6 @@
 import React from 'react';
 import { FaSearch } from "react-icons/fa";
-import {
-    Button,
-    InputGroup,
-    InputGroupText,
-    InputGroupAddon,
-    FormInput
-} from "shards-react"
+import { Button, FormInput, InputGroup, InputGroupAddon, InputGroupText } from "shards-react";
 
 export default function BarreRecherche()
 {

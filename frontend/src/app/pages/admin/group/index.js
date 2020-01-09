@@ -31,7 +31,7 @@ export default function Group()
                             <th>Groupe</th>
                             <th>Couleur</th>
                             <th>Dépendance</th>
-                            <th style={{width: 20 + '%'}}>Edition</th>
+                            <th style={{width: '20%'}}>Edition</th>
                         </tr>
                     </thead>
                     <tbody >

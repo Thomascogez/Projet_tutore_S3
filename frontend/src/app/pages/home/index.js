@@ -30,7 +30,6 @@ export default function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setPageLoading(false);
     if (userState.isLoggedIn) {
       navigate("/seances");
     }
@@ -39,6 +38,10 @@ export default function Home() {
     }
   }, [userState.isLoggedIn, userState.loginMessage]);
 
+  /**
+   * Submit login request
+   * @param {*} e form element to prevent default behavior
+   */
   const handleSubmit = e => {
     e.preventDefault();
     setLoading(!loading);
@@ -48,8 +51,9 @@ export default function Home() {
 
   return (
     <>
-      {pageLoading ? (
-        <PageLoader />
+      {
+      (userState.isLoggedIn === false && userState.user.id !=="") ? (
+        <React.Suspense><PageLoader /></React.Suspense>
       ) : (
         <Container fluid className={style.LoginContainer}>
             <Container className={style.LoginFormContainer}>

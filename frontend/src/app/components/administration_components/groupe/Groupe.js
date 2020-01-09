@@ -1,29 +1,28 @@
-import React, {useEffect, useState} from "react";
-import {Button, ButtonGroup, FormInput, FormSelect, Badge} from "shards-react";
-import {FaCheck, FaTimes} from "react-icons/fa";
-import DeleteGroup from "./DeleteGroup";
-import {useSelector, useDispatch} from "react-redux";
-import {toast} from 'react-toastify';
-import {APIAddGroup, APIEditGroup} from "../../../api/groups";
+import React, { useEffect, useState } from "react";
+import { FaCheck, FaTimes } from "react-icons/fa";
 import InputColor from "react-input-color";
-import {getGroups} from "../../../providers/actions/groupActions";
-import {errFetch} from "../../../utils/errorFetch";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from 'react-toastify';
+import { Badge, Button, ButtonGroup, FormInput, FormSelect } from "shards-react";
+import { APIAddGroup, APIEditGroup } from "../../../api/groups";
+import { getGroups } from "../../../providers/actions/groupActions";
+import { errFetch } from "../../../utils/errorFetch";
+import DeleteGroup from "./DeleteGroup";
 
 toast.configure();
-export default function Groupe(props) {
-    const [editing, setEditing] = useState((props === null));
+export default function Groupe({ group }) {
+    const [editing, setEditing] = useState((group === null));
     const [deleting, setDeleting] = useState(false);
     const [error, setError] = useState({});
-    const [invalidEdit, setInvalidEdit] = useState(false);
-    props = props.group;
 
-    const dispatch   = useDispatch();
+
+    const dispatch = useDispatch();
 
     const groupState = useSelector(state => state.group);
 
-    const [name, setName] = useState((props != null)?props.name:"");
-    const [color, setColor] = useState((props != null)?props.color:"");
-    const [parent, setParent] = useState((props != null)?((props.parent) ? props.parent : ""):"");
+    const [name, setName] = useState((group != null) ? group.name : "");
+    const [color, setColor] = useState((group != null) ? group.color : "");
+    const [parent, setParent] = useState((group != null) ? ((group.parent) ? group.parent : "") : "");
 
     const handleValidate = () => {
         let req = {
@@ -31,17 +30,15 @@ export default function Groupe(props) {
             color: color,
             parent: parent
         };
-        if(props != null) req = {...req, id: props.id};
+        if (group != null) req = { ...req, id: group.id };
         if (req.name === "") {
             toast.error("Le nom du groupe ne peut être vide !");
-            setInvalidEdit(true);
-            setName((props != null)?props.name:'');
+            setName((group != null) ? group.name : '');
         } else {
-            if(props === null) {
+            if (group === null) {
                 APIAddGroup(req)
                     .then(res => {
                         toast.success("Nouveau groupe ajouté !");
-                        setInvalidEdit(false);
                         setEditing(false);
                         dispatch(getGroups());
                     })
@@ -56,15 +53,14 @@ export default function Groupe(props) {
                         setColor(req.color);
                         setParent(req.parent);
                         setEditing(false);
-                        setInvalidEdit(false);
                         dispatch(getGroups());
                     })
                     .catch(err => {
                         setError(errFetch(err));
 
-                        setName(props.name);
-                        setColor(props.color);
-                        setParent((props.parent)?props.parent.name:'');
+                        setName(group.name);
+                        setColor(group.color);
+                        setParent((group.parent) ? group.parent.name : '');
                     })
             }
         }
@@ -72,54 +68,55 @@ export default function Groupe(props) {
 
     useEffect(() => {
         Object.entries(error).map(m => {
-            if(m[1]) toast.error(m[1][0]);
+            if (m[1]) toast.error(m[1][0]);
         })
     }, [error])
 
     const handleCancel = () => {
         setEditing(false);
     };
+
     return (
-        <React.Fragment>
+        <>
             <tr>
                 <td>
-                    {(props === null)?(
+                    {(group === null) ? (
                         editing ?
-                            <FormInput value={name} invalid={error.name && true} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
+                            <FormInput value={name} invalid={error.name && true} onChange={e => setName(e.target.value)} placeholder="Nom ..." />
                             :
-                            <a onClick={() => setEditing(true)} href="javascript:void(0);"><span style={{fontWeight: "bold"}}>Ajouter un groupe ...</span></a>
-                    ):(
-                        editing ?
-                            <FormInput value={name} invalid={error.name && true} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
-                            :<Badge style={{backgroundColor: color, width: "100px"}}>{name}</Badge>
-                    )}
+                            <a onClick={() => setEditing(true)} href="javascript:void(0);"><span style={{ fontWeight: "bold" }}>Ajouter un groupe ...</span></a>
+                    ) : (
+                            editing ?
+                                <FormInput value={name} invalid={error.name && true} onChange={e => setName(e.target.value)} placeholder="Nom ..." />
+                                : <Badge style={{ backgroundColor: color, width: "100px" }}>{name}</Badge>
+                        )}
                 </td>
                 <td>
-                    <div style={{width: 100}}>
+                    <div style={{ width: 100 }}>
                         {editing ?
-                            <InputColor initialHexColor={color} onChange={e => setColor(e.hex)} placement="right"/>
+                            <InputColor initialHexColor={color} onChange={e => setColor(e.hex)} placement="right" />
                             :
-                            <div style={{color: color, fontSize: 15, fontWeight: "bold"}}>{color}</div>}
+                            <div style={{ color: color, fontSize: 15, fontWeight: "bold" }}>{color}</div>}
                     </div>
                 </td>
                 <td>
                     {editing ?
                         <FormSelect value={parent} onChange={(e) => setParent(e.target.value)}>
-                            <option style={{fontWeight: "bold"}} key={null}>Aucun groupe</option>
+                            <option style={{ fontWeight: "bold" }} key={null}>Aucun groupe</option>
                             {groupState.groups.map(m => (
                                 <React.Fragment>
                                     {m.name !== name ? (
-                                        <option style={{color: m.color, fontWeight: "bold"}} key={m.name}>
+                                        <option style={{ color: m.color, fontWeight: "bold" }} key={m.name}>
                                             {m.name}
                                         </option>
                                     ) : ""}
                                 </React.Fragment>
                             ))}
                         </FormSelect>
-                        :(
-                            (props != null)? (
-                                (parent) ? <Badge style={{backgroundColor: parent.color, width: "100px"}}>{parent.name}</Badge> : "Aucun groupe"
-                            ):(<React.Fragment />)
+                        : (
+                            (group != null) ? (
+                                (parent) ? <Badge style={{ backgroundColor: parent.color, width: "100px" }}>{parent.name}</Badge> : "Aucun groupe"
+                            ) : (<></>)
                         )
                     }
                 </td>
@@ -127,27 +124,27 @@ export default function Groupe(props) {
                     {editing ? (
                         <ButtonGroup>
                             <Button onClick={() => handleValidate()} theme="success">
-                                <FaCheck/>
+                                <FaCheck />
                             </Button>
                             <Button onClick={() => handleCancel()} theme="danger">
-                                <FaTimes/>
+                                <FaTimes />
                             </Button>
                         </ButtonGroup>
                     ) : (
-                        <ButtonGroup>
-                            {(props != null)? (
-                                <React.Fragment>
-                                    <Button onClick={() => setEditing(true)}>Edition</Button>
-                                    <Button onClick={() => setDeleting(!deleting)} theme="danger">Supprimer</Button>
-                                </React.Fragment>
-                            ):(<React.Fragment />)}
-                        </ButtonGroup>
-                    )}
+                            <ButtonGroup>
+                                {(group != null) ? (
+                                    <>
+                                        <Button onClick={() => setEditing(true)}>Edition</Button>
+                                        <Button onClick={() => setDeleting(!deleting)} theme="danger">Supprimer</Button>
+                                    </>
+                                ) : (<React.Fragment />)}
+                            </ButtonGroup>
+                        )}
                 </td>
-                {(props != null)? (
-                    <DeleteGroup open={deleting} setOpen={setDeleting} name={name} color={color} id={props.id}/>
-                ):(<React.Fragment />)}
-          </tr>
-      </React.Fragment>
-  );
+                {(group != null) ? (
+                    <DeleteGroup open={deleting} setOpen={setDeleting} name={name} color={color} id={group.id} />
+                ) : (<></>)}
+            </tr>
+        </>
+    );
 }

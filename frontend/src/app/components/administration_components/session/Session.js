@@ -6,29 +6,25 @@ import DeleteModal from "../session/DeleteModal";
 import style from "./deleteModal.module.css";
 import Event from "../../view_event_components/Event";
 
-export default function Session(props) {
+export default function Session({session, setReload }) {
 
     const [deleting,  setDeleting] = useState(false);
     const [modalEvent, setModalEvent] = useState(false);
-
-    const reload = props.setReload;
-    props = props.session;
-
     return (
         <tr>
-            <td>{moment(props.createdAt).format("DD-MM-YYYY")}</td>
-            <td>{props.user.firstname + " " + props.user.lastname}</td>
-            <td>{props.module.name}</td>
+            <td>{moment(session.createdAt).format("DD-MM-YYYY")}</td>
+            <td>{session.user.firstname + " " + session.user.lastname}</td>
+            <td>{session.module.name}</td>
             <td>
-                {props.groups.map(m => <Badge style={{backgroundColor: m.color, marginRight: "10px"}}>{m.name}</Badge>)}
+                {session.groups.map(m => <Badge style={{backgroundColor: m.color, marginRight: "10px"}}>{m.name}</Badge>)}
             </td>
-            <td><Badge theme="success">{props.type}</Badge></td>
+            <td><Badge theme="success">{session.type}</Badge></td>
             <td><a href="#" onClick={e => {e.preventDefault(); setModalEvent(true)}}>Voir les évènements</a></td>
             <td>
-                <Button onClick={() => navigate(`/seances/modifier/${props.id}`)}>Edition</Button>
+                <Button onClick={() => navigate(`/seances/modifier/${session.id}`)}>Edition</Button>
                 <Button onClick={() => setDeleting(!deleting)} theme="danger">Supprimer</Button>
             </td>
-            <DeleteModal open={deleting} setOpen={setDeleting} id={props.id} reload={reload}/>
+            <DeleteModal open={deleting} setOpen={setDeleting} id={session.id} reload={setReload}/>
 
 
             <Modal size="lg" open={modalEvent} toggle={setModalEvent}>
@@ -50,8 +46,8 @@ export default function Session(props) {
                             </thead>
                             <tbody>
                             {
-                                props.events.length > 0 &&
-                                props.events.map(event => (
+                                session.events.length > 0 &&
+                                session.events.map(event => (
                                     <Event key={event.id} data={event} editable={true}  />
                                     )
                                 )

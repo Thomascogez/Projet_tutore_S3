@@ -1,25 +1,23 @@
-import React, {useEffect, useState} from "react";
-import {Button, ButtonGroup, FormCheckbox, FormInput} from "shards-react";
-import {FaCheck, FaTimes} from "react-icons/fa";
-import {useSelector} from "react-redux";
-import {toast} from 'react-toastify';
+import React, { useEffect, useState } from "react";
+import { FaCheck, FaTimes } from "react-icons/fa";
+import { toast } from 'react-toastify';
+import { Button, ButtonGroup, FormCheckbox, FormInput } from "shards-react";
+import { APIAddEventType, APIEditEventType } from "../../../api/type/event";
+import { errFetch } from "../../../utils/errorFetch";
 import DeleteType from "./Delete";
-import {APIAddEventType, APIEditEventType} from "../../../api/type/event";
-import {errFetch} from "../../../utils/errorFetch";
 
 toast.configure();
-export default function EventType(props) {
-    const [editing, setEditing] = useState((props === null));
+export default function EventType({ eventType }) {
+    const [editing, setEditing] = useState((eventType === null));
     const [deleting, setDeleting] = useState(false);
     const [error, setError] = useState({});
     const [invalidEdit, setInvalidEdit] = useState(false);
-    props = props.sessionType;
 
-    const sessionTypeState = useSelector(state => state.sessionType);
 
-    const [name, setName]       = useState((props != null)?props.name   :"");
-    const [teacher, setTeacher] = useState((props != null)?props.roleTypeEvent.teacher:false);
-    const [tutor, setTutor]     = useState((props != null)?props.roleTypeEvent.tutor  :false);
+
+    const [name, setName] = useState((eventType != null) ? eventType.name : "");
+    const [teacher, setTeacher] = useState((eventType != null) ? eventType.roleTypeEvent.teacher : false);
+    const [tutor, setTutor] = useState((eventType != null) ? eventType.roleTypeEvent.tutor : false);
 
     const handleValidate = () => {
         let req = {
@@ -27,13 +25,13 @@ export default function EventType(props) {
             tutor: tutor,
             teacher: teacher
         };
-        if(props != null) req = {...req, id: props.id};
+        if (eventType != null) req = { ...req, id: eventType.id };
         if (req.name === "") {
             toast.error("Le nom du type d'évènement ne peut être vide !");
-            setName((props != null)?props.name:'');
+            setName((eventType != null) ? eventType.name : '');
             setInvalidEdit(true);
         } else {
-            if(props === null) {
+            if (eventType === null) {
                 APIAddEventType(req)
                     .then(res => {
                         toast.success("Nouveau type ajouté !");
@@ -72,63 +70,63 @@ export default function EventType(props) {
         <React.Fragment>
             <tr>
                 <td>
-                    {(props === null)?(
+                    {(eventType === null) ? (
                         editing ?
-                            <FormInput value={name} invalid={error.name && true} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
+                            <FormInput value={name} invalid={error.name && true} onChange={e => setName(e.target.value)} placeholder="Nom ..." />
                             :
-                            <a onClick={() => setEditing(true)} href="javascript:void(0);"><span style={{fontWeight: "bold"}}>Ajouter un type d'évènement ...</span></a>
-                    ):(
-                        editing ?
-                            <FormInput value={name} invalid={error.name && true} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
-                            :<span style={{fontWeight: "bold"}}>{name}</span>
-                    )}
+                            <a onClick={() => setEditing(true)} href="javascript:void(0);"><span style={{ fontWeight: "bold" }}>Ajouter un type d'évènement ...</span></a>
+                    ) : (
+                            editing ?
+                                <FormInput value={name} invalid={error.name && true} onChange={e => setName(e.target.value)} placeholder="Nom ..." />
+                                : <span style={{ fontWeight: "bold" }}>{name}</span>
+                        )}
                 </td>
                 <td>
-                    {(props === null)?(
+                    {(eventType === null) ? (
                         editing ?
-                            <FormCheckbox checked={teacher} onChange={() => setTeacher(!teacher)}/>
-                            :""
-                        ):(
-                        editing ?
-                            <FormCheckbox checked={teacher} onChange={() => setTeacher(!teacher)}/>
-                            :(teacher)?"Autoriser":"Interdit"
-                    )}
+                            <FormCheckbox checked={teacher} onChange={() => setTeacher(!teacher)} />
+                            : ""
+                    ) : (
+                            editing ?
+                                <FormCheckbox checked={teacher} onChange={() => setTeacher(!teacher)} />
+                                : (teacher) ? "Autoriser" : "Interdit"
+                        )}
                 </td>
                 <td>
-                    {(props === null)?(
+                    {(eventType === null) ? (
                         editing ?
-                            <FormCheckbox checked={tutor} onChange={() => setTutor(!tutor)}/>
-                            :""
-                    ):(
-                        editing ?
-                            <FormCheckbox checked={tutor} onChange={() => setTutor(!tutor)}/>
-                            :(tutor)?"Autoriser":"Interdit"
-                    )}
+                            <FormCheckbox checked={tutor} onChange={() => setTutor(!tutor)} />
+                            : ""
+                    ) : (
+                            editing ?
+                                <FormCheckbox checked={tutor} onChange={() => setTutor(!tutor)} />
+                                : (tutor) ? "Autoriser" : "Interdit"
+                        )}
                 </td>
                 <td>
                     {editing ? (
                         <ButtonGroup>
                             <Button onClick={() => handleValidate()} theme="success">
-                                <FaCheck/>
+                                <FaCheck />
                             </Button>
                             <Button onClick={() => handleCancel()} theme="danger">
-                                <FaTimes/>
+                                <FaTimes />
                             </Button>
                         </ButtonGroup>
                     ) : (
-                        <ButtonGroup>
-                            {(props != null)? (
-                                <React.Fragment>
-                                    <Button onClick={() => setEditing(true)}>Edition</Button>
-                                    <Button onClick={() => setDeleting(!deleting)} theme="danger">Supprimer</Button>
-                                </React.Fragment>
-                            ):(<React.Fragment />)}
-                        </ButtonGroup>
-                    )}
+                            <ButtonGroup>
+                                {(eventType != null) ? (
+                                    <React.Fragment>
+                                        <Button onClick={() => setEditing(true)}>Edition</Button>
+                                        <Button onClick={() => setDeleting(!deleting)} theme="danger">Supprimer</Button>
+                                    </React.Fragment>
+                                ) : (<React.Fragment />)}
+                            </ButtonGroup>
+                        )}
                 </td>
-                {(props != null)? (
-                    <DeleteType open={deleting} type={"event"} setOpen={setDeleting} name={name} id={props.id}/>
-                ):(<React.Fragment />)}
+                {(eventType != null) ? (
+                    <DeleteType open={deleting} type={"event"} setOpen={setDeleting} name={name} id={eventType.id} />
+                ) : (<React.Fragment />)}
             </tr>
         </React.Fragment>
     );

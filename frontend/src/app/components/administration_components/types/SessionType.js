@@ -1,33 +1,29 @@
-import React, {useEffect, useState} from "react";
-import {Button, ButtonGroup, FormInput} from "shards-react";
-import {FaCheck, FaTimes} from "react-icons/fa";
-import {useSelector} from "react-redux";
-import {toast} from 'react-toastify';
+import React, { useEffect, useState } from "react";
+import { FaCheck, FaTimes } from "react-icons/fa";
+import { toast } from 'react-toastify';
+import { Button, ButtonGroup, FormInput } from "shards-react";
+import { APIAddsessionType, APIEditsessionType } from "../../../api/type/session";
+import { errFetch } from "../../../utils/errorFetch";
 import DeleteType from "./Delete";
-import {APIAddsessionType, APIEditsessionType} from "../../../api/type/session";
-import {errFetch} from "../../../utils/errorFetch";
 
 toast.configure();
-export default function SessionType(props) {
-    const [editing, setEditing] = useState((props === null));
+export default function SessionType({ sessionType }) {
+    const [editing, setEditing] = useState((sessionType === null));
     const [deleting, setDeleting] = useState(false);
     const [error, setError] = useState({});
-    props = props.sessionType;
 
-    const sessionTypeState = useSelector(state => state.sessionType);
-
-    const [name, setName] = useState((props != null)?props.name:"");
+    const [name, setName] = useState((sessionType != null) ? sessionType.name : "");
 
     const handleValidate = () => {
         let req = {
             name: name
         };
-        if(props != null) req = {...req, id: props.id};
+        if (sessionType != null) req = { ...req, id: sessionType.id };
         if (req.name === "") {
             toast.error("Le nom du type de séance ne peut être vide !");
-            setName((props != null)?props.name:'');
+            setName((sessionType != null) ? sessionType.name : '');
         } else {
-            if(props === null) {
+            if (sessionType === null) {
                 APIAddsessionType(req)
                     .then(res => {
                         toast.success("Nouveau type ajouté !");
@@ -64,41 +60,41 @@ export default function SessionType(props) {
         <React.Fragment>
             <tr>
                 <td>
-                    {(props === null)?(
+                    {(sessionType === null) ? (
                         editing ?
-                            <FormInput value={name} invalid={error.name && true} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
+                            <FormInput value={name} invalid={error.name && true} onChange={e => setName(e.target.value)} placeholder="Nom ..." />
                             :
-                            <a onClick={() => setEditing(true)} href="javascript:void(0);"><span style={{fontWeight: "bold"}}>Ajouter un type de séance ...</span></a>
-                    ):(
-                        editing ?
-                            <FormInput value={name} invalid={error.name && true} onChange={e => setName(e.target.value)} placeholder="Nom ..."/>
-                            :<span style={{fontWeight: "bold"}}>{name}</span>
-                    )}
+                            <a onClick={() => setEditing(true)} href="javascript:void(0);"><span style={{ fontWeight: "bold" }}>Ajouter un type de séance ...</span></a>
+                    ) : (
+                            editing ?
+                                <FormInput value={name} invalid={error.name && true} onChange={e => setName(e.target.value)} placeholder="Nom ..." />
+                                : <span style={{ fontWeight: "bold" }}>{name}</span>
+                        )}
                 </td>
                 <td>
                     {editing ? (
                         <ButtonGroup>
                             <Button onClick={() => handleValidate()} theme="success">
-                                <FaCheck/>
+                                <FaCheck />
                             </Button>
                             <Button onClick={() => handleCancel()} theme="danger">
-                                <FaTimes/>
+                                <FaTimes />
                             </Button>
                         </ButtonGroup>
                     ) : (
-                        <ButtonGroup>
-                            {(props != null)? (
-                                <React.Fragment>
-                                    <Button onClick={() => setEditing(true)}>Edition</Button>
-                                    <Button onClick={() => setDeleting(!deleting)} theme="danger">Supprimer</Button>
-                                </React.Fragment>
-                            ):(<React.Fragment />)}
-                        </ButtonGroup>
-                    )}
+                            <ButtonGroup>
+                                {(sessionType != null) ? (
+                                    <React.Fragment>
+                                        <Button onClick={() => setEditing(true)}>Edition</Button>
+                                        <Button onClick={() => setDeleting(!deleting)} theme="danger">Supprimer</Button>
+                                    </React.Fragment>
+                                ) : (<React.Fragment />)}
+                            </ButtonGroup>
+                        )}
                 </td>
-                {(props != null)? (
-                    <DeleteType open={deleting} type={"seance"} setOpen={setDeleting} name={name} id={props.id}/>
-                ):(<React.Fragment />)}
+                {(sessionType != null) ? (
+                    <DeleteType open={deleting} type={"seance"} setOpen={setDeleting} name={name} id={sessionType.id} />
+                ) : (<React.Fragment />)}
             </tr>
         </React.Fragment>
     );

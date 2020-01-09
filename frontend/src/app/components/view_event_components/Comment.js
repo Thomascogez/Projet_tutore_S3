@@ -1,24 +1,24 @@
+import { navigate } from "hookrouter";
+import moment from 'moment';
 import React from "react";
-import moment from 'moment'
-import ProfileRound from '../profileRound_component/ProfileRound'
-import {navigate} from "hookrouter";
+import ProfileRound from '../profileRound_component/ProfileRound';
 
-export default function Comment({data}) {
+export default function Comment({ data }) {
   console.log(data);
-  
+
   return (
     <tr>
       <td style={{ textAlign: "center" }}>
         {" "}
 
-        <a onClick={() => navigate("/profil/"+data.user.id)}>
-            <ProfileRound
-                size="Small"
-                letter={ data.user.username &&
-                  data.user.username.charAt(data.user.username.length - 1)}
-                bgcolor={data.user.color}
-                fcolor="#fff"
-            />
+        <a onClick={() => navigate("/profil/" + data.user.id)}>
+          <ProfileRound
+            size="Small"
+            letter={data.user.username &&
+              data.user.username.charAt(data.user.username.length - 1)}
+            bgcolor={data.user.color}
+            fcolor="#fff"
+          />
         </a>
         {data.user.username}
       </td>

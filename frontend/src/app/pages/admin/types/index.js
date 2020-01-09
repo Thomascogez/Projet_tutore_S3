@@ -67,9 +67,9 @@ export default function Types()
                             <tbody >
                             { (sessionTypeState.eventType.length > 0) ? (
                                 <React.Fragment>
-                                    <EventType key={-1} sessionType={null} />
+                                    <EventType key={-1} eventType={null} />
                                     {sessionTypeState.eventType.map((m) =>
-                                        <EventType key={m.id} sessionType={m} />
+                                        <EventType key={m.id} eventType={m} />
                                     ) }
                                 </React.Fragment>
                             ):(<React.Fragment />

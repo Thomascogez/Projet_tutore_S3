@@ -1,10 +1,10 @@
-import React,{ useState } from "react";
-import { Collapse as ShardCollaps } from "shards-react";
+import React, { useState } from "react";
 import { FaAngleDown, FaAngleRight } from "react-icons/fa";
+import { Collapse as ShardCollaps } from "shards-react";
 import style from "./collapse.module.css";
 export default function Collapse({ title, children }) {
 
-    const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false)
 
   return (
     <>

@@ -1,8 +1,7 @@
-import React, {useState} from "react";
-
-import {Badge} from "shards-react";
+import React, { useState } from "react";
+import { Badge, Tooltip } from "shards-react";
 import Work from "./Work";
-import {Tooltip} from "shards-react";
+
 
 export default function ViewSession(props) {
 
@@ -14,10 +13,10 @@ export default function ViewSession(props) {
             <Tooltip
                 placement="right"
                 open={tooltip}
-                target={"#tooltip_"+props.session.id}
+                target={"#tooltip_" + props.session.id}
                 toggle={() => setTooltip(!tooltip)}
             >
-                {props.session.groups.map(group => (<Badge style={{backgroundColor: group.color, marginRight: "5px"}}>{group.name}</Badge>))}
+                {props.session.groups.map(group => (<Badge style={{ backgroundColor: group.color, marginRight: "5px" }}>{group.name}</Badge>))}
             </Tooltip>
         </>
     );

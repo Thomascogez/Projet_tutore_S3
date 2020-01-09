@@ -1,12 +1,12 @@
+import { navigate } from 'hookrouter'
 import React from 'react'
+import { Button } from "shards-react"
 import style from './err.module.css'
-import {navigate} from 'hookrouter'
-import {Button} from "shards-react"
 
 export default () => {
 
     return (
-        <React.Fragment>
+        <>
             <section className={style.page_404} >
                 <div className="container" >
                     <div className="row" >
@@ -23,13 +23,13 @@ export default () => {
 
                                     <p>La page que vous essayez de charger n'éxiste pas ou plus !</p>
 
-                                    <Button onClick={() => navigate('/') } className={style.link404} >Retour a l'accueil</Button>
+                                    <Button onClick={() => navigate('/')} className={style.link404} >Retour a l'accueil</Button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-        </React.Fragment>
+        </>
     );
 }

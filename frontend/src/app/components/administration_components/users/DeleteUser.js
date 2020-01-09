@@ -1,31 +1,30 @@
 import React from "react";
-import {Modal, ModalHeader, ModalBody, ModalFooter, Button, Badge} from "shards-react";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { Badge, Button, Modal, ModalBody, ModalFooter, ModalHeader } from "shards-react";
+import { removeUser } from "../../../providers/actions/userActions";
 import style from "./deleteUser.module.css";
-import {useDispatch} from "react-redux";
-import {toast} from "react-toastify";
-import {getUsers, removeUser} from "../../../providers/actions/userActions";
 
 
-toast.configure();
 
-export default function DeleteUser(props) {
+export default function DeleteUser({ user, open, setOpen }) {
 
     const dispatch = useDispatch();
 
     const handleRemove = (e) => {
         e.preventDefault();
-        dispatch(removeUser(props.user.id));
-        props.setOpen(!props.open);
-        toast.success("Utilisateur " + props.user.username + " correctement supprimé !")
+        dispatch(removeUser(user.id));
+        setOpen(!open);
+        toast.success("Utilisateur " + user.username + " correctement supprimé !")
     };
 
     return (
         <div>
-            <Modal size="lg" open={props.open} toggle={props.setOpen}>
+            <Modal size="lg" open={open} toggle={setOpen}>
                 <ModalHeader className={style.header}>Suppression de l'utilisateur</ModalHeader>
-                <ModalBody>Voulez-vous confirmer la suppression de l'utilisateur <Badge style={{backgroundColor: props.user.color}}>#{props.user.username}</Badge> <span style={{fontWeight: "bold"}}>{props.user.firstname + " " + props.user.lastname}</span> ?</ModalBody>
+                <ModalBody>Voulez-vous confirmer la suppression de l'utilisateur <Badge style={{ backgroundColor: user.color }}>#{user.username}</Badge> <span style={{ fontWeight: "bold" }}>{user.firstname + " " + user.lastname}</span> ?</ModalBody>
                 <ModalFooter class={style.comment}>
-                    <Button onClick={() => props.setOpen(!props.open)}>Annuler</Button>
+                    <Button onClick={() => setOpen(!open)}>Annuler</Button>
                     <Button onClick={(e) => handleRemove(e)} theme={"danger"}>Confirmer</Button>
                 </ModalFooter>
             </Modal>
