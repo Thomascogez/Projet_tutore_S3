@@ -34,7 +34,7 @@ import {
   APIgetEventsByID,
   APIpatchEvent
 } from "../../../api/event";
-import { APIgetsettings } from "../../../api/settings";
+import { APIGetSettings } from "../../../api/settingFetch";
 import { FaTrash } from "react-icons/fa";
 import FileTableLoader from "../../../components/loader/FileTableLoader";
 import RadioLoader from "../../../components/loader/RadioLoader";
@@ -82,7 +82,7 @@ export default function AddEvent({ edit, eventID }) {
   const [fileUploadPending, setFileUploadPending] = useState(false);
 
   useEffect(() => {
-    APIgetsettings().then(data => {
+    APIGetSettings().then(data => {
       setSettings(data.data);
     });
     APIgetAllEventTypes().then(data => {

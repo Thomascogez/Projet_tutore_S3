@@ -1,19 +1,11 @@
 import axios from "axios";
 import { PATH_API } from "../types/apiConst";
-const config = {
-  onUploadProgress: function(progressEvent) {
-    var percentCompleted = Math.round(
-      (progressEvent.loaded * 100) / progressEvent.total
-    );
-    console.log(percentCompleted);
-  }
-};
 
 /**
- *
+ * Post a new file
  * @param {*} sessionID
  * @param {*} eventID
- * @param {*} file
+ * @param {File} file
  */
 const APIpostFile = (sessionID, eventID, file) => {
   let formData = new FormData();
@@ -24,14 +16,17 @@ const APIpostFile = (sessionID, eventID, file) => {
     formData,
     {
       headers: { Authorization: "Bearer " + localStorage.getItem("token") }
-    },
-    config
+    }
   );
 };
 
+/**
+ * Delete a file from an event
+ * @param {*} sessionID
+ * @param {*} eventID
+ * @param {*} fileID
+ */
 const APIdeleteFile = (sessionID, eventID, fileID) => {
-  console.log(sessionID, eventID, fileID);
-
   return axios.delete(
     `${PATH_API}/api/sessions/${sessionID}/events/${eventID}/attachments/${fileID}`,
     {

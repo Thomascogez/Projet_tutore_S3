@@ -33,6 +33,7 @@ import TitleLoader from "../../../components/loader/TitleLoader";
 import { navigate } from "hookrouter";
 import {APIgetMyAccount} from "../../../api/userFetch";
 import { setSession, setGroup } from "../../../providers/actions/addSessionActions";
+import { APIGetSettings } from "../../../api/settingFetch";
 
 //loader
 
@@ -55,6 +56,8 @@ export default function ViewsEvent({ seanceId }) {
   const [notFound, setNotFound] = useState(false);
 
   const [myProperty, setMyProperty] = useState(false);
+
+  const [settings, setSettings] = useState({})
 
   const user = useSelector(state => state.user);
 
@@ -80,6 +83,9 @@ export default function ViewsEvent({ seanceId }) {
         setComments(data.data);
       })
       .catch();
+    APIGetSettings()
+      .then(data => setSettings(data.data))
+
   }, []);
 
   /**
@@ -238,7 +244,9 @@ export default function ViewsEvent({ seanceId }) {
                                         </tr>
                                       </thead>
                                       <tbody>
-                                        {myProperty&&
+                                        {(myProperty || user.user.roles.includes("ROLE_TUTOR"))&&
+                                          settings.maxEventSession&&
+                                          (info.events&&(settings.maxEventSession-info.events.length !== 0))&&
                                         <tr>
                                           <td><a href="#" onClick={() => handleAddEvent()}>Ajouter un événement</a></td>
                                           <td></td>
@@ -253,7 +261,7 @@ export default function ViewsEvent({ seanceId }) {
                                           info.events.map(event => (
                                             <>
 
-                                            <Event key={event.key} data={event} editable={user.user.username === event.user.username}  />
+                                            <Event key={event.key} data={event} editable={user.user.username === event.user.username }  />
                                             </>
                                           ))
                                         ) : (

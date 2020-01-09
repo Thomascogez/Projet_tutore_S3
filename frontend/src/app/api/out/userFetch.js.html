@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: userFetch.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: userFetch.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {
+  LOGIN_CHECK,
+  CHECK_STILL_VALID,
+  CHECK_IS_ADMIN,
+  GET_USER_PROFILE,
+  ALL_USERS,
+  EDIT_USERS, DELETE_USERS, ADD_USERS
+} from "../types/apiConst";
+import axios from "axios";
+
+/**
+ * Check if the user exist then return a frsh JWT token
+ * @param {*} username 
+ * @param {*} password 
+ */
+const APIlogin = (username, password) => {
+  return axios.post(LOGIN_CHECK, {
+    username,
+    password
+  });
+};
+
+/**
+ * Check if a user information is still valid
+ */
+const APIcheckStillValid = () => {
+  return axios.get(CHECK_STILL_VALID, {
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+  });
+};
+
+
+/**
+ * Fetch user profile informations
+ */
+const APIgetMyAccount = () => {
+  return axios.get(GET_USER_PROFILE, {
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+  });
+}
+
+/**
+ * Check if the curren logged user as admin right
+ */
+const ApiIsAdmin = () => {
+  return axios.get(CHECK_IS_ADMIN, {
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+  });
+}
+
+
+/**
+ * get all user register on the site
+ */
+const APIGetAllUsers = () => {
+  return axios.get(ALL_USERS, {
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+  });
+}
+
+/**
+ * add an user on the site
+ * @param {json} user object that contain new user informations
+ */
+const APIAddUser = (user) => {
+  return axios.post(ADD_USERS, user, {
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+  });
+}
+
+/**
+ * get user by is id
+ * @param {*} idUser id of the user to get
+ */
+const APIGetUser = (idUser) => {
+  return axios.get(ALL_USERS + "/" + idUser, {
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+  });
+}
+
+/**
+ * Modify the profile of an user
+ * @param {*} idUser  id of the user to add
+ * @param {json} user    object that old new user information
+ */
+const APIEditUser = (idUser, user) => {
+  return axios.patch(EDIT_USERS + "/" + idUser, user, {
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+  });
+}
+
+/**
+ * Delete an user by is id 
+ * @param {*} idUser id of the user to delete
+ */
+const APIDeleteUser = (idUser) => {
+  return axios.delete(DELETE_USERS + '/' + idUser, {
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+  })
+}
+
+
+
+
+export { APIlogin, APIcheckStillValid, ApiIsAdmin, APIgetMyAccount, APIDeleteUser, APIEditUser, APIGetAllUsers, APIGetUser, APIAddUser};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#APIAddModule">APIAddModule</a></li><li><a href="global.html#APIAddUser">APIAddUser</a></li><li><a href="global.html#APIcheckStillValid">APIcheckStillValid</a></li><li><a href="global.html#APIdeleteFile">APIdeleteFile</a></li><li><a href="global.html#APIDeleteModule">APIDeleteModule</a></li><li><a href="global.html#APIDeleteUser">APIDeleteUser</a></li><li><a href="global.html#APIdelSessionID">APIdelSessionID</a></li><li><a href="global.html#APIEditModule">APIEditModule</a></li><li><a href="global.html#APIEditSemaphore">APIEditSemaphore</a></li><li><a href="global.html#APIEditSettings">APIEditSettings</a></li><li><a href="global.html#APIEditUser">APIEditUser</a></li><li><a href="global.html#APIgetAllModule">APIgetAllModule</a></li><li><a href="global.html#APIgetAllSession">APIgetAllSession</a></li><li><a href="global.html#APIgetAlluserModule">APIgetAlluserModule</a></li><li><a href="global.html#APIGetAllUsers">APIGetAllUsers</a></li><li><a href="global.html#APIgetComment">APIgetComment</a></li><li><a href="global.html#APIgetEventsByID">APIgetEventsByID</a></li><li><a href="global.html#APIgetEventTypes">APIgetEventTypes</a></li><li><a href="global.html#APIgetModuleInfo">APIgetModuleInfo</a></li><li><a href="global.html#APIgetMyAccount">APIgetMyAccount</a></li><li><a href="global.html#APIgetMyEvents">APIgetMyEvents</a></li><li><a href="global.html#APIgetMySession">APIgetMySession</a></li><li><a href="global.html#APIgetSession">APIgetSession</a></li><li><a href="global.html#APIgetSessionTypes">APIgetSessionTypes</a></li><li><a href="global.html#APIGetSettings">APIGetSettings</a></li><li><a href="global.html#APIGetUser">APIGetUser</a></li><li><a href="global.html#ApiIsAdmin">ApiIsAdmin</a></li><li><a href="global.html#APIlogin">APIlogin</a></li><li><a href="global.html#ApiPasswordForgetCheck">ApiPasswordForgetCheck</a></li><li><a href="global.html#ApiPasswordPatch">ApiPasswordPatch</a></li><li><a href="global.html#APIpatchEvent">APIpatchEvent</a></li><li><a href="global.html#APIpatchSession">APIpatchSession</a></li><li><a href="global.html#APIpostComment">APIpostComment</a></li><li><a href="global.html#APIpostFile">APIpostFile</a></li><li><a href="global.html#APIpostNewEvent">APIpostNewEvent</a></li><li><a href="global.html#APIpostNewSession">APIpostNewSession</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Jan 09 2020 10:29:13 GMT+0100 (heure normale d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

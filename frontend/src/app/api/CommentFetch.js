@@ -1,4 +1,6 @@
 import axios from "axios";
+import { PATH_API } from "../types/apiConst";
+
 
 /**
  * APIgetComment
@@ -9,7 +11,7 @@ import axios from "axios";
  */
 const APIgetComment = sessionid => {
   return axios.get(
-    `https://schoolshare.tools/api/sessions/${sessionid}/comments`,
+    `${PATH_API}/api/sessions/${sessionid}/comments`,
     {
       headers: { Authorization: "Bearer " + localStorage.getItem("token") }
     }
@@ -26,7 +28,7 @@ const APIgetComment = sessionid => {
  */
 const APIpostComment = (sessionid, comment) => {
   return axios.post(
-    `https://schoolshare.tools/api/sessions/${sessionid}/comments`,
+    `${PATH_API}/api/sessions/${sessionid}/comments`,
     {"comment": comment},
     { headers: { Authorization: "Bearer " + localStorage.getItem("token")} }
   );

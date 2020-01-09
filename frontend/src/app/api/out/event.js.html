@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: event.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: event.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import axios from "axios";
+import {
+  GET_ALL_EVENT_TYPES,
+  ALL_USER_EVENT,
+  PATH_API
+} from "../types/apiConst";
+
+/**
+ * APIgetEventTypes
+ *
+ * Return all types that can be used for an event
+ */
+const APIgetEventTypes = () => {
+  return axios(GET_ALL_EVENT_TYPES, {
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+  });
+};
+
+/**
+ * APIgetMyEvents
+ *
+ * Fetch all event related to the current user
+ */
+const APIgetMyEvents = () => {
+  return axios(ALL_USER_EVENT, {
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+  });
+};
+
+/**
+ * APIgetEventsByID
+ *
+ * Get event info by is id
+ * @param {*} eventID id of the event
+ */
+const APIgetEventsByID = eventID => {
+  return axios.get(`${PATH_API}/api/events/${eventID}`, {
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+  });
+};
+
+/**
+ * APIpatchEvent
+ *
+ * Modify an event
+ * @param {*} sessionID
+ * @param {*} eventID
+ * @param {*} name
+ * @param {*} type
+ * @param {*} duration
+ * @param {*} dueAt
+ */
+const APIpatchEvent = (
+  sessionID,
+  eventID,
+  name,
+  type,
+  duration = "",
+  dueAt = ""
+) => {
+  let req = {};
+  if (
+    name !== null ||
+    type !== null ||
+    type !== null ||
+    duration !== null ||
+    dueAt !== null
+  )
+    req = { name: name, type: type, duration: duration, dueAt: dueAt };
+  return axios.patch(
+    `${PATH_API}/api/sessions/${sessionID}/events/${eventID}`,
+    req,
+    { headers: { Authorization: "Bearer " + localStorage.getItem("token") } }
+  );
+};
+
+/**
+ * APIpostNewEvent
+ *
+ * Post a new event
+ * @param {*} sessionID
+ * @param {*} name
+ * @param {*} type
+ * @param {*} duration
+ * @param {*} dueAt
+ */
+const APIpostNewEvent = (sessionID, name, type, duration = "", dueAt = "") => {
+  console.log(sessionID, name, type, duration, dueAt);
+  return axios.post(
+    `${PATH_API}/api/sessions/${sessionID}/events`,
+    { name: name, type: type, duration: duration, dueAt: dueAt },
+    { headers: { Authorization: "Bearer " + localStorage.getItem("token") } }
+  );
+};
+
+export {
+  APIgetEventTypes,
+  APIgetMyEvents,
+  APIpostNewEvent,
+  APIgetEventsByID,
+  APIpatchEvent
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#APIAddModule">APIAddModule</a></li><li><a href="global.html#APIAddUser">APIAddUser</a></li><li><a href="global.html#APIcheckStillValid">APIcheckStillValid</a></li><li><a href="global.html#APIdeleteFile">APIdeleteFile</a></li><li><a href="global.html#APIDeleteModule">APIDeleteModule</a></li><li><a href="global.html#APIDeleteUser">APIDeleteUser</a></li><li><a href="global.html#APIdelSessionID">APIdelSessionID</a></li><li><a href="global.html#APIEditModule">APIEditModule</a></li><li><a href="global.html#APIEditSemaphore">APIEditSemaphore</a></li><li><a href="global.html#APIEditSettings">APIEditSettings</a></li><li><a href="global.html#APIEditUser">APIEditUser</a></li><li><a href="global.html#APIgetAllModule">APIgetAllModule</a></li><li><a href="global.html#APIgetAllSession">APIgetAllSession</a></li><li><a href="global.html#APIgetAlluserModule">APIgetAlluserModule</a></li><li><a href="global.html#APIGetAllUsers">APIGetAllUsers</a></li><li><a href="global.html#APIgetComment">APIgetComment</a></li><li><a href="global.html#APIgetEventsByID">APIgetEventsByID</a></li><li><a href="global.html#APIgetEventTypes">APIgetEventTypes</a></li><li><a href="global.html#APIgetModuleInfo">APIgetModuleInfo</a></li><li><a href="global.html#APIgetMyAccount">APIgetMyAccount</a></li><li><a href="global.html#APIgetMyEvents">APIgetMyEvents</a></li><li><a href="global.html#APIgetMySession">APIgetMySession</a></li><li><a href="global.html#APIgetSession">APIgetSession</a></li><li><a href="global.html#APIgetSessionTypes">APIgetSessionTypes</a></li><li><a href="global.html#APIGetSettings">APIGetSettings</a></li><li><a href="global.html#APIGetUser">APIGetUser</a></li><li><a href="global.html#ApiIsAdmin">ApiIsAdmin</a></li><li><a href="global.html#APIlogin">APIlogin</a></li><li><a href="global.html#ApiPasswordForgetCheck">ApiPasswordForgetCheck</a></li><li><a href="global.html#ApiPasswordPatch">ApiPasswordPatch</a></li><li><a href="global.html#APIpatchEvent">APIpatchEvent</a></li><li><a href="global.html#APIpatchSession">APIpatchSession</a></li><li><a href="global.html#APIpostComment">APIpostComment</a></li><li><a href="global.html#APIpostFile">APIpostFile</a></li><li><a href="global.html#APIpostNewEvent">APIpostNewEvent</a></li><li><a href="global.html#APIpostNewSession">APIpostNewSession</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Jan 09 2020 10:29:13 GMT+0100 (heure normale d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

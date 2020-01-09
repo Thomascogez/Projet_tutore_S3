@@ -6,6 +6,10 @@ import routes from './app/routes'
 import Err404 from './app/pages/404';
 import { useDispatch } from 'react-redux'
 import { checkLogin } from './app/providers/actions/userActions'
+
+/**
+ * Entry point of the application
+ */
 function App() {
 
   const dispatch = useDispatch();

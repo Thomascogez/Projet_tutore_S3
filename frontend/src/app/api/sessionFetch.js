@@ -38,20 +38,39 @@ const APIgetSessionTypes = () => {
     })
 }
 
+/**
+ * Get all user accessible section
+ * @param {*} month 
+ * @param {*} year 
+ * @param {*} group 
+ * @param {*} type 
+ */
 const APIgetAllSession = (month, year, group, type) => {
     return axios.get( GET_ALL_SESSIONS + "?month=" + month + "&year=" + year + "&group=" + group + "&type=" + type,
         {headers: { Authorization: "Bearer " + localStorage.getItem("token") }}
     );
 }
-
+/**
+ * Post a new session
+ * @param {*} code 
+ * @param {*} type 
+ * @param {*} groups 
+ */
 const APIpostNewSession = (code, type, groups ) => {
     let module = code;
-    console.log(module ,type, groups);
     return axios.post(POST_NEW_SESSION,
         { module, type, groups }, 
         {headers: { Authorization: "Bearer " + localStorage.getItem("token") }}
         )
 }
+
+/**
+ * modify a session
+ * @param {*} id 
+ * @param {*} code 
+ * @param {*} type 
+ * @param {*} groups 
+ */
 const APIpatchSession = (id, code, type, groups ) => {
     let module = code;
     return axios.patch(`${PATCH_SESSION}/${id}`,
@@ -60,18 +79,30 @@ const APIpatchSession = (id, code, type, groups ) => {
         )
 }
 
+/**
+ * get user releated session
+ */
 const APIgetMySession = () => {
     return axios.get(GET_MY_SESSION,
         {headers: { Authorization: "Bearer " + localStorage.getItem("token") }}
     )
 }
 
+/**
+ * Delete a session 
+ * @param {*} id    id of the session to delete
+ */
 const APIdelSessionID = (id) => {
     return axios.delete(DEL_SESSION_ID + `/${id}`,
         {headers: {Authorization: "Bearer " + localStorage.getItem("token") }}
     )
 }
 
+/**
+ * Update session "semaphore"
+ * @param {*} id 
+ * @param {*} req 
+ */
 const APIEditSemaphore = (id, req) => {
     return axios.patch(EDIT_SEMAPHORE + `/${id}`, req,
         {headers: { Authorization: "Bearer " + localStorage.getItem("token") }}
