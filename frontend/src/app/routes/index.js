@@ -11,8 +11,7 @@ import EditGroup from '../pages/admin/group'
 import GererUtilisateur from '../pages/admin/users'
 import EditModule from '../pages/admin/module'
 import Options from '../pages/options'
-import AddSession from '../pages/sessions/addSession/_index'
-import Test from '../pages/test'
+import AddSession from '../pages/sessions/addSession/'
 import PasswordReset from "../pages/home/passwordReset";
 import ViewsSession from '../pages/event/view/index'
 import Types from "../pages/admin/types/index";
@@ -26,14 +25,14 @@ import Settings from "../pages/admin/settings";
 import LegalNotice from "../pages/legalNotice";
 
 const routes = {
-    '/' : () => <Home />,
-    '/mentionLegales' : () => <LegalNotice />,
-    '/passwordForget' : () => <Password />,
-    '/passwordReset/:token' : (token) => <PasswordReset token={token} />,
+    '/': () => <Home />,
+    '/mentionLegales': () => <LegalNotice />,
+    '/passwordForget': () => <Password />,
+    '/passwordReset/:token': (token) => <PasswordReset token={token} />,
 
-    '/profil/:idUser' : (idUser) =>    <ProtectedRoute> <Userprofile idUser={idUser} /></ProtectedRoute>,
-    '/profil' : () =>    <ProtectedRoute> <UserprofileEdit /></ProtectedRoute>,
-    '/options' : () =>   <ProtectedRoute> <Options />   </ProtectedRoute>,
+    '/profil/:idUser': (idUser) => <ProtectedRoute> <Userprofile idUser={idUser} /></ProtectedRoute>,
+    '/profil': () => <ProtectedRoute> <UserprofileEdit /></ProtectedRoute>,
+    '/options': () => <ProtectedRoute> <Options />   </ProtectedRoute>,
     '/mesSeances': () => <ProtectedRoute> <MySession /> </ProtectedRoute>,
     '/myEvents': () => <ProtectedRoute> <MyEvents /> </ProtectedRoute>,
     '/seances': () => <ProtectedRoute> <Seances />                          </ProtectedRoute>,
@@ -53,7 +52,7 @@ const routes = {
     '/administration/sessions': () => <ProtectedRoute><ProtectedRouteAdmin> <Sessions />       </ProtectedRouteAdmin></ProtectedRoute>,
     '/administration/parametres': () => <ProtectedRoute><ProtectedRouteAdmin> <Settings />       </ProtectedRouteAdmin></ProtectedRoute>,
 
-    '/test': () => <Test />,
+   
 };
 
 export default routes;

@@ -1,32 +1,17 @@
 
-.AddSubject{
-    width: 100px;
-    margin-left:45%;
+
+.AddSessionContainer {
+    margin-top: 50px;
+    width: 90% !important;
+
 }
 
-.Border
-{
-    border : 1px solid black;
-    margin-left : 15%;
-    margin-right: 15%;
-    padding: 2%;
-    box-shadow: 2px 2px 10px black;
+.Module {
+    padding: 3px;
+    margin: 0px 5px 0px 5px;
+    color:#fff;
+    padding: 5px;
+    margin: 3px;
+    cursor: pointer;
 }
 
-.Button{
-    margin-left: 38%;
-    margin-top: 2%;
-    margin-bottom: 2%;
-    height: 50px;
-}
-
-.title{
-    text-align: center;
-    margin-top: 2%;
-    margin-bottom: 5%;
-}
-
-.Ligne
-{
-    padding:2%;
-}
