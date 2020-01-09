@@ -1,4 +1,4 @@
-import {GET_ALL_USERS, SET_ISLOGGEDIN, SET_USER, SET_PROFILE_COLOR,SET_USER_PROFILE} from "../../types/actionsTypes";
+import {GET_ALL_USERS, SET_ISLOGGEDIN, SET_USER, SET_PROFILE_COLOR,SET_USER_PROFILE,LOGOUT} from "../../types/actionsTypes";
 import { navigate } from 'hookrouter';
 import {
     APIlogin,
@@ -64,8 +64,9 @@ const logout = () => {
   localStorage.removeItem("token");
   navigate("/");
   return {
-    type: SET_ISLOGGEDIN,
-    value: false
+   
+    type: LOGOUT,
+    value:""
   };
 };
 

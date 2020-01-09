@@ -7,7 +7,8 @@ import {
   SET_USER,
   GET_ALL_USERS,
   SET_PROFILE_COLOR,
-  SET_USER_PROFILE
+  SET_USER_PROFILE,
+  LOGOUT
 } from "../../types/actionsTypes";
 
 const initialState = {
@@ -37,6 +38,9 @@ const userReducer = (state = initialState, action) => {
         loginMessage: action.error,
         user: action.user||state.user
       };
+    case LOGOUT:
+      return initialState
+
     case RESET_INVALID_MESSAGE:
       return {
         ...state,

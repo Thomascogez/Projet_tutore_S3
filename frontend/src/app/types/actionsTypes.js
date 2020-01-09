@@ -5,6 +5,8 @@
 
  //user Actions
 const SET_ISLOGGEDIN        = "SET_ISLOGGEDIN" ;
+const LOGOUT                = "LOGOUT" ;
+
 const SET_USER              = "SET_USER";
 const RESET_INVALID_MESSAGE = "RESET_INVALID_MESSAGE";
 const GET_ALL_USERS         = "GET_ALL_USERS";
@@ -35,6 +37,7 @@ export {
     SET_SESSIONADD,
     SET_GROUP_SET_SESSIONADD,
     SET_PROFILE_COLOR,
-    SET_USER_PROFILE
+    SET_USER_PROFILE,
+    LOGOUT
     
 }
