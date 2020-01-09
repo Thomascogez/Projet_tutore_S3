@@ -181,7 +181,7 @@ class UserController extends AbstractController
 
             $message = (new \Swift_Message('Création du compte SchoolShare'))
                 ->setFrom(['contact@schoolshare.com' => "SchoolShare"])
-                ->setTo(/*$mailAddress*/"aerosmith129@gmail.com")
+                ->setTo(/*$mailAddress*/"wowibe7444@seomail.top")
                 ->setBody("Nouveau compte sur SchoolShare ...")
                 ->addPart($this->renderView(
                     'mail/newPassword.html.twig',
@@ -293,16 +293,17 @@ class UserController extends AbstractController
             }
         }
 
-        if($request->get('username'))  $user->setUsername($request->get('username'));
+        if($request->get('username')) $user->setUsername($request->get('username'));
         if($request->get('firstname')) $user->setFirstname($request->get('firstname'));
-        if($request->get('lastname'))  $user->setLastname($request->get('lastname'));
-        if($request->get('color'))     $user->setColor($request->get('color'));
+        if($request->get('lastname')) $user->setLastname($request->get('lastname'));
+        if($request->get('color')) $user->setColor($request->get('color'));
 
         $form->submit(null, false);
 
         if($request->get('plainPassword') != null){
+            $user->setPlainPassword($request->get('plainPassword'));
             $re = '/^.*(?=.{8,})(?=.*[!-@#$%^&(),.?":{}|<>].*[!-@#$%^&(),.?":{}|<>].*)(?=.*[A-Z].*[A-Z].*)(?=.*[a-z].*[a-z].*).*$/m';
-            if(!preg_match($re, $user->getPlainPassword())) {
+            if(!preg_match($re, $user->getPlainPassword(), $matches, PREG_OFFSET_CAPTURE, 0)) {
                 $form->get('plainPassword')->addError(new FormError("Password don't respect : 8 length, 2 uppercase, 2 lowercase, 2 special character"));
             }
             $user->setPassword($encoder->encodePassword($user, $user->getPlainPassword()));

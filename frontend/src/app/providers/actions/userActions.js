@@ -86,7 +86,6 @@ const checkLogin = () => {
       .catch(err => {
         console.log(err.response);
           localStorage.removeItem('token');
-          navigate("/");
         dispatch({
           type: SET_ISLOGGEDIN,
           value: false,
