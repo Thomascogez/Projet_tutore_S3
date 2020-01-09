@@ -25,6 +25,7 @@ import {CirclePicker} from "react-color";
 import ProfileLoader from "../../components/loader/ProfileLoader";
 import TextLoader from "../../components/loader/TextLoader";
 import {APIEditUser} from "../../api/userFetch";
+import {toast} from "react-toastify";
 //page loader
 
 export default function UserProfile() {
@@ -94,12 +95,13 @@ export default function UserProfile() {
         setLoading(true);
         APIEditUser(user.user.id, data)
             .then(data => {
+                toast.success("Information modifié !")
                 dispatch((setUserProfile(data.data)));
                 setLoading(false);
             })
             .catch(err => {
                 setLoading(false);
-                console.log(err)
+                console.log(err.response)
             });
     };
 

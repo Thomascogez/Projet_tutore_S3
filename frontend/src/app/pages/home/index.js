@@ -30,12 +30,6 @@ export default function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-      console.log(pageLoading);
-      
-  }, [pageLoading])
-  useEffect(() => {
-    console.log(pageLoading);
-
     setPageLoading(false);
     if (userState.isLoggedIn) {
       navigate("/seances");

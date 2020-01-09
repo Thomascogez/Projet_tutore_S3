@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import {
-  Container,
-  FormGroup,
-  FormInput,
-  Button,
+    Container,
+    FormGroup,
+    FormInput,
+    Button, Form,
 } from "shards-react";
 import logo from "../../../assets/images/scShare_logo.png";
 import style from "./../home.module.css";
@@ -21,9 +21,10 @@ export default function Home() {
     const [loading, setLoading] = useState(false);
 
     const sendForget = () => {
-        setLoading(!loading)
+        setLoading(true)
         axios.get(PASSWORD_FORGET_GET + '?username=' + username)
             .then(res => {
+                setLoading(false)
                 toast.success("Un email vous à été envoyé !");
                 navigate('/');
             })
@@ -38,29 +39,31 @@ export default function Home() {
             <div>
                 <Container className={style.LoginFormContainer}>
                     <h2 style={{paddingBottom:"30px"}}>Mot de passe oublié</h2>
-                    {loading?(
-                        <div>
-                            <Loader
-                                type="Oval"
-                                color="green"
-                                width={200}
-                                style={{marginBottom:"40px"}}
-                            />
-                        </div>
-                    ):(
-                        <FormGroup className={style.FormGroup}>
-                            <label className={style.LabelText}>Identifiant</label>
-                            <FormInput
-                                id="#identifiant"
-                                placeholder="identifiant ..."
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                                invalid={errorUsername.isError}
-                            />
-                            {(errorUsername.isError)?(<label className={style.textError}>{errorUsername.message}</label>):''}
-                        </FormGroup>
-                    )}
-                    <Button type="success" onClick={() => sendForget() }>Changer le mot de passe    </Button>
+                    <Form>
+                        {loading?(
+                            <div>
+                                <Loader
+                                    type="Oval"
+                                    color="green"
+                                    width={200}
+                                    style={{marginBottom:"40px"}}
+                                />
+                            </div>
+                        ):(
+                            <FormGroup className={style.FormGroup}>
+                                <label className={style.LabelText}>Identifiant</label>
+                                <FormInput
+                                    id="#identifiant"
+                                    placeholder="identifiant ..."
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    invalid={errorUsername.isError}
+                                />
+                                {(errorUsername.isError)?(<label className={style.textError}>{errorUsername.message}</label>):''}
+                            </FormGroup>
+                        )}
+                        <Button type="success" onClick={e => {e.preventDefault(); sendForget()}}>Changer le mot de passe </Button>
+                    </Form>
                     <Button type="primary" onClick={()=> navigate("/")}>Retour à l'authentification</Button>
                 </Container>
                 <div className={style.SiteLogo}>
