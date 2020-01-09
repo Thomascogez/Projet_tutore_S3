@@ -107,11 +107,12 @@ export default function ViewsEvent({ seanceId }) {
     if (isCommentValid()) {
       APIpostComment(info.id, newComment)
         .then(data => {
-          //toast success
+          //TODO: success
           setrequestPending(false);
           APIgetComment(info.id)
             .then(data => {
               setComments(data.data);
+              setNewComment("")
             })
             .catch();
         })
@@ -119,7 +120,7 @@ export default function ViewsEvent({ seanceId }) {
           setrequestPending(false);
         });
     } else {
-      //toast err ....
+      //TODO: err ....
     }
   };
 
@@ -308,7 +309,7 @@ export default function ViewsEvent({ seanceId }) {
                                       size="Small"
                                       letter={
                                         user.user.username &&
-                                        user.user.username.charAt(user.user.username.length - 1)
+                                        user.user.firstname.charAt(0)
                                       }
                                       bgcolor={user.user.color && user.user.color}
                                       fcolor="#fff"
