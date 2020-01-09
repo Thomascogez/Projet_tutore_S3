@@ -31,7 +31,6 @@ import TextLoader from "../../../components/loader/TextLoader";
 import TableLoader from "../../../components/loader/TableLoader";
 import TitleLoader from "../../../components/loader/TitleLoader";
 import { navigate } from "hookrouter";
-import {getUserProfile} from "../../../providers/actions/userActions";
 import {APIgetMyAccount} from "../../../api/userFetch";
 import { setSession, setGroup } from "../../../providers/actions/addSessionActions";
 

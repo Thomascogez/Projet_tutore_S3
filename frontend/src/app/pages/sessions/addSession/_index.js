@@ -12,7 +12,6 @@ import {
   Modal,
   ModalHeader,
   ModalFooter,
-  ButtonGroup
 } from "shards-react";
 import { Multiselect } from "react-widgets";
 import Collapse from "../../../components/layouts/Collapse";
