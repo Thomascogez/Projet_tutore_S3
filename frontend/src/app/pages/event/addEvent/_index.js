@@ -32,7 +32,8 @@ import { APIpostFile, APIdeleteFile } from "../../../api/file";
 import {
   APIpostNewEvent,
   APIgetEventsByID,
-  APIpatchEvent, APIDeleteEventsByID
+  APIpatchEvent, 
+  APIDeleteEventsByID
 } from "../../../api/event";
 import { APIGetSettings } from "../../../api/settingFetch";
 import { FaTrash } from "react-icons/fa";

@@ -93,10 +93,22 @@ const APIpostNewEvent = (sessionID, name, type, duration = "", dueAt = "") => {
   );
 };
 
+/**
+ * Delete an event by is id 
+ * @param {*} eventSession 
+ * @param {*} eventID 
+ */
+const APIDeleteEventsByID = (eventSession, eventID) => {
+  return axios.delete(`${PATH_API}/api/sessions/${eventSession}/events/${eventID}`, {
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+  });
+};
+
 export {
   APIgetEventTypes,
   APIgetMyEvents,
   APIpostNewEvent,
   APIgetEventsByID,
-  APIpatchEvent
+  APIpatchEvent,
+  APIDeleteEventsByID
 };
