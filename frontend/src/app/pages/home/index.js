@@ -99,6 +99,13 @@ export default function Home() {
                             onClick={() => navigate("/passwordForget")}
                         >
                             Mot de passe oublié?
+                        </a><br/>
+                        <a
+                            href="#"
+                            style={{float: "right", fontSize: "12px"}}
+                            onClick={() => navigate("/mentionLegales")}
+                        >
+                            Mentions légales
                         </a>
                     </Form>
                 )}
