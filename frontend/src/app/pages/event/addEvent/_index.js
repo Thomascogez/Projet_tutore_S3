@@ -1,13 +1,13 @@
 import axios from "axios";
+import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
+import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
+import "filepond/dist/filepond.min.css";
 import { navigate } from "hookrouter";
 import Moment from "moment";
 import "moment/locale/fr";
 import React, { useEffect, useState } from "react";
 import { FilePond, registerPlugin } from "react-filepond";
-import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
-import FilePondPluginImagePreview from "filepond-plugin-image-preview";
-import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
-import "filepond/dist/filepond.min.css";
 import { FaTrash } from "react-icons/fa";
 import Loader from "react-loader-spinner";
 import { useSelector } from "react-redux";
@@ -36,9 +36,9 @@ export default function AddEvent({ edit, eventID }) {
 
   //redux stuff
   const addSession = useSelector(state => state.addSession);
-  const [unauthorized, setUnauthorized] = useState(false);
-  const [notFound, setNotFound] = useState(false);
   const user = useSelector(state => state.user);
+
+
 
   const INITIAL_STATE = {
     sessionID: addSession.sessions.id,
@@ -60,6 +60,7 @@ export default function AddEvent({ edit, eventID }) {
   const [collapseDuration, setCollapseDuration] = useState(false);
 
   const [isTeacher, setIsTeacher] = useState(false);
+  const [unauthorized, setUnauthorized] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const [types, setTypes] = useState([]); //hook that all fetched types
@@ -119,6 +120,8 @@ export default function AddEvent({ edit, eventID }) {
    * Reset page informations
    */
   const resetInformations = () => {
+    console.log("reset");
+    
     setNewEvent(INITIAL_STATE);
     setFiles([]);
     setCollapseType(true);
@@ -143,8 +146,6 @@ export default function AddEvent({ edit, eventID }) {
   };
 
   /**
-   * handleSelectType
-   *
    * Update hook and page when type is updated
    * @param {*} type
    */
@@ -184,7 +185,7 @@ export default function AddEvent({ edit, eventID }) {
   };
 
   /**
-
+   * File delete
    * @param {*} fileID  id of the file to delete
    */
   const handleFileDelete = fileID => {
@@ -200,20 +201,22 @@ export default function AddEvent({ edit, eventID }) {
     }
   };
 
+
   const deleteEvent = () => {
     setLoading(true)
     APIgetEventsByID(eventID.eventID).then(data => {
       let id = data.data.session.id;
       APIDeleteEventsByID(data.data.session.id, data.data.id)
-          .then(data => {
-            setLoading(false)
-            toast.success("Evenement supprimé !")
-            navigate(`/seance/${id}`);
-          })
-          .catch(err => {
-            setLoading(false)
-            toast.error("Erreur lors de la suppression !")
-          })
+        .then(() => {
+          resetInformations();
+          setLoading(false)
+          toast.success("Evenement supprimé !")
+          navigate(`/seance/${id}`);
+        })
+        .catch(() => {
+          setLoading(false)
+          toast.error("Erreur lors de la suppression !")
+        })
     })
   }
 
@@ -230,13 +233,13 @@ export default function AddEvent({ edit, eventID }) {
       if (!edit) {
         APIpostNewEvent(sessionID, name, type, duration[0], dueAt)
           .then(data => {
+            resetInformations();
             setRequestPending(false);
             toast.success("Evénement ajouté");
-
             handlePostFiles(sessionID, data.data.id);
           })
           .catch(err => {
-            if(err.response.status === 406) {
+            if (err.response.status === 406) {
               toast.error("Nombre d'évènement maximum atteint !")
             } else {
               toast.error("Erreur lors de l'ajout de l'événement");
@@ -253,10 +256,10 @@ export default function AddEvent({ edit, eventID }) {
           duration[0],
           dueAt
         )
-          .then(data => {
+          .then(() => {
             setRequestPending(false);
           })
-          .catch(err => {
+          .catch(() => {
             setRequestPending(false);
           });
       }
@@ -313,36 +316,36 @@ export default function AddEvent({ edit, eventID }) {
                       )}
                     </CardBody>
                     <ButtonGroup >
-                    <Button
-                      onClick={() => handleAddEvent()}
-                      disabled={!isValid() || requestPending}
-                      style={{ width: "100%" }}
-                      theme="success"
-                    >
-                      {requestPending ? (
-                        <Loader
-                          type="ThreeDots"
-                          color="#FFF"
-                          height={30}
-                          width={100}
-                        />
-                      ) : edit ? (
-                        "Modifier l'événement"
-                      ) : (
-                            "Ajout d'un événement"
-                          )}
-                    </Button>
-                    <Button
-                      onClick={() => navigate(`/seance/${addSession.sessions.id}`)}
-                      style={{ width: "100%" }}
-                      theme="info"
-                    >
-                      Voir la séance
+                      <Button
+                        onClick={() => handleAddEvent()}
+                        disabled={!isValid() || requestPending}
+                        style={{ width: "100%" }}
+                        theme="success"
+                      >
+                        {requestPending ? (
+                          <Loader
+                            type="ThreeDots"
+                            color="#FFF"
+                            height={30}
+                            width={100}
+                          />
+                        ) : edit ? (
+                          "Modifier l'événement"
+                        ) : (
+                              "Ajout d'un événement"
+                            )}
+                      </Button>
+                      <Button
+                        onClick={() => navigate(`/seance/${addSession.sessions.id}`)}
+                        style={{ width: "100%" }}
+                        theme="info"
+                      >
+                        Voir la séance
                     </Button>
                     </ButtonGroup>
-                    {edit &&(
-                        <Button theme="danger" onClick={() => deleteEvent()}>
-                          Supprimer
+                    {edit && (
+                      <Button theme="danger" onClick={() => deleteEvent()}>
+                        Supprimer
                         </Button>
                     )}
                   </Card>
@@ -516,7 +519,7 @@ export default function AddEvent({ edit, eventID }) {
       </Container>
       {fileUploadPending && <PageLoader message="Ajout des fichiers ..." />}
 
-      {loading && <PageLoader /> }
+      {loading && <PageLoader />}
     </>
   );
 }
