@@ -6,7 +6,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "shards-ui/dist/css/shards.min.css";
 import "react-widgets/dist/css/react-widgets.css";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
-import "filepond/dist/filepond.min.css";
 
 
 import "./index.css";

@@ -1,45 +1,33 @@
-import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Card,
-  CardHeader,
-  CardBody,
-  Col,
-  Row,
-  Badge,
-  FormRadio,
-  FormTextarea,
-  Button,
-  Slider,
-  ButtonGroup
-} from "shards-react";
+import axios from "axios";
+import { navigate } from "hookrouter";
 import Moment from "moment";
 import "moment/locale/fr";
-import momentLocalizer from "react-widgets-moment";
-import DateTimePicker from "react-widgets/lib/DateTimePicker";
+import React, { useEffect, useState } from "react";
+import { FilePond, registerPlugin } from "react-filepond";
+import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
+import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
+import "filepond/dist/filepond.min.css";
+import { FaTrash } from "react-icons/fa";
 import Loader from "react-loader-spinner";
-import axios from "axios";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { navigate } from "hookrouter";
-import File from "../../../components/view_event_components/File";
-import { FilePond } from "react-filepond";
+import momentLocalizer from "react-widgets-moment";
+import DateTimePicker from "react-widgets/lib/DateTimePicker";
+import { Badge, Button, ButtonGroup, Card, CardBody, CardHeader, Col, Container, FormRadio, FormTextarea, Row, Slider } from "shards-react";
+import { APIDeleteEventsByID, APIgetEventsByID, APIpatchEvent, APIpostNewEvent } from "../../../api/event";
+import { APIdeleteFile, APIpostFile } from "../../../api/file";
+import { APIGetSettings } from "../../../api/settingFetch";
+import { APIgetAllEventTypes } from "../../../api/type/event";
 import Collapse from "../../../components/layouts/Collapse";
 import PageLoader from "../../../components/layouts/loader";
-import style from "./_addEvent.module.css";
-import { APIgetAllEventTypes } from "../../../api/type/event";
-import { APIpostFile, APIdeleteFile } from "../../../api/file";
-import {
-  APIpostNewEvent,
-  APIgetEventsByID,
-  APIpatchEvent, 
-  APIDeleteEventsByID
-} from "../../../api/event";
-import { APIGetSettings } from "../../../api/settingFetch";
-import { FaTrash } from "react-icons/fa";
 import FileTableLoader from "../../../components/loader/FileTableLoader";
 import RadioLoader from "../../../components/loader/RadioLoader";
+import File from "../../../components/view_event_components/File";
 import Unauthorized from "../../401";
+import style from "./_addEvent.module.css";
+
+registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
 export default function AddEvent({ edit, eventID }) {
   //configure date to local for the datePicker

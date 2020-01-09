@@ -12,6 +12,8 @@
     "axios": "^0.19.1",
     "bootstrap": "^4.4.1",
     "filepond": "^4.9.3",
+    "filepond-plugin-image-exif-orientation": "^1.0.6",
+    "filepond-plugin-image-preview": "^4.6.0",
     "hookrouter": "^1.2.3",
     "jwt-decode": "^2.2.0",
     "moment": "^2.24.0",
