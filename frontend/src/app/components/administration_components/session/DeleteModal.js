@@ -11,7 +11,7 @@ export default function DeleteModal({open, id, setOpen, reload }) {
     const handleRemove = (e) => {
         e.preventDefault();
         APIdelSessionID(id).then(data => {
-            toast.success("Séance correctement supprimé !")
+            toast.success("Séance correctement supprimée !")
             reload()
         })
         setOpen(!open);

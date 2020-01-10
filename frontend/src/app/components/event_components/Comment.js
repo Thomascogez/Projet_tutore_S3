@@ -4,7 +4,6 @@ import React from "react";
 import ProfileRound from '../profileRound_component/ProfileRound';
 
 export default function Comment({ data }) {
-  console.log(data);
 
   return (
     <tr>

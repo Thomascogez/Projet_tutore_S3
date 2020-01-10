@@ -95,7 +95,7 @@ export default function UserProfile() {
         setLoading(true);
         APIEditUser(user.user.id, data)
             .then(data => {
-                toast.success("Information modifié !")
+                toast.success("Information modifiée !")
                 dispatch((setUserProfile(data.data)));
                 setLoading(false);
             })

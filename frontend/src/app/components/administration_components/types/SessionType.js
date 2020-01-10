@@ -30,6 +30,7 @@ export default function SessionType({ sessionType }) {
                 APIAddsessionType(req)
                     .then(res => {
                         toast.success("Nouveau type ajouté !");
+                        setName("");
                         setEditing(false);
                         dispatch(getSessionTypes());
                     })
@@ -40,7 +41,7 @@ export default function SessionType({ sessionType }) {
                 APIEditsessionType(req)
                     .then(res => {
                         dispatch(getEventTypes());
-                        toast.success("Modification effectué !");
+                        toast.success("Modification effectuée !");
                         setName(req.name);
                         setEditing(false);
                     })

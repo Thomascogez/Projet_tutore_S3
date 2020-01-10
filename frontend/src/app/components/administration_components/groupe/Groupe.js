@@ -11,7 +11,7 @@ import DeleteGroup from "./DeleteGroup";
 
 
 export default function Groupe({ group }) {
-    const [editing, setEditing] = useState((group === null));
+    const [editing, setEditing] = useState(false);
     const [deleting, setDeleting] = useState(false);
     const [error, setError] = useState({});
 
@@ -27,7 +27,7 @@ export default function Groupe({ group }) {
     const handleValidate = () => {
         let req = {
             name: name,
-            color: color,
+            color: color != ""? color:"#000000",
             parent: parent
         };
         if (group != null) req = { ...req, id: group.id };
@@ -39,6 +39,9 @@ export default function Groupe({ group }) {
                 APIAddGroup(req)
                     .then(() => {
                         toast.success("Nouveau groupe ajouté !");
+                        setName("");
+                        setColor("");
+                        setParent("");
                         setEditing(false);
                         dispatch(getGroups());
                     })
@@ -48,7 +51,7 @@ export default function Groupe({ group }) {
             } else {
                 APIEditGroup(req)
                     .then(() => {
-                        toast.success("Modification effectué !");
+                        toast.success("Modification effectuée !");
                         setName(req.name);
                         setColor(req.color);
                         setParent(req.parent);

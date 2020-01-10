@@ -56,7 +56,7 @@ export default function User(props) {
 
         APIEditUser(props.id, req)
             .then(data => {
-                toast.success("Modification effectué !")
+                toast.success("Modification effectuée !")
                 dispatch(getUserProfile())
             })
             .catch(err => {

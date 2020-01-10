@@ -7,7 +7,7 @@ export default function ModalViewDetails({ text }) {
         <>
             <a href="#" onClick={e => { e.preventDefault(); setOpen(!open) }} >Voir plus de détails ...</a>
             <Modal open={open} toggle={setOpen} >
-                <ModalHeader>Détail de l'événement</ModalHeader>
+                <ModalHeader>Détails de l'événement</ModalHeader>
                 <ModalBody>{text}</ModalBody>
             </Modal>
         </>

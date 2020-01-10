@@ -8,16 +8,16 @@ import DeleteModal from "./DeleteModal";
 import {useDispatch, useSelector} from "react-redux";
 import {getModules} from "../../../providers/actions/moduleAction";
 
-export default function Module(props) {
+export default function Module({module}) {
     const [editing, setEditing] = useState(false);
     const [deleting,  setDeleting] = useState(false);
     const [error, setError] = useState({});
     const [invalidEdit, setInvalidEdit] = useState(false);
-    props = props.module;
+   
 
-    const [code,  setCode]  = useState((props != null)?props.code:"");
-    const [name,  setName]  = useState((props != null)?props.name:"");
-    const [color, setColor] = useState((props != null)?props.color:"");
+    const [code,  setCode]  = useState((module != null)?module.code:"");
+    const [name,  setName]  = useState((module != null)?module.name:"");
+    const [color, setColor] = useState((module != null)?module.color:"");
 
     const dispatch    = useDispatch();
 
@@ -25,23 +25,26 @@ export default function Module(props) {
         let req = {
             "code": code,
             "name": name,
-            "color": color,
+            "color": color != ""? color:"#000000",
         };
-        if(props != null) req = {...req, id: props.id};
+        if(module != null) req = {...req, id: module.id};
         if (req.name === "") {
             toast.error("Le nom du module ne peut être vide !");
-            setName((props != null) ? props.name : '');
+            setName((module != null) ? module.name : '');
             setInvalidEdit(true)
         }
         else if (req.code === "") {
             toast.error("Le code du module ne peut être vide !");
-            setName((props != null) ? props.name : '');
+            setName((module != null) ? module.name : '');
             setInvalidEdit(true);
         } else {
-            if (props === null) {
+            if (module === null) {
                 APIAddModule(req)
                     .then(res => {
                         toast.success("Nouveau module ajouté !");
+                        setName("");
+                        setColor("");
+                        setCode("");
                         setEditing(false);
                         setInvalidEdit(false);
                         dispatch(getModules());
@@ -56,7 +59,7 @@ export default function Module(props) {
             } else {
                 APIEditModule(req)
                     .then(res => {
-                        toast.success("Modification effectué !");
+                        toast.success("Modification effectuée !");
                         setName(req.name);
                         setColor(req.color);
                         setCode(req.code);
@@ -69,9 +72,9 @@ export default function Module(props) {
                         if (err.response.data.errors) {
                             setError(err.response.data.errors.children);
                         }
-                        setName(props.name);
-                        setColor(props.color);
-                        setCode(props.code);
+                        setName(module.name);
+                        setColor(module.color);
+                        setCode(module.code);
                     })
             }
         }
@@ -85,7 +88,7 @@ export default function Module(props) {
     return (
         <tr>
             <td>
-                {(props === null)?(
+                {(module === null)?(
                 editing ?
                     <FormInput value={code} invalid={invalidEdit} onChange={e => setCode(e.target.value)} placeholder="Code ..."/>
                 :
@@ -121,7 +124,7 @@ export default function Module(props) {
               </ButtonGroup>
             ) : (
               <ButtonGroup>
-                  {(props != null)? (
+                  {(module != null)? (
                       <React.Fragment>
                           <Button onClick={() => setEditing(true)}>Edition</Button>
                           <Button onClick={() => setDeleting(!deleting)} theme="danger">Supprimer</Button>
@@ -130,8 +133,8 @@ export default function Module(props) {
               </ButtonGroup>
             )}
             </td>
-            {(props != null)? (
-              <DeleteModal open={deleting} setOpen={setDeleting} name={name} color={color} id={props.id}/>
+            {(module != null)? (
+              <DeleteModal open={deleting} setOpen={setDeleting} name={name} color={color} id={module.id}/>
             ):(<React.Fragment />)}
         </tr>
     );

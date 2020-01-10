@@ -264,7 +264,7 @@ export default function AddEvent({ edit, eventID }) {
           });
       }
     } else {
-      toast.error("Informations de l'événement non valides");
+      toast.error("Informations de l'événement non valide");
     }
   };
 
@@ -452,7 +452,7 @@ export default function AddEvent({ edit, eventID }) {
                             setNewEvent({ ...newEvent, name: e.target.value })
                           }
                           maxLength="90"
-                          placeholder="Description de l'événement (90 charactéres max.)..."
+                          placeholder="Description de l'événement (90 caractères max.)..."
                         />
                       </Collapse>
                       {edit && (

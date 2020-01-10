@@ -109,7 +109,7 @@ export default function AddSession({ edit, id }) {
     APIdelSessionID(id.sessionID)
         .then(data => {
           setLoading(false);
-          toast.success("Séance supprimé !");
+          toast.success("Séance supprimée !");
           navigate('/seances');
         })
   }
@@ -252,9 +252,9 @@ export default function AddSession({ edit, id }) {
                                     width={100}
                                 />
                             ) : edit ? (
-                                "Modifier la séances"
+                                "Modifier la séance"
                             ) : (
-                                "Ajouter la séances"
+                                "Ajouter la séance"
                             )}
                           </Button>
                           {edit &&(

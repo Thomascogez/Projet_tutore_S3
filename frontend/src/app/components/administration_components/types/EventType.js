@@ -39,6 +39,9 @@ export default function EventType({ eventType }) {
                     .then(res => {
                         dispatch(getEventTypes());
                         toast.success("Nouveau type ajouté !");
+                        setName("");
+                        setTeacher(false)
+                        setTutor(false)
                         setInvalidEdit(false);
                         setEditing(false);
                     })
@@ -50,7 +53,7 @@ export default function EventType({ eventType }) {
                     .then(res => {
                         setError({});
                         dispatch(getSessionTypes());
-                        toast.success("Modification effectué !");
+                        toast.success("Modification effectuée !");
                         setName(req.name);
                         setEditing(false);
                     })
