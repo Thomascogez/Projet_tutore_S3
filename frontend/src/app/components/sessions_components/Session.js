@@ -16,6 +16,7 @@ export default function Session({ session, setRefresh, refresh }) {
     return (
         <>
             <tr>
+                <td>#{session.id}</td>
                 <td >{moment(session.createdAt).format("DD/MM/YYYY")}</td>
                 <td><Badge style={{ backgroundColor: session.module.color, width: "100px" }}>{session.module.name}</Badge></td>
                 <td>{session.groups && session.groups.map(group => (<Badge style={{ backgroundColor: group.color, marginRight: "2px" }}>{group.name}</Badge>))}</td>

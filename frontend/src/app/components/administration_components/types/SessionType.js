@@ -5,6 +5,8 @@ import { Button, ButtonGroup, FormInput } from "shards-react";
 import { APIAddsessionType, APIEditsessionType } from "../../../api/type/session";
 import { errFetch } from "../../../utils/errorFetch";
 import DeleteType from "./Delete";
+import {useDispatch} from "react-redux";
+import {getEventTypes, getSessionTypes} from "../../../providers/actions/typeActions";
 
 toast.configure();
 export default function SessionType({ sessionType }) {
@@ -13,6 +15,7 @@ export default function SessionType({ sessionType }) {
     const [error, setError] = useState({});
 
     const [name, setName] = useState((sessionType != null) ? sessionType.name : "");
+    const dispatch = useDispatch();
 
     const handleValidate = () => {
         let req = {
@@ -28,8 +31,7 @@ export default function SessionType({ sessionType }) {
                     .then(res => {
                         toast.success("Nouveau type ajouté !");
                         setEditing(false);
-                        window.location.reload();
-
+                        dispatch(getSessionTypes());
                     })
                     .catch(err => {
                         setError(errFetch(err));
@@ -37,6 +39,7 @@ export default function SessionType({ sessionType }) {
             } else {
                 APIEditsessionType(req)
                     .then(res => {
+                        dispatch(getEventTypes());
                         toast.success("Modification effectué !");
                         setName(req.name);
                         setEditing(false);

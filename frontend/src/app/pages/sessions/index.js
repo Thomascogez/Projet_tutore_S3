@@ -61,10 +61,10 @@ export default function Seances() {
 				let tmp = {};
 
 				Object.entries(data.data).map(weekSessions => {
-					tmp[parseInt(((weekSessions[0] == 1 && date.split(" "))[0] > 1)?53:weekSessions[0])] = [];
+					tmp[parseInt(((weekSessions[0] == 1 && parseInt(date.split(" ")[1]) > 1))?53:weekSessions[0])] = [];
 					let test = Object.entries(weekSessions[1]).sort(sortFunction);
 					test.map(daySessions => {
-						tmp[parseInt(((weekSessions[0] == 1 && date.split(" "))[0] > 1)?53:weekSessions[0])].push(daySessions)
+						tmp[parseInt(((weekSessions[0] == 1 && parseInt(date.split(" ")[1]) > 1))?53:weekSessions[0])].push(daySessions)
 					})
 				})
 				setAllSessions(tmp);
@@ -139,7 +139,7 @@ export default function Seances() {
 					:
 					<>
 
-						{Object.entries(allSessions).length === 0 ? !loading && <h2>Aucune séance sur ce mois</h2> : ("")}
+						{Object.entries(allSessions).length === 0 ? !loading && <h2 style={{textAlign: "center"}}>Aucune séance sur ce mois</h2> : ("")}
 
 						{Object.entries(allSessions).map(weekSessions => (
 							<>

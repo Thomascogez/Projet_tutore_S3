@@ -111,21 +111,17 @@ export default function User(props) {
             </td>
             <td>
                 {editing ? (
-                    <a href={() => false} onClick={() => setToggleEditGroup(!toggleEditGroup)}>
-                        Gérer groupes
-                    </a>
+                    <a href="#" onClick={e => {e.preventDefault(); setToggleEditModule(!toggleEditModule)}}>Gérer modules</a>
                 ) : (
-                        <a href={() => false} onClick={() => setToggleViewGroup(!toggleViewGroup)}>
-                            Voir groupe
-                    </a>
-                    )}
+                    <a href="#" onClick={e => {e.preventDefault(); setToggleViewModule(!toggleViewModule)}}>Voir modules</a>
+                )}
             </td>
             <td>
                 {editing ? (
-                    <a href={() => false} onClick={() => setToggleEditModule(!toggleEditModule)}>Gérer modules</a>
+                    <a href="#" onClick={e => {e.preventDefault(); setToggleEditModule(!toggleEditModule)}}>Gérer modules</a>
                 ) : (
-                        <a href={() => false} onClick={() => setToggleViewModule(!toggleViewModule)}>Voir modules</a>)
-                }
+                        <a href="#" onClick={e => {e.preventDefault(); setToggleViewModule(!toggleViewModule)}}>Voir modules</a>
+                )}
             </td>
 
             <td>

@@ -65,7 +65,7 @@ export default function index() {
                         <GiTeacher className={style.AdminCardIcon} />
                         <CardBody>
                             <CardTitle>Gérer les séances</CardTitle>
-                            <p>Ajouter, modifier, supprimer.</p>
+                            <p>Modifier, supprimer.</p>
                             <Button className={style.AdminCardBtn} onClick = {() => navigate('/administration/sessions')}>Continuer</Button>
                         </CardBody>
                     </Card>
@@ -76,7 +76,7 @@ export default function index() {
                         <GoGear className={style.AdminCardIcon} />
                         <CardBody>
                             <CardTitle>Gérer les paramètres</CardTitle>
-                            <p>paramètres du site.</p>
+                            <p>Paramètres du site.</p>
                             <Button className={style.AdminCardBtn} onClick = {() => navigate('/administration/parametres')}>Continuer</Button>
                         </CardBody>
                     </Card>

@@ -5,6 +5,8 @@ import { Button, ButtonGroup, FormCheckbox, FormInput } from "shards-react";
 import { APIAddEventType, APIEditEventType } from "../../../api/type/event";
 import { errFetch } from "../../../utils/errorFetch";
 import DeleteType from "./Delete";
+import {getEventTypes, getSessionTypes} from "../../../providers/actions/typeActions";
+import {useDispatch} from "react-redux";
 
 toast.configure();
 export default function EventType({ eventType }) {
@@ -13,6 +15,7 @@ export default function EventType({ eventType }) {
     const [error, setError] = useState({});
     const [invalidEdit, setInvalidEdit] = useState(false);
 
+    const dispatch = useDispatch();
 
 
     const [name, setName] = useState((eventType != null) ? eventType.name : "");
@@ -34,10 +37,10 @@ export default function EventType({ eventType }) {
             if (eventType === null) {
                 APIAddEventType(req)
                     .then(res => {
+                        dispatch(getEventTypes());
                         toast.success("Nouveau type ajouté !");
                         setInvalidEdit(false);
                         setEditing(false);
-
                     })
                     .catch(err => {
                         setError(errFetch(err));
@@ -46,6 +49,7 @@ export default function EventType({ eventType }) {
                 APIEditEventType(req)
                     .then(res => {
                         setError({});
+                        dispatch(getSessionTypes());
                         toast.success("Modification effectué !");
                         setName(req.name);
                         setEditing(false);
