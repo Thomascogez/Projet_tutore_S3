@@ -17,12 +17,6 @@ const getModules = () => {
 const removeModules = (idModule) => {
     return dispatch => {
         return APIDeleteModule(idModule)
-            .then(data => {
-                dispatch({
-                    type: GET_ALL_MODULES,
-                    value: data.data
-                });
-            })
             .catch(err => console.log(err.response))
     }
 }

@@ -8,7 +8,7 @@ import DeleteType from "./Delete";
 
 toast.configure();
 export default function EventType({ eventType }) {
-    const [editing, setEditing] = useState((eventType === null));
+    const [editing, setEditing] = useState(false);
     const [deleting, setDeleting] = useState(false);
     const [error, setError] = useState({});
     const [invalidEdit, setInvalidEdit] = useState(false);

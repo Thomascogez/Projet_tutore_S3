@@ -3,7 +3,8 @@ import {Modal, ModalHeader, ModalBody, ModalFooter, Button} from "shards-react";
 import style from "./deleteModal.module.css";
 import {useDispatch} from "react-redux";
 import {toast} from "react-toastify";
-import {removeModules} from "../../../providers/actions/moduleAction";
+import {getModules, removeModules} from "../../../providers/actions/moduleAction";
+import {APIDeleteModule} from "../../../api/modules";
 
 
 export default function DeleteModal(props) {
@@ -12,7 +13,8 @@ export default function DeleteModal(props) {
 
     const handleRemove = (e) => {
         e.preventDefault();
-        dispatch(removeModules(props.id));
+        APIDeleteModule(props.id).then(() =>
+            dispatch(getModules()));
         props.setOpen(!props.open);
         toast.success("Module  " + props.name + " correctement supprimé !")
     };
