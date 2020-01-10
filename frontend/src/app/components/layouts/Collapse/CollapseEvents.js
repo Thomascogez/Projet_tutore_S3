@@ -8,7 +8,6 @@ import style from "./collapse.module.css";
 
 export default function Collapse({ title, size, events }) {
   const [open, setOpen] = useState(false);
-  console.log(events)
   function tab() {
     return (<div className="table-responsive">
       <table className={`table  ${style.EventTable}`}>

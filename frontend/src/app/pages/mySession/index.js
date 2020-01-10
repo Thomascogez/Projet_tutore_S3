@@ -11,31 +11,37 @@ import PageLoader from '../../components/layouts/loader';
 
 export default function MySession()
 {
-	const [mySession, setMySession] = useState({})
+	const [mySession, setMySession] = useState({});
+	const [refresh, setRefresh] = useState(0);
+	const [loader, setLoader] = useState(false);
 
 	useEffect(() => {
+		setLoader(true)
 		APIgetMySession()
 		.then(data => {     
-			setMySession(data.data);           
+			setMySession(data.data);
+			setLoader(false)
 		})
 		.catch(err => console.log(err));
-	}, [])
+	}, [refresh])
+;
 
 	return (
-		<Container fluid className={style.EventsContainer}>
-			<Card >
-				<CardHeader><h5>Mes seances</h5></CardHeader>
-				<div className="table-responsive">
-					<table className={`table  ${style.EventTable}`}>
+		<>
+			<Container fluid className={style.EventsContainer}>
+				<Card >
+					<CardHeader><h5>Mes seances</h5></CardHeader>
+					<div className="table-responsive">
+						<table className={`table  ${style.EventTable}`}>
 							<tr>
 								<th>Date</th>
 								<th>Module</th>
 								<th>Groupe</th>
 								<th>Modification</th>
 							</tr>
-							{ (Object.keys(mySession).length === 0)? (
-								<PageLoader />
-							):(
+							<tbody>
+
+							{ (Object.keys(mySession).length > 0) && (
 								Object.entries(mySession). map(years => (
 									<>
 										{
@@ -43,7 +49,7 @@ export default function MySession()
 												<>
 													{
 														Object.entries(week[1]). map(day => (
-															<Session session={day[1][0]} />
+															<Session key={day[1][0]} session={day[1][0]} setRefresh={setRefresh} refresh={refresh} />
 														))
 													}
 												</>
@@ -52,9 +58,14 @@ export default function MySession()
 									</>
 								))
 							)}
-					</table>
-				</div>
-			</Card>
-		</Container>
+							</tbody>
+						</table>
+					</div>
+				</Card>
+			</Container>
+			{loader &&
+			<PageLoader />
+			}
+		</>
 	)
 }

@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import { Button, ButtonGroup, FormInput } from "shards-react";
 import { APIAddModule, APIEditModule } from "../../../api/modules";
 import DeleteModal from "./DeleteModal";
+import {useDispatch, useSelector} from "react-redux";
+import {getModules} from "../../../providers/actions/moduleAction";
 
 export default function Module(props) {
     const [editing, setEditing] = useState(false);
@@ -17,13 +19,14 @@ export default function Module(props) {
     const [name,  setName]  = useState((props != null)?props.name:"");
     const [color, setColor] = useState((props != null)?props.color:"");
 
+    const dispatch    = useDispatch();
+
     const handleValidate = () => {
         let req = {
             "code": code,
             "name": name,
             "color": color,
         };
-        console.log(req)
         if(props != null) req = {...req, id: props.id};
         if (req.name === "") {
             toast.error("Le nom du module ne peut être vide !");
@@ -41,7 +44,7 @@ export default function Module(props) {
                         toast.success("Nouveau module ajouté !");
                         setEditing(false);
                         setInvalidEdit(false);
-                        window.location.reload();
+                        dispatch(getModules());
                     })
                     .catch(err => {
                         setInvalidEdit(true)
@@ -86,7 +89,7 @@ export default function Module(props) {
                 editing ?
                     <FormInput value={code} invalid={invalidEdit} onChange={e => setCode(e.target.value)} placeholder="Code ..."/>
                 :
-                    <a onClick={() => setEditing(true)} href="javascript:void(0);"><span style={{fontWeight: "bold"}}>Ajouter un module ...</span></a>
+                    <a onClick={e => {e.preventDefault(); setEditing(true)}} href="#"><span style={{fontWeight: "bold"}}>Ajouter un module ...</span></a>
                 ):(
                     editing ? <FormInput value={code} invalid={invalidEdit} onChange={e => setCode(e.target.value)} placeholder="Code ..." /> : code
                 )}

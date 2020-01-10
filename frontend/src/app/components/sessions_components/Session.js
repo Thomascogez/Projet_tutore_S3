@@ -5,19 +5,16 @@ import { MdDelete } from 'react-icons/md';
 import { APIdelSessionID } from '../../api/sessionFetch';
 import { navigate } from 'hookrouter'
 
-export default function Session({ session }) {
+export default function Session({ session, setRefresh, refresh }) {
 
     const delSession = (id) => {
-        APIdelSessionID(id);
-        setTimeout(function () {
-            window.location.reload();
-        }, 500);
-
+        APIdelSessionID(id).then(() => {
+            setRefresh(refresh+1)
+        })
     }
 
     return (
         <>
-            {console.log(session)}
             <tr>
                 <td >{moment(session.createdAt).format("DD/MM/YYYY")}</td>
                 <td><Badge style={{ backgroundColor: session.module.color, width: "100px" }}>{session.module.name}</Badge></td>

@@ -8,10 +8,10 @@ use App\Entity\Groups;
 use App\Entity\User;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\Operation;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Swagger\Annotations as SWG;
 
 define("GROUP_NOT_FOUND", "Group is not found");
 
@@ -161,5 +161,4 @@ class UserGroupsController extends UserController
             return $user;
         }
     }
-
 }

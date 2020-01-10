@@ -6,16 +6,15 @@ namespace App\Controller\User;
 use App\Entity\PasswordForget;
 use App\Entity\User;
 use App\Form\UserType;
+use Exception;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Nelmio\ApiDocBundle\Annotation\Operation;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Nelmio\ApiDocBundle\Annotation\Operation;
-use Swagger\Annotations as SWG;
 
 class PasswordForgetController extends UserController
 {
@@ -45,7 +44,9 @@ class PasswordForgetController extends UserController
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(array('username' => $request->get('username')));
         if(empty($user)) return $this->isNotFound(USER_NOT_FOUND);
 
+        //Test if token exist
         $token = $this->getDoctrine()->getRepository(PasswordForget::class)->findOneBy(array('user' => $user));
+        //Create new PasswordForget
         if(empty($token)) {
             $token = new PasswordForget();
             $token->setUser($user);
@@ -56,6 +57,8 @@ class PasswordForgetController extends UserController
         $em->persist($token);
         $em->flush();
 
+
+        //Set mail address
         $mailAddress = "";
         if($this->userHasRole($user, "ROLE_TEACHER"))
             $mailAddress= $user->getUsername() . "@univ-lehavre.fr";
@@ -64,7 +67,7 @@ class PasswordForgetController extends UserController
 
         $message = (new \Swift_Message('Mot de passe oublié'))
             ->setFrom(['contact@schoolshare.com' => "SchoolShare"])
-            ->setTo("disadah759@mailfile.org"/*$mailAddress*/)
+            ->setTo("disadah759@mailfile.org"/*$mailAddress*/) //TODO: Mail désactivé, à changer par $mailAddress
             ->setBody("Reinitialiser votre mot de passe ...")
             ->addPart($this->renderView(
                 'mail/resetPassword.html.twig',
@@ -76,6 +79,7 @@ class PasswordForgetController extends UserController
                 'text/html'
             );
 
+        //Send mail
         $mailer->send($message);
 
         return new JsonResponse(array("code" => 200, "message" => "Email send"), Response::HTTP_OK);
@@ -134,14 +138,18 @@ class PasswordForgetController extends UserController
         if($this->getUser())
             return $this->notAuthorized();
 
+        //Verify token validity
         if(!$this->verifyToken($request)) {
             return new JsonResponse(array("code" => 406, "message" => "token expired"), Response::HTTP_NOT_ACCEPTABLE);
         } else {
+            //Get token
             $token = $this->getDoctrine()->getRepository(PasswordForget::class)->findOneBy(array("token" => $request->get('token')));
             $user = $token->getUser();
             $form = $this->createForm(UserType::class, $user);
+
             $form->submit(null, false);
 
+            //Generate new password
             $user->setPlainPassword($this->randomPassword(12));
             if($form->isValid()) {
                 if(!empty($user->getPlainPassword())){
@@ -152,6 +160,7 @@ class PasswordForgetController extends UserController
                     $user->setPassword($encoded);
                 }
 
+                //Set email address
                 $mailAddress = "";
                 if($this->userHasRole($user, "ROLE_TEACHER"))
                     $mailAddress= $user->getUsername() . "@univ-lehavre.fr";
@@ -160,7 +169,7 @@ class PasswordForgetController extends UserController
 
                 $message = (new \Swift_Message('Nouveau mot de passe'))
                     ->setFrom(['contact@schoolshare.com' => "SchoolShare"])
-                    ->setTo("disadah759@mailfile.org"/*$mailAddress*/)
+                    ->setTo("disadah759@mailfile.org"/*$mailAddress*/) //TODO: Mail désactivé, à changer par $mailAddress
                     ->setBody("Reinitialiser votre mot de passe ...")
                     ->addPart($this->renderView(
                         'mail/newPassword.html.twig',
@@ -175,6 +184,7 @@ class PasswordForgetController extends UserController
 
                 $mailer->send($message);
 
+                //Persist removing token
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
                 $em->remove($token);
@@ -186,7 +196,12 @@ class PasswordForgetController extends UserController
         }
     }
 
-
+    /**
+     * Verify validity of token
+     * @param Request $request
+     * @return bool
+     * @throws Exception
+     */
     private function verifyToken(Request $request)
     {
         $token = $this->getDoctrine()->getRepository(PasswordForget::class)->findOneBy(array("token" => $request->get('token')));
