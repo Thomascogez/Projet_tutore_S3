@@ -19,8 +19,8 @@ export default function Group() {
 
     return (
         <>
-            <Container fluid className={style.AdminGroupContainer}>
-                <Card className={style.GroupCard}>
+            <Container fluid>
+                <Card style={{marginTop: "20px"}}>
                     <CardHeader><h3>Gestion des groupes</h3></CardHeader>
                     <CardBody className={style.GroupCardBody}>
                         <div className="table-responsive">

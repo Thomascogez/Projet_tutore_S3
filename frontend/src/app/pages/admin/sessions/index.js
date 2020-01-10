@@ -5,8 +5,9 @@ import {APIgetAllSession} from "../../../api/sessionFetch";
 import Session from "../../../components/administration_components/session/Session";
 import moment from "moment";
 import "moment/locale/fr";
-import {Card, Col, FormSelect, Row, CardBody} from "shards-react";
+import {Card, Col, FormSelect, Row, CardBody, Container, CardHeader} from "shards-react";
 import Collapse from "../../../components/layouts/Collapse/CollapseSessions";
+import style from "../group/group.module.css";
 
 export default function Sessions()
 {
@@ -62,70 +63,78 @@ export default function Sessions()
     }
 
     return (
-        <div >
-            <h1 style={{padding:20}}>Gestion des séances</h1>
-            <div style={{margin:50, marginTop:100, padding:10}}>
-                <Row style={{marginBottom: "7px"}}>
-                    <Col md="6">
-                        <FormSelect style={{fontWeight: "bold"}}  value={date.format("M")} onChange={e => setDate(moment(date).set('month', e.target.value-1))}>
-                            { moment.months().map(m => (<option style={{fontWeight: "bold"}} value={moment.months().indexOf(m)+1}>{jsUcfirst(m)}</option>)) }
-                        </FormSelect>
-                    </Col>
-                    <Col md="6">
-                        <FormSelect style={{fontWeight: "bold"}} value={date.format("YYYY")} onChange={e => setDate(moment(date).set('year', e.target.value))} >
-                            { arrayYears.map(m => (<option style={{fontWeight: "bold"}} value={m} >{m}</option>)) }
-                        </FormSelect>
-                    </Col>
-                </Row>
-                <Card>
-                    <CardBody>
-                        { (Object.entries(sessions).length > 0) ? (
-                            <React.Fragment>
-                                {Object.entries(sessions).map(weekSessions =>
-                                    <>
-                                        <Collapse title={<><span style={{fontWeight: "bold"}}>Semaine n°{weekSessions[0]}</span><span style={{fontSize: "20px"}}> (du {moment().day("Lundi").year(date.year()).week(weekSessions[0]).format("DD/MM/Y")} au {moment().day("Dimanche").year(date.year()).week(weekSessions[0]).format("DD/MM/Y")})</span></>}>
-                                            {
-                                                Object.entries(weekSessions[1]).map(daySessions => (
-                                                    <>
-                                                        <Collapse title={<>{moment( date.year() + "-" + date.format("MM") + "-" + daySessions[1][0]).format("dddd DD") }</>}>
-                                                            <table  className={`table table-striped table-hover table-bordered ${adminStyle.Scroll}`}>
-                                                                <thead>
-                                                                <tr>
-                                                                    <th>Date</th>
-                                                                    <th>Utilisateur</th>
-                                                                    <th>Module</th>
-                                                                    <th>Groupes</th>
-                                                                    <th>Type</th>
-                                                                    <th>Evènements</th>
-                                                                    <th style={{width: 20 + '%'}}>Edition</th>
-                                                                </tr>
-                                                                </thead>
-                                                                <tbody >
-                                                                {
-                                                                    daySessions[1][1].map(session => (
-                                                                        <Session key={session.id} session={session} setReload={setteReload}/>
-                                                                    ))
-                                                                }
-                                                                </tbody>
-                                                            </table>
-                                                        </Collapse>
-                                                    </>
-                                                ))
-                                            }
-                                        </Collapse>
-                                    </>
-                                ) }
-                            </React.Fragment>
-                        ):(<React.Fragment />
-                        )}
+        <>
+            <Container fluid>
+                <Card style={{marginTop: "20px"}}>
+                    <CardHeader><h3>Gestion des séances</h3></CardHeader>
+                    <CardBody className={style.GroupCardBody}>
+
+                        <div >
+                            <Row style={{marginBottom: "7px"}}>
+                                <Col md="6">
+                                    <FormSelect style={{fontWeight: "bold"}}  value={date.format("M")} onChange={e => setDate(moment(date).set('month', e.target.value-1))}>
+                                        { moment.months().map(m => (<option style={{fontWeight: "bold"}} value={moment.months().indexOf(m)+1}>{jsUcfirst(m)}</option>)) }
+                                    </FormSelect>
+                                </Col>
+                                <Col md="6">
+                                    <FormSelect style={{fontWeight: "bold"}} value={date.format("YYYY")} onChange={e => setDate(moment(date).set('year', e.target.value))} >
+                                        { arrayYears.map(m => (<option style={{fontWeight: "bold"}} value={m} >{m}</option>)) }
+                                    </FormSelect>
+                                </Col>
+                            </Row>
+                            <Card>
+                                <CardBody>
+                                    { (Object.entries(sessions).length > 0) ? (
+                                        <React.Fragment>
+                                            {Object.entries(sessions).map(weekSessions =>
+                                                <>
+                                                    <Collapse title={<><span style={{fontWeight: "bold"}}>Semaine n°{weekSessions[0]}</span><span style={{fontSize: "20px"}}> (du {moment().day("Lundi").year(date.year()).week(weekSessions[0]).format("DD/MM/Y")} au {moment().day("Dimanche").year(date.year()).week(weekSessions[0]).format("DD/MM/Y")})</span></>}>
+                                                        {
+                                                            Object.entries(weekSessions[1]).map(daySessions => (
+                                                                <>
+                                                                    <Collapse title={<>{moment( date.year() + "-" + date.format("MM") + "-" + daySessions[1][0]).format("dddd DD") }</>}>
+                                                                        <table  className={`table table-striped table-hover table-bordered ${adminStyle.Scroll}`}>
+                                                                            <thead>
+                                                                            <tr>
+                                                                                <th>Date</th>
+                                                                                <th>Utilisateur</th>
+                                                                                <th>Module</th>
+                                                                                <th>Groupes</th>
+                                                                                <th>Type</th>
+                                                                                <th>Evènements</th>
+                                                                                <th style={{width: 20 + '%'}}>Edition</th>
+                                                                            </tr>
+                                                                            </thead>
+                                                                            <tbody >
+                                                                            {
+                                                                                daySessions[1][1].map(session => (
+                                                                                    <Session key={session.id} session={session} setReload={setteReload}/>
+                                                                                ))
+                                                                            }
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </Collapse>
+                                                                </>
+                                                            ))
+                                                        }
+                                                    </Collapse>
+                                                </>
+                                            ) }
+                                        </React.Fragment>
+                                    ):(<React.Fragment />
+                                    )}
+                                </CardBody>
+                            </Card>
+                        </div>
                     </CardBody>
                 </Card>
-            </div>
+            </Container>
+
             { (loading) ? (
                 <PageLoader />
             ):(
                 <React.Fragment />
             )}
-        </div>
+        </>
     )
 }
