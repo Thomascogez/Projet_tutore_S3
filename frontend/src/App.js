@@ -9,6 +9,9 @@ import { checkLogin } from './app/providers/actions/userActions'
 
 /**
  * Entry point of the application
+ * ```html
+ * <MyComponent foo={541} />
+ * ```
  */
 function App() {
 

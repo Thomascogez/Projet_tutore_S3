@@ -19,6 +19,9 @@ import { login } from "../../providers/actions/userActions";
 import { RESET_INVALID_MESSAGE } from "../../types/actionsTypes";
 import style from "./home.module.css";
 
+/**
+ * Page d'accueil du site
+ */
 export default function Home() {
   const [password, setPassword] = useState("");
   const [username, setUserName] = useState("");
@@ -51,7 +54,7 @@ export default function Home() {
 
   return (
     <>
-      {
+      { //TODO: shit 
       (userState.isLoggedIn === false && userState.user.id !=="") ? (
         <React.Suspense><PageLoader /></React.Suspense>
       ) : (
