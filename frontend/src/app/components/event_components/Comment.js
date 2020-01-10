@@ -2,8 +2,16 @@ import { navigate } from "hookrouter";
 import moment from 'moment';
 import React from "react";
 import ProfileRound from '../profileRound_component/ProfileRound';
+import PropTypes from 'prop-types'
 
 export default function Comment({ data }) {
+
+  Comment.propTypes = {
+
+    /** Objet json représentant les données d'un commentaire */
+    data : PropTypes.object
+
+  }
 
   return (
     <tr>
