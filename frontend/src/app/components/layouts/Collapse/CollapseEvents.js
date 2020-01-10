@@ -2,8 +2,8 @@ import moment from "moment";
 import React, { useState } from "react";
 import { FaAngleDown, FaAngleRight, FaFileAlt } from "react-icons/fa";
 import { Badge, Collapse as ShardCollaps } from "shards-react";
-import ModalViewDetails from "../../view_event_components/ModalViewDetails";
-import ModalViewFiles from "../../view_event_components/ModalViewsFiles";
+import ModalViewDetails from "../../event_components/ModalViewDetails";
+import ModalViewFiles from "../../event_components/ModalViewsFiles";
 import style from "./collapse.module.css";
 
 export default function Collapse({ title, size, events }) {

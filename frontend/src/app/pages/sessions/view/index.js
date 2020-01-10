@@ -16,11 +16,11 @@ import {
 import Loader from "react-loader-spinner";
 import { FaAngleDown, FaAngleRight } from "react-icons/fa";
 import ProfileRound from "../../../components/profileRound_component/ProfileRound";
-import style from "./eventview.module.css";
+import style from "./sessionview.module.css";
 import { useDispatch, useSelector } from "react-redux";
 
-import Comment from "../../../components/view_event_components/Comment";
-import Event from "../../../components/view_event_components/Event";
+import Comment from "../../../components/event_components/Comment";
+import Event from "../../../components/event_components/Event";
 import Unauthorized from "../../401";
 import NotFound from "../../404";
 //api

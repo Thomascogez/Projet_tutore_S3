@@ -23,9 +23,9 @@ import Collapse from "../../../components/layouts/Collapse";
 import PageLoader from "../../../components/layouts/loader";
 import FileTableLoader from "../../../components/loader/FileTableLoader";
 import RadioLoader from "../../../components/loader/RadioLoader";
-import File from "../../../components/view_event_components/File";
+import File from "../../../components/event_components/File";
 import Unauthorized from "../../401";
-import style from "./_addEvent.module.css";
+import style from "./addEvent.module.css";
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
@@ -211,7 +211,7 @@ export default function AddEvent({ edit, eventID }) {
           resetInformations();
           setLoading(false)
           toast.success("Evenement supprimé !")
-          navigate(`/seance/${id}`);
+          navigate(`/seances/${id}`);
         })
         .catch(() => {
           setLoading(false)
@@ -336,7 +336,7 @@ export default function AddEvent({ edit, eventID }) {
                             )}
                       </Button>
                       <Button
-                        onClick={() => navigate(`/seance/${addSession.sessions.id}`)}
+                        onClick={() => navigate(`/seances/${addSession.sessions.id}`)}
                         style={{ width: "100%" }}
                         theme="info"
                       >

@@ -15,7 +15,7 @@ import {
 } from "shards-react";
 import { Multiselect } from "react-widgets";
 import Collapse from "../../../components/layouts/Collapse";
-import style from "./addsession.module.css";
+import style from "./addSession.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import Moment from "moment";
@@ -178,7 +178,7 @@ export default function AddSession({ edit, id }) {
         .then(() => {
           reset();
           toast.success("Séance modifiée avec succès");
-          navigate(`/seance/${id.sessionID}`)
+          navigate(`/seances/${id.sessionID}`)
           setRequestPending(false);
           fetchSession();
         })
@@ -375,7 +375,7 @@ export default function AddSession({ edit, id }) {
                   >
                     Oui
                   </Button>{" "}
-                  <Button theme="danger" onClick={() => navigate(`/seance/${newId}`)}>Non</Button>
+                  <Button theme="danger" onClick={() => navigate(`/seances/${newId}`)}>Non</Button>
 
                 </ModalFooter>
               </Modal>

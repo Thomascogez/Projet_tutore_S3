@@ -4,7 +4,7 @@ import moment from "moment";
 import {navigate} from 'hookrouter';
 import DeleteModal from "../session/DeleteModal";
 import style from "./deleteModal.module.css";
-import Event from "../../view_event_components/Event";
+import Event from "../../event_components/Event";
 
 export default function Session({session, setReload }) {
 

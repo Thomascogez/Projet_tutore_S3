@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import {APIgetMySession} from '../../api/sessionFetch';
+import {APIgetMySession} from '../../../api/sessionFetch';
 import style from './mySession.module.css';
-import Session from '../../components/sessions_components/Session';
+import Session from '../../../components/sessions_components/Session';
 import {
 	Container,
 	Card,
 	CardHeader
 } from 'shards-react';
-import PageLoader from '../../components/layouts/loader';
+import PageLoader from '../../../components/layouts/loader';
 
 export default function MySession()
 {

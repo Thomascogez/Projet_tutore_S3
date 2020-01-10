@@ -19,7 +19,7 @@ export default function index() {
                         <CardBody>
                             <CardTitle>Gérer les groupes</CardTitle>
                             <p>Ajouter, modifier, supprimer.</p>
-                            <Button className={style.AdminCardBtn} onClick = {() => navigate('/administration/groupe')}>Continuer</Button>
+                            <Button className={style.AdminCardBtn} onClick = {() => navigate('/administration/groupes')}>Continuer</Button>
                         </CardBody>
                     </Card>
                 </Col>
@@ -55,7 +55,7 @@ export default function index() {
                         <CardBody className={style.AdminCardType}>
                             <CardTitle>Gérer les types<br/>(séances et évènements)</CardTitle>
                             <p>Ajouter, modifier, supprimer.</p>
-                            <Button className={style.AdminCardBtn} onClick = {() => navigate('/administration/type')}>Continuer</Button>
+                            <Button className={style.AdminCardBtn} onClick = {() => navigate('/administration/types')}>Continuer</Button>
                         </CardBody>
                     </Card>
                 </Col>

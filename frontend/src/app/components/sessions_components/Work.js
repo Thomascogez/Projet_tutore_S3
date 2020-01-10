@@ -8,7 +8,7 @@ import style from '../../pages/sessions/sessions.module.css';
 export default function Matiere({ color, name, duration, finished, id, groups, type }) {
 
     return (
-        <div id={"tooltip_" + id} onClick={() => navigate('seance/' + id)} className={style.Work} >
+        <div id={"tooltip_" + id} onClick={() => navigate('seances/' + id)} className={style.Work} >
             {finished.status === 1 ? <div style={{ float: "right", position: "relative", margin: "2px 5px 0px 0px", color: "green" }}><FaCheckCircle /></div> : ""}
 
             <div style={{ borderLeftColor: color }} className={style.WorkContent}>

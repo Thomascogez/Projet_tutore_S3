@@ -22,9 +22,8 @@ export default function ProfilRound({ bgcolor, fcolor, letter }) {
 
             <DropdownMenu right>
                 <NavLink onClick={() => navigate('/profil')}><DropdownItem><FaUserNinja style={{ marginRight: "15px" }} />Voir profil</DropdownItem></NavLink>
-                <NavLink onClick={() => navigate('/myEvents')}><DropdownItem><MdEventNote style={{ marginRight: "15px" }} />Mes évènements</DropdownItem></NavLink>
+                <NavLink onClick={() => navigate('/mesEvenements')}><DropdownItem><MdEventNote style={{ marginRight: "15px" }} />Mes évènements</DropdownItem></NavLink>
                 <NavLink onClick={() => navigate('/mesSeances')}><DropdownItem><GiOpenBook style={{ marginRight: "15px" }} />Mes séances</DropdownItem></NavLink>
-                <NavLink onClick={() => navigate('/options')}><DropdownItem><FaCog style={{ marginRight: "15px" }} />Options</DropdownItem></NavLink>
 
                 {user.user.roles ? user.user.roles.includes('ROLE_ADMIN') && <NavLink onClick={() => navigate('/administration')}><DropdownItem><FaUserCog style={{ marginRight: "15px" }} />Administration</DropdownItem></NavLink> : <></>}
                 <NavLink onClick={() => dispatch(logout())}><DropdownItem><FaPowerOff style={{ marginRight: "15px" }} />Se déconnecter</DropdownItem></NavLink>
