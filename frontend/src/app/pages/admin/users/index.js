@@ -30,9 +30,9 @@ export default function UserPage() {
 
     return (
         <>
-            <Container fluid className={style.AdmnUtilisateurContainer}>
+            <Container fluid >
 
-                <Card className={style.AdmnUtilisateurCard}>
+                <Card style={{marginTop: "20px"}}>
                     <CardHeader>
                         <h3>Gestion des utilisateurs</h3>
                     </CardHeader>

@@ -3,7 +3,7 @@ import adminStyle from '../../../components/administration_components/module/adm
 import BarreRecherche from '../../../components/administration_components/module/BarreRecherche'
 import PageLoader from "../../../components/layouts/loader";
 import {useDispatch, useSelector} from "react-redux";
-import {Col, Row} from "shards-react";
+import {Card, CardBody, CardHeader, CardTitle, Col, Row} from "shards-react";
 import SessionType from "../../../components/administration_components/types/SessionType";
 import {getEventTypes, getSessionTypes} from "../../../providers/actions/typeActions";
 import EventType from "../../../components/administration_components/types/EventType";
@@ -27,56 +27,66 @@ export default function Types()
 
             <Row>
                 <Col sm="12" lg="6">
-                    <div style={{margin:50, marginTop:100, padding:10}}>
-                        <h4>Types de séances</h4>
-                        <table className={`table table-striped ${adminStyle.Scroll}`}>
-                            <thead>
-                            <tr>
-                                <th>Nom</th>
-                                <th style={{width: 20 + '%'}}>Edition</th>
-                            </tr>
-                            </thead>
-                            <tbody >
-                            { (sessionTypeState.sessionType.length > 0) ? (
-                                <React.Fragment>
-                                    <SessionType key={-1} sessionType={null} />
-                                    {sessionTypeState.sessionType.map((m) =>
-                                        <SessionType key={m.id} sessionType={m} />
-                                    ) }
-                                </React.Fragment>
-                            ):(<React.Fragment />
-                            )}
-                            </tbody>
-                        </table>
-                    </div>
+                    <Card style={{margin:50, marginTop:100}}>
+                        <CardHeader>
+                            <h3>Types de séances</h3>
+                        </CardHeader>
+                        <CardBody>
+                            <div>
+                                <table className={`table table-striped ${adminStyle.Scroll}`}>
+                                    <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th style={{width: 20 + '%'}}>Edition</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody >
+                                    { (sessionTypeState.sessionType.length > 0) ? (
+                                        <React.Fragment>
+                                            <SessionType key={-1} sessionType={null} />
+                                            {sessionTypeState.sessionType.map((m) =>
+                                                <SessionType key={m.id} sessionType={m} />
+                                            ) }
+                                        </React.Fragment>
+                                    ):(<React.Fragment />
+                                    )}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </CardBody>
+                    </Card>
                 </Col>
 
 
                 <Col sm="12" lg="6">
-                    <div style={{margin:50, marginTop:100, padding:10}}>
-                        <h4>Types d'évènements</h4>
-                        <table className={`table table-striped ${adminStyle.Scroll}`}>
-                            <thead>
-                            <tr>
-                                <th>Nom</th>
-                                <th>Prof</th>
-                                <th>Tuteur</th>
-                                <th style={{width: 20 + '%'}}>Edition</th>
-                            </tr>
-                            </thead>
-                            <tbody >
-                            { (sessionTypeState.eventType.length > 0) ? (
-                                <React.Fragment>
-                                    <EventType key={-1} eventType={null} />
-                                    {sessionTypeState.eventType.map((m) =>
-                                        <EventType key={m.id} eventType={m} />
-                                    ) }
-                                </React.Fragment>
-                            ):(<React.Fragment />
-                            )}
-                            </tbody>
-                        </table>
-                    </div>
+                    <Card style={{margin:50, marginTop:100}}>
+                        <CardHeader>
+                            <h3>Types d'évènements</h3>
+                        </CardHeader>
+                        <CardBody>
+                            <table className={`table table-striped ${adminStyle.Scroll}`}>
+                                <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Prof</th>
+                                    <th>Tuteur</th>
+                                    <th style={{width: 20 + '%'}}>Edition</th>
+                                </tr>
+                                </thead>
+                                <tbody >
+                                { (sessionTypeState.eventType.length > 0) ? (
+                                    <React.Fragment>
+                                        <EventType key={-1} eventType={null} />
+                                        {sessionTypeState.eventType.map((m) =>
+                                            <EventType key={m.id} eventType={m} />
+                                        ) }
+                                    </React.Fragment>
+                                ):(<React.Fragment />
+                                )}
+                                </tbody>
+                            </table>
+                        </CardBody>
+                    </Card>
                 </Col>
             </Row>
             { (sessionTypeState.sessionType.length > 0 || sessionTypeState.eventType.length > 0) ? (
