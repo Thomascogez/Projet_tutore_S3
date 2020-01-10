@@ -2,9 +2,18 @@ import React, { useState } from 'react'
 import { Modal, ModalBody, ModalHeader } from 'shards-react'
 import { FaFileAlt } from "react-icons/fa";
 import File from './File'
+import PropTypes from 'prop-types'
 
 const ModalViewsFiles = ({ files }) => {
     const [open, setOpen] = useState(false)
+
+    ModalViewsFiles.propTypes = {
+
+        /** String contenant les détails d'un évènement */
+        files : PropTypes.array
+    
+    }
+
     return (
         <>
             <a href='#' onClick={(e) => {

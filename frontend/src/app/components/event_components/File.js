@@ -2,6 +2,7 @@ import React from 'react'
 import FileIcon, {defaultStyles} from 'react-file-icon';
 import axios from 'axios';
 import {APIDownloadFile} from "../../api/file";
+import PropTypes from 'prop-types'
 
 
 /**
@@ -14,6 +15,15 @@ export default function File({ file, children }) {
         if (bytes === 0) return '0 Byte';
         var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
         return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+    }
+
+    File.propTypes = {
+
+        /** Objet json représentant les données d'un fichier */
+        file : PropTypes.object,
+        /** Permet d'ajouter un bouton de suppression (si il est activé) */
+        children : PropTypes.node
+    
     }
 
     return (
