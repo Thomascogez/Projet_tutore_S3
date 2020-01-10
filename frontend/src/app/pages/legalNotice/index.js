@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {Card, CardBody, Container} from "shards-react";
+import React from "react";
+import { Card, CardBody, Container } from "shards-react";
 
 export default function LegalNotice() {
 
