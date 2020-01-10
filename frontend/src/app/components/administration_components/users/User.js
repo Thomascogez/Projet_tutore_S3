@@ -1,23 +1,13 @@
-import React, {useState} from "react";
-import {
-    Button,
-    FormInput,
-    ButtonGroup,
-    Modal,
-    ModalHeader,
-    ModalBody,
-    FormCheckbox,
-    FormRadio,
-    Badge
-} from "shards-react";
-import { FaCheck, FaTimes } from "react-icons/fa";
+import React, { useState } from "react";
+import { FaCheck, FaTimes, FaPen, FaTrash } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { toast } from 'react-toastify';
+import { Multiselect } from "react-widgets";
+import { Badge, Button, ButtonGroup, FormCheckbox, FormInput, FormRadio, Modal, ModalBody, ModalHeader } from "shards-react";
+import { APIEditUser } from "../../../api/userFetch";
 import style from "../../../pages/userProfil/_userprofile.module.css";
-import {Multiselect} from "react-widgets";
-import {APIEditUser} from "../../../api/userFetch";
-import {toast} from 'react-toastify';
+import { getUserProfile } from "../../../providers/actions/userActions";
 import DeleteUser from "./DeleteUser";
-import {useDispatch, useSelector} from "react-redux";
-import {getUserProfile} from "../../../providers/actions/userActions";
 
 toast.configure();
 
@@ -34,18 +24,16 @@ export default function User(props) {
 
     props = props.user;
 
-    const [username , setUsername]  = useState(props.username);
+    const [username, setUsername] = useState(props.username);
     const [firstname, setFirstname] = useState(props.firstname);
-    const [lastname , setLastname]  = useState(props.lastname);
-    const [groups   , setGroups]    = useState(props.groups);
-    const [modules  , setModules]   = useState(props.modules);
-    const [roles    , setRoles]     = useState((props.roles.includes("ROLE_TEACHER")?"ROLE_TEACHER":(props.roles.includes("ROLE_TUTOR")?"ROLE_TUTOR":"")));
+    const [lastname, setLastname] = useState(props.lastname);
+    const [groups, setGroups] = useState(props.groups);
+    const [modules, setModules] = useState(props.modules);
+    const [roles, setRoles] = useState((props.roles.includes("ROLE_TEACHER") ? "ROLE_TEACHER" : (props.roles.includes("ROLE_TUTOR") ? "ROLE_TUTOR" : "")));
 
     const [admin, setAdmin] = useState(props.roles.includes("ROLE_ADMIN"));
 
     const dispatch = useDispatch();
-
-    const userState = useSelector(state => state.user);
 
     const handleValidate = () => {
 
@@ -63,7 +51,7 @@ export default function User(props) {
             "lastname": lastname,
             "modules": tmpModules,
             "groups": tmpGroups,
-            "roles": (admin)?[roles, "ROLE_ADMIN"]:[roles]
+            "roles": (admin) ? [roles, "ROLE_ADMIN"] : [roles]
         }
 
         APIEditUser(props.id, req)
@@ -79,7 +67,7 @@ export default function User(props) {
                 setFirstname(props.firstname)
                 setModules(props.modules)
                 setGroups(props.groups)
-                setRoles((props.roles.includes("ROLE_TEACHER")?"ROLE_TEACHER":(props.roles.includes("ROLE_TUTOR")?"ROLE_TUTOR":"")))
+                setRoles((props.roles.includes("ROLE_TEACHER") ? "ROLE_TEACHER" : (props.roles.includes("ROLE_TUTOR") ? "ROLE_TUTOR" : "")))
             })
         setEditing(false);
     };
@@ -91,23 +79,20 @@ export default function User(props) {
         setFirstname(props.firstname)
         setModules(props.modules)
         setGroups(props.groups)
-        setRoles((props.roles.includes("ROLE_TEACHER")?"ROLE_TEACHER":(props.roles.includes("ROLE_TUTOR")?"ROLE_TUTOR":"")))
+        setRoles((props.roles.includes("ROLE_TEACHER") ? "ROLE_TEACHER" : (props.roles.includes("ROLE_TUTOR") ? "ROLE_TUTOR" : "")))
         setEditing(false);
     };
 
-    const handleRole = (event, name) => {
-
-    }
-
+  
 
     let TagItem = ({ item }) => (
-        <Badge style={{backgroundColor: item.color}}>
+        <Badge style={{ backgroundColor: item.color }}>
             {item.name}
         </Badge>
     );
 
     let ListItem = ({ item }) => (
-        <Badge style={{backgroundColor: item.color}}>
+        <Badge style={{ backgroundColor: item.color }}>
             {item.name}
         </Badge>
     );
@@ -115,117 +100,117 @@ export default function User(props) {
         <tr>
             <th scope="row">{username}</th>
             <td>
-                {editing ? <FormInput invalid={lastname==""} value={lastname} onChange={e => setLastname(e.target.value)} placeholder="Nom ..." /> : lastname}
+                {editing ? <FormInput invalid={lastname === ""} value={lastname} onChange={e => setLastname(e.target.value)} placeholder="Nom ..." /> : lastname}
             </td>
             <td>
                 {editing ? (
-                  <FormInput invalid={firstname==""} value={firstname} onChange={e => setFirstname(e.target.value)} placeholder="Prénom ..." />
+                    <FormInput invalid={firstname === ""} value={firstname} onChange={e => setFirstname(e.target.value)} placeholder="Prénom ..." />
                 ) : (
-                  firstname
-                )}
+                        firstname
+                    )}
             </td>
             <td>
                 {editing ? (
-                    <a href="javascript:void(0)" onClick={() => setToggleEditGroup(!toggleEditGroup)}>
+                    <a href={() => false} onClick={() => setToggleEditGroup(!toggleEditGroup)}>
                         Gérer groupes
                     </a>
                 ) : (
-                    <a href="javascript:void(0)" onClick={() => setToggleViewGroup(!toggleViewGroup)}>
-                        Voir groupe
+                        <a href={() => false} onClick={() => setToggleViewGroup(!toggleViewGroup)}>
+                            Voir groupe
                     </a>
-                )}
+                    )}
             </td>
-          <td>
-              {editing ? (
-                  <a href="javascript:void(0)" onClick = { ()=> setToggleEditModule(!toggleEditModule)}>Gérer modules</a>
-              ) :(
-                  <a href="javascript:void(0)" onClick = { ()=> setToggleViewModule(!toggleViewModule)}>Voir modules</a>)
-              }
-          </td>
+            <td>
+                {editing ? (
+                    <a href={() => false} onClick={() => setToggleEditModule(!toggleEditModule)}>Gérer modules</a>
+                ) : (
+                        <a href={() => false} onClick={() => setToggleViewModule(!toggleViewModule)}>Voir modules</a>)
+                }
+            </td>
 
-        <td>
-            {editing ? (
-                <>
-                    <FormCheckbox checked={admin} onChange={() => setAdmin(!admin)} >Admin</FormCheckbox>
-                    <FormRadio name={"role" + props.id} checked={(roles === "ROLE_TEACHER")} onChange={() => setRoles("ROLE_TEACHER")} >Professeur</FormRadio>
-                    <FormRadio name={"role" + props.id} checked={(roles === "ROLE_TUTOR")}   onChange={() => setRoles("ROLE_TUTOR")}   >Tuteur    </FormRadio>
-                </>
-            ):(
-                <>
-                    {(admin)?<span style={{color: "red", fontWeight: "bold"}}>Admin, </span>:""}
-                    {(roles.includes("ROLE_TEACHER")?"Professeur":"")}
-                    {(roles.includes("ROLE_TUTOR"  )?"Tuteur"    :"")}
-                </>
-            )}
-        </td>
-          <td>
-            {editing ? (
-              <ButtonGroup>
-                <Button disabled={lastname=="" || firstname==""} onClick={() => handleValidate()} theme="success">
-                  <FaCheck />
-                </Button>
-                <Button onClick={() => handleCancel()} theme="danger">
-                  <FaTimes />
-                </Button>
-              </ButtonGroup>
-            ) : (
-                <React.Fragment>
-                    <Button onClick={() => setEditing(true)}>Edition</Button>
-                    <Button onClick={() => setDeleting(!deleting)} theme="danger">Supprimer</Button>
-                </React.Fragment>
-            )}
-          </td>
+            <td>
+                {editing ? (
+                    <>
+                        <FormCheckbox checked={admin} onChange={() => setAdmin(!admin)} >Admin</FormCheckbox>
+                        <FormRadio name={"role" + props.id} checked={(roles === "ROLE_TEACHER")} onChange={() => setRoles("ROLE_TEACHER")} >Professeur</FormRadio>
+                        <FormRadio name={"role" + props.id} checked={(roles === "ROLE_TUTOR")} onChange={() => setRoles("ROLE_TUTOR")}   >Tuteur    </FormRadio>
+                    </>
+                ) : (
+                        <>
+                            {(admin) ? <span style={{ color: "red", fontWeight: "bold" }}>Admin, </span> : ""}
+                            {(roles.includes("ROLE_TEACHER") ? "Professeur" : "")}
+                            {(roles.includes("ROLE_TUTOR") ? "Tuteur" : "")}
+                        </>
+                    )}
+            </td>
+            <td>
+                {editing ? (
+                    <ButtonGroup>
+                        <Button disabled={lastname == "" || firstname == ""} onClick={() => handleValidate()} theme="success">
+                            <FaCheck />
+                        </Button>
+                        <Button onClick={() => handleCancel()} theme="danger">
+                            <FaTimes />
+                        </Button>
+                    </ButtonGroup>
+                ) : (
+                        <ButtonGroup>
+                            <Button onClick={() => setEditing(true)}><FaPen /></Button>
+                            <Button onClick={() => setDeleting(!deleting)} theme="danger"><FaTrash/></Button>
+                        </ButtonGroup>
+                    )}
+            </td>
 
-          {/* Modals */}
-          <Modal
-            open={toggleViewGroup}
-            toggle={() => setToggleViewGroup(!toggleViewGroup)}
-          >
-            <ModalHeader>
-              Groupes de {props.firstname} {props.lastname}
-            </ModalHeader>
-            <ModalBody>
-                {groups ? groups.map(group => (<h5 className={style.Group} style={{ backgroundColor: group.color } } key={group.name} >{group.name}</h5>)) : <div></div>}
-            </ModalBody>
-          </Modal>
+            {/* Modals */}
+            <Modal
+                open={toggleViewGroup}
+                toggle={() => setToggleViewGroup(!toggleViewGroup)}
+            >
+                <ModalHeader>
+                    Groupes de {props.firstname} {props.lastname}
+                </ModalHeader>
+                <ModalBody>
+                    {groups ? groups.map(group => (<h5 className={style.Group} style={{ backgroundColor: group.color }} key={group.name} >{group.name}</h5>)) : <div></div>}
+                </ModalBody>
+            </Modal>
 
-          <Modal
-            open={toggleEditGroup}
-            toggle={() => setToggleEditGroup(!toggleEditGroup)}
-          >
-            <ModalHeader>
-              Edition des groupes de {props.firstname} {props.lastname}
-            </ModalHeader>
-              <ModalBody>
-                  <>
-                      <Multiselect
-                          tagComponent={TagItem}
-                          itemComponent={ListItem}
-                          value={groups}
-                          data={allGroups}
-                          onChange={e => setGroups(e)}
-                          textField="name"
-                      />
-                  </>
-              </ModalBody>
-          </Modal>
+            <Modal
+                open={toggleEditGroup}
+                toggle={() => setToggleEditGroup(!toggleEditGroup)}
+            >
+                <ModalHeader>
+                    Edition des groupes de {props.firstname} {props.lastname}
+                </ModalHeader>
+                <ModalBody>
+                    <>
+                        <Multiselect
+                            tagComponent={TagItem}
+                            itemComponent={ListItem}
+                            value={groups}
+                            data={allGroups}
+                            onChange={e => setGroups(e)}
+                            textField="name"
+                        />
+                    </>
+                </ModalBody>
+            </Modal>
 
-          <Modal
-            open={toggleViewModule}
-            toggle={() => setToggleViewModule(!setToggleViewModule)}
-          >
-            <ModalHeader>
-              Modules de {props.firstname} {props.lastname}
-            </ModalHeader>
-              <ModalBody>
-                  {modules ? modules.map(module => (
-                      <Badge
-                          className={style.Module}
-                          style={{ backgroundColor: module.color, margin:"5px" }}
-                      >{module.name}</Badge>
-                  )) : <div></div>}
-              </ModalBody>
-          </Modal>
+            <Modal
+                open={toggleViewModule}
+                toggle={() => setToggleViewModule(!setToggleViewModule)}
+            >
+                <ModalHeader>
+                    Modules de {props.firstname} {props.lastname}
+                </ModalHeader>
+                <ModalBody>
+                    {modules ? modules.map(module => (
+                        <Badge
+                            className={style.Module}
+                            style={{ backgroundColor: module.color, margin: "5px" }}
+                        >{module.name}</Badge>
+                    )) : <div></div>}
+                </ModalBody>
+            </Modal>
 
             <Modal
                 size="lg"
@@ -249,9 +234,9 @@ export default function User(props) {
                 </ModalBody>
             </Modal>
 
-            {(props != null)? (
+            {(props != null) ? (
                 <DeleteUser open={deleting} setOpen={setDeleting} user={props} />
-            ):(<React.Fragment />)}
+            ) : (<React.Fragment />)}
         </tr>
     );
 }

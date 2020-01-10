@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaCheck, FaTimes } from "react-icons/fa";
+import { FaCheck, FaTimes, FaPen, FaTrash } from "react-icons/fa";
 import InputColor from "react-input-color";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from 'react-toastify';
@@ -9,7 +9,7 @@ import { getGroups } from "../../../providers/actions/groupActions";
 import { errFetch } from "../../../utils/errorFetch";
 import DeleteGroup from "./DeleteGroup";
 
-toast.configure();
+
 export default function Groupe({ group }) {
     const [editing, setEditing] = useState((group === null));
     const [deleting, setDeleting] = useState(false);
@@ -37,7 +37,7 @@ export default function Groupe({ group }) {
         } else {
             if (group === null) {
                 APIAddGroup(req)
-                    .then(res => {
+                    .then(() => {
                         toast.success("Nouveau groupe ajouté !");
                         setEditing(false);
                         dispatch(getGroups());
@@ -47,7 +47,7 @@ export default function Groupe({ group }) {
                     })
             } else {
                 APIEditGroup(req)
-                    .then(res => {
+                    .then(() => {
                         toast.success("Modification effectué !");
                         setName(req.name);
                         setColor(req.color);
@@ -84,7 +84,7 @@ export default function Groupe({ group }) {
                         editing ?
                             <FormInput value={name} invalid={error.name && true} onChange={e => setName(e.target.value)} placeholder="Nom ..." />
                             :
-                            <a onClick={() => setEditing(true)} href="javascript:void(0);"><span style={{ fontWeight: "bold" }}>Ajouter un groupe ...</span></a>
+                            <a onClick={() => setEditing(true)} href="#"><span style={{ fontWeight: "bold" }}>Ajouter un groupe ...</span></a>
                     ) : (
                             editing ?
                                 <FormInput value={name} invalid={error.name && true} onChange={e => setName(e.target.value)} placeholder="Nom ..." />
@@ -134,8 +134,8 @@ export default function Groupe({ group }) {
                             <ButtonGroup>
                                 {(group != null) ? (
                                     <>
-                                        <Button onClick={() => setEditing(true)}>Edition</Button>
-                                        <Button onClick={() => setDeleting(!deleting)} theme="danger">Supprimer</Button>
+                                        <Button onClick={() => setEditing(true)}><FaPen /></Button>
+                                        <Button onClick={() => setDeleting(!deleting)} theme="danger"><FaTrash /></Button>
                                     </>
                                 ) : (<React.Fragment />)}
                             </ButtonGroup>
