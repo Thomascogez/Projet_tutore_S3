@@ -34,6 +34,7 @@ import { navigate } from "hookrouter";
 import { APIgetMyAccount } from "../../../api/userFetch";
 import { setSession, setGroup } from "../../../providers/actions/addSessionActions";
 import { APIGetSettings } from "../../../api/settingFetch";
+import moment from "moment";
 
 //loader
 
@@ -208,6 +209,9 @@ export default function ViewsEvent({ seanceId }) {
                                 </Badge>
                               ))
                               : ""}
+                              <span style={{float: "right", fontSize: "20px"}}>
+                                {moment(info.createdAt).format("DD/MM/YYYY")}
+                              </span>
                           </CardHeader>
                           <CardBody>
 
