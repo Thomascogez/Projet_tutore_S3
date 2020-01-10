@@ -3,10 +3,23 @@ import React from "react";
 import { FaCheckCircle } from 'react-icons/fa';
 import { Badge, Row } from "shards-react";
 import style from '../../pages/sessions/sessions.module.css';
+import PropTypes from 'prop-types'
 
-
-export default function Matiere({ color, name, duration, finished, id, groups, type }) {
-
+export default function Matiere({ color, name, duration, finished, id, type }) {
+    Matiere.propTypes ={
+        /** Couleur du module  */
+        color : PropTypes.string,
+        /** nom du module */
+        name  : PropTypes.string,
+        /** Durée du module */
+        duration : PropTypes.number,
+        /** etat du sémaphore */
+        finished : PropTypes.bool,
+        /** id de la séance */
+        id : PropTypes.any,
+        /**type de l'événement */
+        type : PropTypes.any, 
+    }
     return (
         <div id={"tooltip_" + id} onClick={() => navigate('seances/' + id)} className={style.Work} >
             {finished.status === 1 ? <div style={{ float: "right", position: "relative", margin: "2px 5px 0px 0px", color: "green" }}><FaCheckCircle /></div> : ""}
