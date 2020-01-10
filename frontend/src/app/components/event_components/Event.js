@@ -5,9 +5,19 @@ import { FaFileAlt, FaPen } from 'react-icons/fa';
 import { Badge } from 'shards-react';
 import ModalViewDetail from './ModalViewDetails';
 import ModalViewFiles from './ModalViewsFiles';
+import PropTypes from 'prop-types'
 
 
 export default function Event({ data, editable }) {
+
+  Event.propTypes = {
+
+    /** Objet json représentant les données d'un évènement */
+    data : PropTypes.object,
+    /** Booléen permettant de savoir si l'évènement est éditable */
+    editable : PropTypes.bool,
+
+  }
 
   return (
     <tr key={data.id}>
