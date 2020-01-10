@@ -5,7 +5,6 @@ namespace App\Controller\Session\Semaphore;
 
 use App\Controller\Session\SessionController;
 use App\Entity\Semaphore;
-use App\Entity\Session;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Nelmio\ApiDocBundle\Annotation\Operation;
 use Swagger\Annotations as SWG;

@@ -15,7 +15,7 @@ import {
 } from "shards-react";
 import { Multiselect } from "react-widgets";
 import Collapse from "../../../components/layouts/Collapse";
-import style from "./addsession.module.css";
+import style from "./addSession.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import {

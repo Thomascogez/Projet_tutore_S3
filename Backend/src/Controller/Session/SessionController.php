@@ -14,10 +14,10 @@ use App\Form\SessionType;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Request\ParamFetcherInterface;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\HttpFoundation\Request;
 use Nelmio\ApiDocBundle\Annotation\Operation;
 use Swagger\Annotations as SWG;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\Request;
 
 define("SESSION_NOT_FOUND", "Session not found");
 
@@ -48,6 +48,7 @@ class SessionController extends AbstractController
 
         $years = array();
 
+        //Test if tutor is access of this session
         if($this->userHasRole($this->getUser(), "ROLE_TUTOR")) {
             $date = $this->getUser()->getCreatedAt();
 
@@ -58,10 +59,12 @@ class SessionController extends AbstractController
 
             $dateSession = $session->getCreatedAt();
 
+            //Test date of session
             if($dateSession->format("Y") == $years[0] && $dateSession->format("m") >= 8){}
             else if($dateSession->format("Y") == $years[1] && $dateSession->format("m") <= 7){}
             else return $this->notAuthorized();
 
+            //Test group user
             $test = false;
             foreach ($this->getUser()->getGroups() as $groups) {
                 foreach ($session->getGroups() as $group) {
@@ -70,9 +73,10 @@ class SessionController extends AbstractController
             }
             if(!$test) return $this->notAuthorized();
         }
-
+        //Get user semaphore
         foreach ($session->getSemaphores() as $semaphore)
             if($semaphore->getUser() != $this->getUser()) $session->removeSemaphore($semaphore);
+
         return $session;
     }
 
@@ -105,31 +109,35 @@ class SessionController extends AbstractController
         $month = $paramFetcher->get('month');
         $year  = $paramFetcher->get('year' );
 
+        //Set default month and year
         if ($month == 0) $month = date('M');
         if ($year == 0)  $year  = date('Y');
 
-
+        //Create date
         $from = new \DateTime($year . "-" . $month . "-01");
         $to = new \DateTime($year . "-" . $month . "-31");
-
 
         $groups = null;
         $type   = null;
 
+        //Group filter test
         if($paramFetcher->get('group')) {
             $groups = $this->getDoctrine()->getRepository(Groups::class)->findOneBy(array("name" => $paramFetcher->get('group')));
             if(!$groups) return $this->isNotFound("Group not found");
         }
+        //Type filter test
         if($paramFetcher->get('type')){
             $type = $this->getDoctrine()->getRepository(\App\Entity\SessionType::class)->findOneBy(array("name" => $paramFetcher->get('type')));
             if(!$type) return $this->isNotFound("Type not found");
         }
 
+        //Get all sessions with conditions
         $tmp = $this->getDoctrine()->getRepository(Session::class)->findByDate($from, $to, $groups, $type);
 
         foreach ($tmp as $index) {
-
             $test = false;
+
+            //Test if tutor is authorized get session
             if($this->userHasRole($this->getUser(), "ROLE_TUTOR")) {
                 $date = $this->getUser()->getCreatedAt();
 
@@ -354,7 +362,7 @@ class SessionController extends AbstractController
     /**
      * Delete session by id
      * @Rest\Delete("/api/sessions/{id}", requirements={"id": "\d+"}, name="delete_session_action")
-     * @Rest\View(serializerGroups={"session_detail"})
+     * @Rest\View(serializerGroups={"session_detail"}, statusCode=204)
      * @Operation(
      *     path="/api/sessions/{id}",
      *     operationId="deleteSessionAction",
@@ -376,12 +384,9 @@ class SessionController extends AbstractController
             if (!$session) return $this->isNotFound(SESSION_NOT_FOUND);
             if ($session->getUser() !== $this->getUser()) return $this->notAuthorized();
         }
-
         $manager = $this->getDoctrine()->getManager();
         $manager->remove($session);
         $manager->flush();
-
-        return $this->getDoctrine()->getRepository(Session::class)->findAll();
     }
 
 }

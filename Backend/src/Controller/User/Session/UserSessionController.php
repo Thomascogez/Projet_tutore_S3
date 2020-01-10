@@ -33,6 +33,7 @@ class UserSessionController extends AbstractController
         $tmp = $this->getUser()->getSessions();
 
         foreach ($tmp as $index) {
+            //Set array with year, week number and day
             if(!isset($sessions[date('Y', $index->getCreatedAt()->getTimestamp())])){
                 $sessions[date('Y', $index->getCreatedAt()->getTimestamp())] = array();
             }
@@ -43,9 +44,11 @@ class UserSessionController extends AbstractController
                 $sessions[date('Y', $index->getCreatedAt()->getTimestamp())][date('W', $index->getCreatedAt()->getTimestamp())][date('d', $index->getCreatedAt()->getTimestamp())] = array();
             }
 
+            //Add to array the session
             $sessions[date('Y', $index->getCreatedAt()->getTimestamp())][date('W', $index->getCreatedAt()->getTimestamp())][date('d', $index->getCreatedAt()->getTimestamp())][] = $index;
         }
 
+        //Return array of session
         return $sessions;
     }
 

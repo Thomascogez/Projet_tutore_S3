@@ -10,7 +10,6 @@ use App\Entity\Semaphore;
 use App\Entity\Session;
 use App\Entity\User;
 use App\Form\UserType;
-use Faker\Factory;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use Nelmio\ApiDocBundle\Annotation\Operation;
@@ -128,29 +127,35 @@ class UserController extends AbstractController
         if(!$this->userHasRole($this->getUser(), "ROLE_ADMIN"))
             return $this->notAuthorized();
 
+        //Create new user entity
         $user = new User();
         $user->setCreatedAt(new \DateTime())
             ->setUpdateAt(new \DateTime());
 
+        //Generate form
         $form = $this->createForm(UserType::class, $user, ['validation_groups'=>['Default', 'FullUpdate']]);
 
-
+        //add roles at user
         $tmp = $request->get('roles');
         $test = false;
         if(isset($tmp) && $tmp != NULL) {
             $role = $user->getRoles();
             foreach ($request->get('roles') as $item) {
+                //Test validate of enter role
                 if($item == "ROLE_TEACHER" || $item ==  "ROLE_ADMIN" || $item == "ROLE_TUTOR"){
                     $test = true;
                     array_push($role, $item);
                 }
             }
+            //Add role to user
             $user->setRoles($role);
         }
+        //If error, set form error
         if(!$test) {
             $form->add('roles');
             $form->get('roles')->addError(new FormError("The choice is : ROLE_TEACHER, ROLE_ADMIN, ROLE_TUTOR"));
         }
+        //If group in request, test and add group on user
         foreach ($request->get('groups') as $groupReq) {
             $group = $this->getDoctrine()->getRepository(Groups::class)->findOneBy(array("name" => $groupReq));
 
@@ -158,6 +163,7 @@ class UserController extends AbstractController
             else $user->addGroup($group);
         }
 
+        //If module on request, test and add module on user
         foreach ($request->get('modules') as $moduleReq) {
             $module = $this->getDoctrine()->getRepository(Module::class)->findOneBy(array("code" => $moduleReq));
 
@@ -165,23 +171,27 @@ class UserController extends AbstractController
             else $user->addModule($module);
         }
 
+        //Set all information on user
         $user->setUsername($request->get('username'));
         $user->setFirstname($request->get('firstname'));
         $user->setLastname($request->get('lastname'));
 
         $form->submit(null, false);
+
+        //If form is valid
         if($form->isValid()) {
             $user->setPlainPassword($this->randomPassword(12));
 
+            //Send email
             $mailAddress = "";
             if($this->userHasRole($user, "ROLE_TEACHER"))
-                $mailAddress= $user->getUsername() . "@univ-lehavre.fr";
+                $mailAddress = $user->getUsername() . "@univ-lehavre.fr";
             if($this->userHasRole($user, "ROLE_TUTOR"))
-                $mailAddress= $user->getUsername() . "@etu.univ-lehavre.fr";
+                $mailAddress = $user->getUsername() . "@etu.univ-lehavre.fr";
 
             $message = (new \Swift_Message('Création du compte SchoolShare'))
                 ->setFrom(['contact@schoolshare.com' => "SchoolShare"])
-                ->setTo(/*$mailAddress*/"wowibe7444@seomail.top")
+                ->setTo(/*$mailAddress*/ "wowibe7444@seomail.top") //TODO: Mail désactivé, à changer par $mailAddress
                 ->setBody("Nouveau compte sur SchoolShare ...")
                 ->addPart($this->renderView(
                     'mail/newPassword.html.twig',
@@ -195,16 +205,19 @@ class UserController extends AbstractController
                     'text/html'
                 );
 
+            //Send email of new user
             $mailer->send($message);
 
-            $faker = Factory::create('fr_FR'); // create a French faker
-
+            //Encode random password valid
             $user->setPassword($encoder->encodePassword($user, $user->getPlainPassword()));
             $user->setPlainPassword("");
+            //Set random color
             $user->setColor("#" . sprintf('%06x', mt_rand(0, 1<<18 - 1)));
 
             $manager = $this->getDoctrine()->getManager();
             $sessions = $this->getDoctrine()->getRepository(Session::class)->findAll();
+
+            //For all sessions for add new semaphore
             foreach ($sessions as $session) {
                 $semaphore = new Semaphore();
                 $semaphore->setUser($user)
@@ -213,6 +226,7 @@ class UserController extends AbstractController
                 $manager->persist($semaphore);
             }
 
+            //Persist user
             $manager->persist($user);
             $manager->flush();
             return $user;
@@ -253,26 +267,31 @@ class UserController extends AbstractController
         $user = $this->getDoctrine()->getRepository(User::class)->find($request->get('id'));
         if (empty($user)) return $this->isNotFound(USER_NOT_FOUND);
 
+        //Generate form with user
         $form = $this->createForm(UserType::class, $user);
 
+        //add roles at user
         $tmp = $request->get('roles');
         $test = true;
         $role = array();
         if(isset($tmp) && $tmp != NULL) {
             foreach ($request->get('roles') as $item) {
+                //Test validity of roles
                 if($item != "ROLE_TEACHER" && $item !=  "ROLE_ADMIN" && $item != "ROLE_TUTOR") {
                     $test = false;
                 } else {
                     array_push($role, $item);
                 }
             }
+            //Add role to user
             $user->setRoles($role);
         }
+        //If error, set form error
         if(!$test) {
             $form->add('roles');
             $form->get('roles')->addError(new FormError("Erreur"));
         }
-
+        //Add groups on user
         $groups = $request->get('groups');
         if($groups != null) {
             foreach ($request->get('groups') as $groupReq) {
@@ -283,6 +302,7 @@ class UserController extends AbstractController
             }
         }
 
+        //Add groups on modules
         $modules = $request->get('modules');
         if($modules != null) {
             foreach ($request->get('modules') as $moduleReq) {
@@ -293,26 +313,35 @@ class UserController extends AbstractController
             }
         }
 
-        if($request->get('username')) $user->setUsername($request->get('username'));
+        //Set all information on user
+        if ($request->get('username')) $user->setUsername($request->get('username'));
         if($request->get('firstname')) $user->setFirstname($request->get('firstname'));
-        if($request->get('lastname')) $user->setLastname($request->get('lastname'));
-        if($request->get('color')) $user->setColor($request->get('color'));
+        if ($request->get('lastname')) $user->setLastname($request->get('lastname'));
+        if ($request->get('color')) $user->setColor($request->get('color'));
 
         $form->submit(null, false);
 
+        //If change password
         if($request->get('plainPassword') != null){
+            //Set on plainPassword
             $user->setPlainPassword($request->get('plainPassword'));
+
+            //Set regex for 2 uppercase, 2 lowercase, 2 special character
             $re = '/^.*(?=.{8,})(?=.*[!-@#$%^&(),.?":{}|<>].*[!-@#$%^&(),.?":{}|<>].*)(?=.*[A-Z].*[A-Z].*)(?=.*[a-z].*[a-z].*).*$/m';
             if(!preg_match($re, $user->getPlainPassword(), $matches, PREG_OFFSET_CAPTURE, 0)) {
+                //Set form error
                 $form->get('plainPassword')->addError(new FormError("Password don't respect : 8 length, 2 uppercase, 2 lowercase, 2 special character"));
             }
+            //Set password encoded
             $user->setPassword($encoder->encodePassword($user, $user->getPlainPassword()));
             $user->setPlainPassword("");
         }
 
+        //Test validity of user
         if($form->isValid()) {
             $user->setUpdateAt(new \DateTime());
 
+            //Persist user
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($user);
             $manager->flush();
@@ -339,15 +368,20 @@ class UserController extends AbstractController
      *          )
      *     )
      * )
+     * @param Request $request
+     * @return object[]|JsonResponse|void
      */
     public function deleteUserAction(Request $request)
     {
+        //Test is admin
         if(!$this->userHasRole($this->getUser(), "ROLE_ADMIN"))
             return $this->notAuthorized();
 
+        //Get user on database
         $user = $this->getDoctrine()->getRepository(User::class)->find($request->get('id'));
         if (empty($user)) return $this->isNotFound(USER_NOT_FOUND);
 
+        //Remove user
         $manager = $this->getDoctrine()->getManager();
         $manager->remove($user);
         $manager->flush();
@@ -355,7 +389,12 @@ class UserController extends AbstractController
     }
 
 
-
+    /**
+     * Generate random password respect regex
+     * @param $nb_car
+     * @param string $chaine
+     * @return string
+     */
     public function randomPassword($nb_car, $chaine = 'AZERTYUIOPQSDFGHJKLMWXCVBNazertyuiopqsdfghjklmwxcvbn123456789!_-@#$%&,.?:')
     {
         $nb_lettres = strlen($chaine) - 1;
