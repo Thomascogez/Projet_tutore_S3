@@ -14,8 +14,8 @@ export default function Comment({ data }) {
         <a onClick={() => navigate("/profil/" + data.user.id)}>
           <ProfileRound
             size="Small"
-            letter={data.user.username &&
-              data.user.username.charAt(data.user.username.length - 1)}
+            letter={data.user.firstname &&
+              data.user.firstname.charAt(0)}
             bgcolor={data.user.color}
             fcolor="#fff"
           />

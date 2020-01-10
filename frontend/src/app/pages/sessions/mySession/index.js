@@ -34,6 +34,7 @@ export default function MySession()
 					<div className="table-responsive">
 						<table className={`table  ${style.EventTable}`}>
 							<tr>
+								<th>ID</th>
 								<th>Date</th>
 								<th>Module</th>
 								<th>Groupe</th>

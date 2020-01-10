@@ -17,11 +17,8 @@ const getGroups = () => {
 const removeGroups = (idGroup) => {
     return dispatch => {
         return APIDeleteGroup(idGroup)
-            .then(data => {
-                dispatch({
-                    type: GET_ALL_GROUPS,
-                    value: data.data
-                });
+            .then(() => {
+                dispatch(getGroups())
             })
     }
 }
