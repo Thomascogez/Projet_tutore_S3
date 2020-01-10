@@ -55,11 +55,12 @@ const APIgetAllSession = (month, year, group, type) => {
  * @param {*} code 
  * @param {*} type 
  * @param {*} groups 
+ * @param {*} createdAt 
  */
-const APIpostNewSession = (code, type, groups ) => {
+const APIpostNewSession = (code, type, groups, createdAt ) => {
     let module = code;
     return axios.post(POST_NEW_SESSION,
-        { module, type, groups }, 
+        {"module":module, "type":type, "groups":groups, "createdAt":createdAt }, 
         {headers: { Authorization: "Bearer " + localStorage.getItem("token") }}
         )
 }
@@ -70,11 +71,12 @@ const APIpostNewSession = (code, type, groups ) => {
  * @param {*} code 
  * @param {*} type 
  * @param {*} groups 
+ * @param {*} createdAt 
  */
-const APIpatchSession = (id, code, type, groups ) => {
+const APIpatchSession = (id, code, type, groups, createdAt ) => {
     let module = code;
     return axios.patch(`${PATCH_SESSION}/${id}`,
-        { "module":module, "type":type, "groups":groups }, 
+        { "module":module, "type":type, "groups":groups, "createdAt":createdAt }, 
         {headers: { Authorization: "Bearer " + localStorage.getItem("token") }}
         )
 }

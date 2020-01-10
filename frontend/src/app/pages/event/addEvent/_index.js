@@ -121,7 +121,7 @@ export default function AddEvent({ edit, eventID }) {
    */
   const resetInformations = () => {
     console.log("reset");
-    
+
     setNewEvent(INITIAL_STATE);
     setFiles([]);
     setCollapseType(true);
@@ -409,11 +409,8 @@ export default function AddEvent({ edit, eventID }) {
                       >
                         <span className={style.PickTime} style={{ display: "block" }}>
                           <span style={{ fontSize: "20px" }}>
-                            Choix de la date d'échéance:(
-                      {newEvent.dueAt &&
-                              Moment(newEvent.dueAt).format("DD/MM/YYYY")}
-                            )
-                    </span>{" "}
+                            Choix de la date d'échéance: {newEvent.dueAt &&`(${Moment(newEvent.dueAt).format("DD/MM/YYYY")})`}
+                          </span>
                           <DateTimePicker
                             onChange={value =>
                               setNewEvent({ ...newEvent, dueAt: value })

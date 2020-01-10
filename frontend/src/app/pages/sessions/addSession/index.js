@@ -15,9 +15,13 @@ import {
 } from "shards-react";
 import { Multiselect } from "react-widgets";
 import Collapse from "../../../components/layouts/Collapse";
-import style from "./addSession.module.css";
+import style from "./addsession.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import Moment from "moment";
+import "moment/locale/fr";
+import momentLocalizer from "react-widgets-moment";
+import DateTimePicker from "react-widgets/lib/DateTimePicker";
 import {
   APIgetSessionTypes,
   APIpostNewSession,
@@ -39,15 +43,20 @@ import PageLoader from "../../../components/layouts/loader";
  * Page used to handle the add of sessions
  */
 export default function AddSession({ edit, id }) {
+
+  Moment.locale("fr");
+  momentLocalizer();
+
   const INITIAL_STATE = {
     //initial state for session add
     module: "",
     name: "",
     color: "",
     type: "",
+    createdAt:"",
     groups: []
   };
-  const [newSeance, setnewSeance] = useState(INITIAL_STATE);
+  const [newSeance, setNewSeance] = useState(INITIAL_STATE);
   const [unauthorized, setUnauthorized] = useState(false);
 
   //session edition mod only
@@ -69,6 +78,7 @@ export default function AddSession({ edit, id }) {
   const [collapseTypeModule, setcollapseTypeModule] = useState(false);
   const [collapseGroups, setcollapseGroups] = useState(false);
   const [requestPending, setRequestPending] = useState(false);
+  const [collapseDate, setCollapseDate] = useState(false)
   const [modal, setModal] = useState(false);
   const [newId, setNewId] = useState(0);
 
@@ -82,12 +92,13 @@ export default function AddSession({ edit, id }) {
   const fetchSession = () => {
     APIgetSession(id.sessionID).then(data => {
       //using new seance to store modified data
-      setnewSeance({
+      setNewSeance({
         //setting by default data fetch from the session
         module: data.data.module.code,
         name: data.data.module.name,
         color: data.data.module.color,
         type: data.data.type,
+        createdAt:data.data.createdAt,
         groups: data.data.groups.map(group => group.name)
       });
     });
@@ -112,7 +123,7 @@ export default function AddSession({ edit, id }) {
    * @param {*} color   color if it (only for display)
    */
   const handleSelectModule = (module, name, color) => {
-    setnewSeance({ ...newSeance, module, name, color });
+    setNewSeance({ ...newSeance, module, name, color });
 
     setcollapseSelectModule(false);
 
@@ -125,7 +136,7 @@ export default function AddSession({ edit, id }) {
   };
 
   const handleSetType = type => {
-    setnewSeance({ ...newSeance, type });
+    setNewSeance({ ...newSeance, type });
     //update redux store for next step
     setcollapseTypeModule(false);
     setcollapseGroups(true);
@@ -140,7 +151,7 @@ export default function AddSession({ edit, id }) {
   };
 
   const reset = () => {
-    setnewSeance(INITIAL_STATE);
+    setNewSeance(INITIAL_STATE);
     setcollapseGroups(false);
     setcollapseTypeModule(false);
     setcollapseSelectModule(true);
@@ -160,7 +171,9 @@ export default function AddSession({ edit, id }) {
         id.sessionID,
         newSeance.module,
         newSeance.type,
-        newSeance.groups
+        newSeance.groups,
+        newSeance.createdAt
+    
       )
         .then(() => {
           reset();
@@ -175,7 +188,7 @@ export default function AddSession({ edit, id }) {
           setRequestPending(false);
         });
     } else {
-      APIpostNewSession(newSeance.module, newSeance.type, newSeance.groups)
+      APIpostNewSession(newSeance.module, newSeance.type, newSeance.groups, newSeance.createdAt)
         .then(data => {
           setNewId(data.data.id);
           reset();
@@ -302,6 +315,25 @@ export default function AddSession({ edit, id }) {
                             </FormRadio>
                         ))}
                       </Collapse>
+                      <Collapse
+                        title="Echéance et durée (optionnels)"
+                        open={collapseDate}
+                        toggler={setCollapseDate}
+                      >
+                        <span className={style.PickTime} style={{ display: "block" }}>
+                          <span style={{ fontSize: "20px" }}>
+                            Choix de la date d'échéance: {newSeance.createdAt &&`(${Moment(newSeance.createdAt).format("DD/MM/YYYY")})`}
+                          </span>
+                          <DateTimePicker
+                            onChange={value =>
+                              setNewSeance({ ...newSeance, createdAt: value })
+                            }
+                            format="DD/MM/YYYY"
+                            culture="fr"
+                            time={false}
+                          />
+                        </span>
+                      </Collapse>
 
                       <Collapse
                           title="Choix du / des groupe(s)"
@@ -312,7 +344,7 @@ export default function AddSession({ edit, id }) {
                             <Multiselect
                                 value={newSeance.groups}
                                 onChange={value =>
-                                    setnewSeance({ ...newSeance, groups: value })
+                                    setNewSeance({ ...newSeance, groups: value })
                                 }
                                 valueField={edit && "name"}
                                 textField={edit && "name"}
