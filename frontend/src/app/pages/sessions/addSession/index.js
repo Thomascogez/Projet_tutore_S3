@@ -15,7 +15,7 @@ import {
 } from "shards-react";
 import { Multiselect } from "react-widgets";
 import Collapse from "../../../components/layouts/Collapse";
-import style from "./addSession.module.css";
+import style from "./addsession.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import Moment from "moment";
@@ -184,7 +184,7 @@ export default function AddSession({ edit, id }) {
         })
         .catch(err => {
           setRequestPending(false);
-          if(err.response.status == 401) {
+          if(err.response.status === 401) {
             toast.error("Vous n'êtes pas autorisé à poster une séance à cette date.")
           }
         });
@@ -200,7 +200,8 @@ export default function AddSession({ edit, id }) {
           setModal(true);
         })
         .catch(err => {
-          if(err.response.status == 401) {
+          setRequestPending(false)
+          if(err.response.status === 401) {
             toast.error("Vous n'êtes pas autorisé à poster une séance à cette date.")
           }
         });
@@ -321,7 +322,7 @@ export default function AddSession({ edit, id }) {
                         ))}
                       </Collapse>
                       <Collapse
-                        title="Date"
+                        title="Date (optionnel)"
                         open={collapseDate}
                         toggler={setCollapseDate}
                       >
