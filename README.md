@@ -1,6 +1,6 @@
-# Projet tutute
+# Projet tutore S3
 
-
+This is a school project that aimed to create an school tutoring application
 
 ## Section
 
